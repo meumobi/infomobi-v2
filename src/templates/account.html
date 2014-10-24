@@ -1,0 +1,46 @@
+<div content-for="title">
+  <span>Sua conta</span>
+</div>
+
+
+<div class="scrollable">
+ <div class="scrollable-content section">
+   
+   <form action="" id="">
+
+     <div bs-panel title="Sua conta">
+
+       <!--input
+        bs-form-control
+        
+        type="text" 
+        ng-model="invoice.customer"
+        label="Customer" 
+        label-class="col-xs-3 col-sm-2 col-lg-1" 
+        class="col-xs-9 col-sm-10 col-lg-11"
+        placeholder="Customer Name"
+       />
+
+       <switch
+        bs-form-control
+        ng-change="switchChanged()"
+        ng-model="invoice.payed"
+        ng-click="switchClicked()"
+        label="Ativar Push Notification"
+        label-class="col-xs-3 col-sm-2 col-lg-1"
+        class="col-xs-9 col-sm-10 col-lg-11" 
+        >
+        </switch-->
+
+				<input bs-form-control="" type="text" label="Email" ng-model="user.mail" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-9 col-sm-10 col-lg-11" value="victor.dias@siemens.com.br" readonly>
+				<input bs-form-control="" type="password" ng-model="user.password" label="Senha" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-9 col-sm-10 col-lg-11" placeholder="Senha">
+				<input bs-form-control="" type="password" ng-model="user.password" label="Confirmar" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-9 col-sm-10 col-lg-11" placeholder="Confirmar senha"><br/>
+      
+<div bs-panel class="form-actions">
+	<button class="btn btn-primary">Save</button>
+</div>
+
+   </form>
+<p>{{user.mail}}</p>
+ </div>
+</div>

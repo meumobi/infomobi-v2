@@ -1,0 +1,19 @@
+<input type="search" class="form-control app-search" placeholder="Search.." ng-model="query"/>
+
+<div class="scrollable">
+	<div class="scrollable-content">
+		<div class="list-group">
+			<a ng-repeat="item in scrollItems | filter:query" href="#/show" class="list-group-item">
+				<div class="media">
+					<div class="pull-left">
+						<img src="{{item.img}}" class="media-object" alt="Sample Image" width="118px" height="74px">
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">{{item.title}} <small><i>Posted on January 10, 2014</i></small></h4>
+						<!--p>{{item.caption}}</p-->
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
