@@ -9,11 +9,9 @@ CImobi allows companies to push important information and content (multimedia an
 - important communications (news or event) can be delivered by mobile push notification
 - role specific targeting: define groups and restrict access to specific content based on these groups
 
-GIve organization the ability to manage content, users and customize interface through the cloud CMS [meumobi].
+Give organization the ability to manage content, users and customize interface through the cloud CMS [meumobi].
 
-> Streamline Internal Communications and Increase Employee Engagement, put CImobi in the pocket of your employees.
-
-This text you see here is *actually* written in Markdown! To get a feel for Markdown's syntax, type some text into the left window and watch the results in the right.  
+> Streamline Internal Communications and Increase Employee Engagement,&nbsp;put CImobi in the pocket of your employees.
 
 Version
 ----
@@ -28,6 +26,9 @@ CImobi uses a number of open source projects to work properly:
 * [MobileAngularUI] - awesome mobile UI framework
 * [PhoneGap] - open source framework to create mobile apps using standardized web APIs
 * [meumobi] - mobile site builder
+
+PhoneGap Plugins:
+* [com.jcjee.plugins.emailcomposer] - Email Composer with Attachments
 
 Installation
 --------------
@@ -62,7 +63,8 @@ MIT
 
 **Free Software**
 
-[meumobi]:http://entreprise.meumobi.com
+[meumobi]:http://enterprise.meumobilesite.com/
 [@meumobi]:http://twitter.com/meumobi
 [MobileAngularUI]:http://mobileangularui.com
 [PhoneGap]:http://phonegap.com
+[com.jcjee.plugins.emailcomposer]:https://github.com/jcjee/email-composer.git 
