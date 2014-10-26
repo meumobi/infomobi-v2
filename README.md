@@ -52,8 +52,6 @@ phonegap run ios # or android, or whatever is your target
 # Test/Debug in a Web Browser
 gulp
 
-# Test/Debug in Phonegap
-phonegap run ios # or any other target
 ```
 
 License
