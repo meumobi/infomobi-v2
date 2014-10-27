@@ -6,7 +6,7 @@
     </description>
     <author email="contact@meumobi.com" href="http://meumobi.com">MeuMobi Team</author>
     <preference name="permissions" value="none" />
-    <preference name="phonegap-version" value="3.5.0" />
+    <preference name="phonegap-version" value="3.6.3" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="true" />
@@ -22,13 +22,16 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
+		
     <gap:plugin name="org.apache.cordova.device" />
     <gap:plugin name="org.apache.cordova.device-orientation" />
     <gap:plugin name="org.apache.cordova.dialogs" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
     <gap:plugin name="org.apache.cordova.media" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
+		
 		<gap:plugin name="com.jcjee.plugins.emailcomposer" version="1.4.6" />
+		<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
 		
 		<icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/icon-36-ldpi.png" />

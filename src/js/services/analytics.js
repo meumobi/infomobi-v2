@@ -1,6 +1,4 @@
-'use strict';
-
-angular.module('InfoBox.services.Analytics', [])
+angular.module('infoboxApp.services.Analytics', [])
 
 .service('analytics', [
   '$rootScope', '$window', '$location', function($rootScope, $window, $location) {

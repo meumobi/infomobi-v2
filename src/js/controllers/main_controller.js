@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('InfoBox.controllers.Main', [])
+angular.module('infoboxApp.controllers.Main', [])
 
 .controller('MainController', function($rootScope, $scope, analytics){
 
