@@ -133,3 +133,12 @@ node_modules
 
 ### Bower ###
 bower_components
+
+# phonegap folders
+.cordova/*
+hooks/*
+platforms/*
+plugins/*
+
+# IDE's Project Folder
+.idea/*
