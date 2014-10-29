@@ -18,7 +18,7 @@
 
     <!-- Navbars -->
 
-    <div class="navbar navbar-app navbar-absolute-top" style="background-color: #eb780a; color: #fff">
+    <div class="navbar navbar-app navbar-absolute-top ib-nav-top" ng-class="{'ib-hidden' : !NavBars.visibility()}">
         <div class="navbar-brand navbar-brand-center" yield-to="title" style="padding: 10px">
             <img src="images/logo app infobox.png" alt="infoBox"/>
         </div>
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="nav-bottom">
+    <div class="nav-bottom" ng-if="NavBars.visibility()">
         <div class="btn-group justified">
             <a href="#/" class="btn btn-navbar">
                 <i class="fa fa-rss fa-navbar fa-2x"></i><br/><span>Notícias</span>
@@ -40,7 +40,7 @@
                 <i class="fa fa-user fa-navbar fa-2x"></i><br/><span>Conta</span>
             </a>
             <a href="#/about" class="btn btn-navbar">
-                <i class="fa fa-info-circle fa-navbar fa-2x"></i><br/><span>Infos</span>
+                <i class="fa fa-info-circle fa-navbar fa-2x"></i><br/><span>Info</span>
             </a>
         </div>
     </div>

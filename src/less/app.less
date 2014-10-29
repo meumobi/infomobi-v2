@@ -45,7 +45,24 @@
 }
 
 
-&.ib-primary{
+.ib-primary{
 	background-color: @brand-primary;
 	color: #fff;
+}
+
+.ib-text-secondary{
+	color: @brand-primary-soft;
+} 
+
+.ib-nav-top{
+	background-color: @brand-primary; 
+	color: #fff;
+	&.ib-hidden{
+		background-color: #f7f6f6;
+		border: 0;
+		height: 52px;
+		div, imb{
+			display: none;
+		}
+	}
 }

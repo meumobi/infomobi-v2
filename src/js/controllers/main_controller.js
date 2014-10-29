@@ -2,7 +2,7 @@
 
 angular.module('infoboxApp.controllers.Main', [])
 
-.controller('MainController', function($rootScope, $scope, analytics){
+.controller('MainController', function($rootScope, $scope, analytics, $location){
 
   $rootScope.$on("$routeChangeStart", function(){
     $rootScope.loading = true;
@@ -44,6 +44,15 @@ angular.module('infoboxApp.controllers.Main', [])
 			window.plugins.emailComposer.showEmailComposerWithCallback(console.log("Email callback " + e), "Want to know more about infoBox...", "Please send me more details.", ["infobox@siemens.com.br"], null, null, false, null, null);
 		} else {
 			location.href = 'mailto:infobox@siemens.com.br?subject=Question about media infoBox&body=';
+		}
+	}
+
+	$scope.NavBars = {
+		visibility : function(){console.log($location.url())
+			if($location.url() != "/login"){
+				return true;
+			}
+			return false;
 		}
 	}
 });
