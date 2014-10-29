@@ -2,6 +2,7 @@
 @import "mixins.less";
 @import "variables.less";
 @import "home.less";
+@import "login.less";
 
 .app-content-loading {
   text-align: center;
@@ -32,3 +33,19 @@
   }
 }
 
+
+.ib-btn{
+	border-radius: 10px;
+
+
+	&.ib-btn-big{
+		height: 50px;
+		font-size: 30px; 
+	}
+}
+
+
+&.ib-primary{
+	background-color: @brand-primary;
+	color: #fff;
+}
