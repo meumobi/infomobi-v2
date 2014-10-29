@@ -1,6 +1,8 @@
 @import "mobile-angular-ui/src/less/mobile-angular-ui.less";
 @import "mixins.less";
 @import "variables.less";
+@import "home.less";
+@import "login.less";
 
 .app-content-loading {
   text-align: center;
@@ -17,4 +19,33 @@
   top: 50%;
   margin-left: -25px;
   margin-top: -25px;
+}
+
+
+.nav-bottom{
+  &:extend(.navbar);
+  &:extend(.navbar-app);
+  &:extend(.navbar-absolute-bottom);
+  padding-top: 5px;
+  &.btn-navbar{
+    line-height: 20px;
+    text-transform: none;
+  }
+}
+
+
+.ib-btn{
+	border-radius: 10px;
+
+
+	&.ib-btn-big{
+		height: 50px;
+		font-size: 30px; 
+	}
+}
+
+
+&.ib-primary{
+	background-color: @brand-primary;
+	color: #fff;
 }

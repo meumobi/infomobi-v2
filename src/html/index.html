@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
     <title>infoBox</title>
 
@@ -12,38 +12,46 @@
     <link rel="stylesheet" href="css/responsive.min.css" />
     <!-- inject:js -->
     <script src="js/app.min.js"></script>
-  </head>
-  <body ng-app="InfoBox" ng-controller="MainController">
-		<div class="app">
+</head>
+<body ng-app="InfoBox" ng-controller="MainController">
+<div class="app">
 
-      <!-- Navbars -->
+    <!-- Navbars -->
 
-      <div class="navbar navbar-app navbar-absolute-top" style="background-color: #eb780a; color: #fff">
+    <div class="navbar navbar-app navbar-absolute-top" style="background-color: #eb780a; color: #fff">
         <div class="navbar-brand navbar-brand-center" yield-to="title" style="padding: 10px">
-          <img src="images/logo app infobox.png" alt="infoBox"/>
+            <img src="images/logo app infobox.png" alt="infoBox"/>
         </div>
         <div class="btn-group pull-left" yield-to="navbarActionLeft">
         </div>
         <div class="btn-group pull-right" yield-to="navbarActionRight">
         </div>
-      </div>
+    </div>
 
-      <div class="navbar navbar-app navbar-absolute-bottom" style="padding-top: 5px">
+    <div class="nav-bottom">
         <div class="btn-group justified">
-          <a href="#/" class="btn btn-navbar" style="line-height: 20px;"><i class="fa fa-rss fa-navbar fa-2x"></i><br/><span style="text-transform: none; line-">Notícias</span></a>
-					<a ng-click="mailto()" class="btn btn-navbar" style="line-height: 20px;"><i class="fa fa-envelope fa-navbar fa-2x"></i><br/><span style="text-transform: none; line-">Contato</span></a>
-          <a href="#/account" class="btn btn-navbar" style="line-height: 20px;"><i class="fa fa-user fa-navbar fa-2x"></i><br/><span style="text-transform: none; line-">Conta</span></a>
-					<a href="#/about" class="btn btn-navbar" style="line-height: 20px;"><i class="fa fa-info-circle fa-navbar fa-2x"></i><br/><span style="text-transform: none; line-">Infos</span></a>
+            <a href="#/" class="btn btn-navbar">
+                <i class="fa fa-rss fa-navbar fa-2x"></i><br/><span>Notícias</span>
+            </a>
+            <a ng-click="mailto()" class="btn btn-navbar">
+                <i class="fa fa-envelope fa-navbar fa-2x"></i><br/><span>Contato</span>
+            </a>
+            <a href="#/account" class="btn btn-navbar">
+                <i class="fa fa-user fa-navbar fa-2x"></i><br/><span>Conta</span>
+            </a>
+            <a href="#/about" class="btn btn-navbar">
+                <i class="fa fa-info-circle fa-navbar fa-2x"></i><br/><span>Infos</span>
+            </a>
         </div>
-      </div>
-      
-      <!-- App Body -->
-      <div class="app-body" ng-class="{loading: loading}">
+    </div>
+
+    <!-- App Body -->
+    <div class="app-body" ng-class="{loading: loading}">
         <div ng-show="loading" class="app-content-loading">
-          <i class="fa fa-spinner fa-spin loading-spinner"></i>
+            <i class="fa fa-spinner fa-spin loading-spinner"></i>
         </div>
         <ng-view class="app-content" ng-hide="loading"></ng-view>
-      </div>
-    </div><!-- ~ .app -->
-  </body>
+    </div>
+</div><!-- ~ .app -->
+</body>
 </html>
