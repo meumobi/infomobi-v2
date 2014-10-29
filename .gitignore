@@ -1,7 +1,9 @@
-.cordova/
-www/js/**
-www/css/**
-www/fonts/**
+# Ignore minified files
+www/js
+www/css
+www/images
+www/fonts
+
 hooks
 
 # Created by http://www.gitignore.io
