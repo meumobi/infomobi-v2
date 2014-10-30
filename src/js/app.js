@@ -3,6 +3,7 @@
 var app = angular.module('InfoBox', [
   'ngRoute',
   'ngTouch',
+  'ngAnimate',
   'mobile-angular-ui',
 	'infoboxApp.controllers.Main',
 	'infoboxApp.services.Analytics',
@@ -24,4 +25,32 @@ app.config(function($routeProvider, $locationProvider) {
 	});
 	$routeProvider.when('/about', {templateUrl: "about.html"});
 	$routeProvider.otherwise({redirectTo: '/login'});
-});
+})
+
+.run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
+
+    $rootScope.go = function (path, pageAnimationClass) {
+
+        if (typeof(pageAnimationClass) === undefined) { // Use a default, your choice
+            $rootScope.pageAnimationClass = 'crossFade';
+        }else { // Use the specified animation
+            $rootScope.pageAnimationClass = pageAnimationClass;
+        }
+
+        if (path === 'back') { // Allow a 'back' keyword to go to previous page
+            $window.history.back();
+        }else { // Go to the specified path
+            $location.path(path);
+        }
+
+    };
+
+    document.addEventListener("backbutton", function(){
+      $rootScope.pageAnimationClass = 'slideRight';
+    }, false);
+
+
+}]);
+
+
+

@@ -30,27 +30,27 @@
 
     <div class="nav-bottom" ng-if="NavBars.visibility()">
         <div class="btn-group justified">
-            <a href="#/" class="btn btn-navbar">
+            <a ng-click="go('/')" class="btn btn-navbar">
                 <i class="fa fa-rss fa-navbar fa-2x"></i><br/><span>Notícias</span>
             </a>
             <a ng-click="mailto()" class="btn btn-navbar">
                 <i class="fa fa-envelope fa-navbar fa-2x"></i><br/><span>Contato</span>
             </a>
-            <a href="#/account" class="btn btn-navbar">
+            <a ng-click="go('/account')" class="btn btn-navbar">
                 <i class="fa fa-user fa-navbar fa-2x"></i><br/><span>Conta</span>
             </a>
-            <a href="#/about" class="btn btn-navbar">
+            <a ng-click="go('/about')" class="btn btn-navbar">
                 <i class="fa fa-info-circle fa-navbar fa-2x"></i><br/><span>Info</span>
             </a>
         </div>
     </div>
 
     <!-- App Body -->
-    <div class="app-body" ng-class="{loading: loading}">
+    <div class="app-body page-container" ng-class="{loading: loading}">
         <div ng-show="loading" class="app-content-loading">
             <i class="fa fa-spinner fa-spin loading-spinner"></i>
         </div>
-        <ng-view class="app-content" ng-hide="loading"></ng-view>
+        <ng-view class="app-content page-view" ng-class="pageAnimationClass" ng-hide="loading"></ng-view>
     </div>
 </div><!-- ~ .app -->
 </body>
