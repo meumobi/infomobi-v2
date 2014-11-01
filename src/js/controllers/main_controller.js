@@ -14,7 +14,7 @@ angular.module('infoboxApp.controllers.Main', [])
 
   var scrollItems = [];
 
-  for (var i=1; i<=100; i++) {
+  for (var i=1; i<=10; i++) {
     scrollItems.push({
 			img: "http://www.siemens.com/pool/newselement/br/siemens-in-brazil.jpg",
 			caption: "No Brasil, atualmente contamos com aproximadamente 8 mil colaboradores, 13 fábricas e 7 centros de P&D. Assista ao vídeo e conheça tudo que a Siemens pode oferecer nas áreas de Automação, digitalização e eletrificação.",

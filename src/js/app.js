@@ -46,7 +46,7 @@ app.config(function($routeProvider, $locationProvider) {
     };
 
     document.addEventListener("backbutton", function(){
-      $rootScope.pageAnimationClass = 'slideRight';
+      $rootScope.go('back','slideRight');
     }, false);
 
 
