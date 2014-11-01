@@ -35,13 +35,15 @@ Installation
 
 ```sh
 # Installing required tools
-npm install -g bower yo gulp generator-mobileangularui
-sudo  npm install -g phonegap
+sudo npm install -g bower yo gulp generator-mobileangularui
+sudo npm install -g phonegap
 
 # Scaffold the project
 phonegap create --name cimobi --id com.meumobi.cimobi cimobi && cd cimobi
 yo mobileangularui
 git clone "https://github.com/meumobi/infobox.git"
+
+sudo npm install
 
 # Build your project for the first time
 gulp build
