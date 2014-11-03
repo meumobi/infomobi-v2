@@ -15,7 +15,7 @@
     <script src="js/app.min.js"></script>
 </head>
 <body ng-app="InfoBox" ng-controller="MainController">
-<div class="app">
+<div class="app ib-app">
 
     <!-- Navbars -->
 
@@ -31,7 +31,7 @@
 
     <div class="nav-bottom" ng-if="NavBars.visibility()">
         <div class="btn-group justified">
-            <a ng-click="go('/')" class="btn btn-navbar">
+            <a ng-click="go('/list')" class="btn btn-navbar">
                 <i class="fa fa-rss fa-navbar fa-2x"></i><br/><span>Notícias</span>
             </a>
             <a ng-click="mailto()" class="btn btn-navbar">
@@ -47,7 +47,7 @@
     </div>
 
     <!-- App Body -->
-    <div class="app-body page-container" ng-class="{loading: loading}">
+    <div class="app-body page-container ib-page-container" ng-class="{loading: loading}">
         <div ng-show="loading" class="app-content-loading">
             <i class="fa fa-spinner fa-spin loading-spinner"></i>
         </div>

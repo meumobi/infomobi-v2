@@ -12,11 +12,12 @@ angular.module('infoboxApp.controllers.List', ['infoboxApp.services.Meumobi'])
 		$rootScope.loading = false;
 	});
 
-	Articles.get().then(function(data){
+	/*Articles.get().then(function(data){
 		$scope.articles = data.items;
 		//$scope.ready = true;
 		//console.log($scope.articles);
-	});
+	});*/
+
 
 });
 

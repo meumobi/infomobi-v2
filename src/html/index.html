@@ -14,7 +14,7 @@
     <script src="js/app.min.js"></script>
 </head>
 <body ng-app="InfoBox" ng-controller="MainController">
-<div class="app">
+<div class="app ib-app">
 
     <!-- Navbars -->
 
@@ -46,7 +46,7 @@
     </div>
 
     <!-- App Body -->
-    <div class="app-body page-container" ng-class="{loading: loading}">
+    <div class="app-body page-container ib-page-container" ng-class="{loading: loading}">
         <div ng-show="loading" class="app-content-loading">
             <i class="fa fa-spinner fa-spin loading-spinner"></i>
         </div>
