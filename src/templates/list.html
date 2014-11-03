@@ -3,10 +3,10 @@
 <div class="scrollable">
 	<div class="scrollable-content">
 		<div class="list-group ib-home-news">
-			<a ng-repeat="item in scrollItems | filter:query" ng-click="go('/show','slideLeft')" class="list-group-item ib-article">
+			<a ng-repeat="item in articles | filter:query" ng-click="go('/show/'+$index,'slideLeft')" class="list-group-item ib-article">
 				<div class="media">
 					<div class="ib-media-container pull-left">
-						<img src="{{item.img}}" class="media-object" alt="Sample Image">
+						<img src="http://mobi.comunique-se.com.br/{{item.images[0].path}}" class="media-object" alt="Sample Image">
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading">{{item.title}} <small><i>{{item.published}}</i></small></h4>

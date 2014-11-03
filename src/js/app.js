@@ -4,17 +4,26 @@ var app = angular.module('InfoBox', [
   'ngRoute',
   'ngTouch',
   'ngAnimate',
+  'ngSanitize',
   'mobile-angular-ui',
 	'infoboxApp.controllers.Main',
 	'infoboxApp.services.Analytics',
 	'infoboxApp.controllers.Account',
-	'infoboxApp.controllers.Login'
+	'infoboxApp.controllers.Login',
+	'infoboxApp.controllers.List',
+	'infoboxApp.controllers.Show'
 ])
 
 app.config(function($routeProvider, $locationProvider) {
 	//$routeProvider.when('/',          {templateUrl: "login.html"});
-	$routeProvider.when('/list',		{templateUrl: "list.html"});
-	$routeProvider.when('/show',		{templateUrl: "show.html"});
+	$routeProvider.when('/list', {
+		templateUrl: "list.html",
+		controller: "ListController"
+	});
+	$routeProvider.when('/show/:index',	{
+		templateUrl: "show.html",
+		controller: "ShowController"
+	});
 	$routeProvider.when('/account', {
 		templateUrl: "account.html",
 		controller: "AccountCtrl"
@@ -27,7 +36,7 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.otherwise({redirectTo: '/login'});
 })
 
-.run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
+.run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window, $routeParams) {
 
     $rootScope.go = function (path, pageAnimationClass) {
 
