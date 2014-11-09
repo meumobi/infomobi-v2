@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.Show', ['infoboxApp.services.Meumobi'])
+angular.module('infoboxApp.controllers.Show', [])
 
-.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, Articles){
+.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, Items){
 
 	$rootScope.$on("$routeChangeStart", function(){
 		$rootScope.loading = true;
@@ -16,11 +16,11 @@ angular.module('infoboxApp.controllers.Show', ['infoboxApp.services.Meumobi'])
         return $sce.trustAsResourceUrl(src);
     }
 
-	Articles.get().then(function(data){
+	/*Articles.get().then(function(data){
 		$scope.item = data.items[$routeParams.index];
 		//$scope.ready = true;
 		//console.log($scope.articles);
-	});
+	});*/
 
 });
 
