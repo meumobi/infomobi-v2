@@ -9,7 +9,13 @@
 
 			<button class="ib-primary col-xs-12 form-control" ng-click="go('/list')" >Entrar</button>
 
-			<span class="ib-text-secondary" >Esqueceu a senha?</span>
+			<span class="ib-text-secondary" ><a>Esqueceu a senha?</a></span>
+
+
+<button onclick="window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showShortTop</button>
+<button onclick="window.plugins.toast.showLongBottom('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showLongBottom</button>
+<button onclick="window.plugins.toast.show('Hello there!', 'long', 'center', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast show long center</button>
+			
 		</div>
 
 	</div>
