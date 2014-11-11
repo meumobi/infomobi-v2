@@ -4,8 +4,8 @@
 
 <div class="scrollable">
 	<div class="scrollable-content">
-		<div class="thumbnail">
-			<img src="http://mobi.comunique-se.com.br{{item.images[0].path}}" alt="">
+		<div class="thumbnail" ng-if="item.images">
+			<img ng-src="http://int-meumobi.com/{{item.images[0].path}}" class="media-object" alt="{{item.title}}">
 			<div class="caption">
 				<h4>
 					{{item.title}}<br>

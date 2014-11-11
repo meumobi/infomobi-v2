@@ -9,7 +9,7 @@ var app = angular.module('InfoBox', [
 	'infoboxApp.controllers.Main',
 	'meumobi.settings',
 	'meumobi.api',
-	'local.storage',
+	//'ngCachedResource',
 	//'services.Analytics',
 	'infoboxApp.controllers.Account',
 	'infoboxApp.controllers.Login',
@@ -23,7 +23,7 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl: "list.html",
 		controller: "ListController"
 	})
-	.when('/show/:index',	{
+	.when('/show/:id',	{
 		templateUrl: "show.html",
 		controller: "ShowController"
 	})
