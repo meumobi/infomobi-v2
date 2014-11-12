@@ -1,9 +1,8 @@
-angular.module('infoboxApp.services.Analytics', [])
+angular.module('services.Analytics', [])
 
-.service('analytics', [
-  '$rootScope', '$window', '$location', function($rootScope, $window, $location) {
-    var send = function(evt, data) {
-      ga('send', evt, data);
-    }
-  }
-]);
+.service('analytics', ['$rootScope', '$window', '$location', 
+	function($rootScope, $window, $location) {
+		var send = function(evt, data) {
+		  ga('send', evt, data);
+		}
+	}]);

@@ -3,16 +3,16 @@
 		<h1 class="ib-title" >infoBox</h1>
 
 		<div class="col-xs-10 col-xs-offset-1 ib-login-form" >
-			<input type="text" placeholder="username" class="form-control" ng-model="login.username" >
+			<input type="text" placeholder="username" class="form-control" ng-model="Login.username" >
 
-			<input type="password" placeholder="senha" class="form-control" ng-mode="login.password" >	
+			<input type="password" placeholder="senha" class="form-control" ng-model="Login.password" >	
 
-			<button class="ib-primary col-xs-12 form-control" ng-click="go('/list')" >Entrar</button>
+			<button class="ib-primary col-xs-12 form-control" ng-click="Login.signin()" >Entrar</button>
 
 			<span class="ib-text-secondary" ><a>Esqueceu a senha?</a></span>
 
 
-<button onclick="window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showShortTop</button>
+<button onclick="alert(JSON.stringify(window.plugins));window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showShortTop</button>
 <button onclick="window.plugins.toast.showLongBottom('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showLongBottom</button>
 <button onclick="window.plugins.toast.show('Hello there!', 'long', 'center', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast show long center</button>
 			

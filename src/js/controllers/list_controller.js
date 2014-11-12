@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.List', [])
+angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 
 .controller('ListController', function($rootScope, $scope, Items) {
 
@@ -9,24 +9,22 @@ angular.module('infoboxApp.controllers.List', [])
 	});
 
 	$rootScope.$on("$routeChangeSuccess", function(){
-		//$rootScope.loading = false;
+		$rootScope.loading = false;
 	});
-
-	//$scope.items = Items.latest();
+	
 	Items.latest(
 		function(data) {
 			$rootScope.loading = false;
-			$scope.items = data;
+			$scope.items = data.items;
 		},
 		function(error, status) {
 			$rootScope.loading = false;
 			// TODO: Display an error msg and invite to retry
+			// error and status come empty. Should investigate
 			console.log(status);
-			console.log("Failed to retrieve items due to:" + error);
+			console.log("Request Failed:" + error);
 		}
 	);
-	//console.log(Items.get({id: '1'}));
-	
 });
 
  

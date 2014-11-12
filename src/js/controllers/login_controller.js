@@ -2,17 +2,22 @@
 
 angular.module('infoboxApp.controllers.Login', [])
 
-.controller('LoginController', function($rootScope, $scope){
+.controller('LoginController', function($rootScope, $scope, $location){
 
-  $rootScope.$on("$routeChangeStart", function(){
-    $rootScope.loading = true;
-  });
+	$rootScope.loading = false;
 
-  $rootScope.$on("$routeChangeSuccess", function(){
-    $rootScope.loading = false;
-  });
-  
-  $scope.teste = "Hello";
+
+	$scope.Login = {
+		signin : function(){
+			if($scope.Login.username!="" && $scope.Login.password!=""){//MOCK
+				$rootScope.go('/list')
+			}else{
+
+			}
+		},
+		username : "",
+		password : ""
+	}
 
 });
 

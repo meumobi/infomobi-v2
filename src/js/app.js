@@ -9,7 +9,7 @@ var app = angular.module('InfoBox', [
 	'infoboxApp.controllers.Main',
 	'meumobi.settings',
 	'meumobi.api',
-	'local.storage',
+	//'ngCachedResource',
 	//'services.Analytics',
 	'infoboxApp.controllers.Account',
 	'infoboxApp.controllers.Login',
@@ -18,25 +18,27 @@ var app = angular.module('InfoBox', [
 ])
 
 app.config(function($routeProvider, $locationProvider) {
-	//$routeProvider.when('/',          {templateUrl: "login.html"});
+
 	$routeProvider.when('/list', {
 		templateUrl: "list.html",
 		controller: "ListController"
-	});
-	$routeProvider.when('/show/:index',	{
+	})
+	.when('/show/:id',	{
 		templateUrl: "show.html",
 		controller: "ShowController"
-	});
-	$routeProvider.when('/account', {
+	})
+	.when('/account', {
 		templateUrl: "account.html",
 		controller: "AccountCtrl"
-	});
-	$routeProvider.when('/login', {
+	})
+	.when('/login', {
 		templateUrl: "login.html",
 		controller: "LoginController"
-	});
-	$routeProvider.when('/about', {templateUrl: "about.html"});
-	$routeProvider.otherwise({redirectTo: '/login'});
+	})
+	.when('/about', {
+		templateUrl: "about.html"
+	})
+	.otherwise({redirectTo: '/login'});
 })
 
 .run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window, $routeParams) {

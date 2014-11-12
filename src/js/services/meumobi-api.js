@@ -21,9 +21,13 @@ angular.module('meumobi.api', ['ngResource'])
 				method: 'GET',
 				url: API_URL+DOMAIN+'/items/latest', 
 				timeout: TIMEOUT,
+				cache: true,
 				params: {
 					limit: ITEMS_PER_PAGE
 				}
+			},
+			get: {
+				cache: true
 			}
 		});
 	});

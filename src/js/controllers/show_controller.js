@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.Show', [])
+angular.module('infoboxApp.controllers.Show', ['meumobi.api'])
 
 .controller('ShowController', function($rootScope, $scope, $sce, $routeParams, Items){
 
@@ -8,20 +8,18 @@ angular.module('infoboxApp.controllers.Show', [])
 		$rootScope.loading = true;
 	});
 
-	$rootScope.$on("$routeChangeSuccess", function(){
-		$rootScope.loading = false;
-	});
-
     $scope.getTrustedResourceUrl = function(src) {
         return $sce.trustAsResourceUrl(src);
     }
 
-	/*Articles.get().then(function(data){
-		$scope.item = data.items[$routeParams.index];
-		//$scope.ready = true;
-		//console.log($scope.articles);
-	});*/
-
+	Items.get({'id':$routeParams.id},
+		function(data){
+			$rootScope.loading = false;
+			$scope.item = data;
+		},
+		function(error) {
+			console.log("Request Failed:" + error);
+		});
 });
 
  
