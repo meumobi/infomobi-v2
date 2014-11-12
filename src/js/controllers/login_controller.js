@@ -12,7 +12,14 @@ angular.module('infoboxApp.controllers.Login', [])
 			if($scope.Login.username!="" && $scope.Login.password!=""){//MOCK
 				$rootScope.go('/list')
 			}else{
-
+				window.plugins.toast.showLongBottom('Usuário e/ou Senha inválido(s)!', 
+					function(a){
+						console.log('toast success: ' + a)
+					},
+					function(b){
+						console.log('toast error: ' + b)
+					}
+				)
 			}
 		},
 		username : "",
