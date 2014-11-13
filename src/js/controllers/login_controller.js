@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.Login', [])
+angular.module('infoboxApp.controllers.Login', ['meumobi.api'])
 
-.controller('LoginController', function($rootScope, $scope, $location){
+.controller('LoginController', function($rootScope, $scope, $location, Login){
 
 	$rootScope.loading = false;
 
@@ -12,20 +12,25 @@ angular.module('infoboxApp.controllers.Login', [])
 			if($scope.Login.username!="" && $scope.Login.password!=""){//MOCK
 				$rootScope.go('/list')
 			}else{
-				window.plugins.toast.showLongBottom('Usuário e/ou Senha inválido(s)!', 
-					function(a){
-						console.log('toast success: ' + a)
-					},
-					function(b){
-						console.log('toast error: ' + b)
-					}
-				)
+				var msg = "Usuário e/ou Senha inválido(s)!";
+				if (window.plugins && window.plugins.toast) {
+					window.plugins.toast.showLongBottom(msg, 
+						function(a){
+							console.log('toast success: ' + a)
+						},
+						function(b){
+							console.log('toast error: ' + b)
+						}
+					);
+				} else {
+					alert(msg);
+				}
 			}
 		},
 		username : "",
 		password : ""
 	}
-
+	$scope.Teste = Login;
 });
 
  

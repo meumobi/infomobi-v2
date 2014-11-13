@@ -30,4 +30,18 @@ angular.module('meumobi.api', ['ngResource'])
 				cache: true
 			}
 		});
+	})
+
+.factory('Login', function($resource, API_URL, DOMAIN, TIMEOUT){
+	return $resource(API_URL+DOMAIN+'/visitors/:id', {id: '@_id'},{
+		signin : {
+			method : 'POST',
+			url: API_URL+DOMAIN+'visitors/login',
+			timeout: TIMEOUT,
+			cache: true,
+			params: {
+				isArray: true
+			}
+		}
 	});
+});
