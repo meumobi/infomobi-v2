@@ -7,13 +7,15 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 	$rootScope.$on("$routeChangeStart", function(){
 		$rootScope.loading = true;
 	});
-
-	$rootScope.$on("$routeChangeSuccess", function(){
-		$rootScope.loading = false;
-	});
 	
+	// Use it if Stub
+	//$scope.items = Items.latest();
+	//$rootScope.loading = false;
+	
+	console.log("hello");
 	Items.latest(
 		function(data) {
+			console.log("data:"+data);
 			$rootScope.loading = false;
 			$scope.items = data.items;
 		},

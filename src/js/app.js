@@ -7,8 +7,6 @@ var app = angular.module('InfoBox', [
   'ngSanitize',
   'mobile-angular-ui',
 	'infoboxApp.controllers.Main',
-	'meumobi.settings',
-	'meumobi.api',
 	//'ngCachedResource',
 	//'services.Analytics',
 	'infoboxApp.controllers.Account',

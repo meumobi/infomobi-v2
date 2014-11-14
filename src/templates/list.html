@@ -5,7 +5,7 @@
 		<div class="list-group ib-home-news">
 			<a ng-repeat="item in items | filter:query" ng-click="go('/show/'+item._id,'slideLeft')" class="list-group-item ib-article">
 				<div class="media">
-					<div class="ib-media-container pull-left" ng-if="item.images">
+					<div class="ib-media-container pull-left" ng-show="item.images.length">
 						<img ng-src="http://int-meumobi.com/{{item.images[0].path}}" class="media-object" alt="{{item.title}}">
 					</div>
 					<div class="media-body">

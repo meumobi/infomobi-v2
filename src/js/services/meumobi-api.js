@@ -8,7 +8,7 @@ angular.module('meumobi.settings', [])
 .constant('ITEMS_PER_PAGE', 10)
 
 
-angular.module('meumobi.api', ['ngResource'])
+angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 
 .factory('Categories', function($resource, API_URL, DOMAIN, TIMEOUT) {
 	return $resource(API_URL+DOMAIN+'/categories/:id');
@@ -21,13 +21,15 @@ angular.module('meumobi.api', ['ngResource'])
 				method: 'GET',
 				url: API_URL+DOMAIN+'/items/latest', 
 				timeout: TIMEOUT,
-				cache: true,
+				//cache: true,
 				params: {
 					limit: ITEMS_PER_PAGE
-				}
+				},
+				headers: {'X-Visitor-Token':'42d974756c0ecb9b11d45fb3bd5eecea06d31c44'}
 			},
 			get: {
-				cache: true
+				//cache : true,
+				headers: {'X-Visitor-Token':'42d974756c0ecb9b11d45fb3bd5eecea06d31c44'}
 			}
 		});
 	})
@@ -42,7 +44,7 @@ angular.module('meumobi.api', ['ngResource'])
 		},
 		get : {
 			cache : true,
-			headers: {'X-Visitor-Token':'123456'}
+			headers: {'X-Visitor-Token':'42d974756c0ecb9b11d45fb3bd5eecea06d31c44'}
 		}
 	});
 });

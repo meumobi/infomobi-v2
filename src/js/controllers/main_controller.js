@@ -9,7 +9,7 @@ angular.module('infoboxApp.controllers.Main', [])
 	});
 
 	$rootScope.$on("$routeChangeSuccess", function(){
-		//$rootScope.loading = false;
+		$rootScope.loading = false;
 	});
 
 	$scope.userAgent =  navigator.userAgent;

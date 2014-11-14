@@ -1,4 +1,8 @@
-hooks
+# remove minified files
+www/js
+www/css
+www/fonts
+www/images
 
 # Created by http://www.gitignore.io
 
