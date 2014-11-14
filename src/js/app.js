@@ -64,20 +64,28 @@ app.config(function($routeProvider, $locationProvider) {
     }, false);
 
 
-    $rootScope.$on("$routeChangeStart", function(){
-		if(localStorage['userToken']){
-			/*Categories.get(
-				function(resp){
-					console.log(resp);
-				},
-				function(err){
-					console.log(err);
-				}
-			);*/
-		}else{
-			$rootScope.go('login');	
-		}
+    $rootScope.$on("$routeChangeSuccess", function(){
+    	if($location.url() != "/login"){
+			if(localStorage['userToken']){
+				/*Categories.get(
+					function(resp){
+						console.log(resp);
+					},
+					function(err){
+						console.log(err);
+					}
+				);*/
+			}else{
+				$rootScope.go('/login');	
+			}
+    	}
 	});
+
+	
+	// MOCK - autoLogin
+	if(localStorage['userToken']){
+		$rootScope.go('/list');
+	}
 
 }]);
 

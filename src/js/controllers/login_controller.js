@@ -31,7 +31,6 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api'])
 		username : "",
 		password : "",
 		loginSuccess : function(resp){
-			$rootScope.loading = false;
 			localStorage['userToken'] = resp.token;
 			$rootScope.go('/list');
 		},
@@ -53,7 +52,6 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api'])
 			}
 		}
 	}
-	 Teste = Login;
 
 	/*Login.signin({
 	  "email" : "visitor@mail.com",
