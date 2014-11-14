@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.Show', [])
+angular.module('infoboxApp.controllers.Show', ['meumobi.api'])
 
 .controller('ShowController', function($rootScope, $scope, $sce, $routeParams, Items){
 
@@ -14,8 +14,8 @@ angular.module('infoboxApp.controllers.Show', [])
 
 	Items.get({'id':$routeParams.id},
 		function(data){
-			$rootScope.loading = false;
 			$scope.item = data;
+			$rootScope.loading = false;
 		},
 		function(error) {
 			console.log("Request Failed:" + error);
