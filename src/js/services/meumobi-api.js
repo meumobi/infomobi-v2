@@ -36,12 +36,13 @@ angular.module('meumobi.api', ['ngResource'])
 	return $resource(API_URL+DOMAIN+'/visitors/:id', {id: '@_id'},{
 		signin : {
 			method : 'POST',
-			url: API_URL+DOMAIN+'visitors/login',
+			url: API_URL+DOMAIN+'/visitors/login',
 			timeout: TIMEOUT,
-			cache: true,
-			params: {
-				isArray: true
-			}
+			cache: true
+		},
+		get : {
+			cache : true,
+			headers: {'X-Visitor-Token':'123456'}
 		}
 	});
 });

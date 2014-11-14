@@ -2,15 +2,19 @@
 	<div class="scrollable-content section ib-login-screen">
 		<h1 class="ib-title" >infoBox</h1>
 
-		<div class="col-xs-10 col-xs-offset-1 ib-login-form" >
-			<input type="text" placeholder="username" class="form-control" ng-model="Login.username" >
+		<form ng-submit="Login.signin()">
 
-			<input type="password" placeholder="senha" class="form-control" ng-model="Login.password" >	
+			<div class="col-xs-10 col-xs-offset-1 ib-login-form" >
+				<input type="email" placeholder="username" class="form-control" ng-model="Login.username" >
 
-			<button class="ib-primary col-xs-12 form-control" ng-click="Login.signin()" >Entrar</button>
+				<input type="password" placeholder="senha" class="form-control" ng-model="Login.password" >	
 
-			<span class="ib-text-secondary" ><a>Esqueceu a senha?</a></span>
-		</div>
+				<input type="submit" id="submit" class="ib-primary col-xs-12 form-control" value="Entrar" />
+
+				<span class="ib-text-secondary" ><a>Esqueceu a senha?</a></span>
+			</div>
+
+		</form>
 
 	</div>
 </div>
