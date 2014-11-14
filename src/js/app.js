@@ -12,7 +12,8 @@ var app = angular.module('InfoBox', [
 	'infoboxApp.controllers.Account',
 	'infoboxApp.controllers.Login',
 	'infoboxApp.controllers.List',
-	'infoboxApp.controllers.Show'
+	'infoboxApp.controllers.Show',
+	'meumobi.api'
 ])
 
 app.config(function($routeProvider, $locationProvider) {
@@ -39,7 +40,8 @@ app.config(function($routeProvider, $locationProvider) {
 	.otherwise({redirectTo: '/login'});
 })
 
-.run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window, $routeParams) {
+.run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window, $routeParams, Categories) {
+
 
     $rootScope.go = function (path, pageAnimationClass) {
 
@@ -61,6 +63,21 @@ app.config(function($routeProvider, $locationProvider) {
       $rootScope.go('back','slideRight');
     }, false);
 
+
+    $rootScope.$on("$routeChangeStart", function(){
+		if(localStorage['userToken']){
+			/*Categories.get(
+				function(resp){
+					console.log(resp);
+				},
+				function(err){
+					console.log(err);
+				}
+			);*/
+		}else{
+			$rootScope.go('login');	
+		}
+	});
 
 }]);
 
