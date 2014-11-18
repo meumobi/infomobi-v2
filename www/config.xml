@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.meumobi.infobox" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>infoBox</name>
+    <name>infoBox Dev</name>
     <description>
         Mobile App for Internal Communication.
     </description>
@@ -22,17 +22,20 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
 		
     <gap:plugin name="org.apache.cordova.device" />
     <gap:plugin name="org.apache.cordova.device-orientation" />
     <gap:plugin name="org.apache.cordova.dialogs" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
     <gap:plugin name="org.apache.cordova.media" />
+    <gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="nl.x-services.plugins.toast" />
 		
 		<gap:plugin name="com.jcjee.plugins.emailcomposer" version="1.4.6" />
 		<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
+    <gap:plugin name="nl.x-services.plugins.socialsharing" />
 		
 		<icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/icon-36-ldpi.png" />
