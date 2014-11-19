@@ -11,6 +11,11 @@
 					{{item.title}}<br>
 					<small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>
 				</h4>
+				<p ng-repeat="media in item.medias">
+  				<a ng-click="loadURL('{{media.url}}')" target="_blank">
+  					<span class="btn btn-white btn-xs"><i class="fa fa-file-o"></i> download</span> {{media.title}}
+  				</a>
+				</p>
 				<div ng-bind-html="item.description"></div>
 			</div>
 		</div>
