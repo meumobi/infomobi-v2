@@ -12,9 +12,11 @@ angular.module('meumobi.settings', [])
 angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 
 .factory('Categories', function($resource, API_URL, DOMAIN, TIMEOUT) {
-	return $resource(API_URL+DOMAIN+'/categories/:id', {},{
-		get : {
-			headers: {'X-Visitor-Token': localStorage['userToken']}
+	return $resource(API_URL+DOMAIN+'/categories/:id', {id: '@_id'},{
+		query : {
+			isArray:true,
+			headers: {'X-Visitor-Token': localStorage['userToken']},
+			cache: false
 		}
 	});
 })

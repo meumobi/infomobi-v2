@@ -40,7 +40,7 @@ app.config(function($routeProvider, $locationProvider) {
 	.otherwise({redirectTo: '/login'});
 })
 
-.run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window, $routeParams, Categories) {
+.run(['$rootScope', '$location', '$window', '$routeParams','Categories', '$http', function ($rootScope, $location, $window, $routeParams, Categories, $http) {
 
 
     $rootScope.go = function (path, pageAnimationClass) {
@@ -65,16 +65,34 @@ app.config(function($routeProvider, $locationProvider) {
 
 
     $rootScope.$on("$routeChangeSuccess", function(){
-    	if($location.url() != "/login"){
+    	if($location.url() != "/login"){console.log(localStorage['userToken'])
 			if(localStorage['userToken']){
-				/*Categories.get(
-					function(resp){
-						console.log(resp);
+				Categories.query(
+					function(resp){console.log('authorized')
+						// authorized user
 					},
-					function(err){
-						console.log(err);
+					function(err){console.log(err,'non authorized')
+						// invalid token
+						//delete localStorage.userToken;
+						//$rootScope.go('/login');
 					}
-				);*/
+				);
+      			/*$http.defaults.cache = false;
+    			$http({
+                    method: 'GET', 
+                    url: 'http://int-meumobi.com/api/infobox.int-meumobi.com/categories',
+                    responseType: 'json',
+                    headers: {'X-Visitor-Token': localStorage['userToken']},
+                    cache: false
+                })
+                .success(function(resp){
+					// authorized user
+				})
+                .error(function(err){console.log(err)
+					// invalid token
+					//delete localStorage.userToken;
+					$rootScope.go('/login');
+				});*/
 			}else{
 				$rootScope.go('/login');	
 			}
