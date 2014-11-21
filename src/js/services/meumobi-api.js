@@ -52,6 +52,10 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 		get : {
 			cache : true,
 			headers: {'X-Visitor-Token': localStorage['userToken']}
+		},
+		save : {
+			method: 'POST',
+			headers: {'X-Visitor-Token': localStorage['userToken']}
 		}
 	});
 });

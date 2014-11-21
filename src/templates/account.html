@@ -33,11 +33,16 @@
         </switch-->
 
 				<input bs-form-control="" type="text" label="Email" ng-model="user.mail" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-9 col-sm-10 col-lg-11" value="victor.dias@siemens.com.br" readonly>
-				<input bs-form-control="" type="password" ng-model="user.password" label="Senha antiga" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-9 col-sm-10 col-lg-11" placeholder="Senha antiga">
-				<input bs-form-control="" type="password" ng-model="user.password" label="Senha nova" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-9 col-sm-10 col-lg-11" placeholder="Senha nova"><br/>
+				
+        <input bs-form-control="" type="password" ng-model="user.password" label="Senha antiga" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-9 col-sm-10 col-lg-11" placeholder="Senha antiga">
+				
+
+        <input bs-form-control="" type="password" ng-model="user.newPassword" label="Senha nova" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-9 col-sm-10 col-lg-11" placeholder="Senha nova">
+
+        <input bs-form-control="" type="password" ng-model="user.confirmNewPassword" label="Confirmar senha nova" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-9 col-sm-10 col-lg-11" placeholder="Confirmar senha nova"><br/>
       
         <div class="form-actions col-xs-1">
-        	<button class="btn btn-primary">Salvar</button>
+        	<button class="btn btn-primary" ng-click="PasswordChanger.change()" >Salvar</button>
         </div>
 
         <div class="form-actions col-xs-offset-9">
