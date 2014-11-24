@@ -20,8 +20,12 @@ angular.module('infoboxApp.controllers.Main', [])
 				return true;
 			}
 			return false;
+		},
+		canBack : function(){
+			if($location.url().indexOf("/show") == -1){
+				return false;
+			}return true;
 		}
 	}
-	
 });
 
