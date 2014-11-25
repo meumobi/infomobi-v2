@@ -29,9 +29,11 @@ angular.module('infoboxApp.controllers.Show', ['meumobi.api'])
       window.plugins.socialsharing.share(message, subject, null, link);
   }
 
-	$rootScope.loading = true;
+	$rootScope.loading = false;
 
-	Items.get({'id':$routeParams.id},
+  $scope.item = JSON.parse(localStorage['newsList'])[$routeParams.id];
+
+	/*Items.get({'id':$routeParams.id},
 		function(data){
 			$scope.item = data;
 			$rootScope.loading = false;
@@ -43,7 +45,7 @@ angular.module('infoboxApp.controllers.Show', ['meumobi.api'])
 			console.log(status);
 			console.log("Request Failed:" + error);
 		}
-	);
+	);*/
 });
 
  

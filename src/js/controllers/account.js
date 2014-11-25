@@ -1,6 +1,6 @@
 angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main', 'meumobi.api'])
 
-.controller('AccountCtrl', function($scope, $location, Login){
+.controller('AccountCtrl', function($scope, $location, Login, AppInfo){
 	
 	$scope.user = {
 		mail:'victor.dias@siemens.com.br', 
@@ -11,29 +11,8 @@ angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main',
 
 
 	$scope.PasswordChanger = {
-		isOnline : function(){
-			var connection = false;
-			if(navigator.connection){
-				var networkState = navigator.connection.type;
-
-			    var states = {};
-			    states[Connection.UNKNOWN]  = false;
-			    states[Connection.ETHERNET] = true;
-			    states[Connection.WIFI]     = true;
-			    states[Connection.CELL_2G]  = true;
-			    states[Connection.CELL_3G]  = true;
-			    states[Connection.CELL_4G]  = true;
-			    states[Connection.CELL]     = true;
-			    states[Connection.NONE]     = false;
-
-			    connection = states[networkState] ? true : false;
-			}else{
-				connection = navigator.onLine;
-			}
-			return connection;
-		},
 		change : function(){
-			if($scope.PasswordChanger.isOnline){
+			if(AppInfo.Device.isOnline){
 				if($scope.user.newPassword == $scope.user.confirmNewPassword){
 					$scope.PasswordChanger.sendChange();
 				}else{

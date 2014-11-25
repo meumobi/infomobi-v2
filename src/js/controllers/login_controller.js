@@ -13,11 +13,13 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api'])
 			$rootScope.loading = true;
 
 			if($scope.Login.username!="" && $scope.Login.password!=""){//MOCK
+
 				var user = {
 					"email" : $scope.Login.username,
 					"password" : $scope.Login.password,
 					"device" : {
-						"id" : "123",
+						"uuid" : "",
+						"pushId" : "", 
 						"model" : "galaxy note3"
 					}
 				}
