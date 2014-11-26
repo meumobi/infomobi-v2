@@ -29,6 +29,29 @@ angular.module('meumobi.app', [])
 			}
 		}
 	}
+	return app;
+})
 
+.factory('AppFunc', function(){
+	var app = {
+		toast : function(message, success, fail){
+			if (window.plugins && window.plugins.toast) {
+				window.plugins.toast.showLongBottom(message, 
+					function(resp){
+						if(success){
+							success(resp);
+						}
+					},
+					function(err){
+						if(fail){
+							fail(err);
+						}
+					}
+				);
+			} else {
+				alert(message);
+			}
+		}
+	}
 	return app;
 })

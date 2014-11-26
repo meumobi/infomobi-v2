@@ -42,7 +42,7 @@ app.config(function($routeProvider, $locationProvider) {
 	.otherwise({redirectTo: '/login'});
 })
 
-.run(['$rootScope', '$location', '$window', '$routeParams','Categories', '$http', function ($rootScope, $location, $window, $routeParams, Categories, $http) {
+.run(['$rootScope', '$location', '$window', '$routeParams','Categories', '$http', 'AppInfo', function ($rootScope, $location, $window, $routeParams, Categories, $http, AppInfo) {
 
 
     $rootScope.go = function (path, pageAnimationClass) {
@@ -62,39 +62,43 @@ app.config(function($routeProvider, $locationProvider) {
     };
 
     document.addEventListener("backbutton", function(){
-      $rootScope.go('back','slideRight');
+    	if($location.url().indexOf("/show")!=-1){
+    		$rootScope.go('back','slideRight');		
+    	}
     }, false);
 
 
     $rootScope.$on("$routeChangeSuccess", function(){
     	if($location.url() != "/login"){console.log(localStorage['userToken'])
 			if(localStorage['userToken']){
-				Categories.query(
-					function(resp){console.log('authorized')
+				if(AppInfo.Device.isOnline()){
+					Categories.query(
+						function(resp){console.log('authorized')
+							// authorized user
+						},
+						function(err){console.log(err,'non authorized')
+							// invalid token
+							//delete localStorage.userToken;
+							//$rootScope.go('/login');
+						}
+					);
+	      			/*$http.defaults.cache = false;
+	    			$http({
+	                    method: 'GET', 
+	                    url: 'http://int-meumobi.com/api/infobox.int-meumobi.com/categories',
+	                    responseType: 'json',
+	                    headers: {'X-Visitor-Token': localStorage['userToken']},
+	                    cache: false
+	                })
+	                .success(function(resp){
 						// authorized user
-					},
-					function(err){console.log(err,'non authorized')
+					})
+	                .error(function(err){console.log(err)
 						// invalid token
 						//delete localStorage.userToken;
-						//$rootScope.go('/login');
-					}
-				);
-      			/*$http.defaults.cache = false;
-    			$http({
-                    method: 'GET', 
-                    url: 'http://int-meumobi.com/api/infobox.int-meumobi.com/categories',
-                    responseType: 'json',
-                    headers: {'X-Visitor-Token': localStorage['userToken']},
-                    cache: false
-                })
-                .success(function(resp){
-					// authorized user
-				})
-                .error(function(err){console.log(err)
-					// invalid token
-					//delete localStorage.userToken;
-					$rootScope.go('/login');
-				});*/
+						$rootScope.go('/login');
+					});*/
+				}
 			}else{
 				$rootScope.go('/login');	
 			}

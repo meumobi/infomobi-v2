@@ -1,6 +1,6 @@
 angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main', 'meumobi.api'])
 
-.controller('AccountCtrl', function($scope, $location, Login, AppInfo){
+.controller('AccountCtrl', function($scope, $location, Login, AppInfo, AppFunc){
 	
 	$scope.user = {
 		mail:'victor.dias@siemens.com.br', 
@@ -12,7 +12,7 @@ angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main',
 
 	$scope.PasswordChanger = {
 		change : function(){
-			if(AppInfo.Device.isOnline){
+			if(AppInfo.Device.isOnline()){
 				if($scope.user.newPassword == $scope.user.confirmNewPassword){
 					$scope.PasswordChanger.sendChange();
 				}else{
@@ -26,7 +26,7 @@ angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main',
 			var userInformation = {current_password : $scope.user.password, password : $scope.user.newPassword}
 			Login.save(userInformation,$scope.PasswordChanger.success, $scope.PasswordChanger.error);
 		},
-		error : function(resp){console.log(resp,5555)
+		error : function(resp){
 			var msg = "";
 			if(resp.status == 403){
 				msg = "Senha Inválida";
@@ -42,18 +42,7 @@ angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main',
 			$scope.PasswordChanger.message("Senha alterada com sucesso");
 		},
 		message : function(msg){
-			if (window.plugins && window.plugins.toast) {
-				window.plugins.toast.showLongBottom(msg, 
-					function(a){
-						console.log('toast success: ' + a)
-					},
-					function(b){
-						console.log('toast error: ' + b)
-					}
-				);
-			} else {
-				alert(msg);
-			}
+			AppFunc.toast(msg);
 		}
 	};
 
