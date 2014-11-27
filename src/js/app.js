@@ -16,7 +16,8 @@ var app = angular.module('InfoBox', [
 	'infoboxApp.controllers.Show',
 	'meumobi.api',
 	'meumobi.sync',
-	'meumobi.app'
+	'meumobi.app',
+	'meumobi.utils'
 ])
 
 app.config(function($routeProvider, $locationProvider) {

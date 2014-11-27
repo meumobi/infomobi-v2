@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('meumobi.sync', ['meumobi.api','meumobi.app'])
+angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils'])
 
-.factory('SyncNews', function(Items,AppInfo) {
+.factory('SyncNews', function(Items,AppInfo, AppUtils) {
 	
 	var app = {
 		get : function(callback){
@@ -27,35 +27,24 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app'])
 					callback(error, false);
 				}
 			);
+		},
+		saveImage : function(imageUrl, id, callback){
+			AppUtils.CanvasImg.createBase64Image(imageUrl,function(img64){
+				localStorage['image_'+id] = img64;
+				callback('image_'+id, img64);
+			});
+		},
+		saveAllImages : function(){
+
+		},
+		deleteImages : function(){
+			for( prop in localStorage ){
+			   if(prop.indexOf('image_')!=-1){
+			   		delete localStorage[prop];
+			   }
+			}
 		}
 	};
 	return app;
 
 });
-
-
-
-
-var CanvasImg = (function(){
-    return{
-        createBase64Image : function(url,callback){
-            var img = new Image;
-            img.onload = function(){
-                CanvasImg.imgToBase64(img,callback);
-            }
-            img.src = url;
-        },
-        imgToBase64 : function(img,callback){
-            var canvas = document.createElement("canvas");
-            canvas.width = img.width;
-            canvas.height = img.height;
-            canvas.getContext("2d").drawImage(img,0,0);
-            var base64 = canvas.toDataURL();
-            if(callback){
-                callback(base64);
-            }else{
-                return base64;
-            }
-        }
-    }
-})();
