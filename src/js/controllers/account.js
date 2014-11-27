@@ -12,7 +12,7 @@ angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main',
 
 	$scope.PasswordChanger = {
 		change : function(){
-			if(AppInfo.Device.isOnline()){
+			if(AppInfo.service.Device.isOnline()){
 				if($scope.user.newPassword == $scope.user.confirmNewPassword){
 					$scope.PasswordChanger.sendChange();
 				}else{

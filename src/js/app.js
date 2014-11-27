@@ -1,6 +1,7 @@
 'use strict';
 
 var app = angular.module('InfoBox', [
+  'infoboxApp.services.Cordova',
   'ngRoute',
   'ngTouch',
   'ngAnimate',
@@ -71,7 +72,7 @@ app.config(function($routeProvider, $locationProvider) {
     $rootScope.$on("$routeChangeSuccess", function(){
     	if($location.url() != "/login"){console.log(localStorage['userToken'])
 			if(localStorage['userToken']){
-				if(AppInfo.Device.isOnline()){
+				if(AppInfo.service.Device.isOnline()){
 					Categories.query(
 						function(resp){console.log('authorized')
 							// authorized user
