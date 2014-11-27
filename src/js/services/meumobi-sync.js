@@ -6,7 +6,7 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app'])
 	
 	var app = {
 		get : function(callback){
-			if(AppInfo.service.Device.isOnline()){
+			if(AppInfo.service.Device.isOnline() && !localStorage.hasOwnProperty('newsList')){
 				app.list(callback)
 			}else if(localStorage.hasOwnProperty('newsList')){
 				var news = JSON.parse(localStorage['newsList']);
