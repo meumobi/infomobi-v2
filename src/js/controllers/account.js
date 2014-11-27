@@ -1,6 +1,6 @@
 angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main', 'meumobi.api'])
 
-.controller('AccountCtrl', function($scope, $location, Login, AppInfo, AppFunc){
+.controller('AccountCtrl', function($rootScope, $scope, $location, Login, AppInfo, AppFunc){
 	
 	$scope.user = {
 		mail:'victor.dias@siemens.com.br', 
@@ -52,5 +52,7 @@ angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main',
 		delete localStorage.userToken;
 		$location.url('/login');
 	}
+
+	$rootScope.loading = false;
 
 });

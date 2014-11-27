@@ -18,7 +18,7 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api'])
 					"email" : $scope.Login.username,
 					"password" : $scope.Login.password,
 					"device" : {
-						"uuid" : "",
+						"uuid" : "123",
 						"pushId" : "", 
 						"model" : "galaxy note3"
 					}

@@ -31,7 +31,7 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 			$scope.items = resp;
 		}else{
 			AppFunc.toast("Erro ao sincronizar notícias");
-			$scope.items = localStorage.hasOwnProperty('newList') ? JSON.parse(localStorage['newList']) : [];
+			$scope.items = localStorage.hasOwnProperty('newsList') ? JSON.parse(localStorage['newsList']) : [];
 		}
 		$rootScope.loading = false;
 	});
