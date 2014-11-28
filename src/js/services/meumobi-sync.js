@@ -18,8 +18,12 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils'])
 		list : function(callback){
 			Items.latest(
 				function(data) {
-					localStorage['newsList'] = JSON.stringify(data.items);
-					callback(data.items, true);
+					var news = data.items;
+					//var imagesUrls = app.getImagesFromNews(news);
+					//app.saveAllImages(imagesUrls,function(){
+						localStorage['newsList'] = JSON.stringify(news);
+						callback(news, true);	
+					//});
 				},
 				function(error, status) {
 					console.log(status);
@@ -28,13 +32,38 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils'])
 				}
 			);
 		},
-		saveImage : function(imageUrl, id, callback){
-			AppUtils.CanvasImg.createBase64Image(imageUrl,function(img64){
-				localStorage['image_'+id] = img64;
-				callback('image_'+id, img64);
+		getImagesFromNews : function(news){
+			var images = [],
+			newsLength = news.length;
+			while(newsLength--){
+				var atualNews = news[newsLength];
+				for(var i = 0, totalImages = atualNews.images.length; i < totalImages; i++){
+					var img = atualNews.images[i];
+					images.push({
+						url : "http://int-meumobi.com/"+img.path,
+						id : img.id
+					});
+				}
+			}
+			return images;
+		},
+		saveImage : function(image, id, callback){console.log(AppUtils)
+			AppUtils.CanvasImg.createBase64Image(image.url,function(img64){
+				localStorage['image_'+image.id] = img64;
+				callback('image_'+image.id, img64);
 			});
 		},
-		saveAllImages : function(){
+		saveAllImages : function(imagesUrls, callback){
+			var totalImages = imagesUrls.length,
+			imagesToSave = totalImages;
+			while(imagesToSave--){
+				app.saveImage(imagesUrls[imagesToSave],function(imageId, img64){
+					totalImages--;
+					if(imagesToSave == totalImages){
+						callback();
+					}
+				});
+			}
 
 		},
 		deleteImages : function(){
