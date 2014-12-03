@@ -32,7 +32,10 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 				params: {
 					limit: ITEMS_PER_PAGE
 				},
-				headers: {'X-Visitor-Token': localStorage['userToken']}
+				headers: {
+							'X-Visitor-Token': localStorage['userToken'],
+							'If-None-Match' : localStorage['ETag']
+						 }
 			},
 			get: {
 				//cache : true,
@@ -56,6 +59,12 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 		save : {
 			method: 'POST',
 			headers: {'X-Visitor-Token': localStorage['userToken']}
+		},
+		device : {
+			method: 'POST',
+			headers: {'X-Visitor-Token': localStorage['userToken']},
+			url: API_URL+DOMAIN+'/visitors/devices',
+			timeout: TIMEOUT
 		}
 	});
 });

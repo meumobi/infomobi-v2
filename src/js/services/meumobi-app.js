@@ -6,7 +6,8 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova'])
 	var app = {
 		service : {
 			Device : {
-				isOnline : function(){return false;}
+				isOnline : function(){return false;},
+				information: function(){return "";}
 			}
 		}
 	};
@@ -35,12 +36,31 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova'])
 							connection = navigator.onLine;
 						}
 						return connection;
+					},
+					information : function(){
+						var informations;
+						if(window.cordova){
+							informations = {
+								"uuid" : device.uuid,
+								"model" : device.model,
+								"platform" : device.platform,
+								"version" : device.version
+							}
+						}else{
+							informations = {
+								"uuid" : "1234567890",
+								"model" : "Galaxy S5",
+								"platform" : "Android",
+								"version" : "4.4"
+							}
+						}
+						return informations;
 					}
 				}
 			}
         });
 		
-	})
+	});
 
 	return app;
 })

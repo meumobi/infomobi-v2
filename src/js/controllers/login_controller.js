@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.Login', ['meumobi.api'])
+angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
 
-.controller('LoginController', function($rootScope, $scope, $location, Login){
+.controller('LoginController', function($rootScope, $scope, $location, Login, AppInfo){
 
 	$rootScope.loading = false;
 
@@ -13,14 +13,14 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api'])
 			$rootScope.loading = true;
 
 			if($scope.Login.username!="" && $scope.Login.password!=""){//MOCK
-
+				var info = AppInfo.service.Device.information();
 				var user = {
 					"email" : $scope.Login.username,
 					"password" : $scope.Login.password,
 					"device" : {
-						"uuid" : "123",
+						"uuid" : info.uuid,
 						"pushId" : "", 
-						"model" : "galaxy note3"
+						"model" : info.model
 					}
 				}
 
@@ -52,6 +52,22 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api'])
 			} else {
 				alert(msg);
 			}
+		},
+		saveDeviceInformation : function(){
+			var info = AppInfo.service.Device.information();
+			var device = {
+				"uuid" : info.uuid,
+				"model" : info.model
+			}
+			
+			Login.device(device,
+				function(resp){
+					console.log(resp);
+				},
+				function(err){
+					console.log(err);
+				}
+			);
 		}
 	}
 

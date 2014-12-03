@@ -6,18 +6,21 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils'])
 	
 	var app = {
 		get : function(callback){
-			if(AppInfo.service.Device.isOnline() && !localStorage.hasOwnProperty('newsList')){
+			if(!localStorage.hasOwnProperty('newsList')){
 				app.list(callback)
-			}else if(localStorage.hasOwnProperty('newsList')){
+			}else{
 				var news = JSON.parse(localStorage['newsList']);
 				callback(news, true);
-			}else{
-				callback([], true);
+				if(AppInfo.service.Device.isOnline()){
+					app.list(callback);
+				}else{
+					callback([], true);
+				}
 			}
 		},
 		list : function(callback){
 			Items.latest(
-				function(data) {
+				function(data,a,b) {console.log(data,a,b)
 					var news = data.items;
 					//var imagesUrls = app.getImagesFromNews(news);
 					//app.saveAllImages(imagesUrls,function(){
