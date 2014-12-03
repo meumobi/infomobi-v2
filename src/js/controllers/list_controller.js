@@ -36,6 +36,12 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 		$rootScope.loading = false;
 	});
 
+	$scope.getImage = function(id){
+		if(localStorage["image_"+id]){
+			return localStorage["image_"+id];
+		}
+	}
+
 	
 });
 

@@ -46,6 +46,12 @@ angular.module('infoboxApp.controllers.Show', ['meumobi.api'])
 			console.log("Request Failed:" + error);
 		}
 	);*/
+
+  $scope.getImage = function(id){
+    if(localStorage["image_"+id]){
+      return localStorage["image_"+id];
+    }
+  }
 });
 
  

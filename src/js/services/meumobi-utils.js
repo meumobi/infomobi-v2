@@ -7,7 +7,7 @@ angular.module('meumobi.utils', [])
 		CanvasImg : {
 	        createBase64Image : function(url,callback){
 	            var img = new Image;
-	            img.crossorigin="anonymous"
+	            img.setAttribute('crossOrigin', 'anonymous');
 	            img.onload = function(){
 	                app.CanvasImg.imgToBase64(img,callback);
 	            }
@@ -16,9 +16,9 @@ angular.module('meumobi.utils', [])
 	        imgToBase64 : function(img,callback){
 	            var canvas = document.createElement("canvas");
 	            canvas.width = img.width;
-	            canvas.height = img.height;
+	            canvas.height = img.height;console.log(img.width,img.height)
 	            canvas.getContext("2d").drawImage(img,0,0);
-	            var base64 = canvas.toDataURL();
+	            var base64 = canvas.toDataURL('image/png');
 	            if(callback){
 	                callback(base64);
 	            }else{
