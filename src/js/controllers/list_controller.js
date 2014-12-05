@@ -2,9 +2,8 @@
 
 angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 
-.controller('ListController', function($rootScope, $scope, Items, SyncNews, AppFunc) {
+.controller('ListController', function($rootScope, $scope, Items, SyncNews, AppFunc, $timeout) {
 	
-	$rootScope.loading = true;
 	$scope.items = $rootScope.newsList;
 	
 	// Use it if Stub
@@ -26,15 +25,20 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 		}
 	);*/
 
-	SyncNews.get(function(resp, success){
-		$rootScope.loading = false;
-		if(success){
-			$scope.items = resp;
-		}else{
-			AppFunc.toast("Erro ao sincronizar notícias");
-			$scope.items = localStorage.hasOwnProperty('newsList') ? JSON.parse(localStorage['newsList']) : [];
-		}
-	});
+	$scope.listItems = function(){
+		SyncNews.get(function(resp, success){
+			$timeout(function(){
+				$rootScope.loading = false;
+			},300);
+			if(success){
+				$scope.items = resp;
+			}else{
+				AppFunc.toast("Erro ao sincronizar notícias");
+				$scope.items = localStorage.hasOwnProperty('newsList') ? JSON.parse(localStorage['newsList']) : [];
+			}
+		});
+	}
+
 
 	$scope.getImage = function(id){
 		/*if(localStorage["image_"+id]){
@@ -43,6 +47,7 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 		return 'http://int-meumobi.com/'+id;
 	}
 
+	$scope.listItems();
 	
 });
 
