@@ -46,6 +46,8 @@ app.config(function($routeProvider, $locationProvider) {
 
 .run(['$rootScope', '$location', '$window', '$routeParams','Categories', '$http', 'AppInfo', function ($rootScope, $location, $window, $routeParams, Categories, $http, AppInfo) {
 
+	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
+
 
     $rootScope.go = function (path, pageAnimationClass) {
 
@@ -71,7 +73,7 @@ app.config(function($routeProvider, $locationProvider) {
 
 
     $rootScope.$on("$routeChangeSuccess", function(){
-    	if($location.url() != "/login"){console.log(localStorage['userToken'])
+    	if($location.url().indexOf("login")==-1){console.log(localStorage['userToken'])
 			if(localStorage['userToken']){
 				if(AppInfo.service.Device.isOnline()){
 					Categories.query(
@@ -84,33 +86,19 @@ app.config(function($routeProvider, $locationProvider) {
 							//$rootScope.go('/login');
 						}
 					);
-	      			/*$http.defaults.cache = false;
-	    			$http({
-	                    method: 'GET', 
-	                    url: 'http://int-meumobi.com/api/infobox.int-meumobi.com/categories',
-	                    responseType: 'json',
-	                    headers: {'X-Visitor-Token': localStorage['userToken']},
-	                    cache: false
-	                })
-	                .success(function(resp){
-						// authorized user
-					})
-	                .error(function(err){console.log(err)
-						// invalid token
-						//delete localStorage.userToken;
-						$rootScope.go('/login');
-					});*/
 				}
 			}else{
 				$rootScope.go('/login');	
 			}
+    	}else{
+    		delete localStorage.userToken;
     	}
 	});
 
 	
 	// MOCK - autoLogin
 	if(localStorage['userToken']){
-		$rootScope.go('/list');
+		//$rootScope.go('/list');
 	}
 
 }]);

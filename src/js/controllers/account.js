@@ -49,8 +49,8 @@ angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main',
 
 	$scope.logout = function(){
 		//MOCK
-		delete localStorage.userToken;
-		$location.url('/login');
+		//delete localStorage.userToken;
+		$rootScope.go('/login');
 	}
 
 	$rootScope.loading = false;

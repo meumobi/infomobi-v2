@@ -28,7 +28,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 				method: 'GET',
 				url: API_URL+DOMAIN+'/items/latest', 
 				timeout: TIMEOUT,
-				//cache: true,
+				cache: false,
 				params: {
 					limit: ITEMS_PER_PAGE
 				},

@@ -31,7 +31,7 @@ angular.module('infoboxApp.controllers.Show', ['meumobi.api'])
 
 	$rootScope.loading = false;
 
-  $scope.item = JSON.parse(localStorage['newsList'])[$routeParams.id];
+  $scope.item = $rootScope.newsList[$routeParams.id];
 
 	/*Items.get({'id':$routeParams.id},
 		function(data){
@@ -48,9 +48,10 @@ angular.module('infoboxApp.controllers.Show', ['meumobi.api'])
 	);*/
 
   $scope.getImage = function(id){
-    if(localStorage["image_"+id]){
+    /*if(localStorage["image_"+id]){
       return localStorage["image_"+id];
-    }
+    }*/
+    return 'http://int-meumobi.com/'+id;
   }
 });
 

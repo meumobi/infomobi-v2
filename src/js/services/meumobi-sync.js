@@ -2,7 +2,7 @@
 
 angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils'])
 
-.factory('SyncNews', function(Items,AppInfo, AppUtils) {
+.factory('SyncNews', function(Items,AppInfo, AppUtils, $rootScope) {
 	
 	var app = {
 		get : function(callback){
@@ -26,13 +26,16 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils'])
 					var imagesUrls = app.getImagesFromNews(news);
 					app.saveAllImages(imagesUrls,function(){
 						localStorage['newsList'] = JSON.stringify(news);
+						$rootScope.newsList = news;
 						callback(news, true);	
+						$rootScope.loading = false;
 					});
 				},
 				function(error, status) {
 					console.log(status);
 					console.log("Request Failed:" + error);
 					callback(error, false);
+					$rootScope.loading = false;
 				}
 			);
 		},

@@ -5,7 +5,7 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 .controller('ListController', function($rootScope, $scope, Items, SyncNews, AppFunc) {
 	
 	$rootScope.loading = true;
-	$scope.items = [];
+	$scope.items = $rootScope.newsList;
 	
 	// Use it if Stub
 	//$scope.items = Items.latest();
@@ -27,19 +27,20 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 	);*/
 
 	SyncNews.get(function(resp, success){
+		$rootScope.loading = false;
 		if(success){
 			$scope.items = resp;
 		}else{
 			AppFunc.toast("Erro ao sincronizar notícias");
 			$scope.items = localStorage.hasOwnProperty('newsList') ? JSON.parse(localStorage['newsList']) : [];
 		}
-		$rootScope.loading = false;
 	});
 
 	$scope.getImage = function(id){
-		if(localStorage["image_"+id]){
+		/*if(localStorage["image_"+id]){
 			return localStorage["image_"+id];
-		}
+		}*/
+		return 'http://int-meumobi.com/'+id;
 	}
 
 	

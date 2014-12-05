@@ -71,16 +71,6 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
 		}
 	}
 
-	/*Login.signin({
-	  "email" : "visitor@mail.com",
-	  "password" : "123456",
-	  "device" : {
-	    "id" : "123",
-	    "model" : "galaxy note3"
-	  },
-	}).success(function(resp){
-	    console.log(resp)
-	})*/
 });
 
  
