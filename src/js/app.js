@@ -72,8 +72,8 @@ app.config(function($routeProvider, $locationProvider) {
     }, false);
 
 
-    $rootScope.$on("$routeChangeSuccess", function(){
-    	if($location.url().indexOf("login")==-1){console.log(localStorage['userToken'])
+    $rootScope.$on("$routeChangeSuccess", function(a,b,c){
+    	if($location.url().indexOf("login")==-1){
 			if(localStorage['userToken']){
 				if(AppInfo.service.Device.isOnline()){
 					Categories.query(
@@ -94,6 +94,7 @@ app.config(function($routeProvider, $locationProvider) {
     		delete localStorage.userToken;
     	}
 	});
+
 
 	
 	// MOCK - autoLogin
