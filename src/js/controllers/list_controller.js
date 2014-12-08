@@ -39,6 +39,7 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 		});
 	}
 
+  AppFunc.initPushwoosh();
 
 	$scope.getImage = function(id){
 		/*if(localStorage["image_"+id]){

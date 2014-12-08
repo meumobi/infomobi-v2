@@ -84,7 +84,20 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova'])
 			} else {
 				alert(message);
 			}
-		}
-	}
+	},
+  initPushwoosh: function() {
+    deviceReady(function(){
+      if (window.plugins.pushNotification){
+      	if(device.platform == "Android") {
+      		registerPushwooshAndroid();
+      	}
+        if (device.platform == "iPhone" || device.platform == "iOS") {
+          registerPushwooshIOS();
+        }
+      }
+    });
+  }
+};
+
 	return app;
 })

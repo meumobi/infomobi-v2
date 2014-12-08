@@ -35,7 +35,7 @@
     <gap:plugin name="nl.x-services.plugins.toast" />
 		
 		<gap:plugin name="com.jcjee.plugins.emailcomposer" version="1.4.6" />
-		<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
+		<gap:plugin name="com.pushwoosh.plugins.pushwoosh" version="3.4.1" />
     <gap:plugin name="nl.x-services.plugins.socialsharing" />
 		
 		<icon src="icon.png" />
