@@ -67,4 +67,14 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 			timeout: TIMEOUT
 		}
 	});
+})
+
+
+.factory('Mail', function($resource, API_URL, DOMAIN, TIMEOUT){
+	return $resource(API_URL+DOMAIN+'/mail/:id', {id: '@_id'},{
+		save : {
+			method: 'POST',
+			headers: {'X-Visitor-Token': localStorage['userToken']}
+		}
+	});
 });
