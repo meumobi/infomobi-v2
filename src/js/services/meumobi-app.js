@@ -87,7 +87,7 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova'])
 	},
   initPushwoosh: function() {
     deviceReady(function(){
-      if (window.plugins.pushNotification){
+      if (window.plugins && window.plugins.pushNotification){
       	if(device.platform == "Android") {
       		registerPushwooshAndroid();
       	}

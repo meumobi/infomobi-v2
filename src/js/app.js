@@ -11,6 +11,7 @@ var app = angular.module('InfoBox', [
 	//'ngCachedResource',
 	//'services.Analytics',
 	'infoboxApp.controllers.Account',
+	'infoboxApp.controllers.Contact',
 	'infoboxApp.controllers.Login',
 	'infoboxApp.controllers.List',
 	'infoboxApp.controllers.Show',
@@ -34,6 +35,10 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 	.when('/account', {
 		templateUrl: "account.html",
 		controller: "AccountCtrl"
+	})
+	.when('/contact', {
+		templateUrl: "contact.html",
+		controller: "ContactCtrl"
 	})
 	.when('/login', {
 		templateUrl: "login.html",

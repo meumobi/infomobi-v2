@@ -21,7 +21,7 @@
 
     <div class="navbar navbar-app navbar-absolute-top ib-nav-top" ng-class="{'ib-hidden' : !NavBars.visibility()}">
         <div class="navbar-brand navbar-brand-center" yield-to="title">
-            <img src="images/logo app infobox.png" alt="infoBox"/>
+            <img src="images/infobox_final-03.png" alt="infoBox"/>
         </div>
         <div class="btn-group pull-left" yield-to="navbarActionLeft">
         	<button ng-click="go('back','slideRight')" class="btn btn-primary" ng-show="NavBars.canBack()" >
@@ -37,7 +37,10 @@
             <a ng-click="go('/list')" class="btn btn-navbar">
                 <i class="fa fa-rss fa-navbar fa-2x"></i><br/><span>Notícias</span>
             </a>
-            <a ng-click="mailto()" class="btn btn-navbar">
+            <!--a ng-click="mailto()" class="btn btn-navbar">
+                <i class="fa fa-envelope fa-navbar fa-2x"></i><br/><span>Contato</span>
+            </a-->
+            <a ng-click="go('/contact')" class="btn btn-navbar">
                 <i class="fa fa-envelope fa-navbar fa-2x"></i><br/><span>Contato</span>
             </a>
             <a ng-click="go('/account')" class="btn btn-navbar">
