@@ -1,19 +1,19 @@
 'use strict';
 
-angular.module('meumobi.app', ['infoboxApp.services.Cordova'])
+angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
 
-.factory('AppInfo', function(deviceReady, $rootScope) {
+.factory('AppInfo', function(deviceReady, AppUtils, $rootScope) {
 	var app = {
 		service : {
 			Device : {
 				isOnline : function(){return false;},
-				information: function(){return "";}
+				information: function(){return "none";}
 			}
 		}
 	};
 	
 	deviceReady(function(){
-		$rootScope.$apply(function(){
+		AppUtils.safeApply($rootScope, function(){
 			app.service = {
 				Device : {
 					isOnline : function(){
@@ -38,7 +38,7 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova'])
 						return connection;
 					},
 					information : function(){
-						var informations;
+						var informations;console.log('heyyy') 
 						if(window.cordova){
 							informations = {
 								"uuid" : device.uuid,
@@ -58,7 +58,7 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova'])
 					}
 				}
 			}
-        });
+		});
 		
 	});
 

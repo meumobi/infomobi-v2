@@ -28,7 +28,6 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
 						"model" : info.model
 					}
 				}
-
 				Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
 
 			}else{
