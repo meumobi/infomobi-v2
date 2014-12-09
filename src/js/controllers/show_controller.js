@@ -32,7 +32,7 @@ angular.module('infoboxApp.controllers.Show', ['meumobi.api'])
 	$rootScope.loading = false;
 
   $scope.item = $rootScope.newsList[$routeParams.id];
-
+  
 	/*Items.get({'id':$routeParams.id},
 		function(data){
 			$scope.item = data;

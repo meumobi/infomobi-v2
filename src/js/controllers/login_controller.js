@@ -2,10 +2,15 @@
 
 angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
 
-.controller('LoginController', function($rootScope, $scope, $location, Login, AppInfo){
+.controller('LoginController', function($rootScope, $scope, $location, Login, AppInfo, AppFunc){
 
-	$rootScope.loading = false;
+	if (localStorage.hasOwnProperty('userToken')) {
+	  $rootScope.go('/list');
+    }	
+  
+  $rootScope.loading = false;
 
+	
 
 	$scope.Login = {
 		signin : function(){
@@ -35,6 +40,7 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
 		loginSuccess : function(resp){
 			localStorage['userToken'] = resp.token;
 			$rootScope.go('/list');
+      AppFunc.initPushwoosh();
 		},
 		loginError : function(){
 			$rootScope.loading = false;

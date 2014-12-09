@@ -33,8 +33,8 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 					limit: ITEMS_PER_PAGE
 				},
 				headers: {
-							'X-Visitor-Token': localStorage['userToken'],
-							'If-None-Match' : localStorage['ETag']
+							'X-Visitor-Token': '58f72e1a8724a26baac477a71f7761867fef2b75',//localStorage['userToken'],
+							//'If-None-Match' : localStorage['ETag']
 						 }
 			},
 			get: {
@@ -43,7 +43,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 			}
 		});
 	})
-
+  
 .factory('Login', function($resource, API_URL, DOMAIN, TIMEOUT){
 	return $resource(API_URL+DOMAIN+'/visitors/:id', {id: '@_id'},{
 		signin : {
@@ -67,4 +67,30 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 			timeout: TIMEOUT
 		}
 	});
-});
+})
+
+.factory('errorInterceptor', ['$q', '$location',
+    function ($q, $rootScope, $location) {
+        return {
+            request: function (config) {
+                return config || $q.when(config);
+            },
+            requestError: function(request){
+                return $q.reject(request);
+            },
+            response: function (response) {
+                return response || $q.when(response);
+            },
+            responseError: function (response) {
+                if (response && response.status === 404) {
+                }
+                if (response && response.status === 401) {
+                  delete localStorage.userToken;
+                  //$rootScope.go('/login');
+                }
+                if (response && response.status >= 500) {
+                }
+                return $q.reject(response);
+            }
+        };
+}]);

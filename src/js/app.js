@@ -20,7 +20,8 @@ var app = angular.module('InfoBox', [
 	'meumobi.utils'
 ])
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(function($routeProvider, $locationProvider, $httpProvider) {
+  $httpProvider.interceptors.push('errorInterceptor'); 
 
 	$routeProvider.when('/list', {
 		templateUrl: "list.html",
@@ -44,7 +45,7 @@ app.config(function($routeProvider, $locationProvider) {
 	.otherwise({redirectTo: '/login'});
 })
 
-.run(['$rootScope', '$location', '$window', '$routeParams','Categories', '$http', 'AppInfo', function ($rootScope, $location, $window, $routeParams, Categories, $http, AppInfo) {
+.run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
 
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
 
@@ -70,36 +71,6 @@ app.config(function($routeProvider, $locationProvider) {
     		$rootScope.go('back','slideRight');		
     	}
     }, false);
-
-
-    $rootScope.$on("$routeChangeSuccess", function(){
-    	if($location.url().indexOf("login")==-1){console.log(localStorage['userToken'])
-			if(localStorage['userToken']){
-				if(AppInfo.service.Device.isOnline()){
-					Categories.query(
-						function(resp){console.log('authorized')
-							// authorized user
-						},
-						function(err){console.log(err,'non authorized')
-							// invalid token
-							//delete localStorage.userToken;
-							//$rootScope.go('/login');
-						}
-					);
-				}
-			}else{
-				$rootScope.go('/login');	
-			}
-    	}else{
-    		delete localStorage.userToken;
-    	}
-	});
-
-	
-	// MOCK - autoLogin
-	if(localStorage['userToken']){
-		//$rootScope.go('/list');
-	}
 
 }]);
 
