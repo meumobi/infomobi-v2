@@ -33,7 +33,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 					limit: ITEMS_PER_PAGE
 				},
 				headers: {
-							'X-Visitor-Token': '58f72e1a8724a26baac477a71f7761867fef2b75',//localStorage['userToken'],
+							'X-Visitor-Token': localStorage['userToken'],
 							//'If-None-Match' : localStorage['ETag']
 						 }
 			},
@@ -93,7 +93,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
                 return $q.reject(response);
             }
         };
-}]);
+}])
 
 .factory('Mail', function($resource, API_URL, DOMAIN, TIMEOUT){
 	return $resource(API_URL+DOMAIN+'/mail/:id', {id: '@_id'},{
