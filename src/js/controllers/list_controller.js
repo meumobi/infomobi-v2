@@ -7,7 +7,7 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 	$scope.items = $rootScope.newsList;
 	
 	// Use it if Stub
-	//$scope.items = Items.latest();
+	//Items.latest();
 	//$rootScope.loading = false;
 	
 	Items.latest(
@@ -18,7 +18,7 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 			localStorage['newsList'] = JSON.stringify(data.items);	
 		},
 		function(error, status) {
-			$rootScope.go('login');
+			//$rootScope.go('login');
 			// TODO: Display an error msg and invite to retry
 			// error and status come empty. Should investigate
 			console.log(status);

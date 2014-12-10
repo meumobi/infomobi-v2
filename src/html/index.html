@@ -31,32 +31,32 @@
         </div>
     </div>
 
-    <div class="nav-bottom" ng-if="NavBars.visibility()">
+    <div class="navbar navbar-app navbar-absolute-bottom nav-bottom" ng-if="NavBars.visibility()">
         <div class="btn-group justified">
             <a ng-click="go('/list')" class="btn btn-navbar">
-                <i class="fa fa-rss fa-navbar fa-2x"></i><br/><span>Notícias</span>
+                <i class="fa fa-rss fa-navbar"></i> Notícias
             </a>
             <!--a ng-click="mailto()" class="btn btn-navbar">
                 <i class="fa fa-envelope fa-navbar fa-2x"></i><br/><span>Contato</span>
             </a-->
             <a ng-click="go('/contact')" class="btn btn-navbar">
-                <i class="fa fa-envelope fa-navbar fa-2x"></i><br/><span>Contato</span>
+                <i class="fa fa-envelope fa-navbar"></i> Contato
             </a>
             <a ng-click="go('/account')" class="btn btn-navbar">
-                <i class="fa fa-user fa-navbar fa-2x"></i><br/><span>Conta</span>
+                <i class="fa fa-user fa-navbar"></i> Conta
             </a>
-            <a ng-click="go('/about')" class="btn btn-navbar">
+            <!--a ng-click="go('/about')" class="btn btn-navbar">
                 <i class="fa fa-info-circle fa-navbar fa-2x"></i><br/><span>Info</span>
-            </a>
+            </a-->
         </div>
     </div>
 
     <!-- App Body -->
-    <div class="app-body page-container ib-page-container" ng-class="{loading: loading, 'ib-login-screen-container' : !NavBars.visibility()}">
+    <div class="app-body" ng-class="{loading: loading, 'ib-login-screen-container' : !NavBars.visibility()}">
         <div ng-show="loading" class="app-content-loading">
             <i class="fa fa-spinner fa-spin loading-spinner"></i>
         </div>
-        <ng-view class="app-content page-view" ng-class="pageAnimationClass" ng-hide="loading"></ng-view>
+        <ng-view class="app-content" ng-class="pageAnimationClass" ng-hide="loading"></ng-view>
     </div>
 </div><!-- ~ .app -->
 </body>

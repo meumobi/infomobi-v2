@@ -4,7 +4,7 @@ angular.module('meumobi.settings', [])
 
 .constant('DOMAIN', "infobox.int-meumobi.com")
 .constant('API_URL', "http://int-meumobi.com/api/")
-.constant('TIMEOUT', 3000)
+.constant('TIMEOUT', 5000)
 .constant('ITEMS_PER_PAGE', 10)
 
 
@@ -50,7 +50,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 			method : 'POST',
 			url: API_URL+DOMAIN+'/visitors/login',
 			timeout: TIMEOUT,
-			cache: true
+			//cache: true
 		},
 		get : {
 			cache : true,
@@ -69,6 +69,8 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 	});
 })
 
+// Simple Authentication for Angular.js App: http://beletsky.net/2013/11/simple-authentication-in-angular-dot-js-app.html
+
 .factory('errorInterceptor', ['$q', '$location',
     function ($q, $rootScope, $location) {
         return {
@@ -86,7 +88,6 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
                 }
                 if (response && response.status === 401) {
                   delete localStorage.userToken;
-                  //$rootScope.go('/login');
                 }
                 if (response && response.status >= 500) {
                 }
@@ -99,7 +100,8 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 	return $resource(API_URL+DOMAIN+'/mail/:id', {id: '@_id'},{
 		save : {
 			method: 'POST',
-			headers: {'X-Visitor-Token': localStorage['userToken']}
+			headers: {'X-Visitor-Token': localStorage['userToken']},
+      //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'}
 		}
 	});
 });
