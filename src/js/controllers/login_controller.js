@@ -38,6 +38,7 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
 		password : "",
 		loginSuccess : function(resp){
 			localStorage['userToken'] = resp.token;
+      localStorage.mail = $scope.Login.username;
 			$rootScope.go('/list');
       AppFunc.initPushwoosh();
 		},

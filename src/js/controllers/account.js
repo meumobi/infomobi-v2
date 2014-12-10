@@ -3,7 +3,7 @@ angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main',
 .controller('AccountCtrl', function($rootScope, $scope, $location, Login, AppInfo, AppFunc){
 	
 	$scope.user = {
-		mail:'victor.dias@siemens.com.br', 
+		mail: localStorage.mail ? localStorage.mail : 'default@siemens.com', 
 		password:'',
 		newPassword:'',
 		confirmNewPassword : ''
