@@ -2,8 +2,8 @@
 
 angular.module('meumobi.settings', [])
 
-.constant('DOMAIN', "infobox.int-meumobi.com")
-.constant('API_URL', "http://int-meumobi.com/api/")
+.constant('DOMAIN', "infobox.ipanemax.com")
+.constant('API_URL', "http://infobox.meumobilesite.com/api/")
 .constant('TIMEOUT', 5000)
 .constant('ITEMS_PER_PAGE', 10)
 
