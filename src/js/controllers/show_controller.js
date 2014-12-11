@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.Show', ['meumobi.api'])
+angular.module('infoboxApp.controllers.Show', ['meumobi.api','meumobi.settings'])
 
-.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, Items){
+.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, Items, SRC_URL){
 
   $scope.getTrustedResourceUrl = function(src) {
       return $sce.trustAsResourceUrl(src);
@@ -51,7 +51,7 @@ angular.module('infoboxApp.controllers.Show', ['meumobi.api'])
     /*if(localStorage["image_"+id]){
       return localStorage["image_"+id];
     }*/
-    return 'http://int-meumobi.com/'+id;
+    return SRC_URL+id;
   }
 });
 

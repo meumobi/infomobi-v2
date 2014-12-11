@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.List', ['meumobi.api'])
+angular.module('infoboxApp.controllers.List', ['meumobi.api','meumobi.settings'])
 
-.controller('ListController', function($rootScope, $scope, Items, SyncNews, AppFunc, $timeout) {
+.controller('ListController', function($rootScope, $scope, Items, SyncNews, AppFunc, $timeout, SRC_URL) {
 	
 	$scope.items = $rootScope.newsList;
 	
@@ -44,7 +44,7 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api'])
 		/*if(localStorage["image_"+id]){
 			return localStorage["image_"+id];
 		}*/
-		return 'http://int-meumobi.com/'+path;
+		return SRC_URL+path;
 	}
 
 	//$scope.listItems();
