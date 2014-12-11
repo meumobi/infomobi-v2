@@ -4,7 +4,7 @@ angular.module('meumobi.settings', [])
 
 .constant('DOMAIN', "infobox.int-meumobi.com")
 .constant('API_URL', "http://int-meumobi.com/api/")
-.constant('SRC_URL', "http://int-meumobi.com")
+.constant('SRC_URL', "http://int-meumobi.com/")
 .constant('TIMEOUT', 5000)
 .constant('ITEMS_PER_PAGE', 10)
 
