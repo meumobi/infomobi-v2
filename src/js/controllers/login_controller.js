@@ -42,22 +42,17 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
 			$rootScope.go('/list');
       AppFunc.initPushwoosh();
 		},
-		loginError : function(){
+		loginError : function(resp){
 			$rootScope.loading = false;
+			var msg;
 
-			var msg = "Usuário e/ou Senha inválido(s)!";
-			if (window.plugins && window.plugins.toast) {
-				window.plugins.toast.showLongBottom(msg, 
-					function(a){
-						console.log('toast success: ' + a)
-					},
-					function(b){
-						console.log('toast error: ' + b)
-					}
-				);
-			} else {
-				alert(msg);
+			if(resp.error && resp.error=="Invalid visitor"){
+				msg = "Usuário e/ou Senha inválido(s)!";
+			}else{
+				msg = "Erro ao realizar login. Tente novamente.";
 			}
+
+			AppFunc.toast(msg);
 		},
 		saveDeviceInformation : function(){
 			var info = AppInfo.service.Device.information();
