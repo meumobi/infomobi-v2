@@ -5,7 +5,7 @@
 <div class="scrollable">
 	<div class="scrollable-content">
 		<div class="thumbnail">
-			<img ng-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}" ng-show="item.images.length">
+			<img ng-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}" ng-if="item.images.length">
 			<div class="caption">
 				<h4>
 					{{item.title}}<br>
