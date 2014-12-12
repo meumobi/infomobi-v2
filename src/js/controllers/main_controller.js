@@ -27,5 +27,8 @@ angular.module('infoboxApp.controllers.Main', [])
 			}return true;
 		}
 	}
+
+
+
 });
 
