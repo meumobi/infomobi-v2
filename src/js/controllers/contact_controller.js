@@ -9,7 +9,7 @@ angular.module('infoboxApp.controllers.Contact', ['meumobi.api'])
 
   $scope.Contact = {
     informations : {
-      name : "",
+      name : "infobox",
       mail : localStorage.mail ? localStorage.mail : "contact@meumobi.com",
       phone : "",
       message : ""

@@ -47,7 +47,7 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils'])
 				for(var i = 0, totalImages = atualNews.images.length; i < totalImages; i++){
 					var img = atualNews.images[i];
 					images.push({
-						url : "http://int-meumobi.com/"+img.path,
+						url : "http://infobox.meumobilesite.com/"+img.path,
 						id : img.id
 					});
 				}
