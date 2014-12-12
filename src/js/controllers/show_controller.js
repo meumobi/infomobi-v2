@@ -2,7 +2,7 @@
 
 angular.module('infoboxApp.controllers.Show', ['meumobi.api','meumobi.settings'])
 
-.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, Items, SRC_URL){
+.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, Items, SITE){
 
   $scope.getTrustedResourceUrl = function(src) {
       return $sce.trustAsResourceUrl(src);
@@ -47,11 +47,12 @@ angular.module('infoboxApp.controllers.Show', ['meumobi.api','meumobi.settings']
 		}
 	);*/
 
+
   $scope.getImage = function(id){
     /*if(localStorage["image_"+id]){
       return localStorage["image_"+id];
     }*/
-    return SRC_URL+id;
+    return SITE.SRC_URL+id;
   }
 });
 

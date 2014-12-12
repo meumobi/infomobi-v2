@@ -2,7 +2,7 @@
 
 angular.module('infoboxApp.controllers.List', ['meumobi.api','meumobi.settings'])
 
-.controller('ListController', function($rootScope, $scope, Items, SyncNews, AppFunc, $timeout, SRC_URL) {
+.controller('ListController', function($rootScope, $scope, Items, SyncNews, AppFunc, $timeout, SITE) {
 	
 	$scope.items = $rootScope.newsList;
 	
@@ -44,7 +44,7 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api','meumobi.settings']
 		/*if(localStorage["image_"+id]){
 			return localStorage["image_"+id];
 		}*/
-		return SRC_URL+path;
+		return SITE.SRC_URL+path;
 	}
 
 	//$scope.listItems();

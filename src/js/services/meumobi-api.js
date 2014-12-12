@@ -1,21 +1,9 @@
 'use strict';
 
-angular.module('meumobi.settings', [])
-
-.constant('DOMAIN', "infobox.int-meumobi.com")
-.constant('API_URL', "http://int-meumobi.com/api/")
-.constant('SRC_URL', "http://int-meumobi.com/")
-.constant('TIMEOUT', 5000)
-.constant('ITEMS_PER_PAGE', 10)
-
-
-
-
-
 angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 
-.factory('Categories', function($resource, API_URL, DOMAIN, TIMEOUT) {
-	return $resource(API_URL+DOMAIN+'/categories/:id', {id: '@_id'},{
+.factory('Categories', function($resource, SITE) {
+	return $resource(SITE.API_URL+SITE.DOMAIN+'/categories/:id', {id: '@_id'},{
 		query : {
 			isArray:true,
 			headers: {'X-Visitor-Token': localStorage['userToken']},
@@ -25,15 +13,15 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 })
 	
 .factory('Items', 
-	function($resource, API_URL, DOMAIN, TIMEOUT, ITEMS_PER_PAGE) {
-		return $resource(API_URL+DOMAIN+'/items/:id', {id: '@_id'}, {
+	function($resource, SITE) {
+		return $resource(SITE.API_URL+SITE.DOMAIN+'/items/:id', {id: '@_id'}, {
 			latest: {
 				method: 'GET',
-				url: API_URL+DOMAIN+'/items/latest', 
-				timeout: TIMEOUT,
+				url: SITE.API_URL+SITE.DOMAIN+'/items/latest', 
+				timeout: SITE.TIMEOUT,
 				cache: false,
 				params: {
-					limit: ITEMS_PER_PAGE
+					limit: SITE.ITEMS_PER_PAGE
 				},
 				headers: {
 							'X-Visitor-Token': localStorage['userToken'],
@@ -47,12 +35,12 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 		});
 	})
   
-.factory('Login', function($resource, API_URL, DOMAIN, TIMEOUT){
-	return $resource(API_URL+DOMAIN+'/visitors/:id', {id: '@_id'},{
+.factory('Login', function($resource, SITE){
+	return $resource(SITE.API_URL+SITE.DOMAIN+'/visitors/:id', {id: '@_id'},{
 		signin : {
 			method : 'POST',
-			url: API_URL+DOMAIN+'/visitors/login',
-			timeout: TIMEOUT,
+			url: SITE.API_URL+SITE.DOMAIN+'/visitors/login',
+			timeout: SITE.TIMEOUT,
 			//cache: true
 		},
 		get : {
@@ -66,8 +54,8 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 		device : {
 			method: 'POST',
 			headers: {'X-Visitor-Token': localStorage['userToken']},
-			url: API_URL+DOMAIN+'/visitors/devices',
-			timeout: TIMEOUT
+			url: SITE.API_URL+SITE.DOMAIN+'/visitors/devices',
+			timeout: SITE.TIMEOUT
 		}
 	});
 })
@@ -99,8 +87,8 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
         };
 }])
 
-.factory('Mail', function($resource, API_URL, DOMAIN, TIMEOUT){
-	return $resource(API_URL+DOMAIN+'/mail/:id', {id: '@_id'},{
+.factory('Mail', function($resource, SITE){
+	return $resource(SITE.API_URL+SITE.DOMAIN+'/mail/:id', {id: '@_id'},{
 		save : {
 			method: 'POST',
 			headers: {'X-Visitor-Token': localStorage['userToken']},

@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils'])
+angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils', 'meumobi.settings'])
 
-.factory('SyncNews', function(Items,AppInfo, AppUtils, $rootScope) {
+.factory('SyncNews', function(Items,AppInfo, AppUtils, $rootScope, SITE) {
 	
 	var app = {
 		get : function(callback){
@@ -47,7 +47,7 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils'])
 				for(var i = 0, totalImages = atualNews.images.length; i < totalImages; i++){
 					var img = atualNews.images[i];
 					images.push({
-						url : "http://infobox.meumobilesite.com/"+img.path,
+						url : SITE.SRC_URL+img.path,
 						id : img.id
 					});
 				}
