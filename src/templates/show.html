@@ -16,7 +16,7 @@
   					<span class="btn btn-white btn-xs"><i class="fa fa-file-o"></i> download</span> {{media.title}}
   				</a>
 				</p>
-				<div ng-bind-html="item.description"></div>
+				<div ng-bind-html="item.description | hrefToJS"></div>
 			</div>
 		</div>
 	</div>
