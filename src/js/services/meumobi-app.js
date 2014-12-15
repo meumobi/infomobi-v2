@@ -84,20 +84,35 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
 			} else {
 				alert(message);
 			}
-	},
-  initPushwoosh: function() {
-    deviceReady(function(){
-      if (window.plugins && window.plugins.pushNotification){
-      	if(device.platform == "Android") {
-      		registerPushwooshAndroid();
-      	}
-        if (device.platform == "iPhone" || device.platform == "iOS") {
-          registerPushwooshIOS();
-        }
-      }
-    });
-  }
-};
+		},
+	  	initPushwoosh: function() {
+		    deviceReady(function(){
+		      if (window.plugins && window.plugins.pushNotification){
+		      	if(device.platform == "Android") {
+		      		registerPushwooshAndroid();
+		      	}
+		        if (device.platform == "iPhone" || device.platform == "iOS") {
+		          registerPushwooshIOS();
+		        }
+		      }
+		    });
+	  	},
+	  	startApp : {
+	  		executeAll : function(){
+	  			var that = this;
+  		  		deviceReady(function(){
+  		  			that.hideSplashScreen();
+  		  			console.log("cordova app started");
+  		  		});
+  		  	},
+  		  	hideSplashScreen : function(){
+  		  		if(navigator.splashScreen){
+  		  			navigator.splashscreen.hide();
+  		  		}
+  		  	}
+
+		}
+	};
 
 	return app;
 })

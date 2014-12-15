@@ -18,7 +18,10 @@
     <preference name="detect-data-types" value="true" />
     <preference name="exit-on-suspend" value="false" />
     <preference name="show-splash-screen-spinner" value="true" />
-    <preference name="auto-hide-splash-screen" value="true" />
+    <!-- Do not auto hide splash on iOS -->
+	<preference name="AutoHideSplashScreen" value="false" />
+	<!-- Do not auto hide splash on Android -->
+	<preference name="SplashScreenDelay" value="10000"/>
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />

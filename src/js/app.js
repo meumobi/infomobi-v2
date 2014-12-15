@@ -50,7 +50,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 	.otherwise({redirectTo: '/login'});
 })
 
-.run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
+.run(['$rootScope', '$location', '$window', 'AppFunc', function ($rootScope, $location, $window, AppFunc) {
 
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
 
@@ -76,6 +76,8 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     		$rootScope.go('back','slideRight');		
     	}
     }, false);
+
+    AppFunc.startApp.executeAll();
 
 }]);
 
