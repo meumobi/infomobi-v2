@@ -2,18 +2,18 @@
 
 angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 
-.factory('Categories', function($resource, SITE) {
+.factory('Categories', function($resource, SITE, $rootScope) {
 	return $resource(SITE.API_URL+SITE.DOMAIN+'/categories/:id', {id: '@_id'},{
 		query : {
 			isArray:true,
-			headers: {'X-Visitor-Token': localStorage['userToken']},
+			headers: {'X-Visitor-Token': $rootScope.userToken},
 			cache: false
 		}
 	});
 })
 	
 .factory('Items', 
-	function($resource, SITE) {
+	function($resource, SITE, $rootScope) {
 		return $resource(SITE.API_URL+SITE.DOMAIN+'/items/:id', {id: '@_id'}, {
 			latest: {
 				method: 'GET',
@@ -24,18 +24,18 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 					limit: SITE.ITEMS_PER_PAGE
 				},
 				headers: {
-							'X-Visitor-Token': localStorage['userToken'],
+							'X-Visitor-Token': $rootScope.userToken,
 							//'If-None-Match' : localStorage['ETag']
 						 }
 			},
 			get: {
 				//cache : true,
-				headers: {'X-Visitor-Token': localStorage['userToken']}
+				headers: {'X-Visitor-Token': $rootScope.userToken}
 			}
 		});
 	})
   
-.factory('Login', function($resource, SITE){
+.factory('Login', function($resource, SITE, $rootScope){
 	return $resource(SITE.API_URL+SITE.DOMAIN+'/visitors/:id', {id: '@_id'},{
 		signin : {
 			method : 'POST',
@@ -45,15 +45,15 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 		},
 		get : {
 			cache : true,
-			headers: {'X-Visitor-Token': localStorage['userToken']}
+			headers: {'X-Visitor-Token': $rootScope.userToken}
 		},
 		save : {
 			method: 'POST',
-			headers: {'X-Visitor-Token': localStorage['userToken']}
+			headers: {'X-Visitor-Token': $rootScope.userToken}
 		},
 		device : {
 			method: 'POST',
-			headers: {'X-Visitor-Token': localStorage['userToken']},
+			headers: {'X-Visitor-Token': $rootScope.userToken},
 			url: SITE.API_URL+SITE.DOMAIN+'/visitors/devices',
 			timeout: SITE.TIMEOUT
 		}
@@ -62,7 +62,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 
 // Simple Authentication for Angular.js App: http://beletsky.net/2013/11/simple-authentication-in-angular-dot-js-app.html
 
-.factory('errorInterceptor', ['$q', '$location',
+.factory('errorInterceptor', ['$q', '$rootScope', '$location',
     function ($q, $rootScope, $location) {
         return {
             request: function (config) {
@@ -79,6 +79,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
                 }
                 if (response && response.status === 401) {
                   delete localStorage.userToken;
+                  delete localStorage.mail;
                 }
                 if (response && response.status >= 500) {
                 }
@@ -87,12 +88,13 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
         };
 }])
 
-.factory('Mail', function($resource, SITE){
+.factory('Mail', function($resource, SITE, $rootScope){
 	return $resource(SITE.API_URL+SITE.DOMAIN+'/mail/:id', {id: '@_id'},{
 		save : {
 			method: 'POST',
-			headers: {'X-Visitor-Token': localStorage['userToken']},
+			headers: {'X-Visitor-Token': $rootScope.userToken},
       //headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'}
 		}
 	});
-});
+})
+

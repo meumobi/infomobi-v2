@@ -53,6 +53,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 .run(['$rootScope', '$location', '$window', 'AppFunc', function ($rootScope, $location, $window, AppFunc) {
 
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
+	$rootScope.userToken = localStorage['userToken'] || "";
 
 
     $rootScope.go = function (path, pageAnimationClass) {
