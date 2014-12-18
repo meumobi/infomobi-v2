@@ -1,6 +1,6 @@
 angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main', 'meumobi.api'])
 
-.controller('AccountCtrl', function($rootScope, $scope, $location, Login, AppInfo, AppFunc){
+.controller('AccountCtrl', function($rootScope, $scope, $location, API, AppInfo, AppFunc){
 	
 	$scope.user = {
 		mail: localStorage.mail ? localStorage.mail : 'default@siemens.com', 
@@ -24,7 +24,7 @@ angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main',
 		},
 		sendChange : function(){
 			var userInformation = {current_password : $scope.user.password, password : $scope.user.newPassword}
-			Login.save(userInformation,$scope.PasswordChanger.success, $scope.PasswordChanger.error);
+			API.Login.save(userInformation,$scope.PasswordChanger.success, $scope.PasswordChanger.error);
 		},
 		error : function(resp){
 			var msg = "";

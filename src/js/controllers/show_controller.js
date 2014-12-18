@@ -2,7 +2,7 @@
 
 angular.module('infoboxApp.controllers.Show', ['meumobi.api','meumobi.settings','meumobi.filters'])
 
-.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, Items, SITE){
+.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, API, SITE){
 
   $scope.getTrustedResourceUrl = function(src) {
       return $sce.trustAsResourceUrl(src);
@@ -33,20 +33,6 @@ angular.module('infoboxApp.controllers.Show', ['meumobi.api','meumobi.settings',
 
   $scope.item = $rootScope.newsList[$routeParams.id];
   
-	/*Items.get({'id':$routeParams.id},
-		function(data){
-			$scope.item = data;
-			$rootScope.loading = false;
-		},
-		function(error, status) {
-			$rootScope.loading = false;
-			// TODO: Display an error msg and invite to retry
-			// error and status come empty. Should investigate
-			console.log(status);
-			console.log("Request Failed:" + error);
-		}
-	);*/
-
 
   $scope.getImage = function(id){
     /*if(localStorage["image_"+id]){

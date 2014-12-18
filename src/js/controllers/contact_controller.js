@@ -2,7 +2,7 @@
 
 angular.module('infoboxApp.controllers.Contact', ['meumobi.api'])
 
-.controller('ContactCtrl', function($rootScope, $scope, Mail, AppFunc){
+.controller('ContactCtrl', function($rootScope, $scope, API, AppFunc){
 
   
 	$rootScope.loading = false;
@@ -16,7 +16,7 @@ angular.module('infoboxApp.controllers.Contact', ['meumobi.api'])
     },
     sendMail : function(){
       $rootScope.loading = true;
-      Mail.save($scope.Contact.informations,$scope.Contact.success,$scope.Contact.error);
+      API.Mail.save($scope.Contact.informations,$scope.Contact.success,$scope.Contact.error);
     },
     success : function(resp){
       console.log(resp);

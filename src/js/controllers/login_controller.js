@@ -2,7 +2,7 @@
 
 angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
 
-.controller('LoginController', function($rootScope, $scope, $location, Login, AppInfo, AppFunc){
+.controller('LoginController', function($rootScope, $scope, $location, API, AppInfo, AppFunc){
 
 	if (localStorage.hasOwnProperty('userToken')) {
 	  $rootScope.go('/list');
@@ -28,7 +28,7 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
 						"model" : info.model
 					}
 				}
-				Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
+				API.Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
 
 			}else{
 				$scope.Login.loginError();
@@ -41,7 +41,7 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
       		$rootScope.userToken = resp.token;
       		localStorage.mail = $scope.Login.username;
 			$rootScope.go('/list');
-      AppFunc.initPushwoosh();
+      		AppFunc.initPushwoosh();
 		},
 		loginError : function(resp){
 			$rootScope.loading = false;
@@ -62,7 +62,7 @@ angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
 				"model" : info.model
 			}
 			
-			Login.device(device,
+			API.Login.device(device,
 				function(resp){
 					console.log(resp);
 				},

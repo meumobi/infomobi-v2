@@ -98,3 +98,119 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 	});
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+.factory('API', function ($http, SITE, $rootScope) {
+    var api = (function(){
+        return{
+            get : function(endp,success,error){
+                $http({
+                    method: 'GET', 
+                    url: SITE.API_URL+SITE.DOMAIN+endp,
+                    responseType: 'json',
+                    headers: {
+                        'X-Visitor-Token': $rootScope.userToken
+                    }
+                })
+                .success(success)
+                .error(error);
+            },
+            post : function(endp,obj,success,error){
+                $http({
+                    method: 'POST', 
+                    url: SITE.API_URL+SITE.DOMAIN+endp,
+                    data: JSON.stringify(obj),
+                    responseType : 'json',
+                    headers: {
+                        "Content-Type": "application/json",
+                        'X-Visitor-Token': $rootScope.userToken
+                    }
+                })
+                .success(success)
+                .error(error);
+            },
+            put : function(endp, obj, success, error){
+                $http({
+                    method: 'PUT', 
+                    url: SITE.API_URL+SITE.DOMAIN+endp,
+                    data: JSON.stringify(obj),
+                    responseType : 'json',
+                    headers: {
+                        "Content-Type": "application/json",
+                        'X-Visitor-Token': $rootScope.userToken
+                    }
+                })
+                .success(success)
+                .error(error);
+            },
+            del : function(endp, id, success, error){
+                $http({
+                    method: 'DELETE', 
+                    url: SITE.API_URL+SITE.DOMAIN+endp,
+                    responseType: 'json',
+                    'X-Visitor-Token': $rootScope.userToken
+                })
+                .success(success)
+                .error(error);
+            }
+        }
+    })();
+
+    var app = {
+        Categories : (function(){
+        	var path = '/categories/';
+            return{
+        		query: function(success, error){
+        			api.get(path, success, error);
+        		}
+            }
+        })(),
+        Items : (function(){
+        	var path = '/items/';
+        	return{
+	        	latest: function(success, error){
+	        		api.get(path + 'latest', success, error);
+	        	}
+        	}
+        })(),
+        Login: (function(){
+        	var path = '/visitors/';
+        	return{
+        		signin: function(obj, success, error){
+        			api.post(path + 'login', obj, success, error);
+        		},
+        		get: function(success, error){
+        			api.get(path,success, error);
+        		},
+        		save: function(obj, success, error){
+        			api.post(path, obj, success, error);
+        		},
+        		device: function(obj, success, error){
+        			api.post(path + 'devices', obj, success, error);
+        		}
+        	}
+        })(),
+        Mail: (function(){
+        	var path = '/mail/';
+        	return{
+        		save: function(obj, success, error){
+        			api.post(path, obj, success, error);
+        		}
+        	}
+        })()
+    }
+	return app;
+});
+
+
