@@ -65,7 +65,7 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
 	return app;
 })
 
-.factory('AppFunc', function(deviceReady){
+.factory('AppFunc', function(deviceReady,$rootScope,$location){
 	var app = {
 		toast : function(message, success, fail){
 			if (window.plugins && window.plugins.toast) {
@@ -104,15 +104,23 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
   		  			that.hideSplashScreen();
   		  			console.log("cordova app started");
   		  		});
+  		  		that.backButton();
   		  	},
   		  	hideSplashScreen : function(){
   		  		if(navigator.splashScreen){
   		  			navigator.splashscreen.hide();
   		  		}
+  		  	},
+  		  	backButton : function(){
+				document.addEventListener("backbutton", function(){
+			    	if($location.url().indexof("/show")!=-1){
+			    		$rootScope.go('back','slideRight');		
+			    	}
+			    }, false);
   		  	}
-
 		}
 	};
+
 
 	return app;
 })

@@ -81,12 +81,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     	}
     });
 
-    document.addEventListener("backbutton", function(){
-    	if($location.url().indexof("/show")!=-1){
-    		$rootScope.go('back','slideRight');		
-    	}
-    }, false);
-
+    
     AppFunc.startApp.executeAll();
 
 }]);
