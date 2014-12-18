@@ -50,7 +50,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 	.otherwise({redirectTo: '/login'});
 })
 
-.run(['$rootScope', '$location', '$window', 'AppFunc', function ($rootScope, $location, $window, AppFunc) {
+.run(['$rootScope', '$location', '$window', 'AppFunc', 'API', function ($rootScope, $location, $window, AppFunc, API) {
 
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
 	$rootScope.userToken = localStorage['userToken'] || "";
@@ -72,8 +72,17 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 
     };
 
+    $rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
+    	if(location.href.indexOf('login')==-1){
+	    	if(!$rootScope.userToken || $rootScope.userToken!=localStorage.userToken){
+	    		delete localStorage.userToken
+	    		$rootScope.go('/login');
+	    	}
+    	}
+    });
+
     document.addEventListener("backbutton", function(){
-    	if($location.url().indexOf("/show")!=-1){
+    	if($location.url().indexof("/show")!=-1){
     		$rootScope.go('back','slideRight');		
     	}
     }, false);

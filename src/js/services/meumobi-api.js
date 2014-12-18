@@ -80,6 +80,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
                 if (response && response.status === 401) {
                   delete localStorage.userToken;
                   delete localStorage.mail;
+                  $rootScope.go('/login');
                 }
                 if (response && response.status >= 500) {
                 }
@@ -210,6 +211,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
         	}
         })()
     }
+    TESTE = app;
 	return app;
 });
 
