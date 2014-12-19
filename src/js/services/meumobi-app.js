@@ -65,7 +65,7 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
 	return app;
 })
 
-.factory('AppFunc', function(deviceReady,$rootScope,$location){
+.factory('AppFunc', function(deviceReady, $rootScope, $location, $window){
 	var app = {
 		toast : function(message, success, fail){
 			if (window.plugins && window.plugins.toast) {
@@ -85,6 +85,20 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
 				alert(message);
 			}
 		},
+		transition : function (path, pageAnimationClass) {
+	        if (typeof(pageAnimationClass) === undefined) { // Use a default, your choice
+	            $rootScope.pageAnimationClass = 'crossFade';
+	        }else { // Use the specified animation
+	            $rootScope.pageAnimationClass = pageAnimationClass;
+	        }
+
+	        if (path === 'back') { // Allow a 'back' keyword to go to previous page
+	            $window.history.back();
+	        }else { // Go to the specified path
+	            $location.path(path);
+	        }
+
+	    },
 	  	initPushwoosh: function() {
 		    deviceReady(function(){
 		      if (window.plugins && window.plugins.pushNotification){
@@ -101,15 +115,11 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
 	  		executeAll : function(){
 	  			var that = this;
   		  		deviceReady(function(){
+  		  			that.receiveNotification();
   		  			that.hideSplashScreen();
   		  			console.log("cordova app started");
   		  		});
   		  		that.backButton();
-  		  	},
-  		  	hideSplashScreen : function(){
-  		  		if(navigator.splashScreen){
-  		  			navigator.splashscreen.hide();
-  		  		}
   		  	},
   		  	backButton : function(){
 				document.addEventListener("backbutton", function(){
@@ -117,6 +127,18 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
 			    		$rootScope.go('back','slideRight');		
 			    	}
 			    }, false);
+  		  	},
+  		  	hideSplashScreen : function(){
+  		  		if(navigator.splashScreen){
+  		  			navigator.splashscreen.hide();
+  		  		}
+  		  	},
+  		  	receiveNotification: function(){
+  		  		document.addEventListener('push-notification', function(event) {
+				 
+				    console.warn(JSON.stringify(event.notification));
+			    	///TODO:  Sync news
+				});
   		  	}
 		}
 	};

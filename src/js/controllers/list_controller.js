@@ -2,28 +2,11 @@
 
 angular.module('infoboxApp.controllers.List', ['meumobi.api','meumobi.settings'])
 
-.controller('ListController', function($rootScope, $scope, API, SyncNews, AppFunc, $timeout, SITE) {
+.controller('ListController', function($rootScope, $scope, API, AppFunc, $timeout, SITE) {
 	
 	$scope.items = $rootScope.newsList;
-		
-	API.Items.latest(
-		function(data) {
-			$rootScope.loading = false;
-      		$scope.items = data.items;
-      		$rootScope.newsList = data.items;
-			localStorage['newsList'] = JSON.stringify(data.items);	
-		},
-		function(error, status) {
-			//$rootScope.go('login');
-			// TODO: Display an error msg and invite to retry
-			// error and status come empty. Should investigate
-			console.log(status);
-			console.log("Request Failed:" + error);
-		}
-	);
-
-	/*
-	$scope.listItems = function(){
+	
+	/*$scope.listItems = function(){
 		SyncNews.get(function(resp, success){
 			$timeout(function(){
 				$rootScope.loading = false;

@@ -50,27 +50,12 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 	.otherwise({redirectTo: '/login'});
 })
 
-.run(['$rootScope', '$location', '$window', 'AppFunc', 'API', function ($rootScope, $location, $window, AppFunc, API) {
+.run(['$rootScope', '$location', 'AppFunc', 'API', function ($rootScope, $location, AppFunc, API) {
 
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
 	$rootScope.userToken = localStorage['userToken'] || "";
 
-
-    $rootScope.go = function (path, pageAnimationClass) {
-
-        if (typeof(pageAnimationClass) === undefined) { // Use a default, your choice
-            $rootScope.pageAnimationClass = 'crossFade';
-        }else { // Use the specified animation
-            $rootScope.pageAnimationClass = pageAnimationClass;
-        }
-
-        if (path === 'back') { // Allow a 'back' keyword to go to previous page
-            $window.history.back();
-        }else { // Go to the specified path
-            $location.path(path);
-        }
-
-    };
+    $rootScope.go = AppFunc.transition;
 
     $rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
     	if(location.href.indexOf('login')==-1){
@@ -85,6 +70,3 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     AppFunc.startApp.executeAll();
 
 }]);
-
-
-

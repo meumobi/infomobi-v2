@@ -2,7 +2,7 @@
 
 angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils', 'meumobi.settings'])
 
-.factory('SyncNews', function(Items,AppInfo, AppUtils, $rootScope, SITE) {
+.factory('SyncNews', function(API,AppInfo, AppUtils, $rootScope, SITE) {
 	
 	var app = {
 		get : function(callback){
@@ -20,10 +20,11 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils', 'me
 			}
 		},
 		list : function(callback){
-			Items.latest(
-				function(data,a,b) {console.log(data,a,b)
+			API.Items.latest(
+				function(data) {
 					var news = data.items;
 					var imagesUrls = app.getImagesFromNews(news);
+					app.deleteImages();
 					app.saveAllImages(imagesUrls,function(){
 						localStorage['newsList'] = JSON.stringify(news);
 						$rootScope.newsList = news;
@@ -64,12 +65,13 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils', 'me
 			var imagesToSave = imagesUrls.length,
 			totalImages = imagesToSave-1;
 			while(imagesToSave--){
-				app.saveImage(imagesUrls[imagesToSave],function(imageId, img64){
-					totalImages--;
-					if(imagesToSave == totalImages){
+				//can't save all the images. the 5MB limit has been exceeded
+				//app.saveImage(imagesUrls[imagesToSave],function(imageId, img64){
+					//totalImages--;
+					//if(imagesToSave == totalImages){
 						callback();
-					}
-				});
+					//}
+				//});
 			}
 
 		},
@@ -80,7 +82,7 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils', 'me
 			   }
 			}
 		}
-	};
+	};console.log('syyyyyync')
 	return app;
 
 });
