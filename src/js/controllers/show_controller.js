@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.Show', ['meumobi.api','meumobi.settings','meumobi.filters'])
+angular.module('infoboxApp.controllers.Show', [])
 
 .controller('ShowController', function($rootScope, $scope, $sce, $routeParams, API, SITE){
 

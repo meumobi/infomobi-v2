@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
+angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'])
 
 .factory('AppInfo', function(deviceReady, AppUtils, $rootScope) {
 	var app = {
@@ -63,8 +63,10 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
 	});
 
 	return app;
-})
+});
 
+
+angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 .factory('AppFunc', function(deviceReady, $rootScope, $location, $window){
 	var app = {
 		toast : function(message, success, fail){
@@ -145,4 +147,4 @@ angular.module('meumobi.app', ['infoboxApp.services.Cordova','meumobi.utils'])
 
 
 	return app;
-})
+});

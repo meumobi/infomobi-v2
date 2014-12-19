@@ -1,4 +1,4 @@
-angular.module('infoboxApp.controllers.Account', ['infoboxApp.controllers.Main', 'meumobi.api'])
+angular.module('infoboxApp.controllers.Account', [])
 
 .controller('AccountCtrl', function($rootScope, $scope, $location, API, AppInfo, AppFunc){
 	

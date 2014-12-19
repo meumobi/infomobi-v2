@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.Contact', ['meumobi.api'])
+angular.module('infoboxApp.controllers.Contact', [])
 
 .controller('ContactCtrl', function($rootScope, $scope, API, AppFunc){
 

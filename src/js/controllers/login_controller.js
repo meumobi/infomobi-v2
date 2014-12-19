@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.Login', ['meumobi.api', 'meumobi.app'])
+angular.module('infoboxApp.controllers.Login', [])
 
 .controller('LoginController', function($rootScope, $scope, $location, API, AppInfo, AppFunc){
 

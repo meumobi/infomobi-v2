@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('meumobi.sync', ['meumobi.api','meumobi.app','meumobi.utils', 'meumobi.settings'])
+angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils', 'meumobi.settings'])
 
 .factory('SyncNews', function(API,AppInfo, AppUtils, $rootScope, SITE) {
 	

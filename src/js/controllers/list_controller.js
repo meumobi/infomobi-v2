@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.List', ['meumobi.api','meumobi.settings'])
+angular.module('infoboxApp.controllers.List', [])
 
-.controller('ListController', function($rootScope, $scope, API, AppFunc, $timeout, SITE) {
+.controller('ListController', function($rootScope, $scope, API, AppFunc, $timeout, SITE, SyncNews) {
 	
 	$scope.items = $rootScope.newsList;
 	
-	/*$scope.listItems = function(){
+	$scope.listItems = function(){
 		SyncNews.get(function(resp, success){
 			$timeout(function(){
 				$rootScope.loading = false;
@@ -18,7 +18,7 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api','meumobi.settings']
 				$scope.items = localStorage.hasOwnProperty('newsList') ? JSON.parse(localStorage['newsList']) : [];
 			}
 		});
-	}*/
+	}
 
 	$scope.getImage = function(path){
 		/*if(localStorage["image_"+id]){
@@ -27,7 +27,7 @@ angular.module('infoboxApp.controllers.List', ['meumobi.api','meumobi.settings']
 		return SITE.SRC_URL+path;
 	}
 
-	//$scope.listItems();
+	$scope.listItems();
 
 	
 });
