@@ -7,7 +7,8 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
 		service : {
 			Device : {
 				isOnline : function(){return false;},
-				information: function(){return "none";}
+				information: function(){return "none";},
+				uniqueDeviceID:function(a){a()}
 			}
 		}
 	};
@@ -37,24 +38,40 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
 						}
 						return connection;
 					},
-					information : function(){
-						var informations;console.log('heyyy') 
-						if(window.cordova){
-							informations = {
-								"uuid" : device.uuid,
-								"model" : device.model,
-								"platform" : device.platform,
-								"version" : device.version
+					information : function(callback){
+						var informations; 
+						app.service.Device.uniqueDeviceID(
+							function(uuid){
+								if(window.cordova){
+									informations = {
+										"uuid" : uuid,
+										"model" : device.model,
+										"platform" : device.platform,
+										"version" : device.version
+									}
+								}else{
+									informations = {
+										"uuid" : "1234567890",
+										"model" : "Galaxy S5",
+										"platform" : "Android",
+										"version" : "4.4"
+									}
+								}
+								callback(informations);
+							},
+							function(error){
+								callback({});
+								console.log(error);
 							}
+						);
+						
+					},
+					uniqueDeviceID : function(success, error){
+						if(window.plugins && window.plugins.uniqueDeviceID){
+							window.plugins.uniqueDeviceID.get(success, error);
 						}else{
-							informations = {
-								"uuid" : "1234567890",
-								"model" : "Galaxy S5",
-								"platform" : "Android",
-								"version" : "4.4"
-							}
+							success("1234567890");
 						}
-						return informations;
 					}
 				}
 			}

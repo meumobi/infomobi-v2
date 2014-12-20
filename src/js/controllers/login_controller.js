@@ -18,18 +18,19 @@ angular.module('infoboxApp.controllers.Login', [])
 			$rootScope.loading = true;
 
 			if($scope.Login.username!="" && $scope.Login.password!=""){//MOCK
-				var info = AppInfo.service.Device.information();
-				var user = {
-					"email" : $scope.Login.username,
-					"password" : $scope.Login.password,
-					"device" : {
-						"uuid" : info.uuid,
-						"pushId" : "", 
-						"model" : info.model
+				AppInfo.service.Device.information(function(informations){
+					var user = {
+						"email" : $scope.Login.username,
+						"password" : $scope.Login.password,
+						"device" : {
+							"uuid" : informations.uuid,
+							"pushId" : "", 
+							"model" : informations.model
+						}
 					}
-				}
-				API.Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
+					API.Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
 
+				});
 			}else{
 				$scope.Login.loginError();
 			}
@@ -56,20 +57,21 @@ angular.module('infoboxApp.controllers.Login', [])
 			AppFunc.toast(msg);
 		},
 		saveDeviceInformation : function(){
-			var info = AppInfo.service.Device.information();
-			var device = {
-				"uuid" : info.uuid,
-				"model" : info.model
-			}
-			
-			API.Login.device(device,
-				function(resp){
-					console.log(resp);
-				},
-				function(err){
-					console.log(err);
+			AppInfo.service.Device.information(function(informations){
+				var device = {
+					"uuid" : informations.uuid,
+					"model" : informations.model
 				}
-			);
+				
+				API.Login.device(device,
+					function(resp){
+						console.log(resp);
+					},
+					function(err){
+						console.log(err);
+					}
+				);
+			});
 		}
 	}
 
