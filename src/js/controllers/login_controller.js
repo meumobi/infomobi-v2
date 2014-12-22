@@ -44,7 +44,7 @@ angular.module('infoboxApp.controllers.Login', [])
 			$rootScope.go('/list');
       		AppFunc.initPushwoosh();
 
-      		//$scope.Login.saveDeviceInformation();
+      		$scope.Login.saveDeviceInformation();
 		},
 		loginError : function(resp){
 			$rootScope.loading = false;

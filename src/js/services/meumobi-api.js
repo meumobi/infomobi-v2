@@ -198,8 +198,11 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
         			api.post(path, obj, success, error);
         		},
         		device: function(obj, success, error){
-        			api.put(path + 'devices/' + obj.uuid, obj, success, error);
-        		}
+        			api.post(path + 'devices', obj, success, error);
+        		},
+                update: function(obj, success, error){
+                    api.post(path + 'devices/' + obj.uuid, obj, success, error);
+                }
         	}
         })(),
         Mail: (function(){
