@@ -84,7 +84,7 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
 
 
 angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
-.factory('AppFunc', function(deviceReady, $rootScope, $location, $window){
+.factory('AppFunc', function(deviceReady, $rootScope, $location, $window, $route){
 	var app = {
 		toast : function(message, success, fail){
 			if (window.plugins && window.plugins.toast) {
@@ -155,7 +155,8 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
   		  	receiveNotification: function(){
   		  		document.addEventListener('push-notification', function(event) {
 				 
-				    console.warn(JSON.stringify(event.notification));
+				    //alert(JSON.stringify(event.notification));
+				    $route.reload();
 			    	///TODO:  Sync news
 				});
   		  	}
