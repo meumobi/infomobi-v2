@@ -43,6 +43,8 @@ angular.module('infoboxApp.controllers.Login', [])
       		localStorage.mail = $scope.Login.username;
 			$rootScope.go('/list');
       		AppFunc.initPushwoosh();
+
+      		//$scope.Login.saveDeviceInformation();
 		},
 		loginError : function(resp){
 			$rootScope.loading = false;
@@ -60,7 +62,8 @@ angular.module('infoboxApp.controllers.Login', [])
 			AppInfo.service.Device.information(function(informations){
 				var device = {
 					"uuid" : informations.uuid,
-					"model" : informations.model
+					"model" : informations.model,
+					"push_id": ""
 				}
 				
 				API.Login.device(device,

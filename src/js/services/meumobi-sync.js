@@ -82,7 +82,7 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 			   }
 			}
 		}
-	};console.log('syyyyyync')
+	};
 	return app;
 
 });
