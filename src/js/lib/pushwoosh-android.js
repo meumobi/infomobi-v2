@@ -27,7 +27,7 @@ function registerPushwooshAndroid() {
 	var pushNotification = window.plugins.pushNotification;
     
     // Set push notifications handler
-    document.addEventListener('push-notification',
+    /*document.addEventListener('push-notification',
         function(event) {
 
             var title = event.notification.title;
@@ -39,12 +39,12 @@ function registerPushwooshAndroid() {
             }
 
             // Display the notification
-            navigator.notification.alert(title,function() {console.log("Notification success")},"Notification","Close");
+            //navigator.notification.alert(title,function() {console.log("Notification success")},"Notification","Close");
             
             // Stopping geopushes
             //pushNotification.stopGeoPushes();
         }
-    );
+    );*/
 
 	// Trigger pending push notifications
     pushNotification.onDeviceReady({projectid: google_project_number, appid : pw_application_code});

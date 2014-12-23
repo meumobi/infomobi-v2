@@ -125,7 +125,7 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 		      		registerPushwooshAndroid();
 		      	}
 		        if (device.platform == "iPhone" || device.platform == "iOS") {
-		          registerPushwooshIOS();
+		          	registerPushwooshIOS();
 		        }
 		      }
 		    });
@@ -134,10 +134,11 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 	  		executeAll : function(){
 	  			var that = this;
   		  		deviceReady(function(){
-  		  			that.receiveNotification();
   		  			that.hideSplashScreen();
+  		  			app.initPushwoosh();
   		  			console.log("cordova app started");
   		  		});
+		  		that.receiveNotification();
   		  		that.backButton();
   		  	},
   		  	backButton : function(){
@@ -154,10 +155,7 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
   		  	},
   		  	receiveNotification: function(){
   		  		document.addEventListener('push-notification', function(event) {
-				 
-				    //alert(JSON.stringify(event.notification));
 				    $route.reload();
-			    	///TODO:  Sync news
 				});
   		  	}
 		}

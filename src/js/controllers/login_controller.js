@@ -66,7 +66,7 @@ angular.module('infoboxApp.controllers.Login', [])
 					"push_id": ""
 				}
 				
-				API.Login.device(device,
+				API.Login.update(device,
 					function(resp){
 						console.log(resp);
 					},

@@ -195,13 +195,13 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
         			api.get(path,success, error);
         		},
         		save: function(obj, success, error){
-        			api.post(path, obj, success, error);
+        			api.put(path, obj, success, error);
         		},
         		device: function(obj, success, error){
         			api.post(path + 'devices', obj, success, error);
         		},
                 update: function(obj, success, error){
-                    api.post(path + 'devices/' + obj.uuid, obj, success, error);
+                    api.put(path + 'devices/' + obj.uuid, obj, success, error);
                 }
         	}
         })(),
