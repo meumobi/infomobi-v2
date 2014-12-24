@@ -84,7 +84,7 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
 
 
 angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
-.factory('AppFunc', function(deviceReady, $rootScope, $location, $window, $route){
+.factory('AppFunc', function(deviceReady, $rootScope, $location, $window, $route, API, INFOBOXAPP){
 	var app = {
 		toast : function(message, success, fail){
 			if (window.plugins && window.plugins.toast) {
@@ -136,6 +136,7 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
   		  		deviceReady(function(){
   		  			that.hideSplashScreen();
   		  			app.initPushwoosh();
+  		  			that.verifyVersion();
   		  			console.log("cordova app started");
   		  		});
 		  		that.receiveNotification();
@@ -157,6 +158,21 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
   		  		document.addEventListener('push-notification', function(event) {
 				    $route.reload();
 				});
+  		  	},
+  		  	verifyVersion: function(){
+  		  		var device = localStorage.deviceInformations ? JSON.parse(localStorage['deviceInformations']) : false;
+  		  		if(device && device.app_version!=INFOBOXAPP.VERSION){
+						device.app_version = INFOBOXAPP.VERSION;
+						localStorage['deviceInformations'] = JSON.stringify(device);
+						API.Login.update(device,
+							function(resp){
+								console.log(resp);
+							},
+							function(err){
+								console.log(err);
+							}
+						);
+  		  		}
   		  	}
 		}
 	};

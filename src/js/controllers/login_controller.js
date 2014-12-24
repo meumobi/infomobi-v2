@@ -66,8 +66,7 @@ angular.module('infoboxApp.controllers.Login', [])
 					"push_id": localStorage['push_id'],
 					"app_version" : INFOBOXAPP.VERSION
 				}
-
-				localStorage['app_version'] = INFOBOXAPP.VERSION;
+				localStorage['deviceInformations'] = JSON.stringify(device);
 				
 				API.Login.update(device,
 					function(resp){
