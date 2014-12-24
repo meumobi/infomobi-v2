@@ -11,4 +11,8 @@ angular.module('meumobi.settings', [])
   "DOMAIN": "infobox.int-meumobi.com",
   "SRC_URL": "http://int-meumobi.com/",
   "API_URL": "http://int-meumobi.com/api/"
+})
+
+.constant("INFOBOXAPP", {
+  "VERSION" : "1.0.0"
 });

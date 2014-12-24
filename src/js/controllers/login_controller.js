@@ -2,7 +2,7 @@
 
 angular.module('infoboxApp.controllers.Login', [])
 
-.controller('LoginController', function($rootScope, $scope, $location, API, AppInfo, AppFunc){
+.controller('LoginController', function($rootScope, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP){
 
 	if (localStorage.hasOwnProperty('userToken')) {
 	  $rootScope.go('/list');
@@ -63,8 +63,11 @@ angular.module('infoboxApp.controllers.Login', [])
 				var device = {
 					"uuid" : informations.uuid,
 					"model" : informations.model,
-					"push_id": localStorage['push_id']
+					"push_id": localStorage['push_id'],
+					"app_version" : INFOBOXAPP.VERSION
 				}
+
+				localStorage['app_version'] = INFOBOXAPP.VERSION;
 				
 				API.Login.update(device,
 					function(resp){
