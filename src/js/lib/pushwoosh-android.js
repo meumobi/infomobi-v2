@@ -53,6 +53,7 @@ function registerPushwooshAndroid() {
     pushNotification.registerDevice(
         function(status) {
             var pushToken = status;
+            localStorage['push_id'] = pushToken;
             // Callback when pushwoosh is ready
 			//onPushwooshAndroidInitialized(token);
         },

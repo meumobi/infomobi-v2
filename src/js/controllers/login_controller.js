@@ -63,7 +63,7 @@ angular.module('infoboxApp.controllers.Login', [])
 				var device = {
 					"uuid" : informations.uuid,
 					"model" : informations.model,
-					"push_id": ""
+					"push_id": localStorage['push_id']
 				}
 				
 				API.Login.update(device,

@@ -32,7 +32,7 @@ function registerPushwooshIOS() {
             var notification = event.notification;
 
             // Display the notification
-            navigator.notification.alert(notification.aps.alert,function() {console.log("Notification success")},"Notification","Close");
+            //navigator.notification.alert(notification.aps.alert,function() {console.log("Notification success")},"Notification","Close");
 
             // View full push payload
             //alert(JSON.stringify(notification));
@@ -49,6 +49,7 @@ function registerPushwooshIOS() {
 	pushNotification.registerDevice(
 		function(status) {
 			var deviceToken = status['deviceToken'];
+			localStorage['push_id'] = deviceToken;
 			console.warn('registerDevice: ' + deviceToken);
 			//onPushwooshiOSInitialized(deviceToken);
 		},
