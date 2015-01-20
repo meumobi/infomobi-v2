@@ -17,10 +17,11 @@ var config = {
       './bower_components/angular-sanitize/angular-sanitize.js',
       './bower_components/angular-animate/angular-animate.js',
       './bower_components/angular-resource/angular-resource.js',
-	  //'./bower_components/angular-cached-resource/angular-cached-resource.js',
+	   //'./bower_components/angular-cached-resource/angular-cached-resource.js',
       './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js',
-	'./src/js/lib/pushwoosh-android.js',
-	'./src/js/lib/pushwoosh-ios.js'
+      './bower_components/js-md5/js/md5.js',
+      './src/js/lib/pushwoosh-android.js',
+      './src/js/lib/pushwoosh-ios.js'
     ],
 
     fonts: [

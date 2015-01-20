@@ -4,6 +4,9 @@ angular.module('infoboxApp.controllers.Show', [])
 
 .controller('ShowController', function($rootScope, $scope, $sce, $routeParams, API, SITE){
 
+  $scope.localFolderPath = cordova.file.applicationStorageDirectory 
+    + "Documents";
+
   $scope.getTrustedResourceUrl = function(src) {
       return $sce.trustAsResourceUrl(src);
   }
@@ -39,6 +42,27 @@ angular.module('infoboxApp.controllers.Show', [])
       return localStorage["image_"+id];
     }*/
     return SITE.SRC_URL+id;
+  }
+
+  /**
+  * Download file to local folder.
+  */
+  $scope.downloadFile = function (media, $event) {
+    if ($event.target.disabled) { return; }
+    $event.target.disabled = true;
+    var html = $event.target.innerHTML;
+    $event.target.innerHTML = "Baixando...";
+    var localPath = $scope.localFolderPath + "/" + media.title;
+    var fileTransfer = new FileTransfer();
+    var uri = encodeURI(media.url);
+    fileTransfer.download(uri, localPath, function(entry) {
+        window.plugins.toast.showShortBottom("Download concluído");
+        $event.target.innerHTML = "Download concluído";
+      }, function(error) {
+        window.plugins.toast.showShortBottom("Falha no Download");
+        $event.target.innerHTML = html;
+        $event.target.disabled = false;
+    }, false);
   }
 });
 
