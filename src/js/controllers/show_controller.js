@@ -4,8 +4,7 @@ angular.module('infoboxApp.controllers.Show', [])
 
 .controller('ShowController', function($rootScope, $scope, $sce, $routeParams, API, SITE){
 
-  $scope.localFolderPath = cordova.file.applicationStorageDirectory 
-    + "Documents";
+  $scope.localFolderPath = cordova.file.dataDirectory;
 
   $scope.getTrustedResourceUrl = function(src) {
       return $sce.trustAsResourceUrl(src);
@@ -52,13 +51,17 @@ angular.module('infoboxApp.controllers.Show', [])
     $event.target.disabled = true;
     var html = $event.target.innerHTML;
     $event.target.innerHTML = "Baixando...";
-    var localPath = $scope.localFolderPath + "/" + media.title;
+    var fileName = md5(media.title);
+    var localPath = $scope.localFolderPath + "/" + fileName;
     var fileTransfer = new FileTransfer();
     var uri = encodeURI(media.url);
     fileTransfer.download(uri, localPath, function(entry) {
+        console.log(fileName);
+        localStorage[fileName] = media.title;
         window.plugins.toast.showShortBottom("Download concluído");
         $event.target.innerHTML = "Download concluído";
       }, function(error) {
+        console.log(error);
         window.plugins.toast.showShortBottom("Falha no Download");
         $event.target.innerHTML = html;
         $event.target.disabled = false;
