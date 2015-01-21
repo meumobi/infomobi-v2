@@ -29,6 +29,11 @@ CImobi uses a number of open source projects to work properly:
 
 PhoneGap Plugins:
 * [com.jcjee.plugins.emailcomposer] - Email Composer with Attachments
+* [org.apache.cordova.device]:https://github.com/apache/cordova-plugin-device - Cordova Device Plugin
+* [org.apache.cordova.file]:https://github.com/apache/cordova-plugin-file - Cordova File Plugin
+* [org.apache.cordova.file-transfer]:https://github.com/apache/cordova-plugin-file-transfer - Cordova FileTransfer Plugin
+* [io.github.pwlin.cordova.plugins.fileopener2]:https://github.com/pwlin/cordova-plugin-file-opener2 - File Opener2 Plugin
+* [nl.x-services.plugins.toast]:https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin - Toast PhoneGap Plugin
 
 Installation
 --------------

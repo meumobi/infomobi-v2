@@ -4,8 +4,6 @@ angular.module('infoboxApp.controllers.Show', [])
 
 .controller('ShowController', function($rootScope, $scope, $sce, $routeParams, API, SITE){
 
-  $scope.localFolderPath = cordova.file.dataDirectory;
-
   $scope.getTrustedResourceUrl = function(src) {
       return $sce.trustAsResourceUrl(src);
   }
@@ -48,21 +46,28 @@ angular.module('infoboxApp.controllers.Show', [])
   */
   $scope.downloadFile = function (media, $event) {
     if ($event.target.disabled) { return; }
+    var localDir;
+    if (device.platform.toLowerCase() == "android") {
+        localDir = cordova.file.externalRootDirectory+"/infobox/Downloads";
+    } else {
+        localDir = cordova.file.dataDirectory;
+    }
     $event.target.disabled = true;
     var html = $event.target.innerHTML;
-    $event.target.innerHTML = "Baixando...";
+    $event.target.innerHTML = 'Baixando...';
     var fileName = md5(media.title);
-    var localPath = $scope.localFolderPath + "/" + fileName;
+    var localPath = localDir + '/' + fileName;
     var fileTransfer = new FileTransfer();
     var uri = encodeURI(media.url);
     fileTransfer.download(uri, localPath, function(entry) {
-        console.log(fileName);
+        console.log(entry);
         localStorage[fileName] = media.title;
-        window.plugins.toast.showShortBottom("Download concluído");
-        $event.target.innerHTML = "Download concluído";
+        localStorage[fileName+"type"] = media.type;
+        window.plugins.toast.showShortBottom('Download concluído');
+        $event.target.innerHTML = 'Download concluído';
       }, function(error) {
         console.log(error);
-        window.plugins.toast.showShortBottom("Falha no Download");
+        window.plugins.toast.showShortBottom('Falha no Download');
         $event.target.innerHTML = html;
         $event.target.disabled = false;
     }, false);

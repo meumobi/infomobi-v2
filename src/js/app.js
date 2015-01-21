@@ -15,6 +15,7 @@ var app = angular.module('InfoBox', [
 	'infoboxApp.controllers.Login',
 	'infoboxApp.controllers.List',
 	'infoboxApp.controllers.Show',
+    'infoboxApp.controllers.Files',
 	'meumobi.api',
 	'meumobi.sync',
 	'meumobi.appInfo',
@@ -49,6 +50,10 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 	.when('/about', {
 		templateUrl: "about.html"
 	})
+    .when('/files', {
+        templateUrl: "files.html",
+        controller: "FilesController"
+    })
 	.otherwise({redirectTo: '/login'});
 })
 

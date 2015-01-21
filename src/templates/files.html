@@ -1,0 +1,11 @@
+<div class="scrollable">
+    <div class="scrollable-content">
+        <div class="list-group ib-home-news">
+            <a ng-repeat="file in downloadedFiles" 
+                ng-click="openFile(file)"
+                class="list-group-item">
+                <h4 class="media-heading">{{file.name}}</h4>
+            </a>
+        </div>
+    </div>
+</div>
