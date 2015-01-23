@@ -19,7 +19,8 @@ angular.module('infoboxApp.controllers.Files', [])
                     files.push({
                         name: fname,
                         path: e.nativeURL,
-                        type: localStorage[e.name+"type"]
+                        type: localStorage[e.name+"type"],
+                        fileEntry: e
                     });
                 }
             }
@@ -59,10 +60,29 @@ angular.module('infoboxApp.controllers.Files', [])
     * Open file.
     */
     $scope.openFile = function (file) {
+        console.log("Path: " + file.path);
+        console.log("Type: " + file.type);
         cordova.plugins.fileOpener2.open(file.path, file.type);
+    };
+
+    /**
+    * Delete file.
+    */
+    $scope.deleteFile = function (file) {
+        var shouldDelete = $window.confirm("Deseja remover o arquivo?");
+        if (!shouldDelete) { return; }
+        file.fileEntry.remove(function (file) {
+            console.log("File removed!");
+            $scope.resolveFileSystem();
+        },function () {
+            $window.alert("Erro ao deletar o arquivo.");
+            console.log("error deleting the file " + error.code);
+        },function () {
+            $window.alert("Este arquivo não existe mais.");
+            $scope.resolveFileSystem();
+            console.log("file does not exist");
+        });
     };
     
     $scope.resolveFileSystem();
 });
-
- 

@@ -55,7 +55,8 @@ angular.module('infoboxApp.controllers.Show', [])
     $event.target.disabled = true;
     var html = $event.target.innerHTML;
     $event.target.innerHTML = 'Baixando...';
-    var fileName = md5(media.title);
+    var extension = media.type.split('/')[1];
+    var fileName = md5(media.title) + '.' + extension;
     var localPath = localDir + '/' + fileName;
     var fileTransfer = new FileTransfer();
     var uri = encodeURI(media.url);
