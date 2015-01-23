@@ -10,6 +10,11 @@ img{
   background-color: gray;
 }
 
+a[disabled] {
+  pointer-events: none;
+  text-decoration: none;
+}
+
 .app-content-loading {
   text-align: center;
   height: 100%;
@@ -95,7 +100,7 @@ img{
     }
   }
 
-  .pull-left button{
+  .pull-left button, .pull-right button{
     width: 40px;
     box-sizing: content-box;
     padding: 0;
@@ -103,3 +108,13 @@ img{
   }
 }
 
+a.file {
+  float: left;
+  width: 100%;
+  button {
+    float: right;
+  }
+  h4{
+    float: left;
+  }
+}
