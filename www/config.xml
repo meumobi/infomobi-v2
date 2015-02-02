@@ -114,5 +114,5 @@
     <gap:splash gap:platform="ios" height="2048" src="res/screen/ios/Default~ipad~nostatusbar@2x.png" width="1536" />
     <gap:splash gap:platform="ios" height="1536" src="res/screen/ios/Default~ipad~landscape~nostatusbar@2x.png" width="2048" />
 
-    <access origin="*" />
+    <access origin="*"/>
 </widget>

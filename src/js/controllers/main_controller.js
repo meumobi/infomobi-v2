@@ -22,9 +22,13 @@ angular.module('infoboxApp.controllers.Main', [])
 			return false;
 		},
 		canBack : function(){
-			if($location.url().indexOf("/show") == -1){
-				return false;
-			}return true;
+			if($location.url().indexOf("/show") != -1) {
+				return true;
+			}
+			if($location.url().indexOf("/files") != -1) {
+				return true;
+			}
+			return false;
 		}
 	}
 
