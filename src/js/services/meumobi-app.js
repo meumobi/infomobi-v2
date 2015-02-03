@@ -134,10 +134,10 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 	  		executeAll : function(){
 	  			var that = this;
   		  		deviceReady(function(){
+              console.log('The device ready');
   		  			that.hideSplashScreen();
   		  			app.initPushwoosh();
   		  			that.verifyVersion();
-  		  			console.log("cordova app started");
   		  		});
 		  		that.receiveNotification();
   		  		that.backButton();
@@ -150,8 +150,9 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 			    }, false);
   		  	},
   		  	hideSplashScreen : function(){
-  		  		if(navigator.splashScreen){
-  		  			navigator.splashscreen.hide();
+  		  		if(navigator.splashscreen){
+              console.log('Hide splash screen');
+              navigator.splashscreen.hide();
   		  		}
   		  	},
   		  	receiveNotification: function(){
