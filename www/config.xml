@@ -41,6 +41,10 @@
 		<gap:plugin name="com.pushwoosh.plugins.pushwoosh" version="3.4.1" />
     <gap:plugin name="nl.x-services.plugins.socialsharing" />
     <gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" version="1.2.0" />
+    <gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" />
+    <gap:plugin name="org.apache.cordova.file" />
+    <gap:plugin name="org.apache.cordova.file-transfer" />
+    <gap:plugin name="nl.x-services.plugins.toast" />
 		
    	<!-- default mandatory icon 120x120px-->
     <icon src="icon.png" />
