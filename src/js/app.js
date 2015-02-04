@@ -9,13 +9,13 @@ var app = angular.module('InfoBox', [
   'mobile-angular-ui',
 	'infoboxApp.controllers.Main',
 	//'ngCachedResource',
-	//'services.Analytics',
+	'services.Analytics',
 	'infoboxApp.controllers.Account',
 	'infoboxApp.controllers.Contact',
 	'infoboxApp.controllers.Login',
 	'infoboxApp.controllers.List',
 	'infoboxApp.controllers.Show',
-    'infoboxApp.controllers.Files',
+  'infoboxApp.controllers.Files',
 	'meumobi.api',
 	'meumobi.sync',
 	'meumobi.appInfo',
@@ -24,7 +24,7 @@ var app = angular.module('InfoBox', [
 	'meumobi.filters'
 ])
 
-app.config(function($routeProvider, $locationProvider, $httpProvider) {
+app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider) {
   $httpProvider.interceptors.push('errorInterceptor'); 
 
 	$routeProvider.when('/list', {
@@ -55,9 +55,11 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
         controller: "FilesController"
     })
 	.otherwise({redirectTo: '/login'});
+
+  analyticsProvider.setup('UA-59245997-1');//TODO get id from some config file
 })
 
-.run(['$rootScope', '$location', 'AppFunc', 'API', function ($rootScope, $location, AppFunc, API) {
+.run(function ($rootScope, $location, analytics, AppFunc, API) {
 
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
 	$rootScope.userToken = localStorage['userToken'] || "";
@@ -65,6 +67,9 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     $rootScope.go = AppFunc.transition;
 
     $rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
+      //send page to analytics
+      analytics.trackPage($location.url().toString());
+
     	if(location.href.indexOf('login')==-1){
 	    	if(!$rootScope.userToken || $rootScope.userToken!=localStorage.userToken){
 	    		delete localStorage.userToken
@@ -76,4 +81,4 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     
     AppFunc.startApp.executeAll();
 
-}]);
+});
