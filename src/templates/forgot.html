@@ -5,10 +5,12 @@
 <div class="scrollable">
 	<div class="scrollable-content section">
 		<div bs-panel title="Recupere sua senha">
-			<form ng-submit="Forgot.sendMail()" class="ib-contact-form">
+			<form ng-submit="Forgot.sendMail()" class="ib-forgot-form">
 				<div>Seu e-mail:</div>
-				<input type="email" ng-model="Forgot.information.message"/>
-				<input type="submit" id="submit" class="ib-primary form-control" value="Recuperar minha senha" />
+				<div id="form-container">
+					<input type="email" class="form-control" ng-model="Forgot.information.message"/>
+					<input type="submit" id="submit" class="ib-primary form-control" value="Recuperar minha senha" />
+				</div>
 			</form> 
 		</div>
 	</div>

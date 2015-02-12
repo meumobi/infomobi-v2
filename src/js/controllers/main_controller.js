@@ -16,7 +16,7 @@ angular.module('infoboxApp.controllers.Main', [])
 
 	$scope.NavBars = {
 		visibility : function(){
-			if($location.url() != "/login"){
+			if($location.url() != "/login" && $location.url() != "/forgot"){
 				return true;
 			}
 			return false;

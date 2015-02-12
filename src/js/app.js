@@ -28,7 +28,7 @@ var app = angular.module('InfoBox', [
 app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider) {
   $httpProvider.interceptors.push('errorInterceptor'); 
 
-	$routeProvider.when('/list', {
+		$routeProvider.when('/list', {
 		templateUrl: "list.html",
 		controller: "ListController"
 	})
@@ -74,8 +74,8 @@ app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsP
     $rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
       //send page to analytics
       analytics.trackPage($location.url().toString());
-
-    	if(location.href.indexOf('login')==-1){
+      
+	    if(location.href.indexOf('login')==-1 && location.href.indexOf('forgot')==-1){
 	    	if(!$rootScope.userToken || $rootScope.userToken!=localStorage.userToken){
 	    		delete localStorage.userToken
 	    		$rootScope.go('/login');
