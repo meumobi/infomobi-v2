@@ -1,0 +1,15 @@
+<div content-for="title">
+  <span>Esqueci minha senha</span>
+</div>
+
+<div class="scrollable">
+	<div class="scrollable-content section">
+		<div bs-panel title="Recupere sua senha">
+			<form ng-submit="Forgot.sendMail()" class="ib-contact-form">
+				<div>Seu e-mail:</div>
+				<input type="email" ng-model="Forgot.information.message"/>
+				<input type="submit" id="submit" class="ib-primary form-control" value="Recuperar minha senha" />
+			</form> 
+		</div>
+	</div>
+</div>
