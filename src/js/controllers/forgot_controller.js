@@ -4,13 +4,15 @@ angular.module('infoboxApp.controllers.Forgot', [])
 
 .controller('ForgotCtrl', function($rootScope, $scope, API, AppFunc){
 
-	$rootScope.loading = false;
+  
+  $rootScope.loading = false;
 
   $scope.Forgot = {
     informations : {
       name : "infobox",
-      mail : localStorage.mail ? localStorage.mail : "contact@meumobi.com",
-      message : ""
+      mail : "",
+      phone : "x",
+      message : "x"
     },
     sendMail : function(){
       $rootScope.loading = true;
@@ -18,16 +20,19 @@ angular.module('infoboxApp.controllers.Forgot', [])
     },
     success : function(resp){
       console.log(resp);
-      AppFunc.toast("Nova senha enviada com sucesso.");
+      AppFunc.toast("Mensagem enviada com sucesso");
       $scope.Forgot.informations.message = "";
       $rootScope.loading = false;
     },
     error : function(err){
       console.log(err);
-      AppFunc.toast("Erro ao enviar a nova senha.");
+      AppFunc.toast("Erro ao enviar mensagem");
       $rootScope.loading = false;
     }
   }
+
+
+
 });
 
  
