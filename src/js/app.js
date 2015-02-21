@@ -21,7 +21,8 @@ var app = angular.module('InfoBox', [
 	'meumobi.appInfo',
 	'meumobi.appFunc',
 	'meumobi.utils',
-	'meumobi.filters'
+	'meumobi.filters',
+	'meumobi.files'
 ])
 
 app.config(function($routeProvider, $locationProvider, $httpProvider) {

@@ -13,13 +13,18 @@
 				</h4>
 				<div ng-bind-html="item.description | hrefToJS"></div>
 				<p ng-repeat="media in item.medias">
-					<span ng-if="['application/pdf', 'audio/mpeg'].indexOf(media.type) != -1">
+					<span ng-if="['application/pdf', 'audio/mpeg'].indexOf(media.type) != -1 && !media.downloaded">
 						<a ng-click="downloadFile(media, $event)" 
 		  					target="_blank">
 		  					<span class="btn btn-white btn-xs">
 		  						<i class="fa fa-file-o"></i> Download
 		  					</span>
 		  				</a>
+		  			</span>
+		  			<span ng-if="media.downloaded">
+		  				<span class="btn btn-white btn-xs" ng-click="go('/files')">
+	  						<i class="fa fa-file-o"></i> Arquivo disponível
+	  					</span>
 		  			</span>
 					{{media.title}}
 				</p>

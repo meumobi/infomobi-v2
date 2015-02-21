@@ -2,7 +2,7 @@
 
 angular.module('infoboxApp.controllers.Show', [])
 
-.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, API, SITE){
+.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, API, SITE, DonwloadedFiles){
 
   $scope.getTrustedResourceUrl = function(src) {
       return $sce.trustAsResourceUrl(src);
@@ -56,7 +56,7 @@ angular.module('infoboxApp.controllers.Show', [])
     var html = $event.target.innerHTML;
     $event.target.innerHTML = 'Baixando...';
     var extension = media.type.split('/')[1];
-    var fileName = md5(media.title) + '.' + extension;
+    var fileName = md5(media.url) + '.' + extension;
     var localPath = localDir + '/' + fileName;
     var fileTransfer = new FileTransfer();
     var uri = encodeURI(media.url);
@@ -73,6 +73,27 @@ angular.module('infoboxApp.controllers.Show', [])
         $event.target.disabled = false;
     }, false);
   }
-});
 
- 
+  DonwloadedFiles.loadFiles(function (files) {
+    $scope.$apply(function () {
+      $scope.downloadedFiles = files;
+    });
+  });
+
+  $scope.$watch('downloadedFiles', function (newVal, oldVal) {
+    angular.forEach($scope.item.medias, function (media) {
+      media.downloaded = false;
+      angular.forEach($scope.downloadedFiles, function (file) {
+        var extension = media.type.split('/')[1];
+        var fileName = md5(media.url) + '.' + extension;
+        if (file.path.indexOf(fileName) != -1) {
+          console.log('File already downloaded');
+          media.downloaded = true;
+        } else {
+          media.downloaded = false;
+        }
+      });
+    });
+  });
+
+});

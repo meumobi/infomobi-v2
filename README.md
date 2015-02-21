@@ -45,9 +45,12 @@ sudo npm install -g bower gulp phonegap
 # Clone Repository
 git clone "https://github.com/meumobi/infobox.git" && cd infobox
 
-# Install dependencies
+# Install dependencies, plugins and add platforms:
 bower install
 sudo npm install
+cordova platform add android
+cordova platform add ios
+sh cordova_plugins.sh
 
 # Build your project for the first time
 gulp build
