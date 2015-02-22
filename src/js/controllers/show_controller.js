@@ -66,6 +66,7 @@ angular.module('infoboxApp.controllers.Show', [])
         localStorage[fileName+"type"] = media.type;
         window.plugins.toast.showShortBottom('Download concluído');
         $event.target.innerHTML = 'Download concluído';
+        $rootScope.$emit('fileDownloaded');
       }, function(error) {
         console.log(error);
         window.plugins.toast.showShortBottom('Falha no Download');
@@ -87,10 +88,7 @@ angular.module('infoboxApp.controllers.Show', [])
         var extension = media.type.split('/')[1];
         var fileName = md5(media.url) + '.' + extension;
         if (file.path.indexOf(fileName) != -1) {
-          console.log('File already downloaded');
           media.downloaded = true;
-        } else {
-          media.downloaded = false;
         }
       });
     });

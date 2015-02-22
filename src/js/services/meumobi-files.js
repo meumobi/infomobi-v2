@@ -34,13 +34,14 @@ angular.module('meumobi.files', [])
 			                var e = entries[i];
 			                if (e.isFile) {
 			                    var fname = localStorage[e.name];
-			                    if (!fname) { fname = e.name; }
-			                    files.push({
-			                        name: fname,
-			                        path: e.nativeURL,
-			                        type: localStorage[e.name+"type"],
-			                        fileEntry: e
-			                    });
+			                    if (fname) {
+			                    	files.push({
+				                        name: fname,
+				                        path: e.nativeURL,
+				                        type: localStorage[e.name+"type"],
+				                        fileEntry: e
+				                    });
+			                    }
 			                }
 			            }
 			            callback(files);
