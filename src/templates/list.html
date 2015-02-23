@@ -1,6 +1,7 @@
 <input type="search" class="form-control app-search" placeholder="Buscar.." ng-model="query"/>
 
 <div class="scrollable">
+	<pull-to-refresh message-loading="Atualizando notícias" on-refresh="updateList(callback);"></pull-to-refresh>
 	<div class="scrollable-content">
 		<div class="list-group ib-home-news">
 			<a ng-repeat="item in items | filter:query" ng-click="go('/show/'+$index,'slideLeft')" class="list-group-item ib-article">

@@ -21,7 +21,8 @@ var app = angular.module('InfoBox', [
 	'meumobi.appInfo',
 	'meumobi.appFunc',
 	'meumobi.utils',
-	'meumobi.filters'
+    'meumobi.filters',
+	'meumobi.directives'    
 ])
 
 app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider) {
@@ -60,7 +61,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsP
 })
 
 .run(function ($rootScope, $location, analytics, AppFunc, API) {
-
+    
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
 	$rootScope.userToken = localStorage['userToken'] || "";
 
@@ -78,7 +79,10 @@ app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsP
     	}
     });
 
-    
+    document.addEventListener("backbutton", function(){
+        $rootScope.go('back','slideRight');
+    });
+        
     AppFunc.startApp.executeAll();
 
 });

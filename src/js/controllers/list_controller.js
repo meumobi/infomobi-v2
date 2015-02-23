@@ -27,9 +27,18 @@ angular.module('infoboxApp.controllers.List', [])
 		return SITE.SRC_URL+path;
 	}
 
-	$scope.listItems();
+	$scope.updateList = function(callback){
+		SyncNews.get(function(resp, success){
+			$timeout(function(){
+				callback();
+			},300);
+			if(success){
+				$scope.items = resp;
+			}
+		});
+	}
 
-	
+	$scope.listItems();
 });
 
  
