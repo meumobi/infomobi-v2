@@ -57,6 +57,16 @@ gulp
 
 ```
 
+Testing meumobi API
+----
+Example of visitor login and GET list of latest items (using a valid Token)
+
+```sh
+$ curl --request POST http://int-meumobi.com/api/infobox.int-meumobi.com/visitors/login --data 'email=username@mail.com&password=PASSWORD'
+
+$ curl http://int-meumobi.com/api/infobox.int-meumobi.com/items/latest -H "X-Visitor-Token: 530d35effbb421d395e212d7d0d70890fe834286"
+```
+
 License
 ----
 
