@@ -9,15 +9,26 @@
     }
   }
   .ib-article:not(:first-of-type){
-  	.ib-media-container{
-      width: 30%;
+    .ib-media-container{
+      width: 100%;
+      height:100%;
+      display:block;
+    }
+    .image{
+      background-size:contain;
+      position:relative;
+      height:100%;
+    }
+    ul[rn-carousel]{
+      height:15em;
+      width:100%;
     }
   }
   .ib-article{
-  	img{
-  		width: 100%;
-  	}
-  	small{
+    img{
+      width: 100%;
+    }
+    small{
       display: block;
     }
   }

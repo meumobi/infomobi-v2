@@ -33,6 +33,19 @@ angular.module('infoboxApp.controllers.Show', [])
 
   $scope.item = $rootScope.newsList[$routeParams.id];
   
+  $scope.swipeNews = function(direction){
+    if(direction == 'left'){
+      if($routeParams.id > 0){
+        //console.log(($routeParams.id-1) + ' to left.');
+        $rootScope.go('/show/' + ($routeParams.id - 1) , 'slideleft');
+      }
+    }else{
+      if($routeParams.id < $rootScope.newsList.length){
+        //console.log(($routeParams.id++) + ' to right.');
+        $rootScope.go('/show/'+($routeParams.id++).toString(), 'slideright');
+      }
+    }
+  }
 
   $scope.getImage = function(id){
     /*if(localStorage["image_"+id]){

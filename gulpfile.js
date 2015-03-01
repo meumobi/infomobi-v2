@@ -17,7 +17,11 @@ var config = {
       './bower_components/angular-sanitize/angular-sanitize.js',
       './bower_components/angular-animate/angular-animate.js',
       './bower_components/angular-resource/angular-resource.js',
-	   //'./bower_components/angular-cached-resource/angular-cached-resource.js',
+      './bower_components/angular-carousel/src/angular-carousel.js',
+       './bower_components/angular-carousel/src/directives/shifty.js',
+       './bower_components/angular-carousel/src/directives/rn-carousel.js',
+       './bower_components/angular-carousel/src/directives/rn-carousel-indicators.js',
+       //'./bower_components/angular-cached-resource/angular-cached-resource.js',
       './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js',
       './bower_components/js-md5/js/md5.js',
       './src/js/lib/pushwoosh-android.js',
@@ -185,7 +189,7 @@ gulp.task('html', function() {
 ======================================================================*/
 
 gulp.task('less', function () {
-  gulp.src(['./src/less/app.less', './src/less/responsive.less'])
+  gulp.src(['./src/less/app.less', './src/less/responsive.less','./bower_components/angular-carousel/src/css/angular-carousel.scss'])
     .pipe(less({
       paths: [ path.resolve(__dirname, 'src/less'), path.resolve(__dirname, 'bower_components') ]
     }))
