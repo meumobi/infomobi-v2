@@ -15,9 +15,7 @@
 </head>
 <body ng-app="InfoBox" ng-controller="MainController">
 <div class="app ib-app" ng-class="{'has-navbar-bottom':NavBars.visibility()}">
-
     <!-- Navbars -->
-
     <div class="navbar navbar-app navbar-absolute-top ib-nav-top" ng-class="{'ib-hidden' : !NavBars.visibility(), 'loading' : loading}">
         <div class="navbar-brand navbar-brand-center" yield-to="title">
             <img src="images/infobox_final-03.png" alt="infoBox"/>
@@ -62,5 +60,13 @@
         <ng-view class="app-content" ng-class="pageAnimationClass" ng-hide="loading"></ng-view>
     </div>
 </div><!-- ~ .app -->
+<!-- Overlay must be body direct child to cover entyre page --> 
+<div overlay="welcomeOverlay">
+  <h4 class="overlay-title">Bem Vindo</h4>
+  <p ng-bind="welcome_message"></p>
+  <p toggle="off" bubble target="welcomeOverlay">
+    <span class="btn btn-primary">Ok</span>
+  </p>  
+</div>
 </body>
 </html>

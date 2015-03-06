@@ -38,6 +38,9 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
 						}
 						return connection;
 					},
+          isFirstConnection : function(){
+            return (localStorage.getItem("deviceInformations") === null);
+          },
 					information : function(callback){
 						var informations; 
 						app.service.Device.uniqueDeviceID(

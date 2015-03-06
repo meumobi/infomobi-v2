@@ -2,15 +2,18 @@
 
 angular.module('infoboxApp.controllers.Login', [])
 
-.controller('LoginController', function($rootScope, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP){
+.controller('LoginController', function($rootScope, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP, SITE){
 
-	if (localStorage.hasOwnProperty('userToken')) {
-	  $rootScope.go('/list');
-    }	
-  
+  if (localStorage.hasOwnProperty('userToken')) {
+    $rootScope.go('/list');
+  }
+
   $rootScope.loading = false;
-
-	
+  //display the welcome overlay
+  if (AppInfo.service.Device.isFirstConnection()) {
+    $rootScope.welcome_message = SITE.WELCOME_MESSAGE;
+    $rootScope.toggle('welcomeOverlay', 'on');
+  }
 
 	$scope.Login = {
 		signin : function(){
