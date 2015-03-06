@@ -15,6 +15,15 @@ angular.module('infoboxApp.controllers.Login', [])
     $rootScope.toggle('welcomeOverlay', 'on');
   }
 
+  //this shoud not be scope available, and may be put inside a more reusable place, like a service
+  var authenticateUser = function(mail, token) {
+    localStorage['userToken'] = token;
+    localStorage.mail = mail;
+    $rootScope.go('/list');
+    AppFunc.initPushwoosh();
+    $scope.Login.saveDeviceInformation();
+  };
+
 	$scope.Login = {
 		signin : function(){
 
@@ -40,15 +49,26 @@ angular.module('infoboxApp.controllers.Login', [])
 		},
 		username : "",
 		password : "",
-		loginSuccess : function(resp){
-			localStorage['userToken'] = resp.token;
-      		$rootScope.userToken = resp.token;
-      		localStorage.mail = $scope.Login.username;
-			$rootScope.go('/list');
-      		AppFunc.initPushwoosh();
-
-      		$scope.Login.saveDeviceInformation();
-		},
+    changePassword: function() {
+      API.Login.save({
+        current_password: $scope.Login.password,
+        password: $scope.Login.new_password
+      }, function() {
+        authenticateUser($scope.scope.Login.username, $rootScope.userToken);
+      }, function() {
+        $rootScope.userToken = null;
+      });
+    },
+    loginSuccess : function(resp){
+      $rootScope.userToken = resp['token'];
+      //show modal if need change password, otherwise authenticate
+      resp.visitor.should_renew_password = localStorage.getItem('mail');
+      if (resp.visitor.should_renew_password) {
+        $rootScope.toggle('changePasswordOverlay', 'on');
+      } else {
+        authenticateUser($scope.Login.username, $rootScope.userToken);
+      }
+    },
 		loginError : function(resp){
 			$rootScope.loading = false;
 			var msg;

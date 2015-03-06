@@ -18,3 +18,15 @@
 
 	</div>
 </div>
+<!-- Overlay must be body direct child to cover entyre page --> 
+<div overlay="changePasswordOverlay">
+  <h4 class="overlay-title">Defina sua senha</h4>
+  <div>
+    <form ng-submit="Login.changePassword()">
+      <input class="form-control" type="password" ng-model="Login.new_password" placeholder="Nova Senha"/>
+    </form>
+  </div>
+  <p toggle="off" bubble target="changePasswordOverlay">
+    <span class="btn btn-primary">Ok</span>
+  </p>  
+</div>
