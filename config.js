@@ -11,15 +11,15 @@ module.exports = function(config) {
 
   // Development web server
 
-  config.server.host = '0.0.0.0';
-  config.server.port = '8000';
+  config.server.host = '192.168.0.67';
+  config.server.port = '8007';
   
   // Set to false to disable it:
   // config.server = false;
 
   // Weinre Remote debug server
   
-  config.weinre.httpPort = 8001;
+  config.weinre.httpPort = 8007;
   config.weinre.boundHost = 'localhost';
 
   // Set to false to disable it:
