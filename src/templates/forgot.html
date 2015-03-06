@@ -3,12 +3,17 @@
 </div>
 <div class="scrollable">
   <div class="scrollable-content section">
-    <div bs-panel title="Recupere sua senha">
-      <form ng-submit="Forgot.sendMail()">
-        <div class="col-xs-10 col-xs-offset-1 ib-login-form " >
-          <input type="email" class="form-control" placeholder="e-mail" ng-model="Forgot.informations.mail"/>
-          <textarea class="form-control" rows="3" placeholder="Se encontrar difículdades ao se conectar, nos passe mais detalhes aqui." ng-model="Forgot.informations.message"></textarea>	
-          <input type="submit" id="submit" class="ib-primary form-control" value="Recuperar minha senha" />
+    <div bs-panel title="Esqueci minha senha">
+      <form ng-submit="Forgot.sendMail()"  class="ng-pristine ng-valid ng-valid-email ng-submitted">
+        <div class="form-group" >
+          <label>Email</label>
+					<input type="email" placeholder="me@siemens.com" ng-model="Forgot.informations.mail" class="form-control"/>
+				</div>
+				<div class="form-group" >
+          <label>Mensagem</label>
+					<textarea rows="4" placeholder="Se encontrar difículdades ao se conectar, nos passe mais detalhes aqui." ng-model="Forgot.informations.message" class="form-control"></textarea>	
+				</div>
+					<button class="btn btn-primary btn-block">Recuperar minha senha</button>
           <span class="ib-text-secondary ib-forgot-btn" ><a ng-click="go('/login')">Voltar ao login</a></span>
         </div>
       </form> 

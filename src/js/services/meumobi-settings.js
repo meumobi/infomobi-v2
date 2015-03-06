@@ -11,7 +11,7 @@ angular.module('meumobi.settings', [])
   "DOMAIN": "infobox.int-meumobi.com",
   "SRC_URL": "http://int-meumobi.com/",
   "API_URL": "http://int-meumobi.com/api/",
-  "WELCOME_MESSAGE": "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+  "WELCOME_MESSAGE": "O InfoBox é o novo aplicativo de comunicação interna da Siemens. Fica conectado no feed de noticias da Siemens no seu celular."
 })
 
 .constant("INFOBOXAPP", {
