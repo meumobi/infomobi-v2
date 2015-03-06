@@ -4,6 +4,8 @@ var app = angular.module('InfoBox', [
   'infoboxApp.services.Cordova',
   'ngRoute',
   'ngTouch',
+  'angular-carousel',
+  'angular-carousel.shifty',
   'ngAnimate',
   'ngSanitize',
   'mobile-angular-ui',
@@ -23,6 +25,7 @@ var app = angular.module('InfoBox', [
 	'meumobi.appFunc',
 	'meumobi.utils',
 	'meumobi.filters'
+
 ])
 
 app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider) {
