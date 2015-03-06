@@ -7,6 +7,7 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
 		service : {
 			Device : {
 				isOnline : function(){return false;},
+				isFirstConnection : function() {return (localStorage.getItem("deviceInformations") === null);},
 				information: function(){return "none";},
 				uniqueDeviceID:function(a){a()}
 			}
