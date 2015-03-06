@@ -1,19 +1,17 @@
 <div content-for="title">
   <span>Esqueci minha senha</span>
 </div>
-
 <div class="scrollable">
-	<div class="scrollable-content section">
-		<div bs-panel title="Recupere sua senha">
-			<form ng-submit="Forgot.sendMail()">
-			<div class="col-xs-10 col-xs-offset-1 ib-login-form " >
-				<input type="email" class="form-control" placeholder="e-mail" ng-model="Forgot.informations.mail"/>
-			
-				<input type="submit" id="submit" class="ib-primary form-control" value="Recuperar minha senha" />
-			
-				<span class="ib-text-secondary ib-forgot-btn" ><a ng-click="go('/login')">Voltar ao login</a></span>
-			</div>
-			</form> 
-		</div>
-	</div>
+  <div class="scrollable-content section">
+    <div bs-panel title="Recupere sua senha">
+      <form ng-submit="Forgot.sendMail()">
+        <div class="col-xs-10 col-xs-offset-1 ib-login-form " >
+          <input type="email" class="form-control" placeholder="e-mail" ng-model="Forgot.informations.mail"/>
+          <textarea class="form-control" rows="3" placeholder="Se encontrar difículdades ao se conectar, nos passe mais detalhes aqui." ng-model="Forgot.informations.message"></textarea>	
+          <input type="submit" id="submit" class="ib-primary form-control" value="Recuperar minha senha" />
+          <span class="ib-text-secondary ib-forgot-btn" ><a ng-click="go('/login')">Voltar ao login</a></span>
+        </div>
+      </form> 
+    </div>
+  </div>
 </div>

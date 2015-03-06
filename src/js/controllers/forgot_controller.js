@@ -12,7 +12,7 @@ angular.module('infoboxApp.controllers.Forgot', [])
       name : "infobox",
       mail : "",
       phone : "x",
-      message : "x"
+      message : ""
     },
     sendMail : function(){
       $rootScope.loading = true;
