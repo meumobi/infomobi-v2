@@ -37,9 +37,9 @@ angular.module('infoboxApp.controllers.Show', [])
   
   $scope.swipeNews = function(direction){
     if(direction == 'right' && $routeParams.id > 0){
-        $rootScope.go('/show/' + ($routeParams.id - 1), 'slideRight');
+        $rootScope.go('/show/' + (parseInt($routeParams.id) - 1), 'slideRight');
     }else if(direction == 'left' && $routeParams.id < $rootScope.newsList.length){
-        $rootScope.go('/show/' + ($routeParams.id + 1), 'slideLeft');
+        $rootScope.go('/show/' + (parseInt($routeParams.id) + 1), 'slideLeft');
     }
   }
 
