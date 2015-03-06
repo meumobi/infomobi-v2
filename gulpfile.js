@@ -189,7 +189,7 @@ gulp.task('html', function() {
 ======================================================================*/
 
 gulp.task('less', function () {
-  gulp.src(['./src/less/app.less', './src/less/responsive.less','./bower_components/angular-carousel/src/css/angular-carousel.scss'])
+  gulp.src(['./src/less/app.less', './src/less/responsive.less'])
     .pipe(less({
       paths: [ path.resolve(__dirname, 'src/less'), path.resolve(__dirname, 'bower_components') ]
     }))

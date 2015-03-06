@@ -5,12 +5,10 @@
 		<div class="list-group ib-home-news">
 			<a ng-repeat="item in items | filter:query" ng-click="go('/show/'+$index,'slideLeft')" class="list-group-item ib-article">
 				<div class="media">
-						<ul rn-carousel rn-carousel-controls ng-if="item.images.length">
-							<li ng-repeat="image in item.images">
-								<img class="image" ng-src="{{getImage(item.images[$index].path)}}" alt= >
-							</li>
-						</ul>
-						<!---->
+						
+					<div class="ib-media-container pull-left" ng-if="item.images.length">
+						<img ng-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}">
+					</div>
 
 					<div class="media-body">
 						<h4 class="media-heading">{{item.title}} 						<small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small></h4>

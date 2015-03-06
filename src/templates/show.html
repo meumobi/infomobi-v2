@@ -3,10 +3,21 @@
 </div-->
 
 <div class="scrollable">
-	<div class="scrollable-content" ng-swipe-left="swipeNews('left')" ng-swipe-right="swipeNews('right')" hm-swipe-opts="{swipeVelocityX: 0.2}">
+	<div class="scrollable-content">
 		<div class="thumbnail">
-			<img ng-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}" ng-if="item.images.length">
-			<div class="caption">
+			<!--<div class="ib-show-media-container">
+			</div>-->
+			<ul rn-carousel rn-carousel-controls ng-carousel-buffered rn-carousel-index="carouselIndex" ng-if="item.images.length">
+				<li ng-repeat="image in item.images" ng-class="'id-' + $index"> 
+					<img ng-src="{{getImage(item.images[$index].path)}}" class="media-object" alt="{{item.title}}">
+				</li>
+			</ul>
+			<div rn-carousel-indicators ng-if="item.images.length > 1" slides="item.images" rn-carousel-index="carouselIndex" class="ng-scope ng-isolate-scope">
+				<div class="rn-carousel-indicator">
+					<span ng-repeat="image in item.images" ng-class="{active: $index==index}" ng-click="goToSlide($index)" class="ng-scope">●</span>
+				</div>
+			</div>
+			<div class="caption" ng-swipe-left="swipeNews('left')" ng-swipe-right="swipeNews('right')">
 				<h4>
 					{{item.title}}<br>
 					<small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>
