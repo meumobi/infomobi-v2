@@ -50,11 +50,13 @@ angular.module('infoboxApp.controllers.Login', [])
 		username : "",
 		password : "",
     changePassword: function() {
+      console.log($scope.Login.new_password);
       API.Login.save({
         current_password: $scope.Login.password,
         password: $scope.Login.new_password
       }, function() {
-        authenticateUser($scope.scope.Login.username, $rootScope.userToken);
+        $rootScope.toggle('changePasswordOverlay', 'off');
+        authenticateUser($scope.Login.username, $rootScope.userToken);
       }, function() {
         $rootScope.userToken = null;
       });
@@ -62,7 +64,6 @@ angular.module('infoboxApp.controllers.Login', [])
     loginSuccess : function(resp){
       $rootScope.userToken = resp['token'];
       //show modal if need change password, otherwise authenticate
-      resp.visitor.should_renew_password = localStorage.getItem('mail');
       if (resp.visitor.should_renew_password) {
         $rootScope.toggle('changePasswordOverlay', 'on');
       } else {
