@@ -1,14 +1,7 @@
 <div class="scrollable">
     <div class="scrollable-content">
         <div class="list-group ib-home-news">
-            <a ng-repeat="file in downloadedFiles" 
-                ng-click="openFile(file)"
-                class="list-group-item file">
-                <h4 class="media-heading">{{file.name}}</h4>
-                <button ng-click="deleteFile(file)">
-                    Delete
-                </button>
-            </a>
+        <download-file ng-repeat="file in downloadedFiles" file="file"></download-file>
         </div>
     </div>
 </div>
