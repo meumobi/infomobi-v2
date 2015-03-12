@@ -12,9 +12,7 @@ angular.module('meumobi.settings', [])
   "SRC_URL": "http://int-meumobi.com/",
   "API_URL": "http://int-meumobi.com/api/",
   "WELCOME_MESSAGE": "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-})
-
-meumobiSettings.constant('MEDIAS', {
+}).constant('MEDIAS', {
   'application/pdf': {
     class: 'fa-file-pdf-o',
     label: 'View',
@@ -39,8 +37,6 @@ meumobiSettings.constant('MEDIAS', {
     extension: 'ppt',
     download: true,
   }
-});
-
-.constant("INFOBOXAPP", {
+}).constant("INFOBOXAPP", {
   "VERSION" : "1.0.0"
 });
