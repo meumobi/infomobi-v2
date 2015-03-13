@@ -1,9 +1,5 @@
-<p>{{file.title}} ({{file.length|bytesToSize}})</p>
-<p>
-  <a ng-click="openFile(file)" class="btn btn-white btn-xs">
-    <i class="fa {{file.type|mediaIconClass}}"></i> {{file.type|mediaClickLabel}}
-  </a>
-  <a ng-click="deleteFile(file)" class="btn btn-white btn-xs">
-    <i class="fa fa-trash-o"></i> <span>Remover</span>
-  </a>
-</p>
+<a ng-click="openFile(file)" class="list-group-item file">
+	<h4 class="media-heading">{{file.title}} ({{file.length|bytesToSize}})</h4>
+	
+	 <button ng-click="deleteFile(file)">Remover</button>
+</a>
