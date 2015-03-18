@@ -11,13 +11,13 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 		}
 	});
 })
-	
-.factory('Items', 
+
+.factory('Items',
 	function($resource, SITE, $rootScope) {
 		return $resource(SITE.API_URL+SITE.DOMAIN+'/items/:id', {id: '@_id'}, {
 			latest: {
 				method: 'GET',
-				url: SITE.API_URL+SITE.DOMAIN+'/items/latest', 
+				url: SITE.API_URL+SITE.DOMAIN+'/items/latest',
 				timeout: SITE.TIMEOUT,
 				cache: false,
 				params: {
@@ -34,7 +34,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 			}
 		});
 	})
-  
+
 .factory('Login', function($resource, SITE, $rootScope){
 	return $resource(SITE.API_URL+SITE.DOMAIN+'/visitors/:id', {id: '@_id'},{
 		signin : {
@@ -99,25 +99,12 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 	});
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .factory('API', function ($http, SITE, $rootScope) {
     var api = (function(){
         return{
             get : function(endp,success,error){
                 $http({
-                    method: 'GET', 
+                    method: 'GET',
                     url: SITE.API_URL+SITE.DOMAIN+endp,
                     responseType: 'json',
                     headers: {
@@ -129,7 +116,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
             },
             post : function(endp,obj,success,error){
                 $http({
-                    method: 'POST', 
+                    method: 'POST',
                     url: SITE.API_URL+SITE.DOMAIN+endp,
                     data: JSON.stringify(obj),
                     responseType : 'json',
@@ -143,7 +130,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
             },
             put : function(endp, obj, success, error){
                 $http({
-                    method: 'PUT', 
+                    method: 'PUT',
                     url: SITE.API_URL+SITE.DOMAIN+endp,
                     data: JSON.stringify(obj),
                     responseType : 'json',
@@ -157,7 +144,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
             },
             del : function(endp, id, success, error){
                 $http({
-                    method: 'DELETE', 
+                    method: 'DELETE',
                     url: SITE.API_URL+SITE.DOMAIN+endp,
                     responseType: 'json',
                     'X-Visitor-Token': $rootScope.userToken
@@ -217,5 +204,3 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
     TESTE = app;
 	return app;
 });
-
-
