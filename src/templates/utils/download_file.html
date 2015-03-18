@@ -1,0 +1,10 @@
+<p class="list-group-item file">
+	<span>
+		<a ng-if="file.url" ng-click="downloadFile(file)">
+		  <span class="btn btn-white btn-xs">
+		  	<i class="fa {{file.type|mediaIconClass}}"></i> Download
+		  </span>
+		</a>
+  </span>
+  {{file.title}} ({{file.length|bytesToSize}})
+</p>

@@ -18,15 +18,16 @@ var app = angular.module('InfoBox', [
 	'infoboxApp.controllers.Login',
 	'infoboxApp.controllers.List',
 	'infoboxApp.controllers.Show',
-  	'infoboxApp.controllers.Files',
+  'infoboxApp.controllers.Files',
   'infoboxApp.controllers.Forgot',
 	'meumobi.api',
 	'meumobi.sync',
 	'meumobi.appInfo',
 	'meumobi.appFunc',
 	'meumobi.utils',
-	'meumobi.filters'
-
+	'meumobi.filters',
+	'meumobi.services.Files',
+	'meumobi.directives.DownloadFile',
 ])
 
 app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider) {

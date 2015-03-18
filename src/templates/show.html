@@ -23,17 +23,7 @@
 					<small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>
 				</h4>
 				<div ng-bind-html="item.description | hrefToJS"></div>
-				<p ng-repeat="media in item.medias">
-					<span ng-if="['application/pdf', 'audio/mpeg'].indexOf(media.type) != -1">
-						<a ng-click="downloadFile(media, $event)" 
-		  					target="_blank">
-		  					<span class="btn btn-white btn-xs">
-		  						<i class="fa fa-file-o"></i> Download
-		  					</span>
-		  				</a>
-		  			</span>
-					{{media.title}}
-				</p>
+        <download-file ng-repeat="media in item.medias|filter:mediaFilter" file="media"></download-file>
 			</div>
 		</div>
 	</div>
