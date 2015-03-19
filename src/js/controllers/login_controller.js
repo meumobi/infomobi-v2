@@ -12,10 +12,10 @@ angular.module('infoboxApp.controllers.Login', [])
   //display the welcome overlay
   if (AppInfo.service.Device.isFirstConnection()) {
     $rootScope.welcome_message = SITE.WELCOME_MESSAGE;
-    $rootScope.toggle('welcomeOverlay', 'on');
+    $rootScope.toggle('welcome-overlay', 'on');
   }
 
-  //this shoud not be scope available, and may be put inside a more reusable place, like a service
+  //this should not be scope available, and may be put inside a more reusable place, like a service
   var authenticateUser = function(mail, token) {
     localStorage['userToken'] = token;
     localStorage.mail = mail;
@@ -24,84 +24,81 @@ angular.module('infoboxApp.controllers.Login', [])
     $scope.Login.saveDeviceInformation();
   };
 
-	$scope.Login = {
-		signin : function(){
-
-			$rootScope.loading = true;
-
-			if($scope.Login.username!="" && $scope.Login.password!=""){//MOCK
-				AppInfo.service.Device.information(function(informations){
-					var user = {
-						"email" : $scope.Login.username,
-						"password" : $scope.Login.password,
-						"device" : {
-							"uuid" : informations.uuid,
-							"pushId" : "",
-							"model" : informations.model
-						}
-					}
-					API.Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
-
-				});
-			}else{
-				$scope.Login.loginError();
-			}
-		},
-		username : "",
-		password : "",
+  $scope.Login = {
+    signin : function() {
+      $rootScope.loading = true;
+      if ($scope.Login.username!="" && $scope.Login.password!="") {//MOCK
+        AppInfo.service.Device.information(function(informations) {
+          var user = {
+            "email" : $scope.Login.username,
+            "password" : $scope.Login.password,
+            "device" : {
+              "uuid" : informations.uuid,
+              "pushId" : "",
+              "model" : informations.model
+            }
+          }
+          API.Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
+        });
+      } else {
+        $scope.Login.loginError();
+      }
+    },
+    username : "",
+    password : "",
     changePassword: function() {
       console.log($scope.Login.new_password);
       API.Login.save({
         current_password: $scope.Login.password,
         password: $scope.Login.new_password
       }, function() {
-        $rootScope.toggle('changePasswordOverlay', 'off');
+        $rootScope.toggle('change-password-overlay', 'off');
         authenticateUser($scope.Login.username, $rootScope.userToken);
       }, function() {
         $rootScope.userToken = null;
       });
     },
-    loginSuccess : function(resp){
+    loginSuccess : function(resp) {
       $rootScope.userToken = resp['token'];
       //show modal if need change password, otherwise authenticate
-      if(resp.error && resp.error == "password expired") {
-        $rootScope.toggle('changePasswordOverlay', 'on');
+      if (resp.error && resp.error == "password expired") {
+        $rootScope.loading = false;
+        $rootScope.toggle('change-password-overlay', 'on');
       } else {
         authenticateUser($scope.Login.username, $rootScope.userToken);
       }
     },
-		loginError : function(resp){
-			$rootScope.loading = false;
-			var msg;
+    loginError : function(resp) {
+      $rootScope.loading = false;
+      var msg;
 
-			if(resp.error && resp.error=="Invalid visitor"){
-				msg = "Usuário e/ou Senha inválido(s)!";
-			}else{
-				msg = "Erro ao realizar login. Tente novamente.";
-			}
+      if (resp.error && resp.error=="Invalid visitor") {
+        msg = "Usuário e/ou Senha inválido(s)!";
+      } else {
+        msg = "Erro ao realizar login. Tente novamente.";
+      }
 
-			AppFunc.toast(msg);
-		},
-		saveDeviceInformation : function(){
-			AppInfo.service.Device.information(function(informations){
-				var device = {
-					"uuid" : informations.uuid,
-					"model" : informations.model,
-					"push_id": localStorage['push_id'],
-					"app_version" : INFOBOXAPP.VERSION
-				}
-				localStorage['deviceInformations'] = JSON.stringify(device);
+      AppFunc.toast(msg);
+    },
+    saveDeviceInformation : function(){
+      AppInfo.service.Device.information(function(informations) {
+        var device = {
+          "uuid" : informations.uuid,
+          "model" : informations.model,
+          "push_id": localStorage['push_id'],
+          "app_version" : INFOBOXAPP.VERSION
+        }
+        localStorage['deviceInformations'] = JSON.stringify(device);
 
-				API.Login.update(device,
-					function(resp){
-						console.log(resp);
-					},
-					function(err){
-						console.log(err);
-					}
-				);
-			});
-		}
-	}
-
+        API.Login.update(device,
+          function(resp) {
+            console.log(resp);
+          },
+          function(err) {
+            console.log(err);
+          }
+        );
+      });
+    }
+  }
 });
