@@ -1,73 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>infoBox</title>
+  <meta charset="utf-8" />
+  <title>infoBox</title>
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
-    <link rel="stylesheet" href="css/app.min.css" />
-    <link rel="stylesheet" href="css/responsive.min.css" />
-    <script src="http://localhost:8001/target/target-script-min.js"></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
+  <link rel="stylesheet" href="css/app.min.css" />
+  <link rel="stylesheet" href="css/responsive.min.css" />
+  <script src="http://localhost:8001/target/target-script-min.js"></script>
     <script src="cordova.js"></script>
-    <script src="js/app.min.js"></script>
+  <script src="js/app.min.js"></script>
 </head>
 <body ng-app="InfoBox" ng-controller="MainController">
-<div class="app ib-app" ng-class="{'has-navbar-bottom':NavBars.visibility()}">
+  <div class="app ib-app" ng-class="{'has-navbar-bottom':NavBars.visibility()}">
     <!-- Navbars -->
     <div class="navbar navbar-app navbar-absolute-top ib-nav-top" ng-class="{'ib-hidden' : !NavBars.visibility(), 'loading' : loading}">
-        <div class="navbar-brand navbar-brand-center" yield-to="title">
-            <img src="images/infobox_final-03.png" alt="infoBox"/>
-        </div>
-        <div class="btn-group pull-left" yield-to="navbarActionLeft">
-        	<button ng-click="go('back','slideRight')" class="btn btn-primary" ng-show="NavBars.canBack()" >
-        		<i class="fa fa-chevron-left"></i>
-        	</button>
-        </div>
-        <div class="btn-group pull-right" yield-to="navbarActionRight">
-            <button ng-click="go('/files')" class="btn btn-primary">
-                <i class="fa fa-file"></i>
-            </button>
-        </div>
+      <div class="navbar-brand navbar-brand-center" yield-to="title">
+        <img src="images/infobox_final-03.png" alt="infoBox"/>
+      </div>
+      <div class="btn-group pull-left" yield-to="navbarActionLeft">
+        <button ng-click="go('back','slideRight')" class="btn btn-primary" ng-show="NavBars.canBack()" >
+          <i class="fa fa-chevron-left"></i>
+        </button>
+      </div>
+      <div class="btn-group pull-right" yield-to="navbarActionRight" style="display:none">
+        <button ng-click="go('/files')" class="btn btn-primary">
+          <i class="fa fa-file"></i>
+        </button>
+      </div>
     </div>
 
     <div class="navbar navbar-app navbar-absolute-bottom nav-bottom" ng-if="NavBars.visibility()">
-        <div class="btn-group justified">
-            <a ng-click="go('/list')" class="btn btn-navbar">
-                <i class="fa fa-rss fa-navbar"></i> Notícias
-            </a>
-            <!--a ng-click="mailto()" class="btn btn-navbar">
-                <i class="fa fa-envelope fa-navbar fa-2x"></i><br/><span>Contato</span>
-            </a-->
-            <a ng-click="go('/contact')" class="btn btn-navbar">
-                <i class="fa fa-envelope fa-navbar"></i> Contato
-            </a>
-            <a ng-click="go('/account')" class="btn btn-navbar">
-                <i class="fa fa-user fa-navbar"></i> Conta
-            </a>
-            <!--a ng-click="go('/about')" class="btn btn-navbar">
-                <i class="fa fa-info-circle fa-navbar fa-2x"></i><br/><span>Info</span>
-            </a-->
-        </div>
+      <div class="btn-group justified">
+        <a ng-click="go('/list')" class="btn btn-navbar">
+          <i class="fa fa-rss fa-navbar"></i> Notícias
+        </a>
+        <a ng-click="go('/contact')" class="btn btn-navbar">
+          <i class="fa fa-envelope fa-navbar"></i> Contato
+        </a>
+        <a ng-click="go('/account')" class="btn btn-navbar">
+          <i class="fa fa-user fa-navbar"></i> Conta
+        </a>
+      </div>
     </div>
 
     <!-- App Body -->
     <div class="app-body" ng-class="{loading: loading, 'ib-login-screen-container' : !NavBars.visibility()}">
-        <div ng-show="loading" class="app-content-loading">
-            <i class="fa fa-spinner fa-spin loading-spinner"></i>
-        </div>
-        <ng-view class="app-content" ng-class="pageAnimationClass" ng-hide="loading"></ng-view>
+      <div ng-show="loading" class="app-content-loading">
+        <i class="fa fa-spinner fa-spin loading-spinner"></i>
+      </div>
+      <ng-view class="app-content" ng-class="pageAnimationClass" ng-hide="loading"></ng-view>
     </div>
-</div><!-- ~ .app -->
-<!-- Overlay must be body direct child to cover entyre page --> 
-<div overlay="welcomeOverlay">
-  <h4 class="overlay-title">Bem Vindo</h4>
-  <p ng-bind="welcome_message"></p>
-  <p toggle="off" bubble target="welcomeOverlay">
-    <span class="btn btn-primary">Ok</span>
-  </p>  
-</div>
+  </div>
 </body>
 </html>

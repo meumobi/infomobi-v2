@@ -41,7 +41,13 @@ angular.module('infoboxApp.controllers.Login', [])
           API.Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
         });
       } else {
-        $scope.Login.loginError();
+        var missingFields = "Por favor, Preencha o(s) seguinte(s) campo(s):";
+        if(!$scope.Login.username)
+          missingFields += "\r- Usuário";
+        if(!$scope.Login.password)
+          missingFields += "\r- Senha";
+
+        $scope.Login.loginError({error: missingFields});
       }
     },
     username : "",
@@ -71,9 +77,11 @@ angular.module('infoboxApp.controllers.Login', [])
     loginError : function(resp) {
       $rootScope.loading = false;
       var msg;
-
-      if (resp.error && resp.error=="Invalid visitor") {
-        msg = "Usuário e/ou Senha inválido(s)!";
+      if(resp.error) {
+        if(resp.error == "Invalid visitor")
+          msg = "Usuário e/ou Senha inválido(s)!";
+        else
+          msg = resp.error;
       } else {
         msg = "Erro ao realizar login. Tente novamente.";
       }
