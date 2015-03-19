@@ -149,3 +149,5 @@ plugins/*
 
 # IDE's Project Folder
 .idea/*
+
+www/cordova.js

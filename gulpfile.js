@@ -8,13 +8,14 @@ var config = {
   dest: 'www',
   cordova: true,
   minify_images: true,
-  
+
   vendor: {
     js: [
       './bower_components/angular/angular.js',
       './bower_components/angular-route/angular-route.js',
       './bower_components/angular-touch/angular-touch.js',
       './bower_components/angular-sanitize/angular-sanitize.js',
+      './bower_components/angular-pull-to-refresh/dist/angular-pull-to-refresh.js',
       './bower_components/angular-animate/angular-animate.js',
       './bower_components/angular-resource/angular-resource.js',
       './bower_components/angular-carousel/src/angular-carousel.js',
@@ -143,7 +144,7 @@ gulp.task('livereload', function () {
 
 gulp.task('images', function () {
   var stream = gulp.src('src/images/**/*')
-  
+
   if (config.minify_images) {
     stream = stream.pipe(imagemin({
         progressive: true,
@@ -151,7 +152,7 @@ gulp.task('images', function () {
         use: [pngcrush()]
     }))
   };
-  
+
   return stream.pipe(gulp.dest(path.join(config.dest, 'images')));
 });
 
@@ -196,7 +197,7 @@ gulp.task('less', function () {
     .pipe(mobilizer('app.css', {
       'app.css': {
         hover: 'exclude',
-        screens: ['0px']      
+        screens: ['0px']
       },
       'hover.css': {
         hover: 'only',
@@ -237,7 +238,7 @@ gulp.task('js', function() {
 
 gulp.task('watch', function () {
   if (typeof config.server === 'object') {
-    gulp.watch([config.dest + '/**/*'], ['livereload']);  
+    gulp.watch([config.dest + '/**/*'], ['livereload']);
   };
   gulp.watch(['./src/html/**/*'], ['html']);
   gulp.watch(['./src/less/**/*'], ['less']);
@@ -286,6 +287,6 @@ gulp.task('default', function(done){
   };
 
   tasks.push('watch');
-  
+
   seq('build', tasks, done);
 });

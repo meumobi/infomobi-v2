@@ -2,10 +2,10 @@
 
 <div class="scrollable">
 	<div class="scrollable-content">
-		<div class="list-group ib-home-news">
+		<div class="list-group ib-home-news" pull-to-refresh="listItems()">
 			<a ng-repeat="item in items | filter:query" ng-click="go('/show/'+$index,'slideLeft')" class="list-group-item ib-article">
 				<div class="media">
-						
+
 					<div class="ib-media-container pull-left" ng-if="item.images.length">
 						<img ng-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}">
 					</div>

@@ -11,7 +11,7 @@
     <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="false" />
-		<preference name="DisallowOverscroll" value="true" />
+	<preference name="DisallowOverscroll" value="true" />
     <preference name="prerendered-icon" value="true" />
     <preference name="stay-in-webview" value="false" />
     <preference name="ios-statusbarstyle" value="black-opaque" />
@@ -37,14 +37,13 @@
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="nl.x-services.plugins.toast" />
     <gap:plugin name="com.adobe.plugins.gaplugin" />
-		<gap:plugin name="com.jcjee.plugins.emailcomposer" version="1.4.6" />
-		<gap:plugin name="com.pushwoosh.plugins.pushwoosh" version="3.4.1" />
+	<!--gap:plugin name="com.jcjee.plugins.emailcomposer" version="1.4.6" /-->
+	<gap:plugin name="com.pushwoosh.plugins.pushwoosh" version="3.4.1" />
     <gap:plugin name="nl.x-services.plugins.socialsharing" />
     <gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" version="1.2.0" />
     <gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" />
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />
-    <gap:plugin name="nl.x-services.plugins.toast" />
 		
    	<!-- default mandatory icon 120x120px-->
     <icon src="icon.png" />

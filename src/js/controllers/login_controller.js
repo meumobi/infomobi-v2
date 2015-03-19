@@ -36,7 +36,7 @@ angular.module('infoboxApp.controllers.Login', [])
 						"password" : $scope.Login.password,
 						"device" : {
 							"uuid" : informations.uuid,
-							"pushId" : "", 
+							"pushId" : "",
 							"model" : informations.model
 						}
 					}
@@ -64,7 +64,7 @@ angular.module('infoboxApp.controllers.Login', [])
     loginSuccess : function(resp){
       $rootScope.userToken = resp['token'];
       //show modal if need change password, otherwise authenticate
-      if (resp.visitor.should_renew_password) {
+      if(resp.error && resp.error == "password expired") {
         $rootScope.toggle('changePasswordOverlay', 'on');
       } else {
         authenticateUser($scope.Login.username, $rootScope.userToken);
@@ -91,7 +91,7 @@ angular.module('infoboxApp.controllers.Login', [])
 					"app_version" : INFOBOXAPP.VERSION
 				}
 				localStorage['deviceInformations'] = JSON.stringify(device);
-				
+
 				API.Login.update(device,
 					function(resp){
 						console.log(resp);
@@ -105,5 +105,3 @@ angular.module('infoboxApp.controllers.Login', [])
 	}
 
 });
-
- 

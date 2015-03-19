@@ -9,6 +9,7 @@ var app = angular.module('InfoBox', [
   'ngAnimate',
   'ngSanitize',
   'mobile-angular-ui',
+  'mgcrea.pullToRefresh',
 	'infoboxApp.controllers.Main',
 	//'ngCachedResource',
 	'services.Analytics',
@@ -17,19 +18,20 @@ var app = angular.module('InfoBox', [
 	'infoboxApp.controllers.Login',
 	'infoboxApp.controllers.List',
 	'infoboxApp.controllers.Show',
-  	'infoboxApp.controllers.Files',
+  'infoboxApp.controllers.Files',
   'infoboxApp.controllers.Forgot',
 	'meumobi.api',
 	'meumobi.sync',
 	'meumobi.appInfo',
 	'meumobi.appFunc',
 	'meumobi.utils',
-	'meumobi.filters'
-
+	'meumobi.filters',
+	'meumobi.services.Files',
+	'meumobi.directives.DownloadFile',
 ])
 
 app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider) {
-  $httpProvider.interceptors.push('errorInterceptor'); 
+  $httpProvider.interceptors.push('errorInterceptor');
 
 		$routeProvider.when('/list', {
 		templateUrl: "list.html",
@@ -77,7 +79,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsP
     $rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
       //send page to analytics
       analytics.trackPage($location.url().toString());
-      
+
 	    if(location.href.indexOf('login')==-1 && location.href.indexOf('forgot')==-1){
 	    	if(!$rootScope.userToken || $rootScope.userToken!=localStorage.userToken){
 	    		delete localStorage.userToken
@@ -86,7 +88,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsP
     	}
     });
 
-    
+
     AppFunc.startApp.executeAll();
 
 });
