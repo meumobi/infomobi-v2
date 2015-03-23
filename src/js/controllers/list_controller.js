@@ -3,10 +3,11 @@
 angular.module('infoboxApp.controllers.List', [])
 
 .controller('ListController', function($rootScope, $scope, API, AppFunc, $timeout, SITE, SyncNews) {
-	
+
 	$scope.items = $rootScope.newsList;
-	
+
 	$scope.listItems = function(){
+
 		SyncNews.get(function(resp, success){
 			$timeout(function(){
 				$rootScope.loading = false;
@@ -29,7 +30,5 @@ angular.module('infoboxApp.controllers.List', [])
 
 	$scope.listItems();
 
-	
-});
 
- 
+});

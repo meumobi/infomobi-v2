@@ -5,10 +5,8 @@
 <div class="scrollable">
 	<div class="scrollable-content">
 		<div class="thumbnail">
-			<!--<div class="ib-show-media-container">
-			</div>-->
 			<ul rn-carousel rn-carousel-controls ng-carousel-buffered rn-carousel-index="carouselIndex" ng-if="item.images.length">
-				<li ng-repeat="image in item.images" ng-class="'id-' + $index"> 
+				<li ng-repeat="image in item.images" ng-class="'id-' + $index">
 					<img ng-src="{{getImage(item.images[$index].path)}}" class="media-object" alt="{{item.title}}">
 				</li>
 			</ul>
@@ -28,5 +26,3 @@
 		</div>
 	</div>
 </div>
-
-

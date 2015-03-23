@@ -9,7 +9,6 @@ var app = angular.module('InfoBox', [
   'ngAnimate',
   'ngSanitize',
   'mobile-angular-ui',
-  'mgcrea.pullToRefresh',
 	'infoboxApp.controllers.Main',
 	//'ngCachedResource',
 	'services.Analytics',
@@ -27,7 +26,7 @@ var app = angular.module('InfoBox', [
 	'meumobi.utils',
 	'meumobi.filters',
 	'meumobi.services.Files',
-	'meumobi.directives.DownloadFile',
+	'meumobi.directives.DownloadFile'
 ])
 
 app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider) {

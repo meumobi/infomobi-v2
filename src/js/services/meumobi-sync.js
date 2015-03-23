@@ -3,7 +3,7 @@
 angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils', 'meumobi.settings'])
 
 .factory('SyncNews', function(API,AppInfo, AppUtils, $rootScope, SITE) {
-	
+
 	var app = {
 		get : function(callback){
 			if(!localStorage.hasOwnProperty('newsList')){
@@ -28,7 +28,7 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 					app.saveAllImages(imagesUrls,function(){
 						localStorage['newsList'] = JSON.stringify(news);
 						$rootScope.newsList = news;
-						callback(news, true);	
+						callback(news, true);
 						$rootScope.loading = false;
 					});
 				},

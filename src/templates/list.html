@@ -1,8 +1,20 @@
 <input type="search" class="form-control app-search" placeholder="Buscar.." ng-model="query"/>
 
+<div content-for="navbarActionLeft">
+	<button ng-click="listItems()" class="btn btn-primary">
+		<i class="fa fa-refresh"></i>
+	</button>
+</div>
+
 <div class="scrollable">
 	<div class="scrollable-content">
-		<div class="list-group ib-home-news" pull-to-refresh="listItems()">
+		<div class="list-group ib-home-news">
+		<div class="ib-loading-news">
+			<div>
+				<i class="fa fa-spinner fa-spin"></i>
+				Loading...
+			</div>
+		</div>
 			<a ng-repeat="item in items | filter:query" ng-click="go('/show/'+$index,'slideLeft')" class="list-group-item ib-article">
 				<div class="media">
 
