@@ -6,7 +6,10 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 
 	var app = {
 		get : function(callback){
-			if(!localStorage.hasOwnProperty('newsList')){
+		var push = window.plugins.pushNotification;
+		push.setApplicationIconBadgeNumber(0);
+
+		if(!localStorage.hasOwnProperty('newsList')){
 				if(!AppInfo.service.Device.isOnline()){
 					callback([],true);
 					return false;
@@ -29,7 +32,6 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 						localStorage['newsList'] = JSON.stringify(news);
 						$rootScope.newsList = news;
 						callback(news, true);
-						$rootScope.loading = false;
 					});
 				},
 				function(error, status) {
