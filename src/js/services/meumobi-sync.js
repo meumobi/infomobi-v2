@@ -6,8 +6,16 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 
 	var app = {
 		get : function(callback){
-		var push = window.plugins.pushNotification;
-		push.setApplicationIconBadgeNumber(0);
+
+			document.addEventListener("deviceready", function() {
+				if(window.plugins.pushNotification){
+					console.log("push success");
+					var push = window.plugins.pushNotification;
+					push.setApplicationIconBadgeNumber(0);
+				}else {
+					console.log("push fail");
+				}
+			}, false);
 
 		if(!localStorage.hasOwnProperty('newsList')){
 				if(!AppInfo.service.Device.isOnline()){
