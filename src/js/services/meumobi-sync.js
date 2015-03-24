@@ -2,33 +2,25 @@
 
 angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils', 'meumobi.settings'])
 
-.factory('SyncNews', function(API,AppInfo, AppUtils, $rootScope, SITE) {
+.factory('SyncNews', function(API,AppInfo, AppUtils, $rootScope, SITE, AppFunc) {
 
 	var app = {
 		get : function(callback){
-
-			document.addEventListener("deviceready", function() {
-				if(window.plugins.pushNotification){
-					console.log("push success");
-					var push = window.plugins.pushNotification;
-					push.setApplicationIconBadgeNumber(0);
-				}else {
-					console.log("push fail");
-				}
-			}, false);
 
 		if(!localStorage.hasOwnProperty('newsList')){
 				if(!AppInfo.service.Device.isOnline()){
 					callback([],true);
 					return false;
 				}
-			}else{
+		}else{
 				var news = JSON.parse(localStorage['newsList']);
 				callback(news, true);
-			}
+		}
 			if(AppInfo.service.Device.isOnline()){
 				app.list(callback);
-			}
+		}
+
+		AppFunc.eraseNotifications();
 		},
 		list : function(callback){
 			API.Items.latest(

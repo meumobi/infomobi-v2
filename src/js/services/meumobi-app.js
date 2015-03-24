@@ -134,6 +134,16 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 		      }
 		    });
 	  	},
+			eraseNotifications: function() {
+				deviceReady(function() {
+					if (window.plugins && window.plugins.pushNotification) {
+						var push = window.plugins.pushNotification;
+						push.setApplicationIconBadgeNumber(0);
+					}else{
+						console.log("There are no notification support.");
+					}
+				});
+			},
 	  	startApp : {
 	  		executeAll : function(){
 	  			var that = this;
