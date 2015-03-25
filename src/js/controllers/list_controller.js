@@ -15,7 +15,9 @@ angular.module('infoboxApp.controllers.List', [])
 			if(success){
 				$scope.items = resp;
 			}else{
-				AppFunc.toast("Erro ao sincronizar notícias");
+				if(resp.error != "304") {
+					AppFunc.toast(resp.error);
+				}
 				$scope.items = localStorage.hasOwnProperty('newsList') ? JSON.parse(localStorage['newsList']) : [];
 			}
 		});

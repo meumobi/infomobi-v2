@@ -25,12 +25,14 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 				},
 				headers: {
 							'X-Visitor-Token': $rootScope.userToken,
-							//'If-None-Match' : localStorage['ETag']
+							'If-None-Match' : localStorage['ETag']
 						 }
 			},
 			get: {
 				//cache : true,
-				headers: {'X-Visitor-Token': $rootScope.userToken}
+				headers: {
+							'X-Visitor-Token': $rootScope.userToken
+						}
 			}
 		});
 	})
