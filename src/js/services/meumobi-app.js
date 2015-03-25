@@ -13,7 +13,7 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
 			}
 		}
 	};
-	
+
 	deviceReady(function(){
 		AppUtils.safeApply($rootScope, function(){
 			app.service = {
@@ -43,7 +43,7 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
             return (localStorage.getItem("deviceInformations") === null);
           },
 					information : function(callback){
-						var informations; 
+						var informations;
 						app.service.Device.uniqueDeviceID(
 							function(uuid){
 								if(window.cordova){
@@ -68,7 +68,7 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
 								console.log(error);
 							}
 						);
-						
+
 					},
 					uniqueDeviceID : function(success, error){
 						if(window.plugins && window.plugins.uniqueDeviceID){
@@ -80,7 +80,7 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
 				}
 			}
 		});
-		
+
 	});
 
 	return app;
@@ -92,7 +92,7 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 	var app = {
 		toast : function(message, success, fail){
 			if (window.plugins && window.plugins.toast) {
-				window.plugins.toast.showLongBottom(message, 
+				window.plugins.toast.showLongBottom(message,
 					function(resp){
 						if(success){
 							success(resp);
@@ -134,6 +134,16 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 		      }
 		    });
 	  	},
+			eraseNotifications: function() {
+				deviceReady(function() {
+					if (window.plugins && window.plugins.pushNotification) {
+						var push = window.plugins.pushNotification;
+						push.setApplicationIconBadgeNumber(0);
+					}else{
+						console.log("There are no notification support.");
+					}
+				});
+			},
 	  	startApp : {
 	  		executeAll : function(){
 	  			var that = this;
@@ -149,7 +159,7 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
   		  	backButton : function(){
 				document.addEventListener("backbutton", function(){
 			    	if($location.url().indexof("/show")!=-1){
-			    		$rootScope.go('back','slideRight');		
+			    		$rootScope.go('back','slideRight');
 			    	}
 			    }, false);
   		  	},
