@@ -7,37 +7,41 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 	var app = {
 		get : function(callback){
 
-		if(!localStorage.hasOwnProperty('newsList')){
-				if(!AppInfo.service.Device.isOnline()){
-					callback([],true);
-					return false;
-				}
-		}else{
-				var news = JSON.parse(localStorage['newsList']);
-				callback(news, true);
-		}
-			if(AppInfo.service.Device.isOnline()){
-				app.list(callback);
+		if(AppInfo.service.Device.isOnline()) {
+			app.list(callback); // Online API Request
 		}
 
 		AppFunc.eraseNotifications();
 		},
 		list : function(callback){
 			API.Items.latest(
-				function(data) {
-					var news = data.items;
-					var imagesUrls = app.getImagesFromNews(news);
-					app.deleteImages();
-					app.saveAllImages(imagesUrls,function(){
-						localStorage['newsList'] = JSON.stringify(news);
-						$rootScope.newsList = news;
-						callback(news, true);
-					});
+				function(data, status, getResponseHeaders) {
+					var headers = getResponseHeaders();
+
+					//Set ETAG into localStorage if there's none
+					if(!localStorage.hasOwnProperty('ETag')) {
+						app.setETag(headers.etag);
+					}
+
+					//Status handler
+					if(localStorage['ETag'] == headers.etag) {
+						callback({error:"304"}, false); //No changes in the list
+					} else {
+						app.setETag(headers.etag);
+						var news = data.items;
+						var imagesUrls = app.getImagesFromNews(news);
+						app.deleteImages();
+						app.saveAllImages(imagesUrls,function(){
+							localStorage['newsList'] = JSON.stringify(news);
+							$rootScope.newsList = news;
+							callback(news, true);
+						});
+					}
 				},
-				function(error, status) {
+				function(errorResponse, status) {
 					console.log(status);
-					console.log("Request Failed:" + error);
-					callback(error, false);
+					console.log("Request Failed:" + errorResponse);
+					callback({error:status + " - " + errorResponse}, false);
 					$rootScope.loading = false;
 				}
 			);
@@ -83,6 +87,9 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 			   		delete localStorage[prop];
 			   }
 			}
+		},
+		setETag: function(etag) {
+			localStorage['ETag'] = etag;
 		}
 	};
 	return app;
