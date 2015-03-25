@@ -41,7 +41,15 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 				function(errorResponse, status) {
 					console.log(status);
 					console.log("Request Failed:" + errorResponse);
-					callback({error:status + " - " + errorResponse}, false);
+					switch(status){
+						case 304:
+							callback({error:"304"}, false); //No changes in the list
+							break;
+						default:
+							callback({error:status + " - " + errorResponse}, false);
+							break;	
+					}
+
 					$rootScope.loading = false;
 				}
 			);
