@@ -22,25 +22,15 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 				function(data, status, getResponseHeaders) {
 					var headers = getResponseHeaders();
 
-					//Set ETAG into localStorage if there's none
-					if(!localStorage.hasOwnProperty('ETag')) {
-						app.setETag(headers.etag);
-					}
-
-					//Status handler
-					if(localStorage['ETag'] == headers.etag) {
-						callback({error:"304"}, false); //No changes in the list
-					} else {
-						app.setETag(headers.etag);
-						var news = data.items;
-						var imagesUrls = app.getImagesFromNews(news);
-						app.deleteImages();
-						app.saveAllImages(imagesUrls,function(){
+					app.setETag(headers.etag);
+					var news = data.items;
+					var imagesUrls = app.getImagesFromNews(news);
+					app.deleteImages();
+					app.saveAllImages(imagesUrls,function(){
 							localStorage['newsList'] = JSON.stringify(news);
 							$rootScope.newsList = news;
 							callback(news, true);
-						});
-					}
+					});
 				},
 				function(errorResponse, status) {
 					console.log(status);
