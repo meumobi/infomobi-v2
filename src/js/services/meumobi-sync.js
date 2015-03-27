@@ -6,13 +6,12 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 
 	var app = {
 		get : function(callback){
-
-		if(AppInfo.service.Device.isOnline()) {
+		if(window.navigator.onLine) {
+			console.log("Device is online.");
 			app.list(callback); // Online API Request
 		} else {
-		  if(AppInfo.service.Device.information() != "none") {
+			console.log("Device is offline.");
 		    callback({error:"Não foi possível sincronizar a lista de notícias. Verifique suas conexões e tente novamente."}, false);
-		  }
 		}
 
 		AppFunc.eraseNotifications();
@@ -39,7 +38,15 @@ angular.module('meumobi.sync', ['meumobi.api','meumobi.appInfo', 'meumobi.utils'
 						case 304:
 							callback({error:"304"}, false); //No changes in the list
 							break;
+						case 401:
+							delete localStorage.userToken;
+							delete localStorage.mail;
+							$rootScope.go('/login');
+							break;
 						default:
+							if(errorResponse == null){
+								errorResponse = "Houve um problema ao sincronizar. Tente novamente.";
+							}
 							callback({error:status + " - " + errorResponse}, false);
 							break;
 					}
