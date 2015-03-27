@@ -52,7 +52,7 @@ angular.module('meumobi.appInfo', ['infoboxApp.services.Cordova','meumobi.utils'
 						var informations;
 						app.service.Device.uniqueDeviceID(
 							function(uuid){
-								if(window.cordova){
+								if (window.cordova) {
 									informations = {
 										"uuid" : uuid,
 										"model" : device.model,
@@ -96,12 +96,12 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 			if (window.plugins && window.plugins.toast) {
 				window.plugins.toast.showLongBottom(message,
 					function(resp){
-						if(success){
+						if (success) {
 							success(resp);
 						}
 					},
 					function(err){
-						if(fail){
+						if (fail) {
 							fail(err);
 						}
 					}
@@ -116,13 +116,11 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 			} else { // Use the specified animation
 				$rootScope.pageAnimationClass = pageAnimationClass;
 			}
-
 			if (path === 'back') { // Allow a 'back' keyword to go to previous page
 				$window.history.back();
-			}else { // Go to the specified path
+			} else { // Go to the specified path
 				$location.path(path);
 			}
-
 		},
 		initPushwoosh: function(){
 			deviceReady(function(){
@@ -166,7 +164,7 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 				}, false);
 			},
 			hideSplashScreen : function(){
-				if(navigator.splashscreen){
+				if (navigator.splashscreen) {
 					console.log('Hide splash screen');
 					navigator.splashscreen.hide();
 				}

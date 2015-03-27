@@ -6,7 +6,7 @@ angular.module('meumobi.api', ['ngResource', 'meumobi.settings'])
 .factory('errorInterceptor', ['$q', '$rootScope', '$location',
 function ($q, $rootScope, $location) {
 	return {
-		request: function (config) {
+		request: function (config){
 			return config || $q.when(config);
 		},
 		requestError: function(request){
@@ -15,7 +15,7 @@ function ($q, $rootScope, $location) {
 		response: function (response) {
 			return response || $q.when(response);
 		},
-		responseError: function (response) {
+		responseError: function (response){
 			if (response && response.status === 404) {
 			}
 			if (response && response.status === 401) {
@@ -133,6 +133,5 @@ function ($q, $rootScope, $location) {
 			}
 		})()
 	}
-	TESTE = app;
 	return app;
 });
