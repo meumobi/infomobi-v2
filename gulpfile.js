@@ -18,10 +18,10 @@ var config = {
       './bower_components/angular-animate/angular-animate.js',
       './bower_components/angular-resource/angular-resource.js',
       './bower_components/angular-carousel/src/angular-carousel.js',
-       './bower_components/angular-carousel/src/directives/shifty.js',
-       './bower_components/angular-carousel/src/directives/rn-carousel.js',
-       './bower_components/angular-carousel/src/directives/rn-carousel-indicators.js',
-       //'./bower_components/angular-cached-resource/angular-cached-resource.js',
+      './bower_components/angular-carousel/src/directives/shifty.js',
+      './bower_components/angular-carousel/src/directives/rn-carousel.js',
+      './bower_components/angular-carousel/src/directives/rn-carousel-indicators.js',
+      //'./bower_components/angular-cached-resource/angular-cached-resource.js',
       './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js',
       './bower_components/js-md5/js/md5.js',
       './src/js/lib/pushwoosh-android.js',
@@ -39,11 +39,11 @@ var config = {
   },
 
   weinre: {
-    httpPort:     8001,
-    boundHost:    'localhost',
-    verbose:      false,
-    debug:        false,
-    readTimeout:  5,
+    httpPort: 8001,
+    boundHost: 'localhost',
+    verbose: false,
+    debug: false,
+    readTimeout: 5,
     deathTimeout: 15
   }
 };
@@ -61,27 +61,27 @@ if (require('fs').existsSync('./config.js')) {
 =            Requiring stuffs            =
 ========================================*/
 
-var gulp           = require('gulp'),
-    seq            = require('run-sequence'),
-    connect        = require('gulp-connect'),
-    less           = require('gulp-less'),
-    uglify         = require('gulp-uglify'),
-    sourcemaps     = require('gulp-sourcemaps'),
-    cssmin         = require('gulp-cssmin'),
-    order          = require('gulp-order'),
-    concat         = require('gulp-concat'),
-    ignore         = require('gulp-ignore'),
-    rimraf         = require('gulp-rimraf'),
-    imagemin       = require('gulp-imagemin'),
-    pngcrush       = require('imagemin-pngcrush'),
-    templateCache  = require('gulp-angular-templatecache'),
-    mobilizer      = require('gulp-mobilizer'),
-    ngAnnotate     = require('gulp-ng-annotate'),
-    replace        = require('gulp-replace'),
-    ngFilesort     = require('gulp-angular-filesort'),
-    streamqueue    = require('streamqueue'),
-    rename         = require('gulp-rename'),
-    path           = require('path');
+var gulp = require('gulp'),
+  seq = require('run-sequence'),
+  connect = require('gulp-connect'),
+  less = require('gulp-less'),
+  uglify = require('gulp-uglify'),
+  sourcemaps = require('gulp-sourcemaps'),
+  cssmin = require('gulp-cssmin'),
+  order = require('gulp-order'),
+  concat = require('gulp-concat'),
+  ignore = require('gulp-ignore'),
+  rimraf = require('gulp-rimraf'),
+  imagemin = require('gulp-imagemin'),
+  pngcrush = require('imagemin-pngcrush'),
+  templateCache = require('gulp-angular-templatecache'),
+  mobilizer = require('gulp-mobilizer'),
+  ngAnnotate = require('gulp-ng-annotate'),
+  replace = require('gulp-replace'),
+  ngFilesort = require('gulp-angular-filesort'),
+  streamqueue = require('streamqueue'),
+  rename = require('gulp-rename'),
+  path = require('path');
 
 
 /*================================================
@@ -97,15 +97,17 @@ gulp.on('err', function(e) {
 =            Clean dest folder            =
 =========================================*/
 
-gulp.task('clean', function (cb) {
+gulp.task('clean', function(cb) {
   return gulp.src([
-        path.join(config.dest, 'index.html'),
-        path.join(config.dest, 'images'),
-        path.join(config.dest, 'css'),
-        path.join(config.dest, 'js'),
-        path.join(config.dest, 'fonts')
-      ], { read: false })
-     .pipe(rimraf());
+      path.join(config.dest, 'index.html'),
+      path.join(config.dest, 'images'),
+      path.join(config.dest, 'css'),
+      path.join(config.dest, 'js'),
+      path.join(config.dest, 'fonts')
+    ], {
+      read: false
+    })
+    .pipe(rimraf());
 });
 
 
@@ -131,7 +133,7 @@ gulp.task('connect', function() {
 =            Setup live reloading on source changes            =
 ==============================================================*/
 
-gulp.task('livereload', function () {
+gulp.task('livereload', function() {
   gulp.src(path.join(config.dest, '*.html'))
     .pipe(connect.reload());
 });
@@ -141,14 +143,16 @@ gulp.task('livereload', function () {
 =            Minify images            =
 =====================================*/
 
-gulp.task('images', function () {
+gulp.task('images', function() {
   var stream = gulp.src('src/images/**/*')
 
   if (config.minify_images) {
     stream = stream.pipe(imagemin({
-        progressive: true,
-        svgoPlugins: [{removeViewBox: false}],
-        use: [pngcrush()]
+      progressive: true,
+      svgoPlugins: [{
+        removeViewBox: false
+      }],
+      use: [pngcrush()]
     }))
   };
 
@@ -162,7 +166,7 @@ gulp.task('images', function () {
 
 gulp.task('fonts', function() {
   return gulp.src(config.vendor.fonts)
-  .pipe(gulp.dest(path.join(config.dest, 'fonts')));
+    .pipe(gulp.dest(path.join(config.dest, 'fonts')));
 });
 
 
@@ -173,14 +177,14 @@ gulp.task('fonts', function() {
 gulp.task('html', function() {
   var inject = [];
   if (typeof config.weinre === 'object') {
-    inject.push('<script src="http://'+config.weinre.boundHost+':'+config.weinre.httpPort+'/target/target-script-min.js"></script>');
+    inject.push('<script src="http://' + config.weinre.boundHost + ':' + config.weinre.httpPort + '/target/target-script-min.js"></script>');
   }
   if (config.cordova) {
     inject.push('<script src="cordova.js"></script>');
   }
   gulp.src(['src/html/**/*.html'])
-  .pipe(replace('<!-- inject:js -->', inject.join('\n    ')))
-  .pipe(gulp.dest(config.dest));
+    .pipe(replace('<!-- inject:js -->', inject.join('\n    ')))
+    .pipe(gulp.dest(config.dest));
 });
 
 
@@ -188,10 +192,10 @@ gulp.task('html', function() {
 =            Compile, minify, mobilize less                            =
 ======================================================================*/
 
-gulp.task('less', function () {
+gulp.task('less', function() {
   gulp.src(['./src/less/app.less', './src/less/responsive.less'])
     .pipe(less({
-      paths: [ path.resolve(__dirname, 'src/less'), path.resolve(__dirname, 'bower_components') ]
+      paths: [path.resolve(__dirname, 'src/less'), path.resolve(__dirname, 'bower_components')]
     }))
     .pipe(mobilizer('app.css', {
       'app.css': {
@@ -204,7 +208,9 @@ gulp.task('less', function () {
       }
     }))
     .pipe(cssmin())
-    .pipe(rename({suffix: '.min'}))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(gulp.dest(path.join(config.dest, 'css')));
 });
 
@@ -216,17 +222,23 @@ gulp.task('less', function () {
 // - Precompile templates to ng templateCache
 
 gulp.task('js', function() {
-    streamqueue({ objectMode: true },
+  streamqueue({
+        objectMode: true
+      },
       gulp.src(config.vendor.js),
       gulp.src('./src/js/**/*.js').pipe(ngFilesort()),
-      gulp.src(['src/templates/**/*.html']).pipe(templateCache({ module: 'InfoBox' }))
+      gulp.src(['src/templates/**/*.html']).pipe(templateCache({
+        module: 'InfoBox'
+      }))
     )
     .pipe(sourcemaps.init())
     .pipe(concat('app.js'))
     .pipe(ngAnnotate())
-//    .pipe(uglify())
+    //    .pipe(uglify())
     .pipe(sourcemaps.write('.'))
-    .pipe(rename({suffix: '.min'}))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(gulp.dest(path.join(config.dest, 'js')));
 });
 
@@ -235,7 +247,7 @@ gulp.task('js', function() {
 =            Watch for source changes and rebuild/reload            =
 ===================================================================*/
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
   if (typeof config.server === 'object') {
     gulp.watch([config.dest + '/**/*'], ['livereload']);
   };
@@ -274,7 +286,7 @@ gulp.task('build', function(done) {
 =            Default Task            =
 ====================================*/
 
-gulp.task('default', function(done){
+gulp.task('default', function(done) {
   var tasks = [];
 
   if (typeof config.weinre === 'object') {

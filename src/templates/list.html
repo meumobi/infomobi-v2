@@ -1,4 +1,4 @@
-<input type="search" class="form-control app-search" placeholder="Buscar..." ng-model="query"/>
+<input type="search" class="form-control app-search" placeholder="Buscar..." ng-model="query" />
 
 <div content-for="navbarActionRight">
   <button ng-click="syncItems()" class="btn btn-primary">
@@ -11,8 +11,7 @@
     <div class="list-group ib-home-news">
       <div class="ib-loading-news" ng-hide="hideLoadingDiv">
         <div>
-          <i class="fa fa-spinner fa-spin"></i>
-          Carregando...
+          <i class="fa fa-spinner fa-spin"></i> Carregando...
         </div>
       </div>
       <a ng-repeat="item in items | filter:query" ng-click="go('/show/'+$index,'slideLeft')" class="list-group-item ib-article">
@@ -21,7 +20,10 @@
             <img ng-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}">
           </div>
           <div class="media-body">
-            <h4 class="media-heading">{{item.title}}<br/><small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small></h4>
+            <h4 class="media-heading">{{item.title}}
+              <br/>
+              <small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>
+            </h4>
             <!--p>{{item.caption}}</p-->
           </div>
         </div>

@@ -21,54 +21,56 @@
 var pw_application_code = "E76A0-70562";
 
 function registerPushwooshIOS() {
-	var pushNotification = window.plugins.pushNotification;
-    
-    // Set push notification callback before we initialize the plugin
-    document.addEventListener('push-notification',
-        function(event) {
-            var pushNotification = window.plugins.pushNotification;
+  var pushNotification = window.plugins.pushNotification;
 
-            // Get the notification
-            var notification = event.notification;
+  // Set push notification callback before we initialize the plugin
+  document.addEventListener('push-notification',
+    function(event) {
+      var pushNotification = window.plugins.pushNotification;
 
-            // Display the notification
-            //navigator.notification.alert(notification.aps.alert,function() {console.log("Notification success")},"Notification","Close");
+      // Get the notification
+      var notification = event.notification;
 
-            // View full push payload
-            //alert(JSON.stringify(notification));
+      // Display the notification
+      //navigator.notification.alert(notification.aps.alert,function() {console.log("Notification success")},"Notification","Close");
 
-            // Clear the App badge
-            pushNotification.setApplicationIconBadgeNumber(0);
-        }
-    );
-    
-	// Trigger pending push notifications
-	pushNotification.onDeviceReady({pw_appid:pw_application_code});
+      // View full push payload
+      //alert(JSON.stringify(notification));
 
-	// Register for pushes
-	pushNotification.registerDevice(
-		function(status) {
-			var deviceToken = status['deviceToken'];
-			localStorage['push_id'] = deviceToken;
-			console.warn('registerDevice: ' + deviceToken);
-			//onPushwooshiOSInitialized(deviceToken);
-		},
-		function(status) {
-			console.warn('failed to register : ' + JSON.stringify(status));
-			//alert(JSON.stringify(['failed to register ', status]));
-		}
-	);
-    
-	// Reset badges on start
-	pushNotification.setApplicationIconBadgeNumber(0);
+      // Clear the App badge
+      pushNotification.setApplicationIconBadgeNumber(0);
+    }
+  );
+
+  // Trigger pending push notifications
+  pushNotification.onDeviceReady({
+    pw_appid: pw_application_code
+  });
+
+  // Register for pushes
+  pushNotification.registerDevice(
+    function(status) {
+      var deviceToken = status['deviceToken'];
+      localStorage['push_id'] = deviceToken;
+      console.warn('registerDevice: ' + deviceToken);
+      //onPushwooshiOSInitialized(deviceToken);
+    },
+    function(status) {
+      console.warn('failed to register : ' + JSON.stringify(status));
+      //alert(JSON.stringify(['failed to register ', status]));
+    }
+  );
+
+  // Reset badges on start
+  pushNotification.setApplicationIconBadgeNumber(0);
 }
 
 /*
 function unregisterPushwooshIOS() {
 	var pushNotification = window.plugins.pushNotification;
-    
+
 	// Trigger pending push notifications
-	pushNotification.onDeviceReady();	
+	pushNotification.onDeviceReady();
 	// Unregister for pushes
 	pushNotification.unregisterDevice({pw_appid:pw_application_code},
 		function(status) {
@@ -81,19 +83,19 @@ function unregisterPushwooshIOS() {
 			alert(JSON.stringify(['failed to unregister ', status]));
 		}
 	);
-    
+
 }
 */
 
 function onPushwooshiOSInitialized(pushToken) {
-	var pushNotification = window.plugins.pushNotification;
-	// Retrieve the tags for the device
-	pushNotification.getTags(
-		function(tags) {
-			console.warn('tags for the device: ' + JSON.stringify(tags));
-		},
-		function(error) {
-			console.warn('get tags error: ' + JSON.stringify(error));
-		}
-	);
+  var pushNotification = window.plugins.pushNotification;
+  // Retrieve the tags for the device
+  pushNotification.getTags(
+    function(tags) {
+      console.warn('tags for the device: ' + JSON.stringify(tags));
+    },
+    function(error) {
+      console.warn('get tags error: ' + JSON.stringify(error));
+    }
+  );
 }

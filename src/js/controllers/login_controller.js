@@ -2,7 +2,7 @@
 
 angular.module('infoboxApp.controllers.Login', [])
 
-.controller('LoginController', function($rootScope, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP, SITE){
+.controller('LoginController', function($rootScope, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP, SITE) {
 
   if (localStorage.hasOwnProperty('userToken')) {
     $rootScope.go('/list');
@@ -25,33 +25,35 @@ angular.module('infoboxApp.controllers.Login', [])
   };
 
   $scope.Login = {
-    signin : function() {
+    signin: function() {
       $rootScope.loading = true;
-      if ($scope.Login.username!="" && $scope.Login.password!="") {//MOCK
+      if ($scope.Login.username != "" && $scope.Login.password != "") { //MOCK
         AppInfo.service.Device.information(function(informations) {
           var user = {
-            "email" : $scope.Login.username,
-            "password" : $scope.Login.password,
-            "device" : {
-              "uuid" : informations.uuid,
-              "pushId" : "",
-              "model" : informations.model
+            "email": $scope.Login.username,
+            "password": $scope.Login.password,
+            "device": {
+              "uuid": informations.uuid,
+              "pushId": "",
+              "model": informations.model
             }
           }
           API.Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
         });
       } else {
         var missingFields = "Por favor, Preencha o(s) seguinte(s) campo(s):";
-        if(!$scope.Login.username)
+        if (!$scope.Login.username)
           missingFields += "\r- Usuário";
-        if(!$scope.Login.password)
+        if (!$scope.Login.password)
           missingFields += "\r- Senha";
 
-        $scope.Login.loginError({error: missingFields});
+        $scope.Login.loginError({
+          error: missingFields
+        });
       }
     },
-    username : "",
-    password : "",
+    username: "",
+    password: "",
     changePassword: function() {
       console.log($scope.Login.new_password);
       API.Login.save({
@@ -64,7 +66,7 @@ angular.module('infoboxApp.controllers.Login', [])
         $rootScope.userToken = null;
       });
     },
-    loginSuccess : function(resp) {
+    loginSuccess: function(resp) {
       $rootScope.userToken = resp['token'];
       //show modal if need change password, otherwise authenticate
       if (resp.error && resp.error == "password expired") {
@@ -74,11 +76,11 @@ angular.module('infoboxApp.controllers.Login', [])
         authenticateUser($scope.Login.username, $rootScope.userToken);
       }
     },
-    loginError : function(resp) {
+    loginError: function(resp) {
       $rootScope.loading = false;
       var msg;
-      if(resp.error) {
-        if(resp.error == "Invalid visitor")
+      if (resp.error) {
+        if (resp.error == "Invalid visitor")
           msg = "Usuário e/ou Senha inválido(s)!";
         else
           msg = resp.error;
@@ -88,13 +90,13 @@ angular.module('infoboxApp.controllers.Login', [])
 
       AppFunc.toast(msg);
     },
-    saveDeviceInformation : function(){
+    saveDeviceInformation: function() {
       AppInfo.service.Device.information(function(informations) {
         var device = {
-          "uuid" : informations.uuid,
-          "model" : informations.model,
+          "uuid": informations.uuid,
+          "model": informations.model,
           "push_id": localStorage['push_id'],
-          "app_version" : INFOBOXAPP.VERSION
+          "app_version": INFOBOXAPP.VERSION
         }
         localStorage['deviceInformations'] = JSON.stringify(device);
 

@@ -1,10 +1,10 @@
 angular.module('infoboxApp.services.Cordova', [])
 
-.factory('deviceReady', function(){
+.factory('deviceReady', function() {
   return function(done) {
 
     if (typeof window.cordova === 'object') {
-      document.addEventListener('deviceready', function () {
+      document.addEventListener('deviceready', function() {
 
         done();
       }, false);

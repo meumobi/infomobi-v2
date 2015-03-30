@@ -4,19 +4,19 @@
 
 
 <div class="scrollable">
- <div class="scrollable-content section">
-   
-   <form action="" id="">
+  <div class="scrollable-content section">
 
-     <div bs-panel title="Altera sua senha">
+    <form action="" id="">
 
-       <!--input
+      <div bs-panel title="Altera sua senha">
+
+        <!--input
         bs-form-control
-        
-        type="text" 
+
+        type="text"
         ng-model="invoice.customer"
-        label="Customer" 
-        label-class="col-xs-3 col-sm-2 col-lg-1" 
+        label="Customer"
+        label-class="col-xs-3 col-sm-2 col-lg-1"
         class="col-xs-9 col-sm-10 col-lg-11"
         placeholder="Customer Name"
        />
@@ -28,26 +28,27 @@
         ng-click="switchClicked()"
         label="Ativar Push Notification"
         label-class="col-xs-3 col-sm-2 col-lg-1"
-        class="col-xs-9 col-sm-10 col-lg-11" 
+        class="col-xs-9 col-sm-10 col-lg-11"
         >
         </switch-->
 
-				<input bs-form-control="" type="text" label="Email" ng-model="user.mail" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" value="{{user.mail}}" readonly>
-				
+        <input bs-form-control="" type="text" label="Email" ng-model="user.mail" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" value="{{user.mail}}" readonly>
+
         <input bs-form-control="" type="password" ng-model="user.password" label="Senha" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder="Senha antiga">
-				
+
 
         <input bs-form-control="" type="password" ng-model="user.newPassword" label="Senha nova" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder="Senha nova">
 
-        <input bs-form-control="" type="password" ng-model="user.confirmNewPassword" label="Confirmar" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder="Confirmar senha nova"><br/>
-      
+        <input bs-form-control="" type="password" ng-model="user.confirmNewPassword" label="Confirmar" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder="Confirmar senha nova">
+        <br/>
+
         <div class="form-actions col-xs-1">
-        	<button class="btn btn-primary" ng-click="PasswordChanger.change()" >Salvar</button>
+          <button class="btn btn-primary" ng-click="PasswordChanger.change()">Salvar</button>
         </div>
-      <div>
-   </form>
-        <div class="form-actions col-xs-offset-9">
-          <button class="btn btn-primary" ng-click="logout()" >Sair</button>
-        </div>
- </div>
-</div>
+        <div>
+    </form>
+    <div class="form-actions col-xs-offset-9">
+      <button class="btn btn-primary" ng-click="logout()">Sair</button>
+    </div>
+    </div>
+    </div>

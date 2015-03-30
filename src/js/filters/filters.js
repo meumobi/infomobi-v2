@@ -1,10 +1,10 @@
 var filters = angular.module('meumobi.filters', ['ngSanitize']);
-filters.filter('hrefToJS', function ($sce, $sanitize) {
-    return function (text) {
-        var regex = /href="([\S]+)"/g;
-        var newString = $sanitize(text).replace(regex, "onClick=\"window.open('$1', '_blank', 'location=yes')\"");
-        return $sce.trustAsHtml(newString);
-    }
+filters.filter('hrefToJS', function($sce, $sanitize) {
+  return function(text) {
+    var regex = /href="([\S]+)"/g;
+    var newString = $sanitize(text).replace(regex, "onClick=\"window.open('$1', '_blank', 'location=yes')\"");
+    return $sce.trustAsHtml(newString);
+  }
 });
 filters.filter('mediaIconClass', function(MEDIAS) {
   return function(type) {
@@ -19,7 +19,7 @@ filters.filter('mediaClickLabel', function(MEDIAS) {
 filters.filter('bytesToSize', function() {
   return function(bytes) {
     bytes = bytes * 1000;
-    if(bytes == 0) return '0 Byte';
+    if (bytes == 0) return '0 Byte';
     var k = 1000;
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     var i = Math.floor(Math.log(bytes) / Math.log(k));

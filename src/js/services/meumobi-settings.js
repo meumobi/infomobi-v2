@@ -26,7 +26,7 @@ angular.module('meumobi.settings', [])
     download: true
   },
   'audio/mpeg': {
-    class: 'fa-file-audio-o', 
+    class: 'fa-file-audio-o',
     label: 'Play',
     extension: 'mp3',
     download: true
@@ -38,5 +38,5 @@ angular.module('meumobi.settings', [])
     download: true,
   }
 }).constant("INFOBOXAPP", {
-  "VERSION" : "1.0.0"
+  "VERSION": "1.0.0"
 });

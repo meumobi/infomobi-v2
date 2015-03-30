@@ -4,19 +4,19 @@
 <div class="scrollable">
   <div class="scrollable-content section">
     <div bs-panel title="Esqueci minha senha">
-      <form ng-submit="Forgot.sendMail()"  class="ng-pristine ng-valid ng-valid-email ng-submitted">
-        <div class="form-group" >
+      <form ng-submit="Forgot.sendMail()" class="ng-pristine ng-valid ng-valid-email ng-submitted">
+        <div class="form-group">
           <label>Email</label>
-					<input type="email" placeholder="me@siemens.com" ng-model="Forgot.informations.mail" class="form-control"/>
-				</div>
-				<div class="form-group" >
-          <label>Mensagem</label>
-					<textarea rows="4" placeholder="Se encontrar difículdades ao se conectar, nos passe mais detalhes aqui." ng-model="Forgot.informations.message" class="form-control"></textarea>	
-				</div>
-					<button class="btn btn-primary btn-block">Recuperar minha senha</button>
-          <span class="ib-text-secondary ib-forgot-btn" ><a ng-click="go('/login')">Voltar ao login</a></span>
+          <input type="email" placeholder="me@siemens.com" ng-model="Forgot.informations.mail" class="form-control" />
         </div>
-      </form> 
+        <div class="form-group">
+          <label>Mensagem</label>
+          <textarea rows="4" placeholder="Se encontrar difículdades ao se conectar, nos passe mais detalhes aqui." ng-model="Forgot.informations.message" class="form-control"></textarea>
+        </div>
+        <button class="btn btn-primary btn-block">Recuperar minha senha</button>
+        <span class="ib-text-secondary ib-forgot-btn"><a ng-click="go('/login')">Voltar ao login</a></span>
     </div>
+    </form>
   </div>
+</div>
 </div>

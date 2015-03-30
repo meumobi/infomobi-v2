@@ -24,44 +24,47 @@ var pw_application_code = "E76A0-70562";
 
 function registerPushwooshAndroid() {
 
-	var pushNotification = window.plugins.pushNotification;
-    
-    // Set push notifications handler
-    /*document.addEventListener('push-notification',
-        function(event) {
+  var pushNotification = window.plugins.pushNotification;
 
-            var title = event.notification.title;
-            var userData = event.notification.userdata;
+  // Set push notifications handler
+  /*document.addEventListener('push-notification',
+      function(event) {
 
-            //dump custom data to the console if it exists
-            if (typeof (userData) !== "undefined") {
-                console.warn('user data: ' + JSON.stringify(userData));
-            }
+          var title = event.notification.title;
+          var userData = event.notification.userdata;
 
-            // Display the notification
-            //navigator.notification.alert(title,function() {console.log("Notification success")},"Notification","Close");
-            
-            // Stopping geopushes
-            //pushNotification.stopGeoPushes();
-        }
-    );*/
+          //dump custom data to the console if it exists
+          if (typeof (userData) !== "undefined") {
+              console.warn('user data: ' + JSON.stringify(userData));
+          }
 
-	// Trigger pending push notifications
-    pushNotification.onDeviceReady({projectid: google_project_number, appid : pw_application_code});
+          // Display the notification
+          //navigator.notification.alert(title,function() {console.log("Notification success")},"Notification","Close");
 
-	// Register for pushes
-    pushNotification.registerDevice(
-        function(status) {
-            var pushToken = status;
-            localStorage['push_id'] = pushToken;
-            // Callback when pushwoosh is ready
-			//onPushwooshAndroidInitialized(token);
-        },
-        function(status) {
-            alert("failed to register: " +  status);
-            console.warn(JSON.stringify(['failed to register ', status]));
-        }
-    );
+          // Stopping geopushes
+          //pushNotification.stopGeoPushes();
+      }
+  );*/
+
+  // Trigger pending push notifications
+  pushNotification.onDeviceReady({
+    projectid: google_project_number,
+    appid: pw_application_code
+  });
+
+  // Register for pushes
+  pushNotification.registerDevice(
+    function(status) {
+      var pushToken = status;
+      localStorage['push_id'] = pushToken;
+      // Callback when pushwoosh is ready
+      //onPushwooshAndroidInitialized(token);
+    },
+    function(status) {
+      alert("failed to register: " + status);
+      console.warn(JSON.stringify(['failed to register ', status]));
+    }
+  );
 }
 
 /*
@@ -88,54 +91,52 @@ function unregisterPushwooshAndroid() {
 */
 
 function onPushwooshAndroidInitialized(pushToken) {
-	// Output the token to the console
-	console.warn('push token: ' + pushToken);
+  // Output the token to the console
+  console.warn('push token: ' + pushToken);
 
-	var pushNotification = window.plugins.pushNotification;
-	
-	pushNotification.getTags(
-		function(tags)
-		{
-			console.warn('tags for the device: ' + JSON.stringify(tags));
-		},
-		function(error)
-		{
-			console.warn('get tags error: ' + JSON.stringify(error));
-		}
-	);
+  var pushNotification = window.plugins.pushNotification;
 
-	// Set multi notification mode
-	//pushNotification.setMultiNotificationMode();
-	//pushNotification.setEnableLED(true);
-	
-	// Set single notification mode
-	//pushNotification.setSingleNotificationMode();
-	
-	// Disable sound and vibration
-	//pushNotification.setSoundType(1);
-	//pushNotification.setVibrateType(1);
-	
-	// pushNotification.setLightScreenOnNotification(false);
-	
-	// Goal with count
-	//pushNotification.sendGoalAchieved({goal:'purchase', count:3});
-	
-	// Goal with no count
-	//pushNotification.sendGoalAchieved({goal:'registration'});
+  pushNotification.getTags(
+    function(tags) {
+      console.warn('tags for the device: ' + JSON.stringify(tags));
+    },
+    function(error) {
+      console.warn('get tags error: ' + JSON.stringify(error));
+    }
+  );
 
-	// Setting list tags
-	//pushNotification.setTags({"MyTag":["hello", "world"]});
-	
-	// Settings tags
-	//pushNotification.setTags({deviceName:"hello", deviceId:10},
-		//function(status) {
-			//console.warn('setTags success');
-		//},
-		//function(status) {
-			//console.warn('setTags failed');
-		//}
-	//);
+  // Set multi notification mode
+  //pushNotification.setMultiNotificationMode();
+  //pushNotification.setEnableLED(true);
 
-	// Pushwoosh Android specific method that cares for the battery
-	// pushNotification.startGeoPushes();
+  // Set single notification mode
+  //pushNotification.setSingleNotificationMode();
+
+  // Disable sound and vibration
+  //pushNotification.setSoundType(1);
+  //pushNotification.setVibrateType(1);
+
+  // pushNotification.setLightScreenOnNotification(false);
+
+  // Goal with count
+  //pushNotification.sendGoalAchieved({goal:'purchase', count:3});
+
+  // Goal with no count
+  //pushNotification.sendGoalAchieved({goal:'registration'});
+
+  // Setting list tags
+  //pushNotification.setTags({"MyTag":["hello", "world"]});
+
+  // Settings tags
+  //pushNotification.setTags({deviceName:"hello", deviceId:10},
+  //function(status) {
+  //console.warn('setTags success');
+  //},
+  //function(status) {
+  //console.warn('setTags failed');
+  //}
+  //);
+
+  // Pushwoosh Android specific method that cares for the battery
+  // pushNotification.startGeoPushes();
 }
