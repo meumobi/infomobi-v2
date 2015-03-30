@@ -170,20 +170,6 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
         receiveNotification: function() {
           document.addEventListener('push-notification', function(event) {
             $route.reload();
-            if ($location.url().indexOf("/show") != -1) {
-              $rootScope.go('back', 'slideRight');
-            }
-          }, false);
-        },
-        hideSplashScreen: function() {
-          if (navigator.splashscreen) {
-            console.log('Hide splash screen');
-            navigator.splashscreen.hide();
-          }
-        },
-        receiveNotification: function() {
-          document.addEventListener('push-notification', function(event) {
-            $route.reload();
           });
         },
         verifyVersion: function() {
