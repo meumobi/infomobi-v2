@@ -1,32 +1,14 @@
 'use strict';
 
 angular
-
   .module('meumobi.appInfo', ['infoboxApp.services.Cordova', 'meumobi.utils'])
-
   .factory('AppInfo', function(deviceReady, AppUtils, $rootScope) {
-    var app = {
-      service: {
-        Device: {
-          isOnline: function() {
-            return false;
-          },
-          isFirstConnection: function() {
-            return (localStorage.getItem("deviceInformations") === null);
-          },
-          information: function() {
-            return "none";
-          },
-          uniqueDeviceID: function(a) {
-            a();
-          }
-        }
-      }
-    };
+
 
     deviceReady(function() {
       AppUtils.safeApply($rootScope, function() {
-        app.service = {
+        var app = {
+        service: {
           Device: {
             isOnline: function() {
               var connection = false;
@@ -86,6 +68,7 @@ angular
             }
           }
         }
+      };
       });
     });
     return app;
