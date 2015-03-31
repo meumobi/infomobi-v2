@@ -1,6 +1,8 @@
-angular.module('local.storage', [])
-  .service('localObjectStorage',
-    function() {
+angular
+  .module('local.storage', [])
+  .service('localObjectStorage', localObjectStorage);
+
+    function localObjectStorage() {
       this.getObject = function(key) {
         return JSON.parse(localStorage.getItem(key))
       };
@@ -16,4 +18,4 @@ angular.module('local.storage', [])
       this.contains = function(key) {
         return localStorage.getItem(key) ? true : false;
       };
-    });
+    }

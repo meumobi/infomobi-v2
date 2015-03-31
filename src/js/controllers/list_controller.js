@@ -1,8 +1,10 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.List', [])
+angular
+  .module('infoboxApp.controllers.List', [])
+  .controller('ListController', ListController);
 
-.controller('ListController', function($rootScope, $scope, API, AppFunc, $timeout, SITE, SyncNews) {
+function ListController($rootScope, $scope, API, AppFunc, $timeout, SITE, SyncNews) {
 
   $scope.items = $rootScope.newsList;
   $scope.hideLoadingDiv = true;
@@ -38,4 +40,4 @@ angular.module('infoboxApp.controllers.List', [])
     $scope.hideLoadingDiv = true;
   }
 
-});
+}

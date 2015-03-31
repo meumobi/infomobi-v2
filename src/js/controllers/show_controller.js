@@ -1,52 +1,55 @@
 'use strict';
 
-angular.module('infoboxApp.controllers.Show', [])
+angular
 
-.controller('ShowController', function($rootScope, $scope, $sce, $routeParams, API, SITE) {
+  .module('infoboxApp.controllers.Show', [])
+  .controller('ShowController', ShowController);
 
-  $scope.getTrustedResourceUrl = function(src) {
-    return $sce.trustAsResourceUrl(src);
-  }
+  function ShowController($rootScope, $scope, $sce, $routeParams, API, SITE) {
 
-  $scope.loadURL = function(url) {
-    //target: The target in which to load the URL, an optional parameter that defaults to _self. (String)
-    //_self: Opens in the Cordova WebView if the URL is in the white list, otherwise it opens in the InAppBrowser.
-    //_blank: Opens in the InAppBrowser.
-    //_system: Opens in the system's web browser.
-    window.open(url, '_blank');
-  }
+    $scope.getTrustedResourceUrl = function(src) {
+      return $sce.trustAsResourceUrl(src);
+    }
 
-  $scope.shareFeed = function() {
+    $scope.loadURL = function(url) {
+      //target: The target in which to load the URL, an optional parameter that defaults to _self. (String)
+      //_self: Opens in the Cordova WebView if the URL is in the white list, otherwise it opens in the InAppBrowser.
+      //_blank: Opens in the InAppBrowser.
+      //_system: Opens in the system's web browser.
+      window.open(url, '_blank');
+    }
 
-    var subject = $scope.item.title;
-    var message = $scope.item.description;
-    message = message.replace(/(<([^>]+)>)/ig, "");
+    $scope.shareFeed = function() {
 
-    var link = $scope.item.link;
+      var subject = $scope.item.title;
+      var message = $scope.item.description;
+      message = message.replace(/(<([^>]+)>)/ig, "");
 
-    //Documentation: https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin
-    //window.plugins.socialsharing.share('Message', 'Subject', 'Image', 'Link');
-    window.plugins.socialsharing.share(message, subject, null, link);
-  }
+      var link = $scope.item.link;
 
-  $rootScope.loading = false;
+      //Documentation: https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin
+      //window.plugins.socialsharing.share('Message', 'Subject', 'Image', 'Link');
+      window.plugins.socialsharing.share(message, subject, null, link);
+    }
 
-  $scope.item = $rootScope.newsList[$routeParams.id];
+    $rootScope.loading = false;
 
-  $scope.carouselIndex = 0;
+    $scope.item = $rootScope.newsList[$routeParams.id];
 
-  $scope.swipeNews = function(direction) {
-    if (direction == 'right' && $routeParams.id > 0) {
-      $rootScope.go('/show/' + (parseInt($routeParams.id) - 1), 'slideRight');
-    } else if (direction == 'left' && $routeParams.id < $rootScope.newsList.length) {
-      $rootScope.go('/show/' + (parseInt($routeParams.id) + 1), 'slideLeft');
+    $scope.carouselIndex = 0;
+
+    $scope.swipeNews = function(direction) {
+      if (direction == 'right' && $routeParams.id > 0) {
+        $rootScope.go('/show/' + (parseInt($routeParams.id) - 1), 'slideRight');
+      } else if (direction == 'left' && $routeParams.id < $rootScope.newsList.length) {
+        $rootScope.go('/show/' + (parseInt($routeParams.id) + 1), 'slideLeft');
+      }
+    }
+
+    $scope.getImage = function(id) {
+      /*if(localStorage["image_"+id]){
+        return localStorage["image_"+id];
+      }*/
+      return SITE.SRC_URL + id;
     }
   }
-
-  $scope.getImage = function(id) {
-    /*if(localStorage["image_"+id]){
-      return localStorage["image_"+id];
-    }*/
-    return SITE.SRC_URL + id;
-  }
-});

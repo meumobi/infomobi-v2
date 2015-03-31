@@ -1,4 +1,5 @@
-angular.module('meumobi.services.Files', [])
+angular
+  .module('meumobi.services.Files', [])
   .provider('Files', function() {
     var fileTransfers = {};
     var files = {};

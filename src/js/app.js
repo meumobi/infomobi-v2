@@ -1,6 +1,8 @@
 'use strict';
 
-var app = angular.module('InfoBox', [
+var app = angular
+
+.module('InfoBox', [
   'infoboxApp.services.Cordova',
   'ngRoute',
   'ngTouch',
@@ -29,7 +31,7 @@ var app = angular.module('InfoBox', [
   'meumobi.directives.DownloadFile'
 ])
 
-app.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider) {
+.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider) {
   $httpProvider.interceptors.push('errorInterceptor');
 
   $routeProvider.when('/list', {
