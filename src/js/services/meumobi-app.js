@@ -45,6 +45,9 @@ angular
 						}
 						return connection;
 					},
+					isFirstConnection: function() {
+						return (localStorage.getItem("deviceInformations") === null);
+					},
 					information: function(callback) {
 						var informations;
 						app.service.Device.uniqueDeviceID(
