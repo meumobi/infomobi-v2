@@ -54,11 +54,5 @@ angular
 				AppFunc.toast(msg);
 			}
 		};
-
-		$scope.logout = function() {
-			//MOCK
-			delete localStorage.userToken;
-			$rootScope.go('/login');
-		}
 		$rootScope.loading = false;
 	}

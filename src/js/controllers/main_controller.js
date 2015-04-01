@@ -16,6 +16,13 @@ angular
 			}
 		}
 
+		$scope.logout = function() {
+			delete localStorage.userToken;
+			$rootScope.go('/login');
+		}
+
+		$rootScope.toggle('myDropdown', 'off');
+
 		$scope.NavBars = {
 			visibility: function() {
 				if ($location.url() != "/login" && $location.url() != "/forgot" && $location.url() != "/welcome") {
