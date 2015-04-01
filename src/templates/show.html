@@ -12,7 +12,7 @@
 			</ul>
 			<div rn-carousel-indicators slides="item.images" rn-carousel-index="carouselIndex" ng-if="item.images.length > 1"></div>
 		</div>
-		<div class="section container" ng-swipe-left="swipeNews('left')" ng-swipe-right="swipeNews('right')">
+		<div class="section container" ng-swipe-left="go(item.next, 'slideLeft')" ng-swipe-right="go(item.previous, 'slideRight')">
 			<h4>
 				{{item.title}}
 				<br>

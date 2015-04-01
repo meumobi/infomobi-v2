@@ -33,14 +33,8 @@ angular
 		$rootScope.loading = false;
 
 		$scope.item = $rootScope.newsList[$routeParams.id];
-
-		$scope.swipeNews = function(direction) {
-			if (direction == 'right' && $routeParams.id > 0) {
-				$rootScope.go('/show/' + (parseInt($routeParams.id) - 1), 'slideRight');
-			} else if (direction == 'left' && $routeParams.id < $rootScope.newsList.length) {
-				$rootScope.go('/show/' + (parseInt($routeParams.id) + 1), 'slideLeft');
-			}
-		}
+		$scope.item.next = ($routeParams.id < $rootScope.newsList.length) ? '/show/' + (parseInt($routeParams.id) + 1) : "";
+		$scope.item.previous = ($routeParams.id > 0) ? '/show/' + (parseInt($routeParams.id) - 1) : "";
 
 		$scope.getImage = function(id) {
 			/*if(localStorage["image_"+id]){
