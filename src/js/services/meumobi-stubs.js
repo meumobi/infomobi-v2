@@ -42,7 +42,8 @@
 					"path":"\/images\/welcome\/4437.jpg",
 					"title":"Title 3",
 				},
-			]	
+			],
+			"description": "Bem vindo ão InfoBx"	
 		};
 
 	findById = function(id) {
