@@ -73,6 +73,8 @@ var app = angular
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
 	$rootScope.userToken = localStorage['userToken'] || "";
 
+	$rootScope.getImage = AppFunc.getImage;
+
 	$rootScope.go = AppFunc.transition;
 
 	$rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
