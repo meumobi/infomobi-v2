@@ -36,8 +36,6 @@ angular
 
     $scope.item = $rootScope.newsList[$routeParams.id];
 
-    $scope.carouselIndex = 0;
-
     $scope.swipeNews = function(direction) {
       if (direction == 'right' && $routeParams.id > 0) {
         $rootScope.go('/show/' + (parseInt($routeParams.id) - 1), 'slideRight');
