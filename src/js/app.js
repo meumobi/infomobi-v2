@@ -27,6 +27,7 @@ var app = angular
   'meumobi.appFunc',
   'meumobi.utils',
   'meumobi.filters',
+	'meumobi.stubs',
   'meumobi.services.Files',
   'meumobi.directives.DownloadFile'
 ])
@@ -65,6 +66,10 @@ var app = angular
       templateUrl: "forgot.html",
       controller: "ForgotCtrl"
     })
+    .when('/welcome', {
+      templateUrl: "show.html",
+      controller: "WelcomeController"
+    })
     .otherwise({
       redirectTo: '/login'
     });
@@ -83,7 +88,7 @@ var app = angular
     //send page to analytics
     analytics.trackPage($location.url().toString());
 
-    if (location.href.indexOf('login') == -1 && location.href.indexOf('forgot') == -1) {
+    if (location.href.indexOf('login') == -1 && location.href.indexOf('forgot') == -1 && location.href.indexOf('welcome') == -1){
       if (!$rootScope.userToken || $rootScope.userToken != localStorage.userToken) {
         delete localStorage.userToken
         $rootScope.go('/login');

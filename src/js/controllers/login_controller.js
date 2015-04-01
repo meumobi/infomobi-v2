@@ -14,6 +14,7 @@ angular
     //display the welcome overlay
     if (AppInfo.service.Device.isFirstConnection()) {
       $rootScope.welcome_message = SITE.WELCOME_MESSAGE;
+			//$rootScope.go('/welcome');
       $rootScope.toggle('welcome-overlay', 'on');
     }
 

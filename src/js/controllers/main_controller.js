@@ -19,7 +19,7 @@ angular
 
     $scope.NavBars = {
       visibility: function() {
-        if ($location.url() != "/login" && $location.url() != "/forgot") {
+        if ($location.url() != "/login" && $location.url() != "/forgot" && $location.url() != "/welcome") {
           return true;
         }
         return false;
