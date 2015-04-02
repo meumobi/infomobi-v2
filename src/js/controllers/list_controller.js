@@ -24,18 +24,11 @@ angular
 			});
 		}
 
-		$scope.getImage = function(path) {
-			/*if(localStorage["image_"+id]){
-				return localStorage["image_"+id];
-				}*/
-				return SITE.SRC_URL + path;
-			}
+		$scope.listItems();
 
+		$scope.syncItems = function() {
+			$scope.hideLoadingDiv = false;
 			$scope.listItems();
-
-			$scope.syncItems = function() {
-				$scope.hideLoadingDiv = false;
-				$scope.listItems();
-				$scope.hideLoadingDiv = true;
-			}
+			$scope.hideLoadingDiv = true;
 		}
+	}

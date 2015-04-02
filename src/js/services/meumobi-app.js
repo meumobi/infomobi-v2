@@ -90,7 +90,7 @@ angular
 });
 
 angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
-.factory('AppFunc', function(deviceReady, $rootScope, $location, $window, $route, API, INFOBOXAPP) {
+.factory('AppFunc', function(deviceReady, $rootScope, $location, $window, $route, SITE, API, INFOBOXAPP) {
 	var app = {
 		toast: function(message, success, fail) {
 			if (window.plugins && window.plugins.toast) {
@@ -117,6 +117,12 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 				$rootScope.pageAnimationClass = pageAnimationClass;
 			}
 			$location.path(path);
+		},
+		getImage: function(path){
+			/*if(localStorage["image_"+id]){
+				return localStorage["image_"+id];
+				}*/
+				return SITE.SRC_URL + path;
 		},
 		initPushwoosh: function() {
 			deviceReady(function() {

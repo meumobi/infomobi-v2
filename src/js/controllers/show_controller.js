@@ -35,11 +35,4 @@ angular
 		$scope.item = $rootScope.newsList[$routeParams.id];
 		$scope.item.next = ($routeParams.id < $rootScope.newsList.length) ? '/show/' + (parseInt($routeParams.id) + 1) : "";
 		$scope.item.previous = ($routeParams.id > 0) ? '/show/' + (parseInt($routeParams.id) - 1) : "";
-
-		$scope.getImage = function(id) {
-			/*if(localStorage["image_"+id]){
-				return localStorage["image_"+id];
-				}*/
-				return SITE.SRC_URL + id;
-		}
 	}
