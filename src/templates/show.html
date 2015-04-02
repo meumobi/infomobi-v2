@@ -6,13 +6,16 @@
 
 <div class="scrollable">
 	<div class="scrollable-content">
-		<div class="thumbnail" ng-if="item.images.length">
+		<div class="thumbnail" ng-if="item.images.length > 1">
 			<ul rn-carousel rn-carousel-transition="slide" rn-carousel-controls rn-carousel-auto-slide rn-carousel-pause-on-hover ng-carousel-buffered rn-carousel-index="carouselIndex">
 				<li ng-repeat="image in item.images">
-					<img ng-src="{{getImage(image.path)}}" class="media-object" alt="{{item.title}}">
+					<img ng-src="{{getImage(image.path)}}" class="media-object" alt="{{image.title}}">
 				</li>
 			</ul>
 			<div rn-carousel-indicators slides="item.images" rn-carousel-index="carouselIndex" ng-if="item.images.length > 1"></div>
+		</div>
+		<div class="thumbnail" ng-if="item.images.length == 1">
+			<img ng-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}">
 		</div>
 		<div class="section container" ng-swipe-left="go(item.next, 'slideLeft')" ng-swipe-right="go(item.previous, 'slideRight')">
 			<h4>
