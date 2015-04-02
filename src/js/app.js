@@ -72,12 +72,7 @@ var app = angular
 
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
 	$rootScope.userToken = localStorage['userToken'] || "";
-<<<<<<< HEAD
-=======
-
 	$rootScope.getImage = AppFunc.getImage;
-
->>>>>>> 97334269cb9e6f13399ff68cb8283c843e9e4600
 	$rootScope.go = AppFunc.transition;
 	$rootScope.history = window.history;
 
