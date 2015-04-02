@@ -1,15 +1,11 @@
-<div content-for="title">
-  <span>Contato</span>
-</div>
-
 <div class="scrollable">
-  <div class="scrollable-content section">
-    <div bs-panel title="Fale com a Comunicação Interna">
-      <form ng-submit="Contact.sendMail()" class="ib-contact-form">
-        <div>Mensagem:</div>
-        <textarea rows="4" ng-model="Contact.informations.message"></textarea>
-        <input type="submit" id="submit" class="ib-primary form-control" value="enviar" />
-      </form>
-    </div>
-  </div>
+	<div class="scrollable-content section">
+		<div bs-panel title="Fale com a Comunicação Interna">
+			<form ng-submit="Contact.sendMail()" class="ib-contact-form">
+				<div>Mensagem:</div>
+				<textarea rows="4" ng-model="Contact.informations.message"></textarea>
+				<input type="submit" id="submit" class="ib-primary form-control" value="enviar" />
+			</form>
+		</div>
+	</div>
 </div>
