@@ -29,21 +29,14 @@
 
 	var welcomeImages =
 		{
+			"title": "Bem-vindo ao InfoBox",
+			"description": "O InfoBox é o novo aplicativo de Comunicação Interna da Siemens no Brasil. Com ele, você fica atualizado sobre as principais informações da empresa.",
 			"images":[  
 				{  
-					"path":"\/images\/welcome\/4437.jpg",
+					"path":"images/welcome-1.png",
 					"title":"Title 1",
-				},
-				{  
-					"path":"\/images\/welcome\/4437.jpg",
-					"title":"Title 2",
-				},
-				{  
-					"path":"\/images\/welcome\/4437.jpg",
-					"title":"Title 3",
-				},
-			],
-			"description": "Bem vindo ão InfoBx"	
+				}
+			]
 		};
 
 	findById = function(id) {

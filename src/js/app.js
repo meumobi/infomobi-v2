@@ -58,7 +58,7 @@ var app = angular
 		controller: "ForgotController"
 	})
 	.when('/welcome', {
-		templateUrl: "show.html",
+		templateUrl: "welcome.html",
 		controller: "WelcomeController"
 	})
 	.otherwise({
