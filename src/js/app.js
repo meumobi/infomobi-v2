@@ -72,8 +72,8 @@ var app = angular
 
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
 	$rootScope.userToken = localStorage['userToken'] || "";
-
 	$rootScope.go = AppFunc.transition;
+	$rootScope.history = window.history;
 
 	$rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
 		//send page to analytics
@@ -88,5 +88,4 @@ var app = angular
 	});
 
 	AppFunc.startApp.executeAll();
-
 });

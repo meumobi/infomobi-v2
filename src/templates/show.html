@@ -1,3 +1,9 @@
+<div content-for="navbarActionLeft">
+	<button ng-click="go(history.back(),'slideRight')" class="btn btn-primary" ng-show="history.length" >
+		<i class="fa fa-chevron-left"></i>
+	</button>
+</div>
+
 <div class="scrollable">
 	<div class="scrollable-content">
 		<div class="thumbnail" ng-if="item.images.length">

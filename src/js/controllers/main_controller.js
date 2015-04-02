@@ -21,20 +21,9 @@ angular
 			$rootScope.go('/login');
 		}
 
-		$rootScope.toggle('myDropdown', 'off');
-
 		$scope.NavBars = {
 			visibility: function() {
 				if ($location.url() != "/login" && $location.url() != "/forgot" && $location.url() != "/welcome") {
-					return true;
-				}
-				return false;
-			},
-			canBack: function() {
-				if ($location.url().indexOf("/show") != -1) {
-					return true;
-				}
-				if ($location.url().indexOf("/files") != -1) {
 					return true;
 				}
 				return false;

@@ -20,19 +20,15 @@
 			<div class="navbar-brand navbar-brand-center" yield-to="title">
 				<img src="images/infobox_final-03.png" alt="infoBox"/>
 			</div>
-			<div class="btn-group pull-left" yield-to="navbarActionLeft">
-				<button ng-click="go('back','slideRight')" class="btn btn-primary" ng-show="NavBars.canBack()" >
-					<i class="fa fa-chevron-left"></i>
-				</button>
-			</div>
+			<div class="btn-group pull-left" yield-to="navbarActionLeft"></div>
 			<div class="btn-group pull-right toggleable-dropdown" yield-to="navbarActionRight" active-class="open" id="myDropdown" toggleable>
 				<button type="button" class="btn btn-default dropdown-toggle" toggle target="myDropdown">
 					<i class="fa fa-ellipsis-v"></i>
 				</button>
-				<ul class="dropdown-menu" role="menu" toggle="off" bubble target="myDropdown">
-					<li><a ng-click="go('/account')">Minha conta</a></li>
+				<ul class="dropdown-menu" role="menu">
+					<li><a ng-click="go('/account')" toggle="off" target="myDropdown">Minha conta</a></li>
 					<li class="divider"></li>
-					<li><a ng-click="logout()">Sair</a></li>
+					<li><a ng-click="logout()" toggle="off" target="myDropdown">Sair</a></li>
 				</ul>
 			</div>
 		</div>
@@ -46,7 +42,7 @@
 					<i class="fa fa-envelope fa-navbar"></i> Contato
 				</a>
 				<a ng-click="go('/files')" class="btn btn-navbar">
-					<i class="fa fa-file fa-navbar"></i> Arquivos
+					<i class="fa fa-download fa-navbar"></i> Arquivos
 				</a>
 			</div>
 		</div>
