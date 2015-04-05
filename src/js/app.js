@@ -53,11 +53,11 @@ var app = angular
 		templateUrl: "files.html",
 		controller: "FilesController"
 	})
-	.when('/forgot', {
+	.when('/login/forgot', {
 		templateUrl: "forgot.html",
 		controller: "ForgotController"
 	})
-	.when('/welcome', {
+	.when('/login/welcome', {
 		templateUrl: "welcome.html",
 		controller: "WelcomeController"
 	})
@@ -79,12 +79,16 @@ var app = angular
 	$rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
 		//send page to analytics
 		analytics.trackPage($location.url().toString());
+	});
 
-		if (location.href.indexOf('login') == -1 && location.href.indexOf('forgot') == -1 && location.href.indexOf('welcome') == -1){
-			if (!$rootScope.userToken || $rootScope.userToken != localStorage.userToken) {
-				delete localStorage.userToken
-				$rootScope.go('/login');
-			}
+	$rootScope.$on('$locationChangeStart', function (event, next, current) {
+		// redirect to login page if not logged in
+		if ($location.path().indexOf('login') == -1 && !AppFunc.authToken()) {
+			AppFunc.removeAuthDatas();
+			$rootScope.go('/login');
+		// redirect to list page if logged and call /login/... page
+		} else if ($location.path().indexOf('login') != -1 && AppFunc.authToken()) {
+			$rootScope.go('/list');
 		}
 	});
 

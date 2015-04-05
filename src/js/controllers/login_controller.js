@@ -5,16 +5,11 @@ angular
 	.controller('LoginController', LoginController);
 
 	function LoginController($rootScope, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP, SITE) {
-		if (localStorage.hasOwnProperty('userToken')) {
-			$rootScope.go('/list');
-		}
-
 		$rootScope.loading = false;
 		//display the welcome overlay
 		if (AppInfo.service.Device.isFirstConnection()) {
 			$rootScope.welcome_message = SITE.WELCOME_MESSAGE;
-			//$rootScope.go('/welcome');
-			$rootScope.toggle('welcome-overlay', 'on');
+			$rootScope.go('/login/welcome');
 		}
 
 		//this should not be scope available, and may be put inside a more reusable place, like a service

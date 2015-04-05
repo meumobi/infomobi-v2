@@ -110,6 +110,14 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 				alert(message);
 			}
 		},
+		authToken: function() {
+			return localStorage['userToken'] || "";
+		},
+		removeAuthDatas: function() {
+			delete localStorage.userToken;
+			delete localStorage.mail;
+			$rootScope.go('/login');
+		},
 		transition: function(path, pageAnimationClass) {
 			if (typeof(pageAnimationClass) === undefined) { // Use a default, your choice
 				$rootScope.pageAnimationClass = 'crossFade';
@@ -119,10 +127,12 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 			$location.path(path);
 		},
 		getImage: function(path){
-			/*if(localStorage["image_"+id]){
-				return localStorage["image_"+id];
-				}*/
-				return SITE.SRC_URL + path;
+			/*
+			if(localStorage["image_"+id]){
+			return localStorage["image_"+id];
+			}
+			*/
+			return SITE.SRC_URL + path;
 		},
 		initPushwoosh: function() {
 			deviceReady(function() {

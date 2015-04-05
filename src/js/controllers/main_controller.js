@@ -4,7 +4,7 @@ angular
 	.module('InfoBox')
 	.controller('MainController', MainController);
 
-	function MainController($rootScope, $scope, $location) {
+	function MainController($rootScope, $scope, $location, AppFunc) {
 		$scope.userAgent = navigator.userAgent;
 
 		$scope.mailto = function(e) {
@@ -17,7 +17,7 @@ angular
 		}
 
 		$scope.logout = function() {
-			delete localStorage.userToken;
+			AppFunc.removeAuthDatas();
 			$rootScope.go('/login');
 		}
 
