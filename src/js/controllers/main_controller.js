@@ -4,7 +4,7 @@ angular
 	.module('InfoBox')
 	.controller('MainController', MainController);
 
-	function MainController($rootScope, $scope, $location, AppFunc, AuthService) {
+	function MainController($rootScope, $scope, $location, AuthService) {
 		$scope.userAgent = navigator.userAgent;
 
 		$scope.mailto = function(e) {
@@ -20,13 +20,9 @@ angular
 			AuthService.clearCredentials();
 			$rootScope.go('/login');
 		}
+		
+		var restrictedPage = $location.path().indexOf('login') == -1;
 
-		$scope.NavBars = {
-			visibility: function() {
-				if ($location.url() != "/login" && $location.url() != "/forgot" && $location.url() != "/welcome") {
-					return true;
-				}
-				return false;
-			}
-		}
+		$rootScope.NavBarBottom = restrictedPage ? true : false;
+		$rootScope.NavBarTop = true;
 	}
