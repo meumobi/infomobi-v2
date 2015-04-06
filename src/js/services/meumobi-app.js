@@ -110,14 +110,6 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 				alert(message);
 			}
 		},
-		authToken: function() {
-			return localStorage['userToken'] || "";
-		},
-		removeAuthDatas: function() {
-			delete localStorage.userToken;
-			delete localStorage.mail;
-			$rootScope.go('/login');
-		},
 		transition: function(path, pageAnimationClass) {
 			if (typeof(pageAnimationClass) === undefined) { // Use a default, your choice
 				$rootScope.pageAnimationClass = 'crossFade';
