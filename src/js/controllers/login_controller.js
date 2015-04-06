@@ -4,18 +4,18 @@ angular
 	.module('InfoBox')
 	.controller('LoginController', LoginController);
 
-	function LoginController($rootScope, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP, SITE) {
+	function LoginController($rootScope, $http, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP, SITE, AuthService) {
 		$rootScope.loading = false;
+		$rootScope.NavBarTop = false;
 		//display the welcome overlay
 		if (AppInfo.service.Device.isFirstConnection()) {
 			$rootScope.welcome_message = SITE.WELCOME_MESSAGE;
-			$rootScope.go('/login/welcome');
+			//$rootScope.go('/login/welcome');
 		}
 
 		//this should not be scope available, and may be put inside a more reusable place, like a service
 		var authenticateUser = function(mail, token) {
-			localStorage['userToken'] = token;
-			localStorage.mail = mail;
+			AuthService.setCredentials(mail, token);
 			$rootScope.go('/list');
 			AppFunc.initPushwoosh();
 			$scope.Login.saveDeviceInformation();
@@ -64,13 +64,13 @@ angular
 				});
 			},
 			loginSuccess: function(resp) {
-				$rootScope.userToken = resp['token'];
+				//$rootScope.userToken = resp['token'];
 				//show modal if need change password, otherwise authenticate
 				if (resp.error && resp.error == "password expired") {
 					$rootScope.loading = false;
 					$rootScope.toggle('change-password-overlay', 'on');
 				} else {
-					authenticateUser($scope.Login.username, $rootScope.userToken);
+					authenticateUser($scope.Login.username, resp.token);
 				}
 			},
 			loginError: function(resp) {
@@ -95,7 +95,7 @@ angular
 						"push_id": localStorage['push_id'],
 						"app_version": INFOBOXAPP.VERSION
 					}
-					localStorage['deviceInformations'] = JSON.stringify(device);
+					localStorage.device = JSON.stringify(device);
 
 					API.Login.update(device,
 						function(resp) {

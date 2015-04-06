@@ -13,6 +13,7 @@ var app = angular
 	'mobile-angular-ui',
 	'services.Analytics',
 	'meumobi.api',
+	'meumobi.auth',
 	'meumobi.sync',
 	'meumobi.appInfo',
 	'meumobi.appFunc',
@@ -68,13 +69,16 @@ var app = angular
 	analyticsProvider.setup('UA-59245997-1'); //TODO get id from some config file
 })
 
-.run(function($rootScope, $location, analytics, AppFunc, API) {
+.run(function($rootScope, $location, $http, analytics, AppFunc) {
 
 	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
-	$rootScope.userToken = localStorage['userToken'] || "";
+	//$rootScope.userToken = localStorage['userToken'] || "";
 	$rootScope.getImage = AppFunc.getImage;
 	$rootScope.go = AppFunc.transition;
 	$rootScope.history = window.history;
+	$rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
+	$http.defaults.headers.common['X-Visitor-Token'] = $rootScope.user.token;
+	console.log($rootScope.user);
 
 	$rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
 		//send page to analytics
@@ -82,13 +86,13 @@ var app = angular
 	});
 
 	$rootScope.$on('$locationChangeStart', function (event, next, current) {
-		// redirect to login page if not logged in
-		if ($location.path().indexOf('login') == -1 && !AppFunc.authToken()) {
-			AppFunc.removeAuthDatas();
-			$rootScope.go('/login');
-		// redirect to list page if logged and call /login/... page
-		} else if ($location.path().indexOf('login') != -1 && AppFunc.authToken()) {
-			$rootScope.go('/list');
+		// redirect to login page if not logged in and trying to access a restricted page
+		var restrictedPage = $location.path().indexOf('login') == -1;
+		console.log("Restricted Page: " + restrictedPage);
+		var loggedIn = $rootScope.user ? $rootScope.user.token : false;
+		console.log("loggedIn :" + loggedIn);
+		if (restrictedPage && !loggedIn) {
+			$location.path('/login');
 		}
 	});
 

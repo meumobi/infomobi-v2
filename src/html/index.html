@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html manifest="http://int-meumobi.com/infobox.appcache">
 <head>
 	<meta charset="utf-8" />
 	<title>infoBox</title>
@@ -14,9 +14,9 @@
 	<script src="js/app.min.js"></script>
 </head>
 <body ng-app="InfoBox" ng-controller="MainController">
-	<div class="app ib-app" ng-class="{'has-navbar-bottom':NavBars.visibility()}">
+	<div class="app ib-app" ng-class="{'has-navbar-bottom':NavBarBottom, 'has-navbar-top':NavBarTop}">
 		<!-- Navbars -->
-		<div class="navbar navbar-app navbar-absolute-top ib-nav-top" ng-class="{'ib-hidden' : !NavBars.visibility(), 'loading' : loading}">
+		<div class="navbar navbar-app navbar-absolute-top ib-nav-top" ng-if="NavBarTop">
 			<div class="navbar-brand navbar-brand-center" yield-to="title">
 				<img src="images/infobox_final-03.png" alt="infoBox"/>
 			</div>
@@ -33,7 +33,7 @@
 			</div>
 		</div>
 
-		<div class="navbar navbar-app navbar-absolute-bottom nav-bottom" ng-if="NavBars.visibility()">
+		<div class="navbar navbar-app navbar-absolute-bottom nav-bottom" ng-if="NavBarBottom">
 			<div class="btn-group justified">
 				<a ng-click="go('/list')" class="btn btn-navbar">
 					<i class="fa fa-rss fa-navbar"></i> Notícias
@@ -48,7 +48,7 @@
 		</div>
 
 		<!-- App Body -->
-		<div class="app-body" ng-class="{loading: loading, 'ib-login-screen-container' : !NavBars.visibility()}">
+		<div class="app-body" ng-class="{loading: loading, 'ib-login-screen-container' : !NavBarBottom}">
 			<div ng-show="loading" class="app-content-loading">
 				<i class="fa fa-spinner fa-spin loading-spinner"></i>
 			</div>

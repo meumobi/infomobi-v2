@@ -6,6 +6,9 @@ angular
 
 	function ForgotController($rootScope, $scope, API, AppFunc) {
 		$rootScope.loading = false;
+		
+		$rootScope.NavBarTop = true;
+
 		$scope.Forgot = {
 			informations: {
 				name: "infobox",
