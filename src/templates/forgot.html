@@ -1,5 +1,9 @@
-<div content-for="navbarActionLeft"></div>
-<div content-for="navbarActionRight"></div>
+<div content-for="navbarActionLeft">
+	<button ng-click="go(history.back(),'slideRight')" class="btn btn-primary" >
+		<i class="fa fa-chevron-left"></i>
+	</button>
+</div>
+<div content-for="navbarActionRight">alo</div>
 
 <div class="scrollable">
 	<div class="scrollable-content section">
@@ -14,7 +18,7 @@
 					<textarea rows="4" placeholder="Se encontrar difículdades ao se conectar, nos passe mais detalhes aqui." ng-model="Forgot.informations.message" class="form-control"></textarea>
 				</div>
 				<button class="btn btn-primary btn-block">Recuperar minha senha</button>
-				<span class="ib-text-secondary ib-forgot-btn"><a ng-click="go('/login')">Voltar ao login</a></span>
+				<!--span class="ib-text-secondary ib-forgot-btn"><a ng-click="go('/login')">Voltar ao login</a></span-->
 			</form>
 		</div>
 	</div>
