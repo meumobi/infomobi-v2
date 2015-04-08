@@ -5,7 +5,6 @@ angular
 	.controller('ForgotController', ForgotController);
 
 	function ForgotController($rootScope, $scope, API, AppFunc) {
-		$rootScope.NavBarTop = true;
 
 		$scope.Forgot = {
 			informations: {
@@ -29,11 +28,4 @@ angular
 				AppFunc.toast("Erro ao enviar mensagem");
 			}
 		}
-		$rootScope.$on('loading:show', function() {
-			$rootScope.loading = true;
-		})
-
-		$rootScope.$on('loading:hide', function() {
-			$rootScope.loading = false;
-		})
 	}

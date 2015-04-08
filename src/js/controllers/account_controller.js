@@ -54,5 +54,4 @@ angular
 				AppFunc.toast(msg);
 			}
 		};
-		$rootScope.loading = false;
 	}

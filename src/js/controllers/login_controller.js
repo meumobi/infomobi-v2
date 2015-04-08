@@ -5,25 +5,22 @@ angular
 	.controller('LoginController', LoginController);
 
 	function LoginController($rootScope, $http, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP, SITE, AuthService) {
-		$rootScope.loading = false;
-		$rootScope.NavBarTop = false;
 		//display the welcome overlay
 		if (AppInfo.service.Device.isFirstConnection()) {
-			$rootScope.welcome_message = SITE.WELCOME_MESSAGE;
-			//$rootScope.go('/login/welcome');
+			//$rootScope.welcome_message = SITE.WELCOME_MESSAGE;
+			$rootScope.go('/login/welcome');
 		}
 
 		//this should not be scope available, and may be put inside a more reusable place, like a service
 		var authenticateUser = function(mail, token) {
-			AuthService.setCredentials(mail, token);
-			$rootScope.go('/list');
+			//AuthService.setCredentials(mail, token);
 			AppFunc.initPushwoosh();
 			$scope.Login.saveDeviceInformation();
+			$rootScope.go('/list');
 		};
 
 		$scope.Login = {
 			signin: function() {
-				$rootScope.loading = true;
 				if ($scope.Login.username != "" && $scope.Login.password != "") { //MOCK
 					AppInfo.service.Device.information(function(informations) {
 						var user = {
@@ -66,15 +63,14 @@ angular
 			loginSuccess: function(resp) {
 				//$rootScope.userToken = resp['token'];
 				//show modal if need change password, otherwise authenticate
+				AuthService.setCredentials(resp.visitor, resp.token);
 				if (resp.error && resp.error == "password expired") {
-					$rootScope.loading = false;
 					$rootScope.toggle('change-password-overlay', 'on');
 				} else {
 					authenticateUser($scope.Login.username, resp.token);
 				}
 			},
 			loginError: function(resp) {
-				$rootScope.loading = false;
 				var msg;
 				if (resp.error) {
 					if (resp.error == "Invalid visitor")

@@ -30,8 +30,6 @@ angular
 			window.plugins.socialsharing.share(message, subject, null, link);
 		}
 
-		$rootScope.loading = false;
-
 		$scope.item = $rootScope.news[$routeParams.id];
 		$scope.item.next = ($routeParams.id < $rootScope.news.length) ? '/show/' + (parseInt($routeParams.id) + 1) : "";
 		$scope.item.previous = ($routeParams.id > 0) ? '/show/' + (parseInt($routeParams.id) - 1) : "";
