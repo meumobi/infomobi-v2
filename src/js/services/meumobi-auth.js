@@ -16,7 +16,7 @@
 
 		function clearCredentials() {
 			$rootScope.user = {};
-			localStorage.clear("user");
+			localStorage.removeItem("user");
 			delete $http.defaults.headers.common['X-Visitor-Token']
 		};
 		
