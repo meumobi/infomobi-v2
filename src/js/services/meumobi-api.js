@@ -8,19 +8,26 @@ angular
 function($q, $rootScope, $location) {
 	return {
 		request: function(config) {
+			$rootScope.$broadcast('loading:show');
 			return config || $q.when(config);
 		},
 		requestError: function(request) {
+			$rootScope.$broadcast('loading:hide');
 			return $q.reject(request);
 		},
 		response: function(response) {
+			$rootScope.$broadcast('loading:hide');
 			return response || $q.when(response);
 		},
 		responseError: function(response) {
+			$rootScope.$broadcast('loading:hide');
+			console.log("[API:errorInterceptor]: BEGIN");
+			console.log(response);
+			console.log("[API:errorInterceptor]: END");
+			if (response && response.status === 0) {} // network offline or CORS error
 			if (response && response.status === 404) {}
 			if (response && response.status === 401) {
-				delete localStorage.userToken;
-				delete localStorage.mail;
+				delete localStorage.user;
 				$rootScope.go('/login');
 			}
 			if (response && response.status >= 500) {}

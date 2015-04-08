@@ -9,7 +9,7 @@ angular
 		$scope.Contact = {
 			informations: {
 				name: "infobox",
-				mail: localStorage.mail ? localStorage.mail : "contact@meumobi.com",
+				mail: $rootScope.user ? $rootScope.user.visitor.email : 'default@siemens.com',
 				phone: "",
 				message: ""
 			},

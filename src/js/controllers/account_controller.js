@@ -6,7 +6,7 @@ angular
 
 	function AccountController($rootScope, $scope, $location, API, AppInfo, AppFunc) {
 		$scope.user = {
-			mail: localStorage.mail ? localStorage.mail : 'default@siemens.com',
+			mail: $rootScope.user ? $rootScope.user.visitor.email : 'default@siemens.com',
 			password: '',
 			newPassword: '',
 			confirmNewPassword: ''

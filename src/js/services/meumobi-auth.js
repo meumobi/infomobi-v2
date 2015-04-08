@@ -20,12 +20,12 @@
 			delete $http.defaults.headers.common['X-Visitor-Token']
 		};
 		
-		function setCredentials(mail, token) {
+		function setCredentials(visitor, token) {
 			$rootScope.user = {
-				"mail": mail,
+				"visitor": visitor,
 				"token": token
 			};
-			localStorage.user = $rootScope.user;
+			localStorage.user = JSON.stringify($rootScope.user);
 			$http.defaults.headers.common['X-Visitor-Token'] = token;
 		}
 	}

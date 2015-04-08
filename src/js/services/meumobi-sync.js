@@ -43,8 +43,7 @@ angular
                 }, false); //No changes in the list
                 break;
               case 401:
-                delete localStorage.userToken;
-                delete localStorage.mail;
+                delete localStorage.user;
                 $rootScope.go('/login');
                 break;
               default:
@@ -56,7 +55,7 @@ angular
                 }, false);
                 break;
             }
-            $rootScope.loading = false;
+            //$rootScope.loading = false;
           }
         );
       },
