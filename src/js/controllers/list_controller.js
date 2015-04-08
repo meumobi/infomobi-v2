@@ -1,34 +1,35 @@
 'use strict';
 
 angular
-	.module('InfoBox')
-	.controller('ListController', ListController);
+.module('InfoBox')
+.controller('ListController', ListController);
 
-	function ListController($rootScope, $scope, API, AppFunc, $timeout, SITE, SyncNews) {
-		$scope.items = $rootScope.newsList;
-		$scope.hideLoadingDiv = true;
+function ListController($rootScope, $scope, $http, API, AppFunc) {
 
-		$scope.listItems = function() {
-			SyncNews.get(function(resp, success) {
-				$timeout(function() {
-					$rootScope.loading = false;
-				}, 300);
-				if (success) {
-					$scope.items = resp;
-				} else {
-					if (resp.error != "304") {
-						AppFunc.toast(resp.error);
-					}
-					$scope.items = localStorage.hasOwnProperty('newsList') ? JSON.parse(localStorage['newsList']) : [];
-				}
-			});
-		}
+	$rootScope.NavBarTop = true;
+	$scope.items = $rootScope.news;
+	
+	$rootScope.$on('loading:show', function() {
+		$scope.loadingItems = true;
+	})
 
-		$scope.listItems();
+	$rootScope.$on('loading:hide', function() {
+		$scope.loadingItems = false;
+	})
 
-		$scope.syncItems = function() {
-			$scope.hideLoadingDiv = false;
-			$scope.listItems();
-			$scope.hideLoadingDiv = true;
-		}
+	$scope.syncItems = function () {
+		API.Items.latest(success, error);
 	}
+
+	function success(data, status) {
+		localStorage.news = JSON.stringify(data.items);
+		$rootScope.news = data.items;
+		$scope.items = $rootScope.news;
+	}
+
+	function error(data, status) {
+		$scope.data = data || "Request failed";
+		$scope.status = status;
+		AppFunc.toast(data.error);
+	}
+}
