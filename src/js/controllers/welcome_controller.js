@@ -4,8 +4,9 @@ angular
 	.module('InfoBox')
 	.controller('WelcomeController', WelcomeController);
 
-	function WelcomeController($rootScope, $scope, $routeParams, WelcomeImages) {
-		$rootScope.loading = false;
+	function WelcomeController($rootScope, $scope, AppInfo, WelcomeImages) {
 		$scope.item = WelcomeImages.get();
-		$scope.loggedIn = $rootScope.user ? $rootScope.user.token : false;
+		AppInfo.service.Device.information(function(e) {
+			localStorage.device = JSON.stringify(e);
+		});
 	}
