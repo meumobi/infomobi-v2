@@ -71,14 +71,13 @@ var app = angular
 
 .run(function($rootScope, $location, $http, analytics, AppFunc) {
 
-	$rootScope.newsList = localStorage.newsList ? JSON.parse(localStorage.newsList) : [];
+	$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
 	//$rootScope.userToken = localStorage['userToken'] || "";
 	$rootScope.getImage = AppFunc.getImage;
 	$rootScope.go = AppFunc.transition;
 	$rootScope.history = window.history;
 	$rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
 	$http.defaults.headers.common['X-Visitor-Token'] = $rootScope.user.token;
-	console.log($rootScope.user);
 
 	$rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
 		//send page to analytics
@@ -91,6 +90,8 @@ var app = angular
 		console.log("Restricted Page: " + restrictedPage);
 		var loggedIn = $rootScope.user ? $rootScope.user.token : false;
 		console.log("loggedIn :" + loggedIn);
+		$rootScope.NavBarBottom = restrictedPage ? true : false;
+		console.log("Location Path: " + $location.path());
 		if (restrictedPage && !loggedIn) {
 			$location.path('/login');
 		}
