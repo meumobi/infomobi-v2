@@ -6,7 +6,6 @@ angular
 
 function ListController($rootScope, $scope, $http, API, AppFunc) {
 
-	$rootScope.NavBarTop = true;
 	$scope.items = $rootScope.news;
 	API.Items.latest(success, error);
 	
@@ -26,6 +25,7 @@ function ListController($rootScope, $scope, $http, API, AppFunc) {
 		localStorage.news = JSON.stringify(data.items);
 		$rootScope.news = data.items;
 		$scope.items = $rootScope.news;
+		AppFunc.eraseNotifications();
 	}
 
 	function error(data, status) {
