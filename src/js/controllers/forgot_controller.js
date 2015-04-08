@@ -5,31 +5,35 @@ angular
 	.controller('ForgotController', ForgotController);
 
 	function ForgotController($rootScope, $scope, API, AppFunc) {
-		$rootScope.loading = false;
-		
 		$rootScope.NavBarTop = true;
 
 		$scope.Forgot = {
 			informations: {
 				name: "infobox",
 				mail: "",
-				phone: "x",
+				phone: "",
 				message: ""
 			},
 			sendMail: function() {
-				$rootScope.loading = true;
+				var message = "[Esqueci minha senha]: ";
+				message += $scope.Forgot.informations.message;
+				$scope.Forgot.informations.message = message;
 				API.Mail.save($scope.Forgot.informations, $scope.Forgot.success, $scope.Forgot.error);
 			},
 			success: function(resp) {
-				console.log(resp);
 				AppFunc.toast("Mensagem enviada com sucesso");
 				$scope.Forgot.informations.message = "";
-				$rootScope.loading = false;
+				$rootScope.go('/login', 'slideRight');
 			},
 			error: function(err) {
-				console.log(err);
 				AppFunc.toast("Erro ao enviar mensagem");
-				$rootScope.loading = false;
 			}
 		}
+		$rootScope.$on('loading:show', function() {
+			$rootScope.loading = true;
+		})
+
+		$rootScope.$on('loading:hide', function() {
+			$rootScope.loading = false;
+		})
 	}
