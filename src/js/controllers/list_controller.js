@@ -8,6 +8,7 @@ function ListController($rootScope, $scope, $http, API, AppFunc) {
 
 	$rootScope.NavBarTop = true;
 	$scope.items = $rootScope.news;
+	API.Items.latest(success, error);
 	
 	$rootScope.$on('loading:show', function() {
 		$scope.loadingItems = true;
@@ -17,7 +18,7 @@ function ListController($rootScope, $scope, $http, API, AppFunc) {
 		$scope.loadingItems = false;
 	})
 
-	$scope.syncItems = function () {
+	$scope.syncNews = function () {
 		API.Items.latest(success, error);
 	}
 
