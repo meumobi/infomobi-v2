@@ -78,6 +78,14 @@ var app = angular
 	$rootScope.history = window.history;
 	$rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
 	$http.defaults.headers.common['X-Visitor-Token'] = $rootScope.user.token;
+	
+	$rootScope.$on('loading:show', function() {
+		// $rootScope.loading = true;
+	})
+
+	$rootScope.$on('loading:hide', function() {
+		// $rootScope.loading = false;
+	})
 
 	$rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
 		//send page to analytics
@@ -87,14 +95,12 @@ var app = angular
 	$rootScope.$on('$locationChangeStart', function (event, next, current) {
 		// redirect to login page if not logged in and trying to access a restricted page
 		var restrictedPage = $location.path().indexOf('login') == -1;
-		console.log("Restricted Page: " + restrictedPage);
 		var loggedIn = $rootScope.user ? $rootScope.user.token : false;
-		console.log("loggedIn :" + loggedIn);
-		$rootScope.NavBarBottom = restrictedPage ? true : false;
-		console.log("Location Path: " + $location.path());
+		$rootScope.NavBarBottom = (loggedIn || $location.path().indexOf('login') == -1) ? true : false;
 		if (restrictedPage && !loggedIn) {
 			$location.path('/login');
 		}
+		$rootScope.NavBarTop = ($location.path() == "/login") ? false : true;
 	});
 
 	AppFunc.startApp.executeAll();
