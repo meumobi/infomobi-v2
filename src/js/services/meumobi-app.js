@@ -46,7 +46,7 @@ angular
 						return connection;
 					},
 					isFirstConnection: function() {
-						return (localStorage.getItem("deviceInformations") === null);
+						return (localStorage.getItem("device") === null);
 					},
 					information: function(callback) {
 						var informations;
@@ -93,22 +93,24 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 .factory('AppFunc', function(deviceReady, $rootScope, $location, $window, $route, SITE, API, INFOBOXAPP) {
 	var app = {
 		toast: function(message, success, fail) {
-			if (window.plugins && window.plugins.toast) {
-				window.plugins.toast.showLongBottom(message,
-					function(resp) {
-						if (success) {
-							success(resp);
+			deviceReady(function() {
+				if (window.plugins && window.plugins.toast) {
+					window.plugins.toast.showLongBottom(message,
+						function(resp) {
+							if (success) {
+								success(resp);
+							}
+						},
+						function(err) {
+							if (fail) {
+								fail(err);
+							}
 						}
-					},
-					function(err) {
-						if (fail) {
-							fail(err);
-						}
-					}
-				);
-			} else {
-				alert(message);
-			}
+					);
+				} else {
+					alert(message);
+				}
+			});
 		},
 		transition: function(path, pageAnimationClass) {
 			if (typeof(pageAnimationClass) === undefined) { // Use a default, your choice
