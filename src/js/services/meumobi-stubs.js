@@ -35,10 +35,6 @@
 				{  
 					"path":"images/welcome-1.png",
 					"title":"Fica conectado com sua empresa",
-				},
-				{  
-					"path":"images/welcome-2.png",
-					"title":"Baixa arquivos",
 				}
 			]
 		};
