@@ -1,12 +1,12 @@
 <div content-for="navbarActionLeft"></div>
-<div content-for="navbarActionRight"></div>
+<div content-for="navbarActionRight" ng-if="!loggedIn"></div>
 
 <div class="scrollable">
 	<div class="scrollable-content">
 		<div class="thumbnail" ng-if="item.images.length > 1">
 			<ul rn-carousel rn-carousel-transition="slide" rn-carousel-controls rn-carousel-auto-slide rn-carousel-pause-on-hover ng-carousel-buffered rn-carousel-index="carouselIndex">
 				<li ng-repeat="image in item.images">
-					<img ng-src="{{getImage(image.path)}}" class="media-object" alt="{{image.title}}">
+					<img ng-src="{{image.path}}" class="media-object" alt="{{image.title}}">
 				</li>
 			</ul>
 			<div rn-carousel-indicators slides="item.images" rn-carousel-index="carouselIndex" ng-if="item.images.length > 1"></div>

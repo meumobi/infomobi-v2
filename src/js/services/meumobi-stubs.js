@@ -34,7 +34,11 @@
 			"images":[  
 				{  
 					"path":"images/welcome-1.png",
-					"title":"Title 1",
+					"title":"Fica conectado com sua empresa",
+				},
+				{  
+					"path":"images/welcome-2.png",
+					"title":"Baixa arquivos",
 				}
 			]
 		};
