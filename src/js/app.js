@@ -87,6 +87,11 @@ var app = angular
 		// $rootScope.loading = false;
 	})
 
+	// If it's the first connection redirect to welcome page
+	if (localStorage.getItem("device") === null) {
+		$location.path('/login/welcome');
+	}
+
 	$rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
 		//send page to analytics
 		analytics.trackPage($location.url().toString());
@@ -96,7 +101,7 @@ var app = angular
 		// redirect to login page if not logged in and trying to access a restricted page
 		var restrictedPage = $location.path().indexOf('login') == -1;
 		var loggedIn = $rootScope.user ? $rootScope.user.token : false;
-		$rootScope.NavBarBottom = (loggedIn || $location.path().indexOf('login') == -1) ? true : false;
+		$rootScope.NavBarBottom = restrictedPage; //loggedIn|| $location.path().indexOf('login') == -1) ? true : false;
 		if (restrictedPage && !loggedIn) {
 			$location.path('/login');
 		}

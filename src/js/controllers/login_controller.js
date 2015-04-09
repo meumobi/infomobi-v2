@@ -5,11 +5,6 @@ angular
 	.controller('LoginController', LoginController);
 
 	function LoginController($rootScope, $http, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP, SITE, AuthService) {
-		//display the welcome overlay
-		if (AppInfo.service.Device.isFirstConnection()) {
-			//$rootScope.welcome_message = SITE.WELCOME_MESSAGE;
-			$rootScope.go('/login/welcome');
-		}
 
 		//this should not be scope available, and may be put inside a more reusable place, like a service
 		var authenticateUser = function(mail, token) {

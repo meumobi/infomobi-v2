@@ -9,9 +9,6 @@ angular
 				isOnline: function() {
 					return false;
 				},
-				isFirstConnection: function() {
-					return (localStorage.getItem("deviceInformations") === null);
-				},
 				information: function() {
 					return "none";
 				},
@@ -44,9 +41,6 @@ angular
 							connection = navigator.onLine;
 						}
 						return connection;
-					},
-					isFirstConnection: function() {
-						return (localStorage.getItem("device") === null);
 					},
 					information: function(callback) {
 						var informations;
