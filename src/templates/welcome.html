@@ -14,13 +14,13 @@
 		<div class="thumbnail" ng-if="item.images.length == 1">
 			<img ng-src="{{item.images[0].path}}" class="media-object" alt="{{item.title}}">
 		</div>
-		<div class="section container" ng-swipe-left="go(item.next, 'slideLeft')" ng-swipe-right="go(item.previous, 'slideRight')">
+		<div class="section container">
 			<h4>
 				{{item.title}}
 				<br>
 			</h4>
 			<div ng-bind-html="item.description | hrefToJS"></div><br/>
-			<button ng-click="go('/login')" class="btn btn-primary btn-block">Entrar</button>
+			<button ng-click="go('/login','slideRight')" class="btn btn-primary btn-block">Entrar</button>
 		</div>
 	</div>
 </div>
