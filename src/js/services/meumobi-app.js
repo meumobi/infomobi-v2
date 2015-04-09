@@ -173,10 +173,10 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 				});
 			},
 			verifyVersion: function() {
-				var device = localStorage.deviceInformations ? JSON.parse(localStorage['deviceInformations']) : false;
+				var device = localStorage.device ? JSON.parse(localStorage['device']) : false;
 				if (device && device.app_version != INFOBOXAPP.VERSION) {
 					device.app_version = INFOBOXAPP.VERSION;
-					localStorage['deviceInformations'] = JSON.stringify(device);
+					localStorage['device'] = JSON.stringify(device);
 					API.Login.update(device,
 						function(resp) {
 							console.log(resp);
