@@ -69,16 +69,17 @@ var app = angular
 	analyticsProvider.setup('UA-59245997-1'); //TODO get id from some config file
 })
 
-.run(function($rootScope, $location, $http, analytics, AppFunc) {
+.run(function($rootScope, $location, $http, analytics, AppFunc, SITE) {
 
 	$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
 	//$rootScope.userToken = localStorage['userToken'] || "";
+	$rootScope.site = SITE.HAL_SUPPORT ? ( localStorage['site'] ? localStorage['site'] : SITE.DOMAIN ) : SITE.DOMAIN;
 	$rootScope.getImage = AppFunc.getImage;
 	$rootScope.go = AppFunc.transition;
 	$rootScope.history = window.history;
 	$rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
 	$http.defaults.headers.common['X-Visitor-Token'] = $rootScope.user.token;
-	
+
 	$rootScope.$on('loading:show', function() {
 		// $rootScope.loading = true;
 	})

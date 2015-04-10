@@ -5,7 +5,7 @@ angular
 .module('meumobi.api', ['ngResource', 'meumobi.settings'])
 // Simple Authentication for Angular.js App: http://beletsky.net/2013/11/simple-authentication-in-angular-dot-js-app.html
 .factory('errorInterceptor', ['$q', '$rootScope', '$location',
-function($q, $rootScope, $location) {
+function($q, $rootScope, $location, SITE) {
 	return {
 		request: function(config) {
 			$rootScope.$broadcast('loading:show');
@@ -28,6 +28,8 @@ function($q, $rootScope, $location) {
 			if (response && response.status === 404) {}
 			if (response && response.status === 401) {
 				delete localStorage.user;
+				delete localStorage.site;
+				$rootScope.site = SITE.DOMAIN;
 				$rootScope.go('/login');
 			}
 			if (response && response.status >= 500) {}
@@ -43,7 +45,7 @@ var api = (function() {
 		get: function(endp, success, error) {
 			$http({
 				method: 'GET',
-				url: SITE.API_URL + SITE.DOMAIN + endp,
+				url: SITE.API_URL + $rootScope.site + endp,
 				responseType: 'json',
 				headers: {
 					//'If-None-Match': localStorage['ETag']
@@ -55,7 +57,7 @@ var api = (function() {
 		post: function(endp, obj, success, error) {
 			$http({
 				method: 'POST',
-				url: SITE.API_URL + SITE.DOMAIN + endp,
+				url: SITE.API_URL + $rootScope.site + endp,
 				data: JSON.stringify(obj),
 				responseType: 'json',
 				headers: {
@@ -68,7 +70,7 @@ var api = (function() {
 		put: function(endp, obj, success, error) {
 			$http({
 				method: 'PUT',
-				url: SITE.API_URL + SITE.DOMAIN + endp,
+				url: SITE.API_URL + $rootScope.site + endp,
 				data: JSON.stringify(obj),
 				responseType: 'json',
 				headers: {
@@ -81,7 +83,7 @@ var api = (function() {
 		del: function(endp, id, success, error) {
 			$http({
 				method: 'DELETE',
-				url: SITE.API_URL + SITE.DOMAIN + endp,
+				url: SITE.API_URL + $rootScope.site + endp,
 				responseType: 'json',
 			})
 			.success(success)

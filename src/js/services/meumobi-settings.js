@@ -6,6 +6,7 @@ angular
     /*"DOMAIN": "infobox.meumobi.com",
     "SRC_URL": "http://infobox.meumobilesite.com/",
     "API_URL": "http://infobox.meumobilesite.com/api/",*/
+    "HAL_SUPPORT": false,
     "TIMEOUT": "5000",
     "ITEMS_PER_PAGE": "10",
     "DOMAIN": "infobox.int-meumobi.com",

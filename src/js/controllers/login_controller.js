@@ -57,6 +57,9 @@ angular
 			},
 			loginSuccess: function(resp) {
 				//$rootScope.userToken = resp['token'];
+				if(SITE.HAL_SUPPORT) {
+			    localStorage['site'] = $rootScope.site = resp['site'];                           
+			  }
 				//show modal if need change password, otherwise authenticate
 				AuthService.setCredentials(resp.visitor, resp.token);
 				if (resp.error && resp.error == "password expired") {
