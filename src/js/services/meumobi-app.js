@@ -158,7 +158,7 @@ angular.module('meumobi.appFunc', ['infoboxApp.services.Cordova'])
 			},
 			backButton: function() {
 				document.addEventListener("backbutton", function() {
-					$rootScope.go('back', 'slideRight');
+					$rootScope.go($window.history.back(), 'slideRight');
 				}, false);
 			},
 			hideSplashScreen: function() {
