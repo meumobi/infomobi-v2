@@ -5,7 +5,7 @@ angular
 	.controller('ForgotController', ForgotController);
 
 	function ForgotController($rootScope, $scope, API, AppFunc) {
-
+		
 		$scope.Forgot = {
 			informations: {
 				name: "infobox",
@@ -13,15 +13,22 @@ angular
 				phone: "",
 				message: ""
 			},
+			submitForm: function(isValid) {
+				$scope.submitted = true;
+				if (!isValid) {
+					AppFunc.toast('Erro de validação');
+				}
+				else {
+					$scope.Forgot.sendMail();
+				}
+			},
 			sendMail: function() {
 				var message = "[Esqueci minha senha]: ";
-				message += $scope.Forgot.informations.message;
-				$scope.Forgot.informations.message = message;
-				API.Mail.save($scope.Forgot.informations, $scope.Forgot.success, $scope.Forgot.error);
+				API.Mail.save(message+$scope.Forgot.informations, $scope.Forgot.success, $scope.Forgot.error);
 			},
 			success: function(resp) {
 				AppFunc.toast("Mensagem enviada com sucesso");
-				$scope.Forgot.informations.message = "";
+				//$scope.Forgot.informations.message = "";
 				$rootScope.go('/login', 'slideRight');
 			},
 			error: function(err) {
