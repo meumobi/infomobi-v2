@@ -29,7 +29,7 @@ function($q, $rootScope, $location, SITE) {
 			if (response && response.status === 401) {
 				delete localStorage.user;
 				delete localStorage.site;
-				$rootScope.site = SITE.DOMAIN;
+				$rootScope.site = $rootScope.defaultSite;
 				$rootScope.go('/login');
 			}
 			if (response && response.status >= 500) {}

@@ -74,6 +74,7 @@ var app = angular
 	$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
 	//$rootScope.userToken = localStorage['userToken'] || "";
 	$rootScope.site = SITE.HAL_SUPPORT ? ( localStorage['site'] ? localStorage['site'] : SITE.DOMAIN ) : SITE.DOMAIN;
+	$rootScope.defaultSite = SITE.DOMAIN;
 	$rootScope.getImage = AppFunc.getImage;
 	$rootScope.go = AppFunc.transition;
 	$rootScope.history = window.history;
