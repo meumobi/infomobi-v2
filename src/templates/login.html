@@ -1,32 +1,32 @@
 <div class="scrollable">
-  <div class="scrollable-content section" id="login">
-    <img src="images/infobox_final-04.png" style="align:center">
-    <form name="loginForm" ng-submit="Login.submitForm(loginForm.$valid)" novalidate>
-      <div class="col-xs-10 col-xs-offset-1" ng-class="{ 'has-error' : loginForm.email.$invalid && loginForm.password.$invalid && submitted }">
-        <input type="email" name="email" placeholder="email" class="form-control" ng-model="Login.username" ng-required="true">
-        <p ng-show="loginForm.email.$invalid && submitted" class="help-block">E-mail inválido.</p>
-				<input type="password" name="password" placeholder="senha" class="form-control" ng-model="Login.password" ng-required="true">
-        <p ng-show="loginForm.password.$invalid && submitted" class="help-block">Senha inválida.</p>
-				<button class="btn btn-primary btn-block">Entrar</button>
+	<div class="scrollable-content section" id="login">
+		<div class="col-xs-10 col-xs-offset-1" ng-class="{ 'has-error' : loginForm.email.$invalid && loginForm.password.$invalid && submitted }">
+			<div id="logo">
+				<img src="images/infobox_final-04.png">
 			</div>
-			<div class="col-xs-10 col-xs-offset-1" id="forgot">
-        <span><a ng-click="go('/login/forgot','slideLeft')">Esqueceu a senha?</a></span>&nbsp;-&nbsp;
+			<div>
+				<form name="loginForm" ng-submit="Login.submitForm(loginForm.$valid)" novalidate>
+					<input type="email" name="email" placeholder="email" class="form-control" ng-model="Login.username" ng-required="true">
+					<p ng-show="loginForm.email.$invalid && submitted" class="help-block">E-mail inválido.</p>
+					<input type="password" name="password" placeholder="senha" class="form-control" ng-model="Login.password" ng-required="true">
+					<p ng-show="loginForm.password.$invalid && submitted" class="help-block">Senha inválida.</p>
+					<button class="btn btn-primary btn-block">Entrar</button>
+				</form>
+			</div>
+			<div id="forgot">
+				<span><a ng-click="go('/login/forgot','slideLeft')">Esqueceu a senha?</a></span>&nbsp;-&nbsp;
 				<span><a ng-click="go('/login/welcome','slideLeft')">Sobre InfoBox</a></span>
-      </div>
-    </form>
-  </div>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- Overlay must be body direct child to cover entire page -->
 <div overlay="change-password-overlay">
-  <h4 class="overlay-title">Defina sua senha</h4>
-  <div>
-    <form ng-submit="Login.changePassword()">
-      <input class="form-control" type="password" ng-model="Login.new_password" placeholder="Nova Senha" />
-      <input type="submit" id="submit" class="ib-primary col-xs-12 form-control needsclick" value="Salvar">
-      <!--p toggle="off" bubble target="otp-form">
-        <span class="btn btn-primary">Salvar</span>
-        <span class="btn btn-default">Cancel</span>
-      </p-->
-    </form>
-  </div>
+	<h4 class="overlay-title">Defina sua senha</h4>
+	<div>
+		<form ng-submit="Login.changePassword()">
+			<input class="form-control" type="password" ng-model="Login.new_password" placeholder="Nova Senha" />
+			<input type="submit" id="submit" class="ib-primary col-xs-12 form-control needsclick" value="Salvar" />
+		</form>
+	</div>
 </div>
