@@ -1,6 +1,11 @@
 <div class="scrollable">
 	<div class="scrollable-content section">
 		<div bs-panel title="Arquivos baixados">
+			<div class="ib-loading-news" ng-show="!downloadedFiles.length">
+				<div>
+					Nenhum arquivo baixado
+				</div>
+			</div>
 			<div class="list-group ib-home-news">
 				<download-file ng-repeat="file in downloadedFiles" file="file"></download-file>
 			</div>
