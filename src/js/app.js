@@ -106,6 +106,10 @@ var app = angular
 		if (restrictedPage && !loggedIn) {
 			$location.path('/login');
 		}
+		// redirect to /list if loggedIn and try to access non-restricted page
+		if (!restrictedPage && loggedIn) {
+			$location.path('/list');
+		}
 		$rootScope.NavBarTop = ($location.path() == "/login") ? false : true;
 	});
 
