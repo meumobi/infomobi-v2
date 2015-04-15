@@ -1,7 +1,7 @@
 <div class="scrollable">
 	<div class="scrollable-content section">
 		<div bs-panel title="Arquivos baixados">
-			<div class="ib-loading-news" ng-show="!downloadedFiles.length">
+			<div class="ib-loading-news" ng-show="downloadedFiles | isEmpty">
 				<div>
 					Nenhum arquivo baixado
 				</div>
