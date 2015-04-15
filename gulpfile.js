@@ -22,9 +22,13 @@ var config = {
       './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js',
       './bower_components/js-md5/js/md5.js',
       './src/js/lib/pushwoosh-android.js',
-      './src/js/lib/pushwoosh-ios.js'
+      './src/js/lib/pushwoosh-ios.js',
+      './bower_components/ladda/dist/spin.min.js',
+      './bower_components/ladda/dist/ladda.min.js'
     ],
-
+    css: [
+      './bower_components/ladda/dist/ladda-themeless.min.css'  
+    ],
     fonts: [
       './bower_components/font-awesome/fonts/fontawesome-webfont.*'
     ]

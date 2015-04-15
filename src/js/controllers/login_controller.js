@@ -21,6 +21,7 @@ function LoginController($rootScope, $http, $scope, $location, API, AppInfo, App
 				AppFunc.toast('Erro de validação');
 			}
 			else {
+        $scope.Login.loading = true;
 				$scope.Login.signin();
 			}
 		},
@@ -75,7 +76,7 @@ function LoginController($rootScope, $http, $scope, $location, API, AppInfo, App
 			} else {
 				msg = "Erro ao realizar login. Tente novamente.";
 			}
-
+      $scope.Login.loading = false;
 			AppFunc.toast(msg);
 		},
 		saveDeviceInformation: function() {

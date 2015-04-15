@@ -7,7 +7,9 @@
         <p ng-show="loginForm.email.$invalid && submitted" class="help-block">E-mail inválido.</p>
 				<input type="password" name="password" placeholder="senha" class="form-control" ng-model="Login.password" ng-required="true">
         <p ng-show="loginForm.password.$invalid && submitted" class="help-block">Senha inválida.</p>
-				<button class="btn btn-primary btn-block">Entrar</button>
+        <button data-ui-ladda="Login.loading" class="btn btn-primary btn-block ladda-button" data-style="expand-right">
+          <span class="ladda-label">Entrar</span>
+        </button>
 			</div>
 			<div class="col-xs-10 col-xs-offset-1" id="forgot">
         <span><a ng-click="go('/login/forgot','slideLeft')">Esqueceu a senha?</a></span>&nbsp;-&nbsp;
