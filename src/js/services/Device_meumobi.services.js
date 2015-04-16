@@ -6,12 +6,12 @@
 	.factory('DeviceService', DeviceService);
 		
 	function DeviceService(deviceReady, AppUtils, $rootScope) {
-		var service = {};
+		var services = {};
 			
-		service.setSignature = setSignature;
-		service.clearSignature = clearSignature;
+		services.setSignature = setSignature;
+		services.clearSignature = clearSignature;
  
-		return service;
+		return services;
 
 		function clearSignature() {
 			$rootScope.device = {};
