@@ -4,6 +4,6 @@ angular
 .module('InfoBox')
 .controller('WelcomeController', WelcomeController);
 
-function WelcomeController($rootScope, $scope, AppInfo, WelcomeImages) {
+function WelcomeController($rootScope, $scope, WelcomeImages) {
 	$scope.item = WelcomeImages.get();
 }

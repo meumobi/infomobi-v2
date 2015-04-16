@@ -4,7 +4,7 @@ angular
 .module('InfoBox')
 .controller('LoginController', LoginController);
 
-function LoginController($rootScope, $http, $scope, $location, API, AppInfo, AppFunc, INFOBOXAPP, SITE, AuthService) {
+function LoginController($rootScope, $http, $scope, $location, API, AppFunc, INFOBOXAPP, SITE, AuthService) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function(mail, token) {
@@ -38,9 +38,10 @@ function LoginController($rootScope, $http, $scope, $location, API, AppInfo, App
 			API.Login.save({
 				current_password: $scope.Login.password,
 				password: $scope.Login.new_password
-			}, function() {
+			}, function(resp) {
+				AuthService.updateAuthToken(resp.token);
 				$rootScope.toggle('change-password-overlay', 'off');
-				authenticateUser($scope.Login.username, $rootScope.userToken);
+				authenticateUser($scope.Login.username, $rootScope.user.token);
 			}, function() {
 				$rootScope.userToken = null;
 			});
