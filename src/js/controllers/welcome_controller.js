@@ -1,12 +1,9 @@
 'use strict';
 
 angular
-	.module('InfoBox')
-	.controller('WelcomeController', WelcomeController);
+.module('InfoBox')
+.controller('WelcomeController', WelcomeController);
 
-	function WelcomeController($rootScope, $scope, AppInfo, WelcomeImages) {
-		$scope.item = WelcomeImages.get();
-		AppInfo.service.Device.information(function(e) {
-			localStorage.device = JSON.stringify(e);
-		});
-	}
+function WelcomeController($rootScope, $scope, AppInfo, WelcomeImages) {
+	$scope.item = WelcomeImages.get();
+}

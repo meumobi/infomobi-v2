@@ -10,7 +10,6 @@ function LoginController($rootScope, $http, $scope, $location, API, AppInfo, App
 	var authenticateUser = function(mail, token) {
 		//AuthService.setCredentials(mail, token);
 		AppFunc.initPushwoosh();
-		$scope.Login.saveDeviceInformation();
 		$rootScope.go('/list');
 	};
 
@@ -25,18 +24,12 @@ function LoginController($rootScope, $http, $scope, $location, API, AppInfo, App
 			}
 		},
 		signin: function() {
-			AppInfo.service.Device.information(function(informations) {
-				var user = {
-					"email": $scope.Login.username,
-					"password": $scope.Login.password,
-					"device": {
-						"uuid": informations.uuid,
-						"pushId": "",
-						"model": informations.model
-					}
-				}
-				API.Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
-			});
+			var user = {
+				"email": $scope.Login.username,
+				"password": $scope.Login.password,
+				"device": $rootScope.device,
+			}
+			API.Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
 		},
 		username: "",
 		password: "",
@@ -75,28 +68,7 @@ function LoginController($rootScope, $http, $scope, $location, API, AppInfo, App
 			} else {
 				msg = "Erro ao realizar login. Tente novamente.";
 			}
-
 			AppFunc.toast(msg);
-		},
-		saveDeviceInformation: function() {
-			AppInfo.service.Device.information(function(informations) {
-				var device = {
-					"uuid": informations.uuid,
-					"model": informations.model,
-					"push_id": localStorage['push_id'],
-					"app_version": INFOBOXAPP.VERSION
-				}
-				localStorage.device = JSON.stringify(device);
-
-				API.Login.update(device,
-					function(resp) {
-						console.log(resp);
-					},
-					function(err) {
-						console.log(err);
-					}
-				);
-			});
 		}
 	}
 }

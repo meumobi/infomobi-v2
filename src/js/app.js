@@ -3,7 +3,8 @@
 var app = angular
 
 .module('InfoBox', [
-	'infoboxApp.services.Cordova',
+	'meumobi.Cordova',
+	'meumobi.services.Device',
 	'ngRoute',
 	'ngTouch',
 	'angular-carousel',
@@ -14,11 +15,12 @@ var app = angular
 	'services.Analytics',
 	'meumobi.api',
 	'meumobi.auth',
-	'meumobi.sync',
+	//'meumobi.sync',
 	'meumobi.appInfo',
 	'meumobi.appFunc',
 	'meumobi.utils',
-	'meumobi.filters',
+	'meumobi.filters.Common',
+	'meumobi.filters.DownloadFiles',
 	'meumobi.stubs',
 	'meumobi.services.Files',
 	'meumobi.directives.DownloadFile'
@@ -69,8 +71,11 @@ var app = angular
 	analyticsProvider.setup('UA-59245997-1'); //TODO get id from some config file
 })
 
-.run(function($rootScope, $location, $http, analytics, AppFunc, SITE) {
-
+.run(function($rootScope, $location, $http, analytics, AppFunc, SITE, DeviceService) {
+	// If it's the first connection redirect to welcome page
+	if (localStorage.getItem("device") === null) {
+		$location.path('/login/welcome');
+	}
 	$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
 	//$rootScope.userToken = localStorage['userToken'] || "";
 	$rootScope.site = SITE.HAL_SUPPORT ? ( localStorage['site'] ? localStorage['site'] : SITE.DOMAIN ) : SITE.DOMAIN;
@@ -78,9 +83,9 @@ var app = angular
 	$rootScope.getImage = AppFunc.getImage;
 	$rootScope.go = AppFunc.transition;
 	$rootScope.history = window.history;
+	DeviceService.setSignature();
 	$rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
 	$http.defaults.headers.common['X-Visitor-Token'] = $rootScope.user.token;
-
 	$rootScope.$on('loading:show', function() {
 		// $rootScope.loading = true;
 	})
@@ -88,11 +93,6 @@ var app = angular
 	$rootScope.$on('loading:hide', function() {
 		// $rootScope.loading = false;
 	})
-
-	// If it's the first connection redirect to welcome page
-	if (localStorage.getItem("device") === null) {
-		$location.path('/login/welcome');
-	}
 
 	$rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
 		//send page to analytics
