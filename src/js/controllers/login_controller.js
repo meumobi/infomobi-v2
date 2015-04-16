@@ -20,6 +20,7 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, INF
 				AppFunc.toast('Erro de validação');
 			}
 			else {
+        $scope.Login.loading = true;
 				$scope.Login.signin();
 			}
 		},
@@ -69,6 +70,7 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, INF
 			} else {
 				msg = "Erro ao realizar login. Tente novamente.";
 			}
+			$scope.Login.loading = false;
 			AppFunc.toast(msg);
 		}
 	}
