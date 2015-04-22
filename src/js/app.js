@@ -31,38 +31,54 @@ var app = angular
 
 	$routeProvider.when('/list', {
 		templateUrl: "list.html",
-		controller: "ListController"
+		controller: "ListController",
+    title: "Notícias"
 	})
 	.when('/show/:id', {
 		templateUrl: "show.html",
-		controller: "ShowController"
+		controller: "ShowController",
+		resolve: {
+			viewName: function($route, $rootScope) {
+				//obs. this shoud be a service not a global rootScope property, but is using the implementatiopn of showController
+				var item = $rootScope.news[$route.current.params.id];
+				if (item)
+					$route.current.$$route.title = item.title;
+			}
+		}
 	})
 	.when('/account', {
 		templateUrl: "account.html",
-		controller: "AccountController"
+		controller: "AccountController",
+    title: "Minha conta"
 	})
 	.when('/contact', {
 		templateUrl: "contact.html",
-		controller: "ContactController"
+		controller: "ContactController",
+    title: "Fale com a Comunicação Interna"
 	})
 	.when('/login', {
 		templateUrl: "login.html",
-		controller: "LoginController"
+		controller: "LoginController",
+    title: "Login"
 	})
 	.when('/about', {
-		templateUrl: "about.html"
+		templateUrl: "about.html",
+    title: "Sobre a Siemens"
 	})
 	.when('/files', {
 		templateUrl: "files.html",
-		controller: "FilesController"
+		controller: "FilesController",
+    title: "Arquivos"
 	})
 	.when('/login/forgot', {
 		templateUrl: "forgot.html",
-		controller: "ForgotController"
+		controller: "ForgotController",
+    title: "Esqueci minha senha"
 	})
 	.when('/login/welcome', {
 		templateUrl: "welcome.html",
-		controller: "WelcomeController"
+		controller: "WelcomeController",
+    title: "Bem Vindo"
 	})
 	.otherwise({
 		redirectTo: '/login'
@@ -113,9 +129,9 @@ var app = angular
 		// $rootScope.loading = false;
 	})
 
-	$rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
+	$rootScope.$on('$routeChangeSuccess', function(e, current, prev) {
 		//send page to analytics
-		analytics.trackPage($location.url().toString());
+		analytics.trackPage(current.$$route.title);
 	});
 
 	$rootScope.$on('$locationChangeStart', function (event, next, current) {
