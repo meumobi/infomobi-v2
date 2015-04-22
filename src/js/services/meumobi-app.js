@@ -6,11 +6,13 @@
 	.factory('AppInfo', AppInfo)
 	
 	function AppInfo(deviceReady, $rootScope) {
-		var services = {};
+		var service = {};
 		
-		services.isOnline = isOnline;
+		service.isOnline = isOnline;
+		service.migrateVersion = migrateVersion;
+		service.clearRestrictedDatas = clearRestrictedDatas;
 		
-		return services;
+		return service;
 		
 		function isConnectionOnline(type) {
 			var states = {};
@@ -26,7 +28,7 @@
 			
 			return connection;
 		}
-		
+
 		function isOnline(done) {
 			deviceReady(function() {
 				var connection = false;
@@ -42,7 +44,54 @@
 				}
 			});
 		}
-	}
+
+		function clearRestrictedDatas() {
+			// Maybe we should clear rootScope and localstorage
+			// To achieve it we should have a function to restore defaults config
+			//$rootScope.authToken = {};
+			localStorage.removeItem("visitor");
+			localStorage.removeItem("authToken");
+			delete $rootScope.news;
+			delete $rootScope.authToken;
+			delete $rootScope.visitor;
+			localStorage.removeItem("news");
+			localStorage.removeItem("files");
+		}
+
+		function migrateDeviceInformations() {
+			localStorage.device = localStorage.deviceInformations;
+			console.log("migrate Device Informations");
+			localStorage.removeItem("deviceInformations");
+		}
+
+		function migrateUserToken() {
+			console.log("migrate User Token: " + localStorage.userToken);
+			//AuthService.updateCredentials(localStorage.userToken);
+			localStorage.authToken = localStorage.userToken;
+			localStorage.removeItem("userToken");
+		}
+
+		function migrateNewsList() {
+			console.log("migrate News list");
+			localStorage.news = localStorage.newsList;
+			localStorage.removeItem("newsList");
+		} 
+
+		function migrateVersion() {
+			if (localStorage.hasOwnProperty('newsList')) {
+				migrateNewsList();
+			}
+			if (localStorage.hasOwnProperty('userToken')) {
+				migrateUserToken();
+			}
+			if (localStorage.hasOwnProperty('deviceInformations')) {
+				migrateDeviceInformations();
+			}
+			if (localStorage.hasOwnProperty('mail')) {
+				localStorage.removeItem("mail");
+			}
+		}
+}
 	
 	angular
 	.module('meumobi.appFunc', ['meumobi.Cordova'])

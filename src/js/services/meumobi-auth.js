@@ -5,40 +5,53 @@
 	.module('meumobi.auth', [])
 	.factory('AuthService', AuthService);
 		
-	function AuthService($http, $rootScope) {
+	function AuthService($http, $rootScope, API) {
 		var service = {};
-			
-		//service.Login = Login;
-		service.setCredentials = setCredentials;
-		service.clearCredentials = clearCredentials;
-		service.updateAuthToken = updateAuthToken;
+
+		service.loadAuthToken = loadAuthToken;
+		service.loadVisitor = loadVisitor;
+		service.getVisitor = getVisitor;
  
 		return service;
 
-		function clearCredentials() {
-			// Maybe we should clear rootScope and localstorage
-			// To achieve it we should have a function to restore defaults config
-			$rootScope.user = {};
-			localStorage.removeItem("user");
-			$rootScope.news = {};
-			localStorage.removeItem("news");
-			localStorage.removeItem("files");
-			delete $http.defaults.headers.common['X-Visitor-Token']
+
+		
+		function login() {
+			
 		}
 		
-		function updateAuthToken(token) {
-			$rootScope.user.token = token;
-			localStorage.user = JSON.stringify($rootScope.user);
+		function success() {
+			
+		}
+		
+		function error() {
+			
+		}
+		
+		function loadAuthToken(token) {
+			$rootScope.authToken = token;
+			localStorage.authToken = token;
 			$http.defaults.headers.common['X-Visitor-Token'] = token;
 		}
 
-		function setCredentials(visitor, token) {
-			$rootScope.user = {
-				"visitor": visitor,
-				"token": token
-			};
-			localStorage.user = JSON.stringify($rootScope.user);
-			$http.defaults.headers.common['X-Visitor-Token'] = token;
+		function loadVisitor(visitor) {
+			$rootScope.visitor = visitor;
+			localStorage.visitor = JSON.stringify(visitor);
+		}
+
+		function getVisitor() {
+			API.Login.get(
+				function(data, status) {
+					console.log("Update credentials: ");
+					console.log(data);
+					loadVisitor(data);
+				},
+				function(data, status) {
+					if (localStorage.hasOwnProperty("visitor")) {
+						$rootScope.visitor = loadVisitor(localStorage.visitor);
+					}
+				}
+			);
 		}
 	}
 })();

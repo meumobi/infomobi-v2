@@ -8,7 +8,7 @@ angular
 		$scope.Contact = {
 			informations: {
 				name: "infobox",
-				mail: $rootScope.user ? $rootScope.user.visitor.email : 'default@siemens.com',
+				mail: $rootScope.visitor ? $rootScope.visitor.email : 'default@siemens.com',
 				phone: "",
 				message: ""
 			},

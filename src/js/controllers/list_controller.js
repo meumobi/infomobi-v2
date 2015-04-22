@@ -29,8 +29,10 @@ function ListController($rootScope, $scope, $http, API, AppFunc) {
 	}
 
 	function error(data, status) {
-		$scope.data = data || "Request failed";
-		$scope.status = status;
-		AppFunc.toast(data.error);
+		var msg = data.error || "Request failed";
+		if (status === 401) {
+			delete $http.defaults.headers.common['X-Visitor-Token'];			
+		};
+		AppFunc.toast(msg);
 	}
 }

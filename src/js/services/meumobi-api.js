@@ -4,8 +4,8 @@ angular
 
 .module('meumobi.api', ['ngResource', 'meumobi.settings'])
 // Simple Authentication for Angular.js App: http://beletsky.net/2013/11/simple-authentication-in-angular-dot-js-app.html
-.factory('errorInterceptor', ['$q', '$rootScope', '$location',
-function($q, $rootScope, $location, SITE) {
+.factory('errorInterceptor', ['$q', '$rootScope', '$location', 'SITE', 'AppInfo',
+function($q, $rootScope, $location, SITE, AppInfo) {
 	return {
 		request: function(config) {
 			$rootScope.$broadcast('loading:show');
@@ -27,10 +27,11 @@ function($q, $rootScope, $location, SITE) {
 			if (response && response.status === 0) {} // network offline or CORS error
 			if (response && response.status === 404) {}
 			if (response && response.status === 401) {
-				delete localStorage.user;
-				delete localStorage.site;
+				console.log("[API:errorInterceptor]: response.status == 401");
+				AppInfo.clearRestrictedDatas();
 				$rootScope.site = $rootScope.defaultSite;
-				$rootScope.go('/login');
+				$location.path('/login');
+				//$rootScope.go('/login');
 			}
 			if (response && response.status >= 500) {}
 			return $q.reject(response);

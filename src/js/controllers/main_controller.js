@@ -4,7 +4,8 @@ angular
 .module('InfoBox')
 .controller('MainController', MainController);
 
-function MainController($rootScope, $scope, $location, AuthService) {
+function MainController($rootScope, $scope, $location, AuthService, AppInfo) {
+		
 	$scope.userAgent = navigator.userAgent;
 
 	$scope.mailto = function(e) {
@@ -17,7 +18,7 @@ function MainController($rootScope, $scope, $location, AuthService) {
 	}
 
 	$scope.logout = function() {
-		AuthService.clearCredentials();
+		AppInfo.clearRestrictedDatas();
 		$rootScope.go('/login');
 	}
 }

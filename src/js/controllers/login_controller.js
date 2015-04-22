@@ -40,11 +40,11 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, INF
 				current_password: $scope.Login.password,
 				password: $scope.Login.new_password
 			}, function(resp) {
-				AuthService.updateAuthToken(resp.token);
+				AuthService.loadAuthToken(resp.token);
 				$rootScope.toggle('change-password-overlay', 'off');
-				authenticateUser($scope.Login.username, $rootScope.user.token);
+				authenticateUser($scope.Login.username, $rootScope.authToken);
 			}, function() {
-				$rootScope.userToken = null;
+				$rootScope.authToken = null;
 			});
 		},
 		loginSuccess: function(resp) {
@@ -53,7 +53,8 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, INF
 				localStorage['site'] = $rootScope.site = resp['site'];
 			}
 			//show modal if need change password, otherwise authenticate
-			AuthService.setCredentials(resp.visitor, resp.token);
+			AuthService.loadVisitor(resp.visitor);
+			AuthService.loadAuthToken(resp.token);
 			if (resp.error && resp.error == "password expired") {
 				$rootScope.toggle('change-password-overlay', 'on');
 			} else {

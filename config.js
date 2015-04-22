@@ -22,7 +22,7 @@ module.exports = function(config) {
   config.weinre.httpPort = 8001;
   config.weinre.boundHost = 'localhost';
 
-  // Set to false to disable it:
+  // Comment to enable weinre, setting config.weinre = true doesn't work  
   // config.weinre = false;
     
   // 3rd party components

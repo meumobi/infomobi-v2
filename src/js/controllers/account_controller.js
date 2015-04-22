@@ -7,7 +7,7 @@
 
 	function AccountController($rootScope, $scope, $location, API, AppFunc, AppInfo, AuthService) {
 		var defaultUser = {
-			mail: $rootScope.user ? $rootScope.user.visitor.email : 'default@siemens.com',
+			mail: $rootScope.visitor ? $rootScope.visitor.email : 'default@siemens.com',
 			password: '',
 			newPassword: '',
 			confirmNewPassword: ''
@@ -20,7 +20,7 @@
 		}
 		
 		function success(data, status) {
-			AuthService.updateAuthToken(data.token);
+			AuthService.loadAuthToken(data.token);
 			AppFunc.toast("Senha alterada com sucesso");
 			$scope.user = defaultUser;
 		}
