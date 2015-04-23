@@ -19,11 +19,11 @@ module.exports = function(config) {
 
   // Weinre Remote debug server
   
-  config.weinre.httpPort = 8001;
-  config.weinre.boundHost = 'localhost';
+  config.weinre.httpPort = 8080;
+  config.weinre.boundHost = '192.168.1.173';
 
   // Comment to enable weinre, setting config.weinre = true doesn't work  
-  // config.weinre = false;
+   config.weinre = false;
     
   // 3rd party components
   // config.vendor.js.push('.bower_components/lib/dist/lib.js');

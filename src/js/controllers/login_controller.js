@@ -4,12 +4,13 @@ angular
 .module('InfoBox')
 .controller('LoginController', LoginController);
 
-function LoginController($rootScope, $http, $scope, $location, API, AppFunc, INFOBOXAPP, SITE, AuthService) {
+function LoginController($rootScope, $http, $scope, $location, API, AppFunc, INFOBOXAPP, SITE, DeviceService, AuthService) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function(mail, token) {
 		//AuthService.setCredentials(mail, token);
 		AppFunc.initPushwoosh();
+		DeviceService.getSignature();
 		$rootScope.go('/list');
 	};
 

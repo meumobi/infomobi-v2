@@ -177,7 +177,7 @@
 					deviceReady(function() {
 						that.hideSplashScreen();
 						app.initPushwoosh();
-						that.verifyVersion();
+						//that.verifyVersion();
 					});
 					that.receiveNotification();
 					//that.backButton();

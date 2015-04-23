@@ -116,9 +116,6 @@ var app = angular
 	$rootScope.go = AppFunc.transition;
 	$rootScope.history = window.history;
 	
-	
-	DeviceService.getSignature();
-	
 	// $rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
 	// $http.defaults.headers.common['X-Visitor-Token'] = $rootScope.user.token;
 	$rootScope.$on('loading:show', function() {
