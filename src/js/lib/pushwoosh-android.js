@@ -18,9 +18,9 @@
  */
 
 // Google Project Number
-var google_project_number = "724469158975";
+var google_project_number = "138333716576";
 // PushWoosh Application Code
-var pw_application_code = "E76A0-70562";
+var pw_application_code = "A9FC4-681E3";
 
 function registerPushwooshAndroid() {
 

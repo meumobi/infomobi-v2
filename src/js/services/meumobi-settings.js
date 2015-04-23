@@ -3,9 +3,12 @@
 angular
 .module('meumobi.settings', [])
 .constant("SITE", {
-	"DOMAIN": "infobox.meumobi.com",
+	"DOMAIN": "infomobi.meumobi.com",
+	"SRC_URL": "http://enterprise.meumobilesite.com/",
+	"API_URL": "http://enterprise.meumobilesite.com/api/",
+	/*"DOMAIN": "infobox.meumobi.com",
 	"SRC_URL": "http://infobox.meumobilesite.com/",
-	"API_URL": "http://infobox.meumobilesite.com/api/",
+	"API_URL": "http://infobox.meumobilesite.com/api/",/*
 	"HAL_SUPPORT": false,
 	"TIMEOUT": "5000",
 	"ITEMS_PER_PAGE": "10",
