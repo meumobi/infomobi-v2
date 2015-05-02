@@ -58,15 +58,15 @@
   <!-- ////////////////// iOS 7.0+ -->
   <!-- iPhone / iPod Touch  -->
   <!-- icon src="res/icon/ios/Icon-60.png" gap:platform="ios" width="60" height="60" /-->
-  <icon src="res/icon/ios/Icon-60@2x.png" gap:platform="ios" width="120" height="120" />
+  <icon src="res/icon/ios/AppIcon.appiconset/Icon-60@2x.png" gap:platform="ios" width="120" height="120" />
 
   <!-- iPad -->
-  <icon src="res/icon/ios/Icon-76.png" gap:platform="ios" width="76" height="76" />
-  <icon src="res/icon/ios/Icon-76@2x.png" gap:platform="ios" width="152" height="152" />
+  <icon src="res/icon/ios/AppIcon.appiconset/Icon-76.png" gap:platform="ios" width="76" height="76" />
+  <icon src="res/icon/ios/AppIcon.appiconset/Icon-76@2x.png" gap:platform="ios" width="152" height="152" />
 
   <!-- Spotlight Icon -->
-  <icon src="res/icon/ios/Icon-40.png" gap:platform="ios" width="40" height="40" />
-  <icon src="res/icon/ios/Icon-40@2x.png" gap:platform="ios" width="80" height="80" />
+  <icon src="res/icon/ios/AppIcon.appiconset/Icon-40.png" gap:platform="ios" width="40" height="40" />
+  <icon src="res/icon/ios/AppIcon.appiconset/Icon-40@2x.png" gap:platform="ios" width="80" height="80" />
 	
   <!-- ////////////////// iOS 6.1 -->
   <!-- iPhone / iPod Touch -->
@@ -78,8 +78,8 @@
   <icon src="res/icon/ios/Icon-72@2x.png" gap:platform="ios" width="144" height="144" />
 
   <!-- iPhone Spotlight and Settings Icon (iOS 6.1+) -->
-  <icon src="res/icon/ios/Icon-Small.png" gap:platform="ios" width="29" height="29" />
-  <icon src="res/icon/ios/Icon-Small@2x.png" gap:platform="ios" width="58" height="58" />
+  <icon src="res/icon/ios/AppIcon.appiconset/Icon-Small.png" gap:platform="ios" width="29" height="29" />
+  <icon src="res/icon/ios/AppIcon.appiconset/Icon-Small@2x.png" gap:platform="ios" width="58" height="58" />
 
   <!-- iPad Spotlight and Settings Icon -->
   <icon src="res/icon/ios/Icon-Small-50.png" gap:platform="ios" width="50" height="50" />

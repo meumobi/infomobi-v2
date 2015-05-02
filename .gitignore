@@ -1,9 +1,12 @@
 # remove minified files
 www/js
+www/res
 www/css
 www/fonts
 www/images
 www/index.html
+www/icon.png
+www/splash.png
 
 # Created by http://www.gitignore.io
 
