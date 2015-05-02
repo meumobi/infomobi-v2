@@ -2,13 +2,11 @@
 
 angular
 .module('meumobi.settings', [])
+.constant("APP", @@APP)
 .constant("SITE", {
-	"DOMAIN": "infomobi.meumobi.com",
-	"SRC_URL": "http://enterprise.meumobilesite.com/",
-	"API_URL": "http://enterprise.meumobilesite.com/api/",
-	/*"DOMAIN": "infobox.meumobi.com",
+	"DOMAIN": "infobox.meumobi.com",
 	"SRC_URL": "http://infobox.meumobilesite.com/",
-	"API_URL": "http://infobox.meumobilesite.com/api/",/*
+	"API_URL": "http://infobox.meumobilesite.com/api/",
 	"HAL_SUPPORT": false,
 	"TIMEOUT": "5000",
 	"ITEMS_PER_PAGE": "10",
@@ -17,6 +15,17 @@ angular
 	"API_URL": "http://int-meumobi.com/api/",*/
 	"WELCOME_MESSAGE": "O InfoBox é o novo aplicativo de comunicação interna da Siemens. Fica conectado no feed de noticias da Siemens no seu celular."
 })
+.constant("ANALYTICS", @@ANALYTICS)
+.constant("PUSH", {
+	
+})
+.constant("API", {
+	"url": "@@apiUrl",
+	"limit": "@@apiLimit",
+	"timeout": "@@apiTimeout",
+	"halSupport": "@@apiHalSupport"
+})
+
 .constant('MEDIAS', {
 	'application/pdf': {
 		class: 'fa-file-pdf-o',
