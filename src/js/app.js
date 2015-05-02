@@ -26,7 +26,7 @@ var app = angular
 	'meumobi.directives.DownloadFile'
 ])
 
-.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider) {
+.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider, ANALYTICS) {
 	$httpProvider.interceptors.push('errorInterceptor');
 
 	$routeProvider.when('/list', {
@@ -84,7 +84,7 @@ var app = angular
 		redirectTo: '/login'
 	});
 
-	analyticsProvider.setup('UA-59245997-1'); //TODO get id from some config file
+	analyticsProvider.setup(ANALYTICS.trackId);
 })
 
 .run(function($rootScope, $location, $http, analytics, AppFunc, AppInfo, SITE, DeviceService, AuthService) {
