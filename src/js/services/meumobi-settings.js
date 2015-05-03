@@ -2,7 +2,7 @@
 
 angular
 .module('meumobi.settings', [])
-.constant("APP", @@APP)
+// .constant("APP", @@APP)
 .constant("SITE", {
 	"DOMAIN": "infobox.meumobi.com",
 	"SRC_URL": "http://infobox.meumobilesite.com/",
@@ -19,13 +19,13 @@ angular
 .constant("PUSH", {
 	
 })
-.constant("API", {
+/*.constant("HTTP", {
 	"url": "@@apiUrl",
 	"limit": "@@apiLimit",
 	"timeout": "@@apiTimeout",
 	"halSupport": "@@apiHalSupport"
 })
-
+*/
 .constant('MEDIAS', {
 	'application/pdf': {
 		class: 'fa-file-pdf-o',

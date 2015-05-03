@@ -1,0 +1,20 @@
+{
+	"version": "1.0.1",
+	"name": "infoMobi",
+	"id": "com.meumobi.infomobi",
+	"description": "Mobile App for Internal Communication.",
+
+	"ANALYTICS": {
+		"trackId": "UA-22519238-13"
+	},
+	"PUSHWOOSH": {
+		"applicationCode": "A9FC4-681E3",
+		"googleProjectNumber": "138333716576",
+		"androidApiKey": "AIzaSyCRclJgNUupcKdUIohSKoF7F4Crc-yvBBU"
+	},
+	"HTTP": {
+		"limit": "10",
+		"timeout": "5",
+		"halSupport": false
+	}
+}

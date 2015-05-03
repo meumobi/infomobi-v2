@@ -18,7 +18,7 @@
  */
 
 // PushWoosh Application Code
-var pw_application_code = "A9FC4-681E3";
+var pw_application_code = "@@applicationCode";
 
 function registerPushwooshIOS() {
   var pushNotification = window.plugins.pushNotification;

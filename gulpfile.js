@@ -5,6 +5,7 @@
 // Please use config.js to override these selectively:
 
 var config = {
+	debug: true, // setted false if call release task
 	dest: 'www',
 	cordova: true,
 	minify_images: true,
@@ -58,14 +59,13 @@ sourcemaps = require('gulp-sourcemaps'),
 cssmin = require('gulp-cssmin'),
 order = require('gulp-order'),
 concat = require('gulp-concat'),
-ignore = require('gulp-ignore'),
 rimraf = require('gulp-rimraf'),
 imagemin = require('gulp-imagemin'),
 pngcrush = require('imagemin-pngcrush'),
 templateCache = require('gulp-angular-templatecache'),
 mobilizer = require('gulp-mobilizer'),
 ngAnnotate = require('gulp-ng-annotate'),
-replace = require('gulp-replace-task'),
+replace = require('gulp-replace'),
 ngFilesort = require('gulp-angular-filesort'),
 streamqueue = require('streamqueue'),
 rename = require('gulp-rename'),
@@ -75,28 +75,28 @@ fs = require('fs');
 gulpif = require('gulp-if');
 zip = require('gulp-zip');
 
-// Get the app from the command line
-var app = args.app || 'infoMobi';
+// Get the project from the command line
+var project = args.project || 'infoMobi';
 
 // Get the environment from the command line
-var env = args.env || 'localdev';
-var cwd = './APPS/' + app;
+var env = args.env || 'integration';
+var cwd = './PROJECTS/' + project;
 
-// Read the settings from the right file
+// Read the Environment & App Settings
 var filename = env + '.json';
-var settings = JSON.parse(fs.readFileSync(path.join(cwd, 'config', filename), 'utf8'));
+var configEnv = JSON.parse(fs.readFileSync(path.join(cwd, 'environments', filename), 'utf8'));
+var configProject = JSON.parse(fs.readFileSync(path.join(cwd,'config.json'), 'utf8'));
 
 /*================================================
-=            Copy App Assets            =
+=                  Copy App Assets               =
 ================================================*/
 
 // Copy APP Assets, maintaining the original directory structure
 gulp.task('copy', function () {
-	return gulp.src('./www/**/*', {
+	return gulp.src('./res/**/*', {
 		cwd: cwd
 	}).pipe(gulp.dest(config.dest));
 });
-
 
 /*================================================
 =            Report Errors to Console            =
@@ -120,7 +120,8 @@ gulp.task('clean', function(cb) {
 		path.join(config.dest, 'fonts'),
 		path.join(config.dest, 'res'),
 		path.join(config.dest, 'icon.png'),
-		path.join(config.dest, 'splash.png')
+		path.join(config.dest, 'splash.png'),
+		path.join(config.dest, 'config.xml')
 	], {
 		read: false
 	})
@@ -200,15 +201,7 @@ gulp.task('html', function() {
 		inject.push('<script src="cordova.js"></script>');
 	}
 	gulp.src(['src/html/**/*.html'])
-	//.pipe(replace('<!-- inject:js -->', inject.join('\n    ')))
-	.pipe(replace({
-		patterns: [
-			{
-				match: 'injectJS',
-				replacement: inject.join('\n    ')
-			}
-		]
-	}))
+	.pipe(replace('<!-- inject:js -->', inject.join('\n    ')))
 	.pipe(gulp.dest(config.dest));
 });
 
@@ -239,6 +232,31 @@ gulp.task('less', function() {
 	.pipe(gulp.dest(path.join(config.dest, 'css')));
 });
 
+/*====================================================================
+=                     Update and Copy config.xml                     =
+====================================================================*/
+
+gulp.task('phonegap-config', function() {
+	gulp.src('src/config.xml')
+	.pipe(replace('@@Id', configProject.id))
+	.pipe(replace('@@Version', configProject.version))
+	.pipe(replace('@@Name', configProject.name))
+	.pipe(replace('@@Description', configProject.description))
+	.pipe(gulp.dest(config.dest));
+});
+
+
+/*====================================================================
+=               Build Zip to submit to PhoneGap Build                =
+====================================================================*/
+
+gulp.task('zip', function () {
+	var filename = project + "_rel-" + configProject.version + ".zip";
+	return gulp.src('www/*')
+	.pipe(zip(filename))
+	.pipe(gulp.dest('dist'));
+});
+
 
 /*====================================================================
 =            Compile and minify js generating source maps            =
@@ -252,27 +270,26 @@ gulp.task('js', function() {
 	},
 	gulp.src(config.vendor.js),
 	gulp.src('src/js/services/meumobi-settings.js')  
-	.pipe(replace({
-		patterns: [
-			{
-				match: 'APP',
-				replacement: settings.APP
-			},
-			{
-				match: 'ANALYTICS',
-				replacement: settings.ANALYTICS
-			}
-		]
-	})),
-	gulp.src(['./src/js/**/*.js', '!./src/js/services/meumobi-settings.js']).pipe(ngFilesort()),
-	gulp.src(['src/templates/**/*.html']).pipe(templateCache({
+	.pipe(replace('@@ANALYTICS', JSON.stringify(configProject.ANALYTICS)))
+	.pipe(replace('@@PUSHWOOSH', configProject.PUSHWOOSH)),
+	gulp.src('src/js/lib/pushwoosh-*.js')
+	.pipe(replace('@@googleProjectNumber', configProject.PUSHWOOSH.googleProjectNumber))
+	.pipe(replace('@@applicationCode', configProject.PUSHWOOSH.applicationCode)),
+	gulp.src([
+		'./src/js/**/*.js', 
+		'!./src/js/services/meumobi-settings.js', 
+		'!./src/js/lib/pushwoosh-*.js'
+	])
+	.pipe(ngFilesort()),
+	gulp.src(['src/templates/**/*.html'])
+	.pipe(templateCache({
 		module: 'InfoBox'
 	}))
 )
 .pipe(sourcemaps.init())
 .pipe(concat('app.js'))
 .pipe(ngAnnotate())
-.pipe(gulpif(env != 'localdev', uglify()))
+.pipe(gulpif(!config.debug, uglify()))
 .pipe(rename({suffix: '.min'}))
 .pipe(sourcemaps.write('.'))
 .pipe(gulp.dest(path.join(config.dest, 'js')));
@@ -299,7 +316,7 @@ gulp.watch(['./src/images/**/*'], ['images']);
 ===================================================*/
 
 gulp.task('weinre', function() {
-if (typeof config.weinre === 'object') {
+if (typeof config.weinre === 'object' && config.debug) {
 	var weinre = require('./node_modules/weinre/lib/weinre');
 	weinre.run(config.weinre);
 } else {
@@ -318,13 +335,6 @@ seq('clean', tasks, done);
 });
 
 
-gulp.task('zip', function () {
-	var filename = app + "_rel-" + settings.APP.version + ".zip";
-    return gulp.src('www/*')
-        .pipe(zip(filename))
-        .pipe(gulp.dest('dist'));
-});
-
 /*====================================
 =            Default Task            =
 ====================================*/
@@ -341,6 +351,22 @@ if (typeof config.server === 'object') {
 };
 
 tasks.push('watch');
+
+seq('build', tasks, done);
+});
+
+
+/*================================================================
+=            Release Task to submit to PhoneGap Build            =
+================================================================*/
+
+gulp.task('release', function(done) {
+var tasks = [];
+
+config.debug = false;
+
+tasks.push('phonegap-config');
+tasks.push('zip');
 
 seq('build', tasks, done);
 });
