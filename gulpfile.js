@@ -211,7 +211,11 @@ gulp.task('html', function() {
 ======================================================================*/
 
 gulp.task('less', function() {
+	streamqueue({
+		objectMode: true
+	},
 	gulp.src(['./src/less/app.less', './src/less/responsive.less'])
+	.pipe(replace("@@brandPrimary", configProject.STYLE.brandPrimary))
 	.pipe(less({
 		paths: [path.resolve(__dirname, 'src/less'), path.resolve(__dirname, 'bower_components')]
 	}))
@@ -225,6 +229,7 @@ gulp.task('less', function() {
 			screens: ['0px']
 		}
 	}))
+)
 	.pipe(cssmin())
 	.pipe(rename({
 		suffix: '.min'
@@ -238,10 +243,10 @@ gulp.task('less', function() {
 
 gulp.task('phonegap-config', function() {
 	gulp.src('src/config.xml')
-	.pipe(replace('@@Id', configProject.id))
-	.pipe(replace('@@Version', configProject.version))
-	.pipe(replace('@@Name', configProject.name))
-	.pipe(replace('@@Description', configProject.description))
+	.pipe(replace('@@id', configProject.id))
+	.pipe(replace('@@version', configProject.version))
+	.pipe(replace('@@name', configProject.name))
+	.pipe(replace('@@description', configProject.description))
 	.pipe(gulp.dest(config.dest));
 });
 

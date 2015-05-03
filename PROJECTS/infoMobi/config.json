@@ -5,16 +5,18 @@
 	"description": "Mobile App for Internal Communication.",
 
 	"ANALYTICS": {
-		"trackId": "UA-22519238-13"
+		"trackId": "UA-59245997-3"
 	},
 	"PUSHWOOSH": {
 		"applicationCode": "A9FC4-681E3",
 		"googleProjectNumber": "138333716576",
-		"androidApiKey": "AIzaSyCRclJgNUupcKdUIohSKoF7F4Crc-yvBBU"
 	},
 	"HTTP": {
 		"limit": "10",
 		"timeout": "5",
 		"halSupport": false
+	},
+	"STYLE": {
+		"brandPrimary": "#fd8a05"
 	}
 }
