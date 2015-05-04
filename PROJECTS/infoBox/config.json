@@ -1,0 +1,22 @@
+{
+	"version": "1.1.1",
+	"name": "infoBox",
+	"id": "com.meumobi.infobox",
+	"description": "Mobile App for Internal Communication.",
+
+	"ANALYTICS": {
+		"trackId": "UA-59245997-1"
+	},
+	"PUSHWOOSH": {
+		"applicationCode": "E76A0-70562",
+		"googleProjectNumber": "724469158975"
+	},
+	"HTTP": {
+		"limit": "10",
+		"timeout": "5",
+		"halSupport": false
+	},
+	"STYLE": {
+		"brandPrimary": "#eb780a"
+	}
+}

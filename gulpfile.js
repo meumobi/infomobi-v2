@@ -87,6 +87,14 @@ var filename = env + '.json';
 var configEnv = JSON.parse(fs.readFileSync(path.join(cwd, 'environments', filename), 'utf8'));
 var configProject = JSON.parse(fs.readFileSync(path.join(cwd,'config.json'), 'utf8'));
 
+console.log(
+	"Gulp infoMobi: Project="
+	+ configProject.name
+	+ configProject.version
+	+ ", Environment="
+	+ env
+);
+
 /*================================================
 =                  Copy App Assets               =
 ================================================*/
@@ -162,21 +170,22 @@ gulp.task('livereload', function() {
 =====================================*/
 
 gulp.task('images', function() {
-	var stream = gulp.src('src/images/**/*')
-
-	if (config.minify_images) {
-		stream = stream.pipe(imagemin({
+	streamqueue({
+		objectMode: true
+	},
+	gulp.src('src/images/**/*'),
+	gulp.src('./images/**/*', {cwd: cwd})
+)
+	.pipe(gulpif(config.minify_images, imagemin({
 			progressive: true,
 			svgoPlugins: [{
 				removeViewBox: false
 			}],
 			use: [pngcrush()]
-		}))
-	};
-
-	return stream.pipe(gulp.dest(path.join(config.dest, 'images')));
+		})
+	))
+	.pipe(gulp.dest(path.join(config.dest, 'images')));
 });
-
 
 /*==================================
 =            Copy fonts            =

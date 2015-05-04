@@ -1,0 +1,7 @@
+{
+	"SITE": {
+		"cdnUrl": "http://infobox.meumobilesite.com/",
+		"domain": "infobox.meumobi.com",
+		"apiUrl": "http://infobox.meumobilesite.com/api/"
+	}
+}
