@@ -211,6 +211,7 @@ gulp.task('html', function() {
 	}
 	gulp.src(['src/html/**/*.html'])
 	.pipe(replace('<!-- inject:js -->', inject.join('\n    ')))
+	.pipe(replace('@@name', configProject.name))
 	.pipe(gulp.dest(config.dest));
 });
 
@@ -296,6 +297,7 @@ gulp.task('js', function() {
 	])
 	.pipe(ngFilesort()),
 	gulp.src(['src/templates/**/*.html'])
+	.pipe(replace('@@name', configProject.name))
 	.pipe(templateCache({
 		module: 'InfoBox'
 	}))

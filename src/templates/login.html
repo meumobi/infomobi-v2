@@ -2,7 +2,7 @@
 	<div class="scrollable-content section" id="login">
 		<div class="col-xs-10 col-xs-offset-1" ng-class="{ 'has-error' : loginForm.$invalid && submitted }">
 			<div id="logo">
-				<img src="images/login.png">
+				<img src="images/login.png" alt="@@name">
 			</div>
 			<div>
 				<form name="loginForm" ng-submit="Login.submitForm(loginForm.$valid)" novalidate>
@@ -16,7 +16,7 @@
 			</div>
 			<div id="forgot">
 				<span><a ng-click="go('/login/forgot','slideLeft')">Esqueceu a senha?</a></span>&nbsp;-&nbsp;
-				<span><a ng-click="go('/login/welcome','slideLeft')">Sobre InfoBox</a></span>
+				<span><a ng-click="go('/login/welcome','slideLeft')">Sobre @@name</a></span>
 			</div>
 		</div>
 	</div>
