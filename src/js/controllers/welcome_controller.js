@@ -1,9 +1,9 @@
 'use strict';
 
 angular
-.module('InfoBox')
+.module('infoMobi')
 .controller('WelcomeController', WelcomeController);
 
-function WelcomeController($rootScope, $scope, WelcomeImages) {
-	$scope.item = WelcomeImages.get();
+function WelcomeController($rootScope, $scope, WELCOME) {
+	$scope.item = WELCOME;
 }

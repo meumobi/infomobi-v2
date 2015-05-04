@@ -27,18 +27,6 @@
 		id: "3"
 	}];
 
-	var welcomeImages =
-		{
-			"title": "Bem-vindo ao InfoBox",
-			"description": "O InfoBox é o novo aplicativo de Comunicação Interna da Siemens no Brasil. Com ele, você fica atualizado sobre as principais informações da empresa.",
-			"images":[  
-				{  
-					"path":"images/welcome-1.png",
-					"title":"Fica conectado com sua empresa",
-				}
-			]
-		};
-
 	findById = function(id) {
 		var item = null,
 		l = scrollItems.length,
@@ -65,14 +53,5 @@
 			}
 		}
 	})
-		
-	.factory('WelcomeImages',
-	function() {
-		return {
-			get: function() {
-				return welcomeImages;
-			}
-		}
-	}
-)
+
 }());

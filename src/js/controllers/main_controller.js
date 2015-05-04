@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-.module('InfoBox')
+.module('infoMobi')
 .controller('MainController', MainController);
 
 function MainController($rootScope, $scope, $location, AuthService, AppInfo) {

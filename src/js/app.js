@@ -2,7 +2,7 @@
 
 var app = angular
 
-.module('InfoBox', [
+.module('infoMobi', [
 	'meumobi.Cordova',
 	'meumobi.services.Device',
 	'ngRoute',

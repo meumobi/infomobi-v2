@@ -286,6 +286,7 @@ gulp.task('js', function() {
 	gulp.src(config.vendor.js),
 	gulp.src('src/js/services/meumobi-settings.js')  
 	.pipe(replace('@@ANALYTICS', JSON.stringify(configProject.ANALYTICS)))
+	.pipe(replace('@@WELCOME', JSON.stringify(configProject.WELCOME)))
 	.pipe(replace('@@PUSHWOOSH', configProject.PUSHWOOSH)),
 	gulp.src('src/js/lib/pushwoosh-*.js')
 	.pipe(replace('@@googleProjectNumber', configProject.PUSHWOOSH.googleProjectNumber))
@@ -299,7 +300,7 @@ gulp.task('js', function() {
 	gulp.src(['src/templates/**/*.html'])
 	.pipe(replace('@@name', configProject.name))
 	.pipe(templateCache({
-		module: 'InfoBox'
+		module: 'infoMobi'
 	}))
 )
 .pipe(sourcemaps.init())

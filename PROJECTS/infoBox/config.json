@@ -1,6 +1,6 @@
 {
 	"version": "1.1.1",
-	"name": "infoBox",
+	"name": "InfoBox",
 	"id": "com.meumobi.infobox",
 	"description": "Mobile App for Internal Communication.",
 
@@ -18,5 +18,15 @@
 	},
 	"STYLE": {
 		"brandPrimary": "#eb780a"
+	},
+	"WELCOME": {
+		"title": "Bem-vindo ao InfoBox",
+		"description": "O InfoBox é o novo aplicativo de Comunicação Interna da Siemens no Brasil. Com ele, você fica atualizado sobre as principais informações da empresa.",
+		"images":[  
+			{  
+				"path":"images/welcome-1.png",
+				"title":"Fica conectado com sua empresa"
+			}
+		]
 	}
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('InfoBox')
+	.module('infoMobi')
 	.controller('ContactController', ContactController)
 
 	function ContactController($rootScope, $scope, API, AppFunc) {

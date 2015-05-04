@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('InfoBox')
+	.module('infoMobi')
 	.controller('ForgotController', ForgotController);
 
 	function ForgotController($rootScope, $scope, API, AppFunc) {

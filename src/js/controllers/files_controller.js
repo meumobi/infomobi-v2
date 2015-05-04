@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('InfoBox')
+	.module('infoMobi')
 	.controller('FilesController', FilesController);
 
 	function FilesController($rootScope, $scope, $window, Files) {

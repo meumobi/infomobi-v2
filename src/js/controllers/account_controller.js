@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-	.module('InfoBox')
+	.module('infoMobi')
 	.controller('AccountController', AccountController);
 
 	function AccountController($rootScope, $scope, $location, API, AppFunc, AppInfo, AuthService) {

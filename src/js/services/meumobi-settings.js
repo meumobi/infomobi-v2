@@ -19,6 +19,7 @@ angular
 .constant("PUSH", {
 	
 })
+.constant("WELCOME", @@WELCOME)
 /*.constant("HTTP", {
 	"url": "@@apiUrl",
 	"limit": "@@apiLimit",

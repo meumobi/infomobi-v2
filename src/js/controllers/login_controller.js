@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-.module('InfoBox')
+.module('infoMobi')
 .controller('LoginController', LoginController);
 
 function LoginController($rootScope, $http, $scope, $location, API, AppFunc, INFOBOXAPP, SITE, DeviceService, AuthService) {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('InfoBox')
+	.module('infoMobi')
 	.controller('ShowController', ShowController);
 
 	function ShowController($rootScope, $scope, $sce, $routeParams, API, SITE) {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-.module('InfoBox')
+.module('infoMobi')
 .controller('ListController', ListController);
 
 function ListController($rootScope, $scope, $http, API, AppFunc) {
