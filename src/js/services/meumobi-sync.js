@@ -4,7 +4,7 @@ angular
   .module('meumobi.sync', ['meumobi.api', 'meumobi.appInfo', 'meumobi.utils', 'meumobi.settings'])
   .factory('SyncNews', SyncNews);
 
-  function SyncNews(API, AppInfo, AppUtils, $rootScope, SITE, AppFunc) {
+  function SyncNews(API, AppInfo, AppUtils, $rootScope, APP, AppFunc) {
 
     var app = {
       get: function(callback) {
@@ -67,7 +67,7 @@ angular
           for (var i = 0, totalImages = atualNews.images.length; i < totalImages; i++) {
             var img = atualNews.images[i];
             images.push({
-              url: SITE.SRC_URL + img.path,
+              url: APP.cdnUrl + img.path,
               id: img.id
             });
           }

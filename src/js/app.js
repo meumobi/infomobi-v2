@@ -15,7 +15,8 @@ var app = angular
 	'services.Analytics',
 	'meumobi.api',
 	'meumobi.auth',
-	//'meumobi.sync',
+	//'meumobi.sync', 
+	'meumobi.settings',
 	'meumobi.appInfo',
 	'meumobi.appFunc',
 	'meumobi.utils',
@@ -28,6 +29,7 @@ var app = angular
 
 .config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider, ANALYTICS) {
 	$httpProvider.interceptors.push('errorInterceptor');
+	$httpProvider.defaults.timeout = 5000;
 
 	$routeProvider.when('/list', {
 		templateUrl: "list.html",
@@ -87,13 +89,13 @@ var app = angular
 	analyticsProvider.setup(ANALYTICS.trackId);
 })
 
-.run(function($rootScope, $location, $http, analytics, AppFunc, AppInfo, SITE, DeviceService, AuthService) {
+.run(function($rootScope, $location, $http, analytics, AppFunc, AppInfo, APP, DeviceService, AuthService) {
 
 	// migrate from dataStorage structure 1.0 to 1.1
 	AppInfo.migrateVersion();
 
-	// If !SITE.HAL_SUPPORT then get site.url from API (or localStorage ?)
-	$rootScope.site = SITE.HAL_SUPPORT ? ( localStorage['site'] ? localStorage['site'] : SITE.DOMAIN ) : SITE.DOMAIN;
+	// If !APP.halSupport then get site.url from API (or localStorage ?)
+	$rootScope.site = APP.halSupport ? ( localStorage['site'] ? localStorage['site'] : APP.domain ) : APP.domain;
 
 	// If it's the first connection redirect to welcome page
 	if (!localStorage.hasOwnProperty("device")) {
@@ -111,7 +113,7 @@ var app = angular
 
 	$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
 	//$rootScope.userToken = localStorage['userToken'] || "";
-	$rootScope.defaultSite = SITE.DOMAIN;
+	$rootScope.defaultSite = APP.domain;
 	$rootScope.getImage = AppFunc.getImage;
 	$rootScope.go = AppFunc.transition;
 	$rootScope.history = window.history;

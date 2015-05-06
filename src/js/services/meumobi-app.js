@@ -94,10 +94,10 @@
 }
 	
 	angular
-	.module('meumobi.appFunc', ['meumobi.Cordova'])
+	.module('meumobi.appFunc', ['meumobi.Cordova', 'meumobi.settings'])
 	.factory('AppFunc', AppFunc);
 
-	function AppFunc(deviceReady, $rootScope, $location, $window, $route, SITE, API, INFOBOXAPP) {
+	function AppFunc(deviceReady, $rootScope, $location, $window, $route, APP, API) {
 		var app = {
 			isOnline: function() {
 				deviceReady(function() {
@@ -146,7 +146,7 @@
 				return localStorage["image_"+id];
 				}
 				*/
-				return SITE.SRC_URL + path;
+				return APP.cdnUrl + path;
 			},
 			initPushwoosh: function() {
 				deviceReady(function() {
@@ -202,8 +202,8 @@
 					},
 					verifyVersion: function() {
 						var device = localStorage.device ? JSON.parse(localStorage['device']) : false;
-						if (device && device.app_version != INFOBOXAPP.VERSION) {
-							device.app_version = INFOBOXAPP.VERSION;
+						if (device && device.app_version != APP.version) {
+							device.app_version = APP.version;
 							localStorage['device'] = JSON.stringify(device);
 							API.Login.update(device,
 								function(resp) {

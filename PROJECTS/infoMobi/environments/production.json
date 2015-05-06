@@ -1,7 +1,8 @@
 {
-	"SITE": {
+	"APP": {
 		"cdnUrl": "http://enterprise.meumobilesite.com/",
 		"domain": "infomobi.meumobi.com",
-		"apiUrl": "http://enterprise.meumobilesite.com/api/"
+		"apiUrl": "http://enterprise.meumobilesite.com/api/",
+		"halSupport": false
 	}
 }

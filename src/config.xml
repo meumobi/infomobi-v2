@@ -82,15 +82,17 @@
   <!-- iPad Spotlight and Settings Icon -->
   <icon src="res/icon/ios/Icon-Small-50.png" gap:platform="ios" width="50" height="50" />
   <icon src="res/icon/ios/Icon-Small-50@2x.png" gap:platform="ios" width="100" height="100" />
-
-  <gap:splash src="splash.png" />
-  <gap:splash gap:platform="android" gap:qualifier="ldpi" src="res/screen/android/screen-ldpi.9.png" />
-  <gap:splash gap:platform="android" gap:qualifier="mdpi" src="res/screen/android/screen-mdpi.9.png" />
-  <gap:splash gap:platform="android" gap:qualifier="hdpi" src="res/screen/android/screen-hdpi.9.png" />
-  <gap:splash gap:platform="android" gap:qualifier="xhdpi" src="res/screen/android/screen-xhdpi.9.png" />
-  <!--gap:splash gap:platform="android" gap:qualifier="fr-xhdpi" src="res/screen/android/screen-fr-xhdpi.png" />
-  <gap:splash gap:platform="android" gap:qualifier="port-xxhdpi" src="res/screen/android/screen-portrait-xxhdpi.png" />
-  <gap:splash gap:platform="android" gap:qualifier="land-xxhdpi" src="res/screen/android/screen-landscape-xxhdpi.png" /-->
+	
+	<!-- default mandatory splash 320x480px-->
+	<gap:splash src="splash.png" />
+			<gap:splash gap:platform="android" gap:qualifier="ldpi" src="res/screen/android/drawable-ldpi/screen.9.png" />
+			<gap:splash gap:platform="android" gap:qualifier="mdpi" src="res/screen/android/drawable-mdpi/screen.9.png" />
+			<gap:splash gap:platform="android" gap:qualifier="hdpi" src="res/screen/android/drawable-hdpi/screen.9.png" />
+			<gap:splash gap:platform="android" gap:qualifier="xhdpi" src="res/screen/android/drawable-xhdpi/screen.9.png" />
+			<gap:splash gap:platform="android" gap:qualifier="xxhdpi" src="res/screen/android/drawable-xxhdpi/screen.9.png" />
+			<!--gap:splash gap:platform="android" gap:qualifier="fr-xhdpi" src="res/screen/android/screen-fr-xhdpi.png" />
+			<gap:splash gap:platform="android" gap:qualifier="port-xxhdpi" src="res/screen/android/screen-portrait-xxhdpi.png" />
+			<gap:splash gap:platform="android" gap:qualifier="land-xxhdpi" src="res/screen/android/screen-landscape-xxhdpi.png" /-->
 
   <!-- iPhone and iPod touch -->
   <gap:splash gap:platform="ios" height="480" src="res/screen/ios/Default.png" width="320" />

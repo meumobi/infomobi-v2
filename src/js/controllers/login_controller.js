@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController($rootScope, $http, $scope, $location, API, AppFunc, INFOBOXAPP, SITE, DeviceService, AuthService) {
+function LoginController($rootScope, $http, $scope, $location, API, AppFunc, APP, DeviceService, AuthService) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function(mail, token) {
@@ -50,7 +50,7 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, INF
 		},
 		loginSuccess: function(resp) {
 			//$rootScope.userToken = resp['token'];
-			if(SITE.HAL_SUPPORT) {
+			if(APP.halSupport) {
 				localStorage['site'] = $rootScope.site = resp['site'];
 			}
 			//show modal if need change password, otherwise authenticate

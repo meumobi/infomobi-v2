@@ -37,12 +37,6 @@ var config = {
 	}
 };
 
-
-if (require('fs').existsSync('./config.js')) {
-	var configFn = require('./config');
-	configFn(config);
-};
-
 /*-----  End of Configuration  ------*/
 
 
@@ -75,6 +69,11 @@ fs = require('fs');
 gulpif = require('gulp-if');
 zip = require('gulp-zip');
 
+if (fs.existsSync('./config.js')) {
+	var configFn = require('./config');
+	configFn(config);
+};
+
 // Get the project from the command line
 var project = args.project || 'infoMobi';
 
@@ -103,8 +102,28 @@ console.log(
 gulp.task('copy', function () {
 	return gulp.src('./res/**/*', {
 		cwd: cwd
-	}).pipe(gulp.dest(config.dest));
+	})
+	.pipe(gulp.dest(path.join(config.dest, 'res')))
 });
+
+// Copy Default APP icon on root
+gulp.task('copy-icon', function () {
+	return gulp.src('./res/icon/ios/AppIcon.appiconset/Icon-60@2x.png', {
+		cwd: cwd
+	})
+	.pipe(rename('icon.png'))
+	.pipe(gulp.dest(config.dest))
+});
+
+// Copy Default APP splash on root
+gulp.task('copy-splash', function () {
+	return gulp.src('./res/screen/ios/Default.png', {
+		cwd: cwd
+	})
+	.pipe(rename('splash.png'))
+	.pipe(gulp.dest(config.dest))
+});
+
 
 /*================================================
 =            Report Errors to Console            =
@@ -252,7 +271,7 @@ gulp.task('less', function() {
 ====================================================================*/
 
 gulp.task('phonegap-config', function() {
-	gulp.src('src/config.xml')
+	return gulp.src('src/config.xml')
 	.pipe(replace('@@id', configProject.id))
 	.pipe(replace('@@version', configProject.version))
 	.pipe(replace('@@name', configProject.name))
@@ -266,8 +285,8 @@ gulp.task('phonegap-config', function() {
 ====================================================================*/
 
 gulp.task('zip', function () {
-	var filename = project + "_rel-" + configProject.version + ".zip";
-	return gulp.src('www/*')
+	var filename = project + "-" + env +"_rel-" + configProject.version + ".zip";
+	return gulp.src('www/**/*')
 	.pipe(zip(filename))
 	.pipe(gulp.dest('dist'));
 });
@@ -280,6 +299,8 @@ gulp.task('zip', function () {
 // - Precompile templates to ng templateCache
 
 gulp.task('js', function() {
+	var app = configEnv.APP;
+	app.version = configProject.version;
 	streamqueue({
 		objectMode: true
 	},
@@ -287,6 +308,7 @@ gulp.task('js', function() {
 	gulp.src('src/js/services/meumobi-settings.js')  
 	.pipe(replace('@@ANALYTICS', JSON.stringify(configProject.ANALYTICS)))
 	.pipe(replace('@@WELCOME', JSON.stringify(configProject.WELCOME)))
+	.pipe(replace('@@APP', JSON.stringify(app)))
 	.pipe(replace('@@PUSHWOOSH', configProject.PUSHWOOSH)),
 	gulp.src('src/js/lib/pushwoosh-*.js')
 	.pipe(replace('@@googleProjectNumber', configProject.PUSHWOOSH.googleProjectNumber))
@@ -347,7 +369,7 @@ if (typeof config.weinre === 'object' && config.debug) {
 ======================================*/
 
 gulp.task('build', function(done) {
-var tasks = ['html', 'fonts', 'images', 'less', 'js', 'copy'];
+var tasks = ['html', 'fonts', 'images', 'less', 'js'];
 seq('clean', tasks, done);
 });
 
@@ -382,6 +404,9 @@ var tasks = [];
 
 config.debug = false;
 
+tasks.push('copy');
+tasks.push('copy-icon');
+tasks.push('copy-splash');
 tasks.push('phonegap-config');
 tasks.push('zip');
 

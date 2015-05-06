@@ -11,13 +11,8 @@
 		"applicationCode": "A9FC4-681E3",
 		"googleProjectNumber": "138333716576"
 	},
-	"HTTP": {
-		"limit": "10",
-		"timeout": "5",
-		"halSupport": false
-	},
 	"STYLE": {
-		"brandPrimary": "#f17911"
+		"brandPrimary": "#ff8c04"
 	},
 	"WELCOME": {
 		"title": "Bem-vindo ao infoMobi",

@@ -2,10 +2,10 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Device', ['meumobi.Cordova', 'meumobi.utils'])
+	.module('meumobi.services.Device', ['meumobi.Cordova', 'meumobi.utils', 'meumobi.settings'])
 	.factory('DeviceService', DeviceService);
 		
-	function DeviceService(deviceReady, AppUtils, $rootScope, API, INFOBOXAPP) {
+	function DeviceService(deviceReady, AppUtils, $rootScope, API, APP) {
 		var service = {};
 			
 		service.getSignature = getSignature;
@@ -32,7 +32,7 @@
 				"model": null,
 				"platform": null,
 				"version": null,
-				"app_version": INFOBOXAPP.VERSION,
+				"app_version": APP.version,
 				"push_id": null,
 				"uuid": null
 			};
