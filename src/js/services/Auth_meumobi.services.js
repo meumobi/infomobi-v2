@@ -20,8 +20,12 @@
 		function login(user, success, error) {
 			var req = {
 				success: function(data, status) {
+					if (data.error && data.error == "password expired") {
+						$http.defaults.headers.common['X-Visitor-Token'] = data.token;
+					} else {
+						loadAuthToken(data.token);
+					}
 					loadVisitor(data.visitor);
-					loadAuthToken(data.token);
 					console.log(data);
 					success(data);
 				},

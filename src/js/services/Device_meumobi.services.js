@@ -20,14 +20,14 @@
 		}
 		
 		function success(data, status) {
-			console.log("API.Login.device - success: " + data);
+			console.log("[DeviceService:getSignature]: success " + data);
 		}
 		
 		function error(data, status) {
-			console.log("API.Login.device - error: " + data);
+			console.log("[DeviceService:getSignature]: error " + data.error);
 		}
 				
-		function getSignature(key) {
+		function getSignature() {
 			var deviceConfig = {
 				"model": null,
 				"platform": null,
@@ -38,8 +38,8 @@
 			};
 			
 			deviceReady(function() {
+				// Only save device from App, not webapp, because we use uuid as primary key
 				if (window.cordova) {
-					console.log("set Device Signature: [BEGIN]");
 					deviceConfig.model = device.model;
 					deviceConfig.platform = device.platform;
 					deviceConfig.version = device.version;
@@ -55,10 +55,9 @@
 						} else {
 							API.Login.update(deviceConfig, success, error);
 						}
+						loadDevice(deviceConfig);
 					});
-					console.log("set Device Signature: [END]");
-				};
-				loadDevice(deviceConfig);
+				};				
 			});
 		}
 		
@@ -70,17 +69,18 @@
 		function uniqueDeviceID(done) {
 			deviceReady(function() {
 				if (window.plugins && window.plugins.uniqueDeviceID) {
-					window.plugins.uniqueDeviceID.get(function(uuid){
-						$rootScope.$apply(function(){
-							done(uuid);
+					window.plugins.uniqueDeviceID.get(
+						function(uuid){
+							$rootScope.$apply(function(){
+								done(uuid);
+							});
+						}, function(error){
+							$rootScope.$apply(function(){
+								throw new Error('Unable to retrieve uuid');
+							});
 						});
-					}, function(error){
-						$rootScope.$apply(function(){
-							throw new Error('Unable to retrieve uuid');
-						});
-					});
-				}
-			});
+					}
+				});
+			}
 		}
-	}
-})();
+	})();

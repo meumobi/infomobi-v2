@@ -394,6 +394,25 @@ tasks.push('watch');
 seq('build', tasks, done);
 });
 
+/*====================================
+=        Debug on Device Task        =
+====================================*/
+
+gulp.task('device-debug', function(done) {
+var tasks = [];
+
+if (typeof config.weinre === 'object') {
+	tasks.push('weinre');
+};
+
+tasks.push('copy');
+tasks.push('copy-icon');
+tasks.push('copy-splash');
+tasks.push('phonegap-config');
+
+seq('build', tasks, done);
+});
+
 
 /*================================================================
 =            Release Task to submit to PhoneGap Build            =
@@ -408,7 +427,7 @@ tasks.push('copy');
 tasks.push('copy-icon');
 tasks.push('copy-splash');
 tasks.push('phonegap-config');
-tasks.push('zip');
+// tasks.push('zip');
 
 seq('build', tasks, done);
 });

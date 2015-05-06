@@ -9,15 +9,11 @@
 	<div class="scrollable-content section">
 		<div bs-panel title="Esqueci minha senha">
 			<form name="forgotForm" ng-submit="Forgot.submitForm(forgotForm.$valid)" novalidate>
-				<div class="form-group" ng-class="{ 'has-error' : forgotForm.email.$invalid && submitted }">
-					<label>Email</label>
-					<input type="email" name="email" ng-required="true" placeholder="me@siemens.com" ng-model="Forgot.informations.mail" class="form-control" />
+				<div ng-class="{ 'has-error' : forgotForm.email.$invalid && submitted }">
+					<input bs-form-control label="Email" type="email" name="email" ng-required="true" placeholder="me@siemens.com" ng-model="Forgot.informations.mail" />
 					<p ng-show="forgotForm.email.$invalid && submitted" class="help-block">E-mail inválido.</p>
 				</div>
-				<div class="form-group">
-					<label>Mensagem</label>
-					<textarea rows="4" placeholder="Mensagem opcional" ng-model="Forgot.informations.message" class="form-control"></textarea>
-				</div>
+					<textarea bs-form-control label="Mensagem" rows="4" placeholder="Mensagem opcional" ng-model="Forgot.informations.message"></textarea>
 				<button class="btn btn-primary btn-block">Recuperar minha senha</button>
 			</form>
 		</div>

@@ -43,7 +43,8 @@ function($q, $rootScope, $location, APP, AppInfo) {
 .factory('API', function($http, APP, $rootScope) {
 
 	function buildUrl(endp) {
-		var site = "";
+		// Temporary fix because /visitors/forgot_password not exists yet, we need to force site on url to call /mail unlogged
+		var site = (endp.indexOf("login") != -1) ? "" : APP.domain;
 		if ($rootScope.visitor && $rootScope.visitor.site) {
 			site = $rootScope.visitor.site;
 		}

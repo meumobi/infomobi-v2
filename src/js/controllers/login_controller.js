@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController($rootScope, $http, $scope, $location, API, AppFunc, APP, DeviceService, AuthService) {
+function LoginController($rootScope, $http, $scope, $location, API, AppFunc, AppInfo, APP, DeviceService, AuthService) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
@@ -25,7 +25,8 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, APP
 				AppFunc.toast('Erro de validação');
 			}
 			else {
-        $scope.Login.loading = true;
+        // Login.loading used by Ladda on submit button
+				$scope.Login.loading = true;
 				$scope.Login.signin($scope.credentials);
 			}
 		},
@@ -34,21 +35,22 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, APP
 		},
 
 		changePassword: function() {
-			console.log($scope.Login.new_password);
 			API.Login.save({
-				current_password: $scope.Login.password,
+				current_password: $scope.credentials.password,
 				password: $scope.Login.new_password
 			}, function(resp) {
 				AuthService.loadAuthToken(resp.token);
 				$rootScope.toggle('change-password-overlay', 'off');
 				authenticateUser();
 			}, function() {
-				$rootScope.authToken = null;
+				AppInfo.clearRestrictedDatas();
 			});
 		},
 		loginSuccess: function(resp) {
+			$scope.Login.loading = false;
 			//show modal if need change password, otherwise authenticate
 			if (resp.error && resp.error == "password expired") {
+				$scope.visitor = resp.visitor;
 				$rootScope.toggle('change-password-overlay', 'on');
 			} else {
 				authenticateUser();
