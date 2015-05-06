@@ -18,7 +18,6 @@ function MainController($rootScope, $scope, $location, AuthService, AppInfo) {
 	}
 
 	$scope.logout = function() {
-		AppInfo.clearRestrictedDatas();
-		$rootScope.go('/login');
+		AuthService.logout();
 	}
 }

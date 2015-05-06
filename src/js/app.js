@@ -5,6 +5,7 @@ var app = angular
 .module('infoMobi', [
 	'meumobi.Cordova',
 	'meumobi.services.Device',
+	'meumobi.services.Auth',
 	'ngRoute',
 	'ngTouch',
 	'angular-carousel',
@@ -14,7 +15,6 @@ var app = angular
 	'mobile-angular-ui',
 	'services.Analytics',
 	'meumobi.api',
-	'meumobi.auth',
 	//'meumobi.sync', 
 	'meumobi.settings',
 	'meumobi.appInfo',
@@ -94,29 +94,42 @@ var app = angular
 	// migrate from dataStorage structure 1.0 to 1.1
 	AppInfo.migrateVersion();
 
-	// If !APP.halSupport then get site.url from API (or localStorage ?)
-	$rootScope.site = APP.halSupport ? ( localStorage['site'] ? localStorage['site'] : APP.domain ) : APP.domain;
-
 	// If it's the first connection redirect to welcome page
 	if (!localStorage.hasOwnProperty("device")) {
 		$location.path('/login/welcome');
 		console.log("No Device on localStorage");
-	} else 	if (!localStorage.hasOwnProperty("authToken")) {
-		// If authToken is missing from Local Storage then clear all except device and redirect to home
-		//AppInfo.clearRestrictedDatas();
+	} else 	if (!AuthService.isAuthenticated()) {
+		// If authToken or site is missing from Local Storage then clear all except device and redirect to home
+		AppInfo.clearRestrictedDatas();
 		$location.path('/login');
 		console.log("No authToken on localStorage");
 	} else {
 		AuthService.loadAuthToken(localStorage.authToken);
 		AuthService.getVisitor();
+		DeviceService.getSignature();
+		$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
+		//$rootScope.userToken = localStorage['userToken'] || "";
+		//$rootScope.defaultSite = APP.domain;
 	}
 
-	$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
-	//$rootScope.userToken = localStorage['userToken'] || "";
-	$rootScope.defaultSite = APP.domain;
-	$rootScope.getImage = AppFunc.getImage;
-	$rootScope.go = AppFunc.transition;
+	$rootScope.$on('$locationChangeStart', function (event, next, current) {
+		// redirect to login page if not logged in and trying to access a restricted page
+		var restrictedPage = $location.path().indexOf('login') == -1;
+		var loggedIn = $rootScope.authToken ? $rootScope.authToken : false;
+		$rootScope.NavBarBottom = restrictedPage; //loggedIn|| $location.path().indexOf('login') == -1) ? true : false;
+		if (restrictedPage && !loggedIn) {
+			$location.path('/login');
+		}
+		// redirect to /list if loggedIn and try to access non-restricted page
+		if (!restrictedPage && loggedIn) {
+			$location.path('/list');
+		}
+		$rootScope.NavBarTop = ($location.path() == "/login") ? false : true;
+	});
+
 	$rootScope.history = window.history;
+	$rootScope.go = AppFunc.transition;
+	$rootScope.getImage = AppFunc.getImage;
 	
 	// $rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
 	// $http.defaults.headers.common['X-Visitor-Token'] = $rootScope.user.token;
@@ -131,23 +144,6 @@ var app = angular
 	$rootScope.$on('$routeChangeSuccess', function(e, current, prev) {
 		//send page to analytics
 		analytics.trackPage(current.$$route.title);
-	});
-
-	$rootScope.$on('$locationChangeStart', function (event, next, current) {
-		// redirect to login page if not logged in and trying to access a restricted page
-		var restrictedPage = $location.path().indexOf('login') == -1;
-		var loggedIn = $rootScope.authToken ? $rootScope.authToken : false;
-		$rootScope.NavBarBottom = restrictedPage; //loggedIn|| $location.path().indexOf('login') == -1) ? true : false;
-		if (restrictedPage && !loggedIn) {
-			console.log("suis la");
-			$location.path('/login');
-		}
-		// redirect to /list if loggedIn and try to access non-restricted page
-		if (!restrictedPage && loggedIn) {
-			console.log("ou la");
-			$location.path('/list');
-		}
-		$rootScope.NavBarTop = ($location.path() == "/login") ? false : true;
 	});
 
 	AppFunc.startApp.executeAll();

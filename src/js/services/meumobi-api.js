@@ -41,12 +41,21 @@ function($q, $rootScope, $location, APP, AppInfo) {
 ])
 
 .factory('API', function($http, APP, $rootScope) {
+
+	function buildUrl(endp) {
+		var site = "";
+		if ($rootScope.visitor && $rootScope.visitor.site) {
+			site = $rootScope.visitor.site;
+		}
+		return APP.apiUrl + site + endp;
+	}
+
 var api = (function() {
 	return {
 		get: function(endp, success, error) {
 			$http({
 				method: 'GET',
-				url: APP.apiUrl + $rootScope.site + endp,
+				url: buildUrl(endp),
 				responseType: 'json',
 				headers: {
 					//'If-None-Match': localStorage['ETag']
@@ -58,7 +67,7 @@ var api = (function() {
 		post: function(endp, obj, success, error) {
 			$http({
 				method: 'POST',
-				url: APP.apiUrl + $rootScope.site + endp,
+				url: buildUrl(endp),
 				data: JSON.stringify(obj),
 				responseType: 'json',
 				headers: {
@@ -71,7 +80,7 @@ var api = (function() {
 		put: function(endp, obj, success, error) {
 			$http({
 				method: 'PUT',
-				url: APP.apiUrl + $rootScope.site + endp,
+				url: buildUrl(endp),
 				data: JSON.stringify(obj),
 				responseType: 'json',
 				headers: {
@@ -84,7 +93,7 @@ var api = (function() {
 		del: function(endp, id, success, error) {
 			$http({
 				method: 'DELETE',
-				url: APP.apiUrl + $rootScope.site + endp,
+				url: buildUrl(endp),
 				responseType: 'json',
 			})
 			.success(success)

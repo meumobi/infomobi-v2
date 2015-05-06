@@ -7,11 +7,15 @@ angular
 function LoginController($rootScope, $http, $scope, $location, API, AppFunc, APP, DeviceService, AuthService) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
-	var authenticateUser = function(mail, token) {
-		//AuthService.setCredentials(mail, token);
+	var authenticateUser = function() {
 		AppFunc.initPushwoosh();
 		DeviceService.getSignature();
 		$rootScope.go('/list');
+	};
+
+	$scope.credentials = {
+		email: "",
+		password: ""
 	};
 
 	$scope.Login = {
@@ -22,19 +26,13 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, APP
 			}
 			else {
         $scope.Login.loading = true;
-				$scope.Login.signin();
+				$scope.Login.signin($scope.credentials);
 			}
 		},
-		signin: function() {
-			var user = {
-				"email": $scope.Login.username,
-				"password": $scope.Login.password,
-				"device": $rootScope.device,
-			}
-			API.Login.signin(user, $scope.Login.loginSuccess, $scope.Login.loginError);
+		signin: function(credentials) {
+			AuthService.login(credentials, $scope.Login.loginSuccess, $scope.Login.loginError)
 		},
-		username: "",
-		password: "",
+
 		changePassword: function() {
 			console.log($scope.Login.new_password);
 			API.Login.save({
@@ -43,23 +41,17 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, APP
 			}, function(resp) {
 				AuthService.loadAuthToken(resp.token);
 				$rootScope.toggle('change-password-overlay', 'off');
-				authenticateUser($scope.Login.username, $rootScope.authToken);
+				authenticateUser();
 			}, function() {
 				$rootScope.authToken = null;
 			});
 		},
 		loginSuccess: function(resp) {
-			//$rootScope.userToken = resp['token'];
-			if(APP.halSupport) {
-				localStorage['site'] = $rootScope.site = resp['site'];
-			}
 			//show modal if need change password, otherwise authenticate
-			AuthService.loadVisitor(resp.visitor);
-			AuthService.loadAuthToken(resp.token);
 			if (resp.error && resp.error == "password expired") {
 				$rootScope.toggle('change-password-overlay', 'on');
 			} else {
-				authenticateUser($scope.Login.username, resp.token);
+				authenticateUser();
 			}
 		},
 		loginError: function(resp) {

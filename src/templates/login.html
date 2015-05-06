@@ -6,9 +6,9 @@
 			</div>
 			<div>
 				<form name="loginForm" ng-submit="Login.submitForm(loginForm.$valid)" novalidate>
-					<input type="email" name="email" placeholder="email" class="form-control" ng-model="Login.username" ng-required="true">
+					<input type="email" name="email" placeholder="email" class="form-control" ng-model="credentials.email" ng-required="true">
 					<p ng-show="loginForm.email.$invalid && submitted" class="help-block">E-mail inválido.</p>
-					<input type="password" name="password" placeholder="senha" class="form-control" ng-model="Login.password" ng-required="true">
+					<input type="password" name="password" placeholder="senha" class="form-control" ng-model="credentials.password" ng-required="true">
 					<p ng-show="loginForm.password.$invalid && submitted" class="help-block">Senha inválida.</p>
 	        <button data-ui-ladda="Login.loading" class="btn btn-primary btn-block ladda-button" data-style="expand-right">
 	          <span class="ladda-label">Entrar</span>

@@ -55,12 +55,10 @@
 						} else {
 							API.Login.update(deviceConfig, success, error);
 						}
-						loadDevice(deviceConfig);
 					});
 					console.log("set Device Signature: [END]");
-				} else {
-					loadDevice(deviceConfig);
-				}
+				};
+				loadDevice(deviceConfig);
 			});
 		}
 		
