@@ -7,7 +7,7 @@
 <div class="scrollable">
 	<div class="scrollable-content">
 		<div class="thumbnail" ng-if="item.images.length > 1">
-			<ul rn-carousel rn-carousel-transition="slide" rn-carousel-controls rn-carousel-auto-slide rn-carousel-pause-on-hover ng-carousel-buffered rn-carousel-index="carouselIndex">
+			<ul rn-carousel rn-carousel-transition="slide" rn-carousel-auto-slide rn-carousel-pause-on-hover ng-carousel-buffered rn-carousel-index="carouselIndex">
 				<li ng-repeat="image in item.images">
 					<img ng-src="{{getImage(image.path)}}" class="media-object" alt="{{image.title}}">
 				</li>
