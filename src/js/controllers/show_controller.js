@@ -40,6 +40,6 @@ function ShowController($rootScope, $scope, $sce, $routeParams, API, APP, AppFun
 	};	
 
 	$scope.item = $rootScope.news[$routeParams.id];
-	$scope.item.next = ($routeParams.id < $rootScope.news.length) ? '/show/' + (parseInt($routeParams.id) + 1) : "";
-	$scope.item.previous = ($routeParams.id > 0) ? '/show/' + (parseInt($routeParams.id) - 1) : "";
+	$scope.item.next = ($routeParams.id < $rootScope.news.length-1) ? '/show/' + (parseInt($routeParams.id) + 1) : "#";
+	$scope.item.previous = ($routeParams.id > 0) ? '/show/' + (parseInt($routeParams.id) - 1) : "#";
 }

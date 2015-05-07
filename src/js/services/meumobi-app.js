@@ -151,12 +151,14 @@
 					});
 				},
 				transition: function(path, pageAnimationClass) {
-					if (typeof(pageAnimationClass) === undefined) { // Use a default, your choice
-						$rootScope.pageAnimationClass = 'crossFade';
-					} else { // Use the specified animation
-						$rootScope.pageAnimationClass = pageAnimationClass;
+					if (path != "#") {
+						if (typeof(pageAnimationClass) === undefined) { // Use a default, your choice
+							$rootScope.pageAnimationClass = 'crossFade';
+						} else { // Use the specified animation
+							$rootScope.pageAnimationClass = pageAnimationClass;
+						}
+						$location.path(path);
 					}
-					$location.path(path);
 				},
 				getImage: function(path){
 					/*
