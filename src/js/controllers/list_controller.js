@@ -7,7 +7,6 @@ angular
 function ListController($rootScope, $scope, $http, API, AppFunc) {
 
 	$scope.items = $rootScope.news;
-	API.Items.latest(success, error);
 	
 	$rootScope.$on('loading:show', function() {
 		$scope.loadingItems = true;
@@ -20,6 +19,8 @@ function ListController($rootScope, $scope, $http, API, AppFunc) {
 	$scope.syncNews = function () {
 		API.Items.latest(success, error);
 	}
+	
+	$scope.syncNews();
 
 	function success(data, status) {
 		localStorage.news = JSON.stringify(data.items);

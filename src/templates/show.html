@@ -23,6 +23,24 @@
 				<br>
 				<small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>
 			</h4>
+			<p>
+				<audio controls autoplay ng-if="hasAudio(item)">
+					<source ng-src="{{getTrustedResourceUrl(findMediasByType(item.medias, ['audio/mpeg', 'audio/mp3'])[0].url)}}" type="item.medias, ['audio/mpeg', 'audio/mp3'])[0].type" />
+				</audio>
+				<video controls autoplay ng-if="hasAudio(item)">
+					<source ng-src="{{getTrustedResourceUrl(findMediasByType(item.medias, ['video/mpeg', 'video/mp4'])[0].url)}}" type="item.medias, ['video/mpeg', 'video/mp4'])[0].type" />
+				</audio>
+			</p>
+			<div class="row text-right">
+				<a ng-click="shareFeed()" ng-hide="item.groups.length">
+					<span class="btn btn-white">
+						<i class="fa fa-share-alt"></i> Compartilhar
+					</span>
+				</a>
+				<span class="btn btn-white" ng-show="item.groups.length">
+					<i class="fa fa-lock-alt"></i> Conteúdo restrito
+				</span>
+			</div>
 			<div ng-bind-html="item.description | hrefToJS"></div>
 			<download-file ng-repeat="media in item.medias|filter:mediaFilter" file="media"></download-file>
 		</div>
