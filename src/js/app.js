@@ -27,7 +27,7 @@ var app = angular
 	'meumobi.directives.DownloadFile'
 ])
 
-.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider, ANALYTICS) {
+.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider, CONFIG) {
 	$httpProvider.interceptors.push('errorInterceptor');
 	$httpProvider.defaults.timeout = 5000;
 
@@ -86,7 +86,7 @@ var app = angular
 		redirectTo: '/login'
 	});
 
-	analyticsProvider.setup(ANALYTICS.trackId);
+	analyticsProvider.setup(CONFIG.ANALYTICS.trackId);
 })
 
 .run(function($rootScope, $location, $http, analytics, AppFunc, AppInfo, APP, DeviceService, AuthService) {

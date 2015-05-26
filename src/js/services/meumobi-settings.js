@@ -4,9 +4,10 @@ angular
 .module('meumobi.settings', [])
 
 .constant("APP", @@APP)
-.constant("ANALYTICS", @@ANALYTICS)
+.constant("CONFIG", @@CONFIG)
 //.constant("PUSH", {})
-.constant("WELCOME", @@WELCOME)
+//.constant("WELCOME", @@WELCOME)
+//.constant("STYLE", @@STYLE)
 .constant('MEDIAS', {
 	'application/pdf': {
 		class: 'fa-file-pdf-o',

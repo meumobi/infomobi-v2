@@ -97,7 +97,7 @@
 	.module('meumobi.appFunc', ['meumobi.Cordova', 'meumobi.settings'])
 	.factory('AppFunc', AppFunc);
 
-	function AppFunc(deviceReady, $rootScope, $location, $window, $route, APP, API) {
+	function AppFunc(deviceReady, $rootScope, $location, $window, $route, APP, API, CONFIG) {
 		var app = {
 			isOnline: function() {
 				deviceReady(function() {
@@ -197,7 +197,8 @@
 						deviceReady(function() {
 							that.hideSplashScreen();
 							app.initPushwoosh();
-							//that.verifyVersion();
+							// that.statusBar();
+							// that.verifyVersion();
 						});
 						that.receiveNotification();
 						//that.backButton();
@@ -214,6 +215,12 @@
 								console.log('Hide splash screen');
 								navigator.splashscreen.hide();
 							}
+						},
+						statusBar: function() {
+							//StatusBar.styleDefault(); // dark text, for light backgrounds
+							StatusBar.styleLightContent(); // light text, for dark backgrounds
+							StatusBar.backgroundColorByHexString(CONFIG.STYLE.brandPrimary);
+							//StatusBar.overlaysWebView(false);
 						},
 						receiveNotification: function() {
 							document.addEventListener('push-notification', function(event) {

@@ -4,29 +4,31 @@
 	"id": "com.meumobi.infobox",
 	"description": "Mobile App for Internal Communication.",
 
-	"ANALYTICS": {
-		"trackId": "UA-59245997-1"
-	},
-	"PUSHWOOSH": {
-		"applicationCode": "E76A0-70562",
-		"googleProjectNumber": "724469158975"
-	},
-	"HTTP": {
-		"limit": "10",
-		"timeout": "5",
-		"halSupport": false
-	},
-	"STYLE": {
-		"brandPrimary": "#eb780a"
-	},
-	"WELCOME": {
-		"title": "Bem-vindo ao InfoBox",
-		"description": "O InfoBox é o novo aplicativo de Comunicação Interna da Siemens no Brasil. Com ele, você fica atualizado sobre as principais informações da empresa.",
-		"images":[  
-			{  
-				"path":"images/welcome-1.png",
-				"title":"Fica conectado com sua empresa"
-			}
-		]
+	"CONFIG": {
+		"ANALYTICS": {
+			"trackId": "UA-59245997-1"
+		},
+		"PUSHWOOSH": {
+			"applicationCode": "E76A0-70562",
+			"googleProjectNumber": "724469158975"
+		},
+		"HTTP": {
+			"limit": "10",
+			"timeout": "5",
+			"halSupport": false
+		},
+		"STYLE": {
+			"brandPrimary": "#eb780a"
+		},
+		"WELCOME": {
+			"title": "Bem-vindo ao InfoBox",
+			"description": "O InfoBox é o novo aplicativo de Comunicação Interna da Siemens no Brasil. Com ele, você fica atualizado sobre as principais informações da empresa.",
+			"images":[  
+				{  
+					"path":"images/welcome-1.png",
+					"title":"Fica conectado com sua empresa"
+				}
+			]
+		}	
 	}
 }

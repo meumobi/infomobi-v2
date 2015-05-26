@@ -4,24 +4,26 @@
 	"id": "com.meumobi.infomobi",
 	"description": "Mobile App for Internal Communication.",
 
-	"ANALYTICS": {
-		"trackId": "UA-59245997-3"
-	},
-	"PUSHWOOSH": {
-		"applicationCode": "A9FC4-681E3",
-		"googleProjectNumber": "138333716576"
-	},
-	"STYLE": {
-		"brandPrimary": "#ff8c04"
-	},
-	"WELCOME": {
-		"title": "Bem-vindo ao infoMobi",
-		"description": "infoMobi revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
-		"images":[  
-			{  
-				"path":"images/welcome-1.png",
-				"title":"Fica conectado com sua empresa"
-			}
-		]
+	"CONFIG": {
+		"ANALYTICS": {
+			"trackId": "UA-59245997-3"
+		},
+		"PUSHWOOSH": {
+			"applicationCode": "A9FC4-681E3",
+			"googleProjectNumber": "138333716576"
+		},
+		"STYLE": {
+			"brandPrimary": "#ff8c04"
+		},
+		"WELCOME": {
+			"title": "Bem-vindo ao infoMobi",
+			"description": "infoMobi revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
+			"images":[  
+				{  
+					"path":"images/welcome-1.png",
+					"title":"Fica conectado com sua empresa"
+				}
+			]
+		}	
 	}
 }

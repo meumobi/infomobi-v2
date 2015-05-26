@@ -5,7 +5,7 @@
 // Please use config.js to override these selectively:
 
 var config = {
-	debug: true, // setted false if call release task
+	debug: false, // setted false if call release task
 	dest: 'www',
 	cordova: true,
 	minify_images: true,
@@ -87,12 +87,17 @@ var configEnv = JSON.parse(fs.readFileSync(path.join(cwd, 'environments', filena
 var configProject = JSON.parse(fs.readFileSync(path.join(cwd,'config.json'), 'utf8'));
 
 console.log(
-	"Gulp infoMobi: Project="
+	"==== Gulp infoMobi: Project="
 	+ configProject.name
 	+ configProject.version
 	+ ", Environment="
 	+ env
 );
+
+if (config.debug) {
+	console.log("/!\\ === Be careful It's a debug release === /!\\ ");
+	console.log("Set config.debug = false on gulpfile.js to submit");
+}
 
 /*================================================
 =                  Copy App Assets               =
@@ -189,21 +194,21 @@ gulp.task('livereload', function() {
 =====================================*/
 
 gulp.task('images', function() {
-	streamqueue({
+	var streamBuildAction = streamqueue({
 		objectMode: true
 	},
 	gulp.src('src/images/**/*'),
 	gulp.src('./images/**/*', {cwd: cwd})
-)
-	.pipe(gulpif(config.minify_images, imagemin({
-			progressive: true,
-			svgoPlugins: [{
-				removeViewBox: false
-			}],
-			use: [pngcrush()]
-		})
-	))
-	.pipe(gulp.dest(path.join(config.dest, 'images')));
+);
+return streamBuildAction
+.pipe(gulpif(config.minify_images, imagemin({
+	progressive: true,
+	svgoPlugins: [{
+		removeViewBox: false
+	}],
+	use: [pngcrush()]
+})))
+.pipe(gulp.dest(path.join(config.dest, 'images')));
 });
 
 /*==================================
@@ -211,7 +216,8 @@ gulp.task('images', function() {
 ==================================*/
 
 gulp.task('fonts', function() {
-	return gulp.src(config.vendor.fonts)
+return gulp.src(
+	config.vendor.fonts)
 	.pipe(gulp.dest(path.join(config.dest, 'fonts')));
 });
 
@@ -228,7 +234,7 @@ gulp.task('html', function() {
 	if (config.cordova) {
 		inject.push('<script src="cordova.js"></script>');
 	}
-	gulp.src(['src/html/**/*.html'])
+	return gulp.src(['src/html/**/*.html'])
 	.pipe(replace('<!-- inject:js -->', inject.join('\n    ')))
 	.pipe(replace('@@name', configProject.name))
 	.pipe(gulp.dest(config.dest));
@@ -240,11 +246,11 @@ gulp.task('html', function() {
 ======================================================================*/
 
 gulp.task('less', function() {
-	streamqueue({
+	var streamBuildAction = streamqueue({
 		objectMode: true
 	},
 	gulp.src(['./src/less/app.less', './src/less/responsive.less'])
-	.pipe(replace("@@brandPrimary", configProject.STYLE.brandPrimary))
+	.pipe(replace("@@brandPrimary", configProject.CONFIG.STYLE.brandPrimary))
 	.pipe(less({
 		paths: [path.resolve(__dirname, 'src/less'), path.resolve(__dirname, 'bower_components')]
 	}))
@@ -258,12 +264,13 @@ gulp.task('less', function() {
 			screens: ['0px']
 		}
 	}))
-)
-	.pipe(cssmin())
-	.pipe(rename({
-		suffix: '.min'
-	}))
-	.pipe(gulp.dest(path.join(config.dest, 'css')));
+);
+return streamBuildAction
+.pipe(cssmin())
+.pipe(rename({
+	suffix: '.min'
+}))
+.pipe(gulp.dest(path.join(config.dest, 'css')));
 });
 
 /*====================================================================
@@ -284,11 +291,11 @@ gulp.task('phonegap-config', function() {
 =               Build Zip to submit to PhoneGap Build                =
 ====================================================================*/
 
-gulp.task('zip', function () {
+gulp.task('build-zip', ['copy', 'copy-icon', 'copy-splash', 'phonegap-config'], function () {
 	var filename = project + "-" + env +"_rel-" + configProject.version + ".zip";
 	return gulp.src('www/**/*')
-	.pipe(zip(filename))
-	.pipe(gulp.dest('dist'));
+		.pipe(zip(filename))
+		.pipe(gulp.dest('dist'));
 });
 
 
@@ -301,18 +308,16 @@ gulp.task('zip', function () {
 gulp.task('js', function() {
 	var app = configEnv.APP;
 	app.version = configProject.version;
-	streamqueue({
+	var streamBuildAction = streamqueue({
 		objectMode: true
 	},
 	gulp.src(config.vendor.js),
 	gulp.src('src/js/services/meumobi-settings.js')  
-	.pipe(replace('@@ANALYTICS', JSON.stringify(configProject.ANALYTICS)))
-	.pipe(replace('@@WELCOME', JSON.stringify(configProject.WELCOME)))
 	.pipe(replace('@@APP', JSON.stringify(app)))
-	.pipe(replace('@@PUSHWOOSH', configProject.PUSHWOOSH)),
+	.pipe(replace('@@CONFIG', JSON.stringify(configProject.CONFIG))),
 	gulp.src('src/js/lib/pushwoosh-*.js')
-	.pipe(replace('@@googleProjectNumber', configProject.PUSHWOOSH.googleProjectNumber))
-	.pipe(replace('@@applicationCode', configProject.PUSHWOOSH.applicationCode)),
+	.pipe(replace('@@googleProjectNumber', configProject.CONFIG.PUSHWOOSH.googleProjectNumber))
+	.pipe(replace('@@applicationCode', configProject.CONFIG.PUSHWOOSH.applicationCode)),
 	gulp.src([
 		'./src/js/**/*.js', 
 		'!./src/js/services/meumobi-settings.js', 
@@ -322,16 +327,17 @@ gulp.task('js', function() {
 	gulp.src(['src/templates/**/*.html'])
 	.pipe(replace('@@name', configProject.name))
 	.pipe(templateCache({
-		module: 'infoMobi'
-	}))
-)
-.pipe(sourcemaps.init())
-.pipe(concat('app.js'))
-.pipe(ngAnnotate())
-.pipe(gulpif(!config.debug, uglify()))
-.pipe(rename({suffix: '.min'}))
-.pipe(sourcemaps.write('.'))
-.pipe(gulp.dest(path.join(config.dest, 'js')));
+			module: 'infoMobi'
+		}))
+	);
+	return streamBuildAction
+	.pipe(sourcemaps.init())
+	.pipe(concat('app.js'))
+	.pipe(ngAnnotate())
+	.pipe(gulpif(!config.debug, uglify()))
+	.pipe(rename({suffix: '.min'}))
+	.pipe(sourcemaps.write('.'))
+	.pipe(gulp.dest(path.join(config.dest, 'js')));
 });
 
 
@@ -340,13 +346,13 @@ gulp.task('js', function() {
 ===================================================================*/
 
 gulp.task('watch', function() {
-if (typeof config.server === 'object') {
-	gulp.watch([config.dest + '/**/*'], ['livereload']);
-};
-gulp.watch(['./src/html/**/*'], ['html']);
-gulp.watch(['./src/less/**/*'], ['less']);
-gulp.watch(['./src/js/**/*', './src/templates/**/*', config.vendor.js], ['js']);
-gulp.watch(['./src/images/**/*'], ['images']);
+	if (typeof config.server === 'object') {
+		gulp.watch([config.dest + '/**/*'], ['livereload']);
+	};
+	gulp.watch(['./src/html/**/*'], ['html']);
+	gulp.watch(['./src/less/**/*'], ['less']);
+	gulp.watch(['./src/js/**/*', './src/templates/**/*', config.vendor.js], ['js']);
+	gulp.watch(['./src/images/**/*'], ['images']);
 });
 
 
@@ -355,12 +361,12 @@ gulp.watch(['./src/images/**/*'], ['images']);
 ===================================================*/
 
 gulp.task('weinre', function() {
-if (typeof config.weinre === 'object' && config.debug) {
-	var weinre = require('./node_modules/weinre/lib/weinre');
-	weinre.run(config.weinre);
-} else {
-	throw new Error('Weinre is not configured');
-}
+	if (typeof config.weinre === 'object') {
+		var weinre = require('./node_modules/weinre/lib/weinre');
+		weinre.run(config.weinre);
+	} else {
+		throw new Error('Weinre is not configured');
+	}
 });
 
 
@@ -369,8 +375,8 @@ if (typeof config.weinre === 'object' && config.debug) {
 ======================================*/
 
 gulp.task('build', function(done) {
-var tasks = ['html', 'fonts', 'images', 'less', 'js'];
-seq('clean', tasks, done);
+	var tasks = ['html', 'fonts', 'images', 'less', 'js'];
+	seq('clean', tasks, done);
 });
 
 
@@ -379,55 +385,33 @@ seq('clean', tasks, done);
 ====================================*/
 
 gulp.task('default', function(done) {
-var tasks = [];
+	var tasks = [];
 
-if (typeof config.weinre === 'object') {
-	tasks.push('weinre');
-};
+	if (typeof config.weinre === 'object') {
+		tasks.push('weinre');
+	};
 
-if (typeof config.server === 'object') {
-	tasks.push('connect');
-};
+	if (typeof config.server === 'object') {
+		tasks.push('connect');
+	};
 
-tasks.push('watch');
+	tasks.push('watch');
 
-seq('build', tasks, done);
+	seq('build', tasks, done);
 });
-
-/*====================================
-=        Debug on Device Task        =
-====================================*/
-
-gulp.task('device-debug', function(done) {
-var tasks = [];
-
-if (typeof config.weinre === 'object') {
-	tasks.push('weinre');
-};
-
-tasks.push('copy');
-tasks.push('copy-icon');
-tasks.push('copy-splash');
-tasks.push('phonegap-config');
-
-seq('build', tasks, done);
-});
-
 
 /*================================================================
 =            Release Task to submit to PhoneGap Build            =
 ================================================================*/
 
 gulp.task('release', function(done) {
-var tasks = [];
+	var tasks = [];
 
-config.debug = false;
+	if (typeof config.weinre === 'object' && config.debug) {
+		tasks.push('weinre');
+	};
 
-tasks.push('copy');
-tasks.push('copy-icon');
-tasks.push('copy-splash');
-tasks.push('phonegap-config');
-// tasks.push('zip');
+	tasks.push('build-zip');
 
-seq('build', tasks, done);
+	seq('build', tasks, done);
 });

@@ -4,6 +4,6 @@ angular
 .module('infoMobi')
 .controller('WelcomeController', WelcomeController);
 
-function WelcomeController($rootScope, $scope, WELCOME) {
-	$scope.item = WELCOME;
+function WelcomeController($rootScope, $scope, CONFIG) {
+	$scope.item = CONFIG.WELCOME;
 }
