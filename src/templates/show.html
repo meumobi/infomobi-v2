@@ -24,14 +24,14 @@
 				<small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>
 			</h4>
 			<p>
-				<audio controls autoplay ng-if="hasAudio(item)">
-					<source ng-src="{{getTrustedResourceUrl(findMediasByType(item.medias, ['audio/mpeg', 'audio/mp3'])[0].url)}}" type="item.medias, ['audio/mpeg', 'audio/mp3'])[0].type" />
+				<audio id="audio" controls autoplay ng-if="audio.length > 0">
+					<source ng-src="{{getTrustedResourceUrl(audio.url)}}" type="{{audio.type}}"></source>
 				</audio>
-				<video controls autoplay ng-if="hasAudio(item)">
-					<source ng-src="{{getTrustedResourceUrl(findMediasByType(item.medias, ['video/mpeg', 'video/mp4'])[0].url)}}" type="item.medias, ['video/mpeg', 'video/mp4'])[0].type" />
-				</audio>
+				<video id="video" controls autoplay ng-if="video.length > 0">
+					<source ng-src="{{getTrustedResourceUrl(video.url)}}" type="{{video.type}}" />
+				</video>
 			</p>
-			<div class="row text-right">
+			<div class="row text-right" ng-if="item.link">
 				<a ng-click="shareFeed()" ng-hide="item.groups.length">
 					<span class="btn btn-white">
 						<i class="fa fa-share-alt"></i> Compartilhar
