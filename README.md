@@ -67,6 +67,15 @@ $ curl --request POST http://int-meumobi.com/api/infobox.int-meumobi.com/visitor
 $ curl http://int-meumobi.com/api/infobox.int-meumobi.com/items/latest -H "X-Visitor-Token: 530d35effbb421d395e212d7d0d70890fe834286"
 ```
 
+Contributing
+----
+
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create new Pull Request
+
 License
 ----
 
