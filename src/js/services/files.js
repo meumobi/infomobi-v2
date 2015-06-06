@@ -26,7 +26,7 @@ angular
         if (device.platform.toLowerCase() == 'android') {
           localDir = cordova.file.externalRootDirectory + config.path;
         } else {
-          localDir = cordova.file.documentsDirectory;
+          localDir = cordova.file.dataDirectory;
         }
         return localDir;
       }
