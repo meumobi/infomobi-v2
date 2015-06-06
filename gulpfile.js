@@ -5,7 +5,7 @@
 // Please use config.js to override these selectively:
 
 var config = {
-	debug: false, // setted false if call release task
+	debug: false,
 	dest: 'www',
 	cordova: true,
 	minify_images: true,
@@ -228,7 +228,7 @@ return gulp.src(
 
 gulp.task('html', function() {
 	var inject = [];
-	if (typeof config.weinre === 'object') {
+	if (typeof config.weinre === 'object' && config.debug) {
 		inject.push('<script src="http://' + config.weinre.boundHost + ':' + config.weinre.httpPort + '/target/target-script-min.js"></script>');
 	}
 	if (config.cordova) {
@@ -291,7 +291,7 @@ gulp.task('phonegap-config', function() {
 =               Build Zip to submit to PhoneGap Build                =
 ====================================================================*/
 
-gulp.task('build-zip', ['copy', 'copy-icon', 'copy-splash', 'phonegap-config'], function () {
+gulp.task('build-zip', ['copy', 'copy-icon', 'copy-splash'], function () {
 	var filename = project + "-" + env +"_rel-" + configProject.version + ".zip";
 	return gulp.src('www/**/*')
 		.pipe(zip(filename))
@@ -373,9 +373,10 @@ gulp.task('weinre', function() {
 /*======================================
 =            Build Sequence            =
 ======================================*/
+// phonegap-config allows to use phonegap CLI $ phonegap serve
 
 gulp.task('build', function(done) {
-	var tasks = ['html', 'fonts', 'images', 'less', 'js'];
+	var tasks = ['html', 'fonts', 'images', 'less', 'js', 'phonegap-config'];
 	seq('clean', tasks, done);
 });
 
