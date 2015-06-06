@@ -20,10 +20,11 @@ module.exports = function(config) {
 	// Weinre Remote debug server
   
 	config.weinre.httpPort = 8080;
-	config.weinre.boundHost = '192.168.1.173';
+	config.weinre.boundHost = '192.168.0.5';
 
 	// Comment to enable weinre, uncomment to disable weinre 
-	config.weinre = false;
+	// config.weinre = false;
+	config.debug = false;
     
 	// 3rd party components
 	config.vendor.js.push('./bower_components/angular-touch/angular-touch.js');
