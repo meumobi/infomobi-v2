@@ -2,6 +2,8 @@ module.exports = function(config) {
 
 	// Output directory
 	config.dest = 'www';
+	
+	config.version = "1.2.0"; // version of the App
   
 	// Inject cordova script into html
 	config.cordova = true;

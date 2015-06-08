@@ -20,8 +20,7 @@
 	<!-- Do not auto hide splash on Android -->
 	<preference name="SplashScreenDelay" value="10000"/>
 	<preference name="disable-cursor" value="false" />
-	<preference name="android-minSdkVersion" value="17">
-	<preference name="android-targetSdkVersion" value="19">
+	<preference name="android-minSdkVersion" value="16" />
 	<preference name="android-installLocation" value="auto" />
 
 	<!-- Avoid iOS App WebStorage to be backuped -->
@@ -35,6 +34,7 @@
 	<gap:plugin name="org.apache.cordova.media" />
 	
 	<gap:plugin name="cordova-plugin-statusbar" source="npm" version="1.0.0" />
+	<gap:plugin name="cordova-plugin-appversion" source="npm" version="1.0.0" />
 	
 	<gap:plugin name="org.apache.cordova.splashscreen" />
 	<gap:plugin name="nl.x-services.plugins.toast" />

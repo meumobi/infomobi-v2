@@ -106,7 +106,7 @@ var app = angular
 	} else {
 		AuthService.loadAuthToken(localStorage.authToken);
 		AuthService.getVisitor();
-		DeviceService.getSignature();
+		DeviceService.updateSignature();
 		$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
 		//$rootScope.userToken = localStorage['userToken'] || "";
 		//$rootScope.defaultSite = APP.domain;

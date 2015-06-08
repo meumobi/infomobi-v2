@@ -2,13 +2,13 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Device', ['meumobi.Cordova', 'meumobi.utils', 'meumobi.settings'])
+	.module('meumobi.services.Device', ['meumobi.Cordova', 'meumobi.utils'])
 	.factory('DeviceService', DeviceService);
 		
-	function DeviceService(deviceReady, AppUtils, $rootScope, API, APP) {
+	function DeviceService(deviceReady, AppUtils, $rootScope, API) {
 		var service = {};
 			
-		service.getSignature = getSignature;
+		service.updateSignature = updateSignature;
 		service.clearSignature = clearSignature;
 		service.loadDevice = loadDevice;
  
@@ -20,44 +20,43 @@
 		}
 		
 		function success(data, status) {
-			console.log("[DeviceService:getSignature]: success " + data);
+			console.log("[DeviceService:updateSignature]: success " + data);
 		}
 		
 		function error(data, status) {
-			console.log("[DeviceService:getSignature]: error " + data.error);
+			console.log("[DeviceService:updateSignature]: error " + data.error);
 		}
-				
+		
 		function getSignature() {
-			var deviceConfig = {
-				"model": null,
-				"platform": null,
-				"version": null,
-				"app_version": APP.version,
-				"push_id": null,
-				"uuid": null
-			};
-			
+			var deviceConfig = {};
+			// Only save device from App, not webapp, because we use uuid as primary key
+			if (device && window.plugins.uniqueDeviceID) {
+				deviceConfig.model = device.model;
+				deviceConfig.platform = device.platform;
+				deviceConfig.version = device.version;
+				deviceConfig.app_version = AppVersion.version;
+				deviceConfig.app_build = AppVersion.build;
+				deviceConfig.push_id = localStorage.hasOwnProperty('push_id') ? localStorage['push_id'] : null;
+			}
+			return deviceConfig;
+		}
+		
+		function updateSignature() {
 			deviceReady(function() {
-				// Only save device from App, not webapp, because we use uuid as primary key
-				if (window.cordova) {
-					deviceConfig.model = device.model;
-					deviceConfig.platform = device.platform;
-					deviceConfig.version = device.version;
-					deviceConfig.push_id = localStorage.hasOwnProperty('push_id') ? localStorage['push_id'] : null;
+				var signature = getSignature();
 
-					// uuid is the primary key of Device, so if not available no need to PUT it on API
-					uniqueDeviceID(function(uuid) {
-						deviceConfig.uuid = uuid;
-
-						// if 1st connection then POST (device) else PUT (update)
-						if (!localStorage.hasOwnProperty("device")) {
-							API.Login.device(deviceConfig, success, error);
-						} else {
-							API.Login.update(deviceConfig, success, error);
-						}
-						loadDevice(deviceConfig);
-					});
-				};				
+				// uuid is the primary key of Device, so if not available no need to PUT it on API
+				window.plugins.uniqueDeviceID.get(
+					function(uuid){
+						signature.uuid = uuid;
+						API.Login.update(signature, success, error);
+						loadDevice(signature);
+					}, function(error){
+						$rootScope.$apply(function(){
+							throw new Error('Unable to retrieve uuid');
+						});
+					}
+				);	
 			});
 		}
 		
@@ -65,22 +64,5 @@
 			$rootScope.device = device;
 			localStorage.device = JSON.stringify(device);
 		}
-		
-		function uniqueDeviceID(done) {
-			deviceReady(function() {
-				if (window.plugins && window.plugins.uniqueDeviceID) {
-					window.plugins.uniqueDeviceID.get(
-						function(uuid){
-							$rootScope.$apply(function(){
-								done(uuid);
-							});
-						}, function(error){
-							$rootScope.$apply(function(){
-								throw new Error('Unable to retrieve uuid');
-							});
-						});
-					}
-				});
-			}
-		}
-	})();
+	}
+})();

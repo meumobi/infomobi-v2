@@ -9,7 +9,7 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, App
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
 		AppFunc.initPushwoosh();
-		DeviceService.getSignature();
+		DeviceService.updateSignature();
 		$rootScope.go('/list');
 	};
 

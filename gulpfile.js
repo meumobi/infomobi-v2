@@ -5,6 +5,7 @@
 // Please use config.js to override these selectively:
 
 var config = {
+	version: "1.0.0",
 	debug: false,
 	dest: 'www',
 	cordova: true,
@@ -89,7 +90,7 @@ var configProject = JSON.parse(fs.readFileSync(path.join(cwd,'config.json'), 'ut
 console.log(
 	"==== Gulp infoMobi: Project="
 	+ configProject.name
-	+ configProject.version
+	+ config.version
 	+ ", Environment="
 	+ env
 );
@@ -280,7 +281,7 @@ return streamBuildAction
 gulp.task('phonegap-config', function() {
 	return gulp.src('src/config.xml')
 	.pipe(replace('@@id', configProject.id))
-	.pipe(replace('@@version', configProject.version))
+	.pipe(replace('@@version', config.version))
 	.pipe(replace('@@name', configProject.name))
 	.pipe(replace('@@description', configProject.description))
 	.pipe(gulp.dest(config.dest));
@@ -292,7 +293,7 @@ gulp.task('phonegap-config', function() {
 ====================================================================*/
 
 gulp.task('build-zip', ['copy', 'copy-icon', 'copy-splash'], function () {
-	var filename = project + "-" + env +"_rel-" + configProject.version + ".zip";
+	var filename = project + "-" + env +"_rel-" + config.version + ".zip";
 	return gulp.src('www/**/*')
 		.pipe(zip(filename))
 		.pipe(gulp.dest('dist'));
@@ -307,7 +308,6 @@ gulp.task('build-zip', ['copy', 'copy-icon', 'copy-splash'], function () {
 
 gulp.task('js', function() {
 	var app = configEnv.APP;
-	app.version = configProject.version;
 	var streamBuildAction = streamqueue({
 		objectMode: true
 	},
