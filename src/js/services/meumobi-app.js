@@ -198,7 +198,7 @@
 							that.hideSplashScreen();
 							app.initPushwoosh();
 							that.statusBar();
-							// that.verifyVersion();
+							that.checkVersion();
 						});
 						that.receiveNotification();
 						//that.backButton();
@@ -212,35 +212,21 @@
 						},*/
 						hideSplashScreen: function() {
 							if (navigator.splashscreen) {
-								console.log('Hide splash screen');
 								navigator.splashscreen.hide();
 							}
 						},
 						statusBar: function() {
-							//StatusBar.styleDefault(); // dark text, for light backgrounds
-							StatusBar.styleLightContent(); // light text, for dark backgrounds
-							//StatusBar.backgroundColorByHexString(CONFIG.STYLE.brandPrimary);
 							StatusBar.overlaysWebView(false);
+							StatusBar.styleLightContent();
+							StatusBar.backgroundColorByName("black");
 						},
 						receiveNotification: function() {
 							document.addEventListener('push-notification', function(event) {
 								$route.reload();
 							});
 						},
-						verifyVersion: function() {
-							var device = localStorage.device ? JSON.parse(localStorage['device']) : false;
-							if (device && device.app_version != APP.version) {
-								device.app_version = APP.version;
-								localStorage['device'] = JSON.stringify(device);
-								API.Login.update(device,
-									function(resp) {
-										console.log(resp);
-									},
-									function(err) {
-										console.log(err);
-									}
-								);
-							}
+						checkVersion: function() {
+							console.log("[checkVersion]: " + AppVersion.version);
 						}
 					}
 				};
