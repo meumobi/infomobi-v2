@@ -6,7 +6,7 @@ tags: [SdkVersion, config.xml, tablets]
 author: Victor Dias
 ---
 Maybe after submiting your apk to Google Play you've seen the tip message "Design your app for tablets".
-![dbyll-screenshot](	/assets/media/Optimization_Tips_-_Triunfo_RI_-_Google_Play_Developer_Console.png)
+![dbyll-screenshot]({{ site.BASE_PATH }}/assets/media/Optimization_Tips_-_Triunfo_RI_-_Google_Play_Developer_Console.png)
 
 If occured it means that targeted Android Versions should not support tablets. If it was not your intention to discard tablets support then you should target Android Versions Properly.
 
