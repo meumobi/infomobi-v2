@@ -197,7 +197,7 @@
 						deviceReady(function() {
 							that.hideSplashScreen();
 							app.initPushwoosh();
-							// that.statusBar();
+							that.statusBar();
 							// that.verifyVersion();
 						});
 						that.receiveNotification();
@@ -219,8 +219,8 @@
 						statusBar: function() {
 							//StatusBar.styleDefault(); // dark text, for light backgrounds
 							StatusBar.styleLightContent(); // light text, for dark backgrounds
-							StatusBar.backgroundColorByHexString(CONFIG.STYLE.brandPrimary);
-							//StatusBar.overlaysWebView(false);
+							//StatusBar.backgroundColorByHexString(CONFIG.STYLE.brandPrimary);
+							StatusBar.overlaysWebView(false);
 						},
 						receiveNotification: function() {
 							document.addEventListener('push-notification', function(event) {
