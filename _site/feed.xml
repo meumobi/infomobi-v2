@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title></title>
+		<description>haring Experience about Mobile Development with PhoneGap, AngularJS and REST API</description>
+		<link>infoMobi/</link>
+		<atom:link href="infoMobi/feed.xml" rel="self" type="application/rss+xml" />
+		
+			<item>
+				<title>Target Android Versions to ensure distribution to tablets</title>
+				<description>&lt;p&gt;Maybe after submiting your apk to Google Play you&amp;#39;ve seen the tip message &amp;quot;Design your app for tablets&amp;quot;.
+&lt;img src=&quot;/assets/media/Optimization_Tips_-_Triunfo_RI_-_Google_Play_Developer_Console.png&quot; alt=&quot;dbyll-screenshot&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;If occured it means that targeted Android Versions should not support tablets. If it was not your intention to discard tablets support then you should target Android Versions Properly.&lt;/p&gt;
+
+&lt;h1&gt;Android Optimization Tip: &amp;quot;Design your app for tablets&amp;quot;&lt;/h1&gt;
+
+&lt;p&gt;Designing your app for tablets can help you reach more customers on a wider variety of devices. Apps that are designed for tablets are showcased in the &amp;#39;Designed for tablets&amp;#39; list in the Play Store.&lt;/p&gt;
+
+&lt;h1&gt;Target Android Versions&lt;/h1&gt;
+
+&lt;p&gt;Initial support for tablets was added in &lt;a href=&quot;http://developer.android.com/about/versions/android-3.0-highlights.html&quot;&gt;Android 3.0&lt;/a&gt; (API level 11). Unified UI framework support for tablets, phones, and other devices was introduced in &lt;a href=&quot;http://developer.android.com/about/versions/android-4.0-highlights.html&quot;&gt;Android 4.0&lt;/a&gt; (API level 14). See &lt;a href=&quot;http://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels&quot;&gt;Android API levels&lt;/a&gt; if you need to know the correct level number you target.&lt;/p&gt;
+
+&lt;p&gt;Then, to ensure the broadest possible distribution to tablets, the &lt;strong&gt;minimum Android version&lt;/strong&gt; OR &lt;strong&gt;target Android version&lt;/strong&gt; need to support tablets:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;targetSdkVersion is declared with value 11 or higher (14 or higher is recommended), OR&lt;/li&gt;
+&lt;li&gt;minSdkVersion is declared with value 11 or higher. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1&gt;Configure properly your App&lt;/h1&gt;
+
+&lt;p&gt;If you use phonegap to build your Android App, check following &lt;a href=&quot;http://docs.build.phonegap.com/en_US/configuring_preferences.md.html#Preferences&quot;&gt;PhoneGap Build Preferences&lt;/a&gt; on your config.xml
+android-targetSdkVersion is unset by default, in which case the default value matches that of minSdkVersion.
+&lt;a href=&quot;http://docs.phonegap.com/en/edge/config_ref_pgb_config.md.html&quot;&gt;Configuring Remote Builds&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a phonegap 3.5 / cordova 3 android app. In www/config.xml I have:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;preference&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;android-minSdkVersion&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;17&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;preference&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;android-targetSdkVersion&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;19&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;However, when I build it, it creates an AndroidManifest.xml with:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;uses-sdk&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:minSdkVersion=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;17&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:targetSdkVersion=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;19&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;iPhone Deployment Target&lt;/h1&gt;
+
+&lt;p&gt;A similar feature exists for iOS, you can set it on your PGB config.xml&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;preference&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;deployment-target&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;7.0&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+				<pubDate>Mon, 08 Jun 2015 00:00:00 -0300</pubDate>
+				<link>infoMobi/android/googleplay/phonegapbuild/2015/06/08/target-android-versions-ensure-distribution-tablets.html</link>
+				<guid isPermaLink="true">infoMobi/android/googleplay/phonegapbuild/2015/06/08/target-android-versions-ensure-distribution-tablets.html</guid>
+			</item>
+		
+			<item>
+				<title>Avoid PhoneGap iOS App to backup webstorage and downloaded files</title>
+				<description>&lt;p&gt;After months developing mobile Apps, using PhoneGap, we&amp;#39;ve experienced today our first Rejection by Apple.:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;On launch and content download (i.e. presentations), your app stores 15.85 MB, which does not comply with the iOS Data Storage Guidelines.  &lt;/p&gt;
+
+&lt;p&gt;Please verify that only the content that the user creates using your app, e.g., documents, new files, edits, etc. is backed up by iCloud as required by the iOS Data Storage Guidelines.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1&gt;Avoid iOS App downloaded files to be backuped&lt;/h1&gt;
+
+&lt;p&gt;Humm.. that&amp;#39;s right. Our PhoneGap App uses &lt;a href=&quot;https://github.com/apache/cordova-plugin-file&quot;&gt;Cordova File Plugin&lt;/a&gt; to store downloaded files on cordova.file.documentsDirectory. And as correctly explained on &lt;a href=&quot;https://github.com/apache/cordova-plugin-file&quot;&gt;Cordova File Plugin&lt;/a&gt; doc, the documentsDirectory is Synced.
+We&amp;#39;ve checked it following these instructions: &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install and launch your app&lt;/li&gt;
+&lt;li&gt;Go to Settings &amp;gt; iCloud &amp;gt; Storage &amp;amp; Backup &amp;gt; Manage Storage&lt;/li&gt;
+&lt;li&gt;If necessary, tap &amp;quot;Show all apps&amp;quot;&lt;/li&gt;
+&lt;li&gt;Check your app&amp;#39;s storage, download files to see it growing&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;How to fix it&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;we&amp;#39;ve replaced cordova.file.documentsDirectory by cordova.file.dataDirectory&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Et voila!! Our &lt;a href=&quot;http://infomobi.strikingly.com&quot;&gt;infoMobi&lt;/a&gt; users will enjoy downloading files for offline read.&lt;/p&gt;
+
+&lt;h1&gt;Avoid iOS App WebStorage to be backuped&lt;/h1&gt;
+
+&lt;p&gt;During our investigation we&amp;#39;ve seen that localStorage by default is also backuped on cloud, see &lt;a href=&quot;https://cordova.apache.org/docs/en/4.0.0/guide_platforms_ios_config.md.html&quot;&gt;Cordova iOS Configuration&lt;/a&gt;. It can lead to an issue if localStorage of app is synced between multiples devices. &lt;a href=&quot;https://developer.apple.com/library/ios/qa/qa1719/_index.html&quot;&gt;Apple&amp;#39;s Q&amp;amp;A&lt;/a&gt; explains&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;only user data may be stored to the iCloud. Data that is needed for offline purposes may not be stored in the iCloud. &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;More details about &lt;a href=&quot;http://stackoverflow.com/questions/7813258/does-phonegap-localstorage-save-to-icloud&quot;&gt;localStorage management on iOS&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;localStorage in iOS is just a SQLite db file that is stored somewhere on the device.&lt;/p&gt;
+
+&lt;p&gt;Phonegap writes the localStorage.db file into the Documents directory for your app.&lt;/p&gt;
+
+&lt;p&gt;Specifically: Documents/Backups/localstorage.appdata.db&lt;/p&gt;
+
+&lt;p&gt;Since the Documents directory is specific for each app, it will be automatically saved to iCloud.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2&gt;How to fix it&lt;/h2&gt;
+
+&lt;p&gt;To disable web storage backup to iCloud, set the BackupWebStorage preference to &amp;quot;local&amp;quot; in the config.xml file.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;preference&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;BackupWebStorage&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;local&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/ &amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;OBS: An issue is open about:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PhoneGap Build GitHub: https://github.com/phonegap/build/issues/338&lt;/li&gt;
+&lt;li&gt;PhoneGap Build Community issue: http://community.phonegap.com/nitobi/topics/backupwebstorage&lt;em&gt;and&lt;/em&gt;ios&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Fri, 05 Jun 2015 00:00:00 -0300</pubDate>
+				<link>infoMobi/phonegap/2015/06/05/phonegap--ios-app-rejected-storage-guidelines.html</link>
+				<guid isPermaLink="true">infoMobi/phonegap/2015/06/05/phonegap--ios-app-rejected-storage-guidelines.html</guid>
+			</item>
+		
+	</channel>
+</rss>
