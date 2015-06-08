@@ -23,7 +23,10 @@
 	<preference name="android-minSdkVersion" value="17">
 	<preference name="android-targetSdkVersion" value="19">
 	<preference name="android-installLocation" value="auto" />
-	
+
+	<!-- Avoid iOS App WebStorage to be backuped -->
+	<preference name="BackupWebStorage" value="none"/>
+
 	<gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="org.apache.cordova.device-orientation" />
