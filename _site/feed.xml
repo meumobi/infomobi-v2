@@ -3,13 +3,13 @@
 	<channel>
 		<title></title>
 		<description>haring Experience about Mobile Development with PhoneGap, AngularJS and REST API</description>
-		<link>infoMobi/</link>
-		<atom:link href="infoMobi/feed.xml" rel="self" type="application/rss+xml" />
+		<link>/infoMobi/</link>
+		<atom:link href="/infoMobi/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
 				<title>Target Android Versions to ensure distribution to tablets</title>
 				<description>&lt;p&gt;Maybe after submiting your apk to Google Play you&amp;#39;ve seen the tip message &amp;quot;Design your app for tablets&amp;quot;.
-&lt;img src=&quot;/assets/media/Optimization_Tips_-_Triunfo_RI_-_Google_Play_Developer_Console.png&quot; alt=&quot;dbyll-screenshot&quot;&gt;&lt;/p&gt;
+&lt;img src=&quot;/infoMobi/assets/media/Optimization_Tips_-_Triunfo_RI_-_Google_Play_Developer_Console.png&quot; alt=&quot;dbyll-screenshot&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;If occured it means that targeted Android Versions should not support tablets. If it was not your intention to discard tablets support then you should target Android Versions Properly.&lt;/p&gt;
 
@@ -47,8 +47,8 @@ android-targetSdkVersion is unset by default, in which case the default value ma
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;preference&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;deployment-target&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;7.0&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
 				<pubDate>Mon, 08 Jun 2015 00:00:00 -0300</pubDate>
-				<link>infoMobi/android/googleplay/phonegapbuild/2015/06/08/target-android-versions-ensure-distribution-tablets.html</link>
-				<guid isPermaLink="true">infoMobi/android/googleplay/phonegapbuild/2015/06/08/target-android-versions-ensure-distribution-tablets.html</guid>
+				<link>/infoMobi/android/googleplay/phonegapbuild/2015/06/08/target-android-versions-ensure-distribution-tablets.html</link>
+				<guid isPermaLink="true">/infoMobi/android/googleplay/phonegapbuild/2015/06/08/target-android-versions-ensure-distribution-tablets.html</guid>
 			</item>
 		
 			<item>
@@ -112,8 +112,8 @@ We&amp;#39;ve checked it following these instructions: &lt;/p&gt;
 &lt;/ul&gt;
 </description>
 				<pubDate>Fri, 05 Jun 2015 00:00:00 -0300</pubDate>
-				<link>infoMobi/phonegap/2015/06/05/phonegap--ios-app-rejected-storage-guidelines.html</link>
-				<guid isPermaLink="true">infoMobi/phonegap/2015/06/05/phonegap--ios-app-rejected-storage-guidelines.html</guid>
+				<link>/infoMobi/phonegap/2015/06/05/phonegap--ios-app-rejected-storage-guidelines.html</link>
+				<guid isPermaLink="true">/infoMobi/phonegap/2015/06/05/phonegap--ios-app-rejected-storage-guidelines.html</guid>
 			</item>
 		
 	</channel>
