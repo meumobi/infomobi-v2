@@ -2,7 +2,7 @@
 layout: post
 title: Avoid PhoneGap iOS App to backup webstorage and downloaded files
 categories: [PhoneGap]
-tags: [localStorage, Download Files, WebStorage, config.xml]
+tags: [localStorage, Download Files, WebStorage, configxml]
 author:
   name: Victor Dias
   email: victor.dias@meumobi.com

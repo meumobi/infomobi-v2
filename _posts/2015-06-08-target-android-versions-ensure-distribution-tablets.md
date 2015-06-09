@@ -2,7 +2,7 @@
 layout: post
 title: Target Android Versions to ensure distribution to tablets
 categories: [Android, GooglePlay, PhoneGapBuild]
-tags: [SdkVersion, config.xml, tablets]
+tags: [SdkVersion, configxml, tablets]
 author:
   name: Victor Dias
   email: victor.dias@meumobi.com
