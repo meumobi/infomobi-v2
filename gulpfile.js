@@ -112,6 +112,12 @@ gulp.task('copy', function () {
 	.pipe(gulp.dest(path.join(config.dest, 'res')))
 });
 
+// .pgbomit signifies to PhoneGap Build that it SHOULD NOT include the contents of that directory in the app package
+// http://phonegap.com/blog/2014/04/11/phonegap-build-adds-some-new-features
+gulp.task('pgbomit', ['copy'], function (){
+	fs.writeFileSync(path.join(config.dest, 'res') + "/.pgbomit", '');
+}); 
+
 // Copy Default APP icon on root
 gulp.task('copy-icon', function () {
 	return gulp.src('./res/icon/ios/AppIcon.appiconset/Icon-60@2x.png', {
@@ -292,7 +298,7 @@ gulp.task('phonegap-config', function() {
 =               Build Zip to submit to PhoneGap Build                =
 ====================================================================*/
 
-gulp.task('build-zip', ['copy', 'copy-icon', 'copy-splash'], function () {
+gulp.task('build-zip', ['copy', 'pgbomit', 'copy-icon', 'copy-splash'], function () {
 	var filename = project + "-" + env +"_rel-" + config.version + ".zip";
 	return gulp.src('www/**/*')
 		.pipe(zip(filename))
