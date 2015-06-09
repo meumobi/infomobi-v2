@@ -92,9 +92,14 @@
       </section>
 
       <section class="col-sm-6 author">
-				<img src="http://www.gravatar.com/avatar/{{site.author.email_md5}}" class="img-rounded author-image" />
-        <h4 class="section-title author-name">{{page.author}}</h4>
-        <p class="author-bio">{{site.author.bio}}</p>
+				<img src="http://www.gravatar.com/avatar/{{page.author.email_md5}}" class="img-rounded author-image" />
+        <h4 class="section-title author-name">{{page.author.name}}</h4>
+        <p class="author-bio">{{page.author.bio}}</p>
+			  {% if page.author.twitter %}
+			 <i class="fa fa-twitter fa-lg"></i> <a href="https://twitter.com/{{ page.author.twitter }}">Follow me</a>
+			  {% else %}
+			  <i class="fa fa-github fa-lg"></i> <a href="https://github.com/{{ page.author.github }}">Follow me</a>
+			  {% endif %}
       </section>
     </div>
 {% include disqus.html %}

@@ -3,6 +3,13 @@ layout: post
 title: Avoid PhoneGap iOS App to backup webstorage and downloaded files
 categories: [PhoneGap]
 tags: [localStorage, Download Files, WebStorage, config.xml]
+author:
+  name: Victor Dias
+  email: victor.dias@meumobi.com
+  github: elbidone
+  twitter: meumobi
+  bio: Sharing mobile Experiences
+  email_md5: 1cd012be2382e755aa763c66acc7cfa6
 ---
 After months developing mobile Apps, using PhoneGap, we've experienced today our first Rejection by Apple.:
 > On launch and content download (i.e. presentations), your app stores 15.85 MB, which does not comply with the iOS Data Storage Guidelines.  
