@@ -3,7 +3,13 @@ layout: post
 title: Target Android Versions to ensure distribution to tablets
 categories: [Android, GooglePlay, PhoneGapBuild]
 tags: [SdkVersion, config.xml, tablets]
-author: Victor Dias
+author:
+  name: Victor Dias
+  email: victor.dias@meumobi.com
+  github: elbidone
+  twitter: meumobi
+  bio: Sharing mobile Experiences
+  email_md5: 1cd012be2382e755aa763c66acc7cfa6
 ---
 Maybe after submiting your apk to Google Play you've seen the tip message "Design your app for tablets".
 ![dbyll-screenshot]({{ site.BASE_PATH }}/assets/media/Optimization_Tips_-_Triunfo_RI_-_Google_Play_Developer_Console.png)
