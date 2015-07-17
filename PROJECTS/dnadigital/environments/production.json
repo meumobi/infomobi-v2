@@ -1,0 +1,8 @@
+{
+	"APP": {
+		"cdnUrl": "http://enterprise.meumobilesite.com/",
+		"domain": "dnadigital.meumobi.com",
+		"apiUrl": "http://enterprise.meumobilesite.com/api/",
+		"halSupport": false
+	}
+}

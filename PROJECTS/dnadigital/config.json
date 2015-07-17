@@ -1,0 +1,32 @@
+{
+	"name": "DNA Digital",
+	"id": "com.meumobi.dnadigital",
+	"description": "Mobile App for Internal Communication.",
+
+	"CONFIG": {
+		"ANALYTICS": {
+			"trackId": "UA-59245997-4"
+		},
+		"BUILD": {
+			"auth_token": "dVp5pEQYSCPxXaUprtPP",
+			"id": "1523703"
+		},
+		"PUSHWOOSH": {
+			"applicationCode": "36D9B-4948F",
+			"googleProjectNumber": "120068470491"
+		},
+		"STYLE": {
+			"brandPrimary": "#f58220"
+		},
+		"WELCOME": {
+			"title": "Bem-vindo ao DNA Digital",
+			"description": "A App DNA Digital revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
+			"images":[  
+				{  
+					"path":"images/welcome-1.png",
+					"title":"Fica conectado com sua empresa"
+				}
+			]
+		}	
+	}
+}
