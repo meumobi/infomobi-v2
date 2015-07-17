@@ -126,8 +126,27 @@
 
 						//Documentation: https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin
 						window.plugins.socialsharing.share(message, subject, img, link);
-						//window.plugins.socialsharing.share(message, subject, null, link);
 					}});
+				},
+
+				confirm: function(message, callback, title) {
+					title = (title != undefined) ? title : 'Confirm';
+					var callbacker = function (buttonIndex){
+						var val = (buttonIndex == 1);
+						callback(val);
+					}
+					if (navigator.notification) {
+						
+						navigator.notification.confirm(
+							message,
+							callbacker, //callback method...
+							title
+							//buttonLabels: Array of strings specifying button labels. (Array) (Optional, defaults to [OK,Cancel])
+						);
+					} else {
+						var r = confirm(title);
+						callback(r);
+					}
 				},
 			
 				toast: function(message, success, fail) {
@@ -198,7 +217,6 @@
 							that.hideSplashScreen();
 							app.initPushwoosh();
 							that.statusBar();
-							that.checkVersion();
 						});
 						that.receiveNotification();
 						//that.backButton();
@@ -216,17 +234,16 @@
 							}
 						},
 						statusBar: function() {
-							StatusBar.overlaysWebView(false);
-							StatusBar.styleLightContent();
-							StatusBar.backgroundColorByName("black");
+							if (typeof StatusBar !== 'undefined') {
+								StatusBar.overlaysWebView(false);
+								StatusBar.styleLightContent();
+								StatusBar.backgroundColorByName("black");	
+							}
 						},
 						receiveNotification: function() {
 							document.addEventListener('push-notification', function(event) {
 								$route.reload();
 							});
-						},
-						checkVersion: function() {
-							console.log("[checkVersion]: " + AppVersion.version);
 						}
 					}
 				};
