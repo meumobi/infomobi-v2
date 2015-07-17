@@ -20,33 +20,34 @@
 	<!-- Do not auto hide splash on Android -->
 	<preference name="SplashScreenDelay" value="10000"/>
 	<preference name="disable-cursor" value="false" />
-	<preference name="android-minSdkVersion" value="16" />
+	<preference name="android-minSdkVersion" value="9" />
 	<preference name="android-installLocation" value="auto" />
 
 	<!-- Avoid iOS App WebStorage to be backuped -->
 	<preference name="BackupWebStorage" value="none"/>
 
-	<gap:plugin name="org.apache.cordova.device" />
+	<gap:plugin name="com.adobe.plugins.gaplugin" />
+	<gap:plugin name="com.pushwoosh.plugins.pushwoosh" version="3.4.1" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" />
+	<gap:plugin name="nl.x-services.plugins.toast" />
+	<gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" version="1.2.0" />
+	<gap:plugin name="net.tunts.webintent" version="0.2.1" />
+	<gap:plugin name="cordova-plugin-appversion" source="npm" version="1.0.0" />
+	
 	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="org.apache.cordova.device-orientation" />
 	<gap:plugin name="org.apache.cordova.dialogs" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" />
 	<gap:plugin name="org.apache.cordova.media" />
-	
-	<gap:plugin name="cordova-plugin-statusbar" source="npm" version="1.0.0" />
-	<gap:plugin name="cordova-plugin-appversion" source="npm" version="1.0.0" />
-	
 	<gap:plugin name="org.apache.cordova.splashscreen" />
-	<gap:plugin name="nl.x-services.plugins.toast" />
-	<gap:plugin name="com.adobe.plugins.gaplugin" />
-	<!--gap:plugin name="com.jcjee.plugins.emailcomposer" version="1.4.6" /-->
-	<gap:plugin name="com.pushwoosh.plugins.pushwoosh" version="3.4.1" />
-	<gap:plugin name="nl.x-services.plugins.socialsharing" />
-	<gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" version="1.2.0" />
-	<gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" />
+
+	<!--gap:plugin name="com.jcjee.plugins.emailcomposer" version="1.4.6" / -->
+		
+	<gap:plugin name="org.apache.cordova.device" />
+	<gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
 	<gap:plugin name="org.apache.cordova.file" />
 	<gap:plugin name="org.apache.cordova.file-transfer" />
-		
+
 	<!-- default mandatory icon 120x120px-->
 	<icon src="icon.png" />
 
