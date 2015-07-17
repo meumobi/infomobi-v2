@@ -44,19 +44,33 @@
 		function updateSignature() {
 			deviceReady(function() {
 				var signature = getSignature();
-
+				console.log("Updating Signature");
 				// uuid is the primary key of Device, so if not available no need to PUT it on API
-				window.plugins.uniqueDeviceID.get(
-					function(uuid){
-						signature.uuid = uuid;
-						API.Login.update(signature, success, error);
-						loadDevice(signature);
-					}, function(error){
-						$rootScope.$apply(function(){
-							throw new Error('Unable to retrieve uuid');
-						});
-					}
-				);	
+				if (window.plugins.uniqueDeviceID)
+				{
+					window.plugins.uniqueDeviceID.get(
+						function(uuid){
+
+							signature.uuid = uuid;
+							// if 1st connection then POST (device) else PUT (update)
+							if (!localStorage.hasOwnProperty("device")) {
+								API.Login.device(signature, success, error);
+							} else {
+								API.Login.update(signature, success, error);
+							}
+
+							//API.Login.update(signature, success, error);
+							loadDevice(signature);
+						}, function(error){
+							$rootScope.$apply(function(){
+								throw new Error('Unable to retrieve uuid');
+							});
+						}
+					);
+				} else {
+					signature.uuid = null;
+					loadDevice(signature);
+				}	
 			});
 		}
 		
