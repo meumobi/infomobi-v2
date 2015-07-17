@@ -4,7 +4,9 @@
 	<button ng-click="syncNews()" class="btn btn-primary">
 		<i class="fa fa-refresh"></i>
 	</button>
-
+	<button class="btn btn-primary"  ng-if="progress">
+		{{progress}}
+	</button>
 </div>
 
 <div class="scrollable">

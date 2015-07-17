@@ -5,6 +5,7 @@ var app = angular
 .module('infoMobi', [
 	'meumobi.Cordova',
 	'meumobi.services.Device',
+	'meumobi.services.Version',
 	'meumobi.services.Auth',
 	'ngRoute',
 	'ngTouch',
@@ -145,6 +146,8 @@ var app = angular
 		//send page to analytics
 		analytics.trackPage(current.$$route.title);
 	});
+
+	$rootScope.versionServiceIsEnabled = true;
 
 	AppFunc.startApp.executeAll();
 });
