@@ -7,6 +7,10 @@
 		"ANALYTICS": {
 			"trackId": "UA-59245997-1"
 		},
+		"BUILD": {
+			"auth_token": "dVp5pEQYSCPxXaUprtPP",
+			"id": "843971"
+		},
 		"PUSHWOOSH": {
 			"applicationCode": "E76A0-70562",
 			"googleProjectNumber": "724469158975"
