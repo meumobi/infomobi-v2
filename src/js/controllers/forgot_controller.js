@@ -23,8 +23,10 @@ angular
 				}
 			},
 			sendMail: function() {
+				var payload = $scope.Forgot.informations;
 				var message = "[Esqueci minha senha]: ";
-				API.Mail.save(message+$scope.Forgot.informations, $scope.Forgot.success, $scope.Forgot.error);
+				payload.message = message + payload.message;
+				API.Mail.save(payload, $scope.Forgot.success, $scope.Forgot.error);
 			},
 			success: function(resp) {
 				AppFunc.toast("Mensagem enviada com sucesso");
