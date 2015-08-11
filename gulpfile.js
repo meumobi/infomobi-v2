@@ -160,7 +160,8 @@ gulp.task('clean', function(cb) {
 		path.join(config.dest, 'res'),
 		path.join(config.dest, 'icon.png'),
 		path.join(config.dest, 'splash.png'),
-		path.join(config.dest, 'config.xml')
+		path.join(config.dest, 'config.xml'),
+		path.join(config.dest, 'locales')
 	], {
 		read: false
 	})
@@ -293,6 +294,14 @@ gulp.task('phonegap-config', function() {
 	.pipe(gulp.dest(config.dest));
 });
 
+/*====================================================================
+=                     Copy locales                     =
+====================================================================*/
+
+gulp.task('locales', function() {
+	return gulp.src('src/locales/**/*')
+	.pipe(gulp.dest(path.join(config.dest, 'locales')));
+});
 
 /*====================================================================
 =               Build Zip to submit to PhoneGap Build                =
@@ -382,7 +391,7 @@ gulp.task('weinre', function() {
 // phonegap-config allows to use phonegap CLI $ phonegap serve
 
 gulp.task('build', function(done) {
-	var tasks = ['html', 'fonts', 'images', 'less', 'js', 'phonegap-config'];
+	var tasks = ['html', 'fonts', 'images', 'less', 'js', 'locales', 'phonegap-config'];
 	seq('clean', tasks, done);
 });
 

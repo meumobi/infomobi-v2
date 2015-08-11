@@ -105,15 +105,14 @@
 
 		function getLatestAppSignature() {
 			deviceReady(function(){
-				if (typeof AppVersion !== 'undefined') {
+				if (typeof(device) != "undefined" && device != null && typeof AppVersion !== 'undefined') {
 					$rootScope.app_version = AppVersion.version;
-				} else {
-					//$rootScope.app_version = "1.2.2";
+				
+					console.log("[VersionService]: calling PhoneGap Build API - " + buildUrl());
+					$http.jsonp(buildUrl())
+					.success(success)
+					.error(error);
 				}
-				console.log("[VersionService]: calling PhoneGap Build API - " + buildUrl());
-				$http.jsonp(buildUrl())
-				.success(success)
-				.error(error);
 			});
 		}
 		

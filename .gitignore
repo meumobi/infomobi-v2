@@ -1,4 +1,6 @@
 # remove minified files
+dist/
+www/
 www/js
 www/res
 www/css

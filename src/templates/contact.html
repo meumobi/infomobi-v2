@@ -1,10 +1,10 @@
 <div class="scrollable">
 	<div class="scrollable-content section">
-		<div bs-panel title="Fale com a Comunicação Interna">
+		<div bs-panel title='{{"Chat with the Internal Communication" | translate}}'>
 			<form ng-submit="Contact.sendMail()" class="ng-pristine ng-valid ng-valid-email ng-submitted">
 				<input bs-form-control label="Email" type="email" ng-model="Contact.informations.mail" readonly />
-				<textarea bs-form-control label="Mensagem" rows="4" placeholder="Escutamos você." ng-model="Contact.informations.message"></textarea>
-				<button class="btn btn-primary btn-block">Enviar</button>
+				<textarea bs-form-control label='{{"Message" | translate}}' rows="4" placeholder='{{"We are hearing you" | translate}}' ng-model="Contact.informations.message"></textarea>
+				<button class="btn btn-primary btn-block">{{"Send" | translate}}</button>
 			</form>
 		</div>
 	</div>

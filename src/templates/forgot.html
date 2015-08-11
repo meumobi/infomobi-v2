@@ -7,14 +7,14 @@
 
 <div class="scrollable">
 	<div class="scrollable-content section">
-		<div bs-panel title="Esqueci minha senha">
+		<div bs-panel title='{{"Forgot Password?" | translate}}'>
 			<form name="forgotForm" ng-submit="Forgot.submitForm(forgotForm.$valid)" novalidate>
 				<div ng-class="{ 'has-error' : forgotForm.email.$invalid && submitted }">
 					<input bs-form-control label="Email" type="email" name="email" ng-required="true" placeholder="me@siemens.com" ng-model="Forgot.informations.mail" />
-					<p ng-show="forgotForm.email.$invalid && submitted" class="help-block">E-mail inválido.</p>
+					<p ng-show="forgotForm.email.$invalid && submitted" class="help-block">{{"Invalid Email" | translate}}</p>
 				</div>
-					<textarea bs-form-control label="Mensagem" rows="4" placeholder="Mensagem opcional" ng-model="Forgot.informations.message"></textarea>
-				<button class="btn btn-primary btn-block">Recuperar minha senha</button>
+					<textarea bs-form-control label='{{"Message" | translate}}' rows="4" placeholder='{{"Optional Message" | translate}}' ng-model="Forgot.informations.message"></textarea>
+				<button class="btn btn-primary btn-block">{{"Reset my Password" | translate}}</button>
 			</form>
 		</div>
 	</div>

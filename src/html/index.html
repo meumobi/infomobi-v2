@@ -26,9 +26,9 @@
 					<i class="fa fa-ellipsis-v"></i>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li><a ng-click="go('/account')" toggle="off" target="myDropdown">Minha conta</a></li>
+					<li><a ng-click="go('/account')" toggle="off" target="myDropdown">{{"Account" | translate}}</a></li>
 					<li class="divider"></li>
-					<li><a ng-click="logout()" toggle="off" target="myDropdown">Sair</a></li>
+					<li><a ng-click="logout()" toggle="off" target="myDropdown">{{"Sign Out" | translate}}</a></li>
 				</ul>
 			</div>
 		</div>
@@ -36,13 +36,13 @@
 		<div class="navbar navbar-app navbar-absolute-bottom nav-bottom" ng-if="NavBarBottom">
 			<div class="btn-group justified">
 				<a ng-click="go('/list')" class="btn btn-navbar">
-					<i class="fa fa-rss fa-navbar"></i> Notícias
+					<i class="fa fa-rss fa-navbar"></i> {{"News" | translate}}
 				</a>
 				<a ng-click="go('/files')" class="btn btn-navbar">
-					<i class="fa fa-download fa-navbar"></i> Arquivos
+					<i class="fa fa-download fa-navbar"></i> {{"Files" | translate}}
 				</a>
 				<a ng-click="go('/contact')" class="btn btn-navbar">
-					<i class="fa fa-envelope fa-navbar"></i> Contato
+					<i class="fa fa-envelope fa-navbar"></i> {{"Contact" | translate}}
 				</a>
 			</div>
 		</div>

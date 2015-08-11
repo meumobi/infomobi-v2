@@ -4,6 +4,13 @@ angular
 .module('meumobi.settings', [])
 
 .constant("APP", @@APP)
+.constant('LOCALES', {
+	'locales': {
+		'pt_BR': 'Português',
+		'en_US': 'English'
+	},
+	'preferredLocale': 'en_US'
+})
 .constant("CONFIG", @@CONFIG)
 //.constant("PUSH", {})
 //.constant("WELCOME", @@WELCOME)

@@ -25,7 +25,10 @@ var app = angular
 	'meumobi.filters.DownloadFiles',
 	'meumobi.stubs',
 	'meumobi.services.Files',
-	'meumobi.directives.DownloadFile'
+	'meumobi.directives.DownloadFile',
+	'pascalprecht.translate',// angular-translate
+	'tmh.dynamicLocale',// angular-dynamic-locale
+	"ngCookies"
 ])
 
 .config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider, CONFIG) {
@@ -88,6 +91,22 @@ var app = angular
 	});
 
 	analyticsProvider.setup(CONFIG.ANALYTICS.trackId);
+})
+
+.config(function ($translateProvider) {
+	// To get warnings in the developer console, regarding forgotten IDs in translations
+	$translateProvider.useMissingTranslationHandlerLog();
+	
+	$translateProvider.useStaticFilesLoader({
+		prefix: 'locales/',// path to translations files
+		suffix: '.json'// suffix, currently- extension of the translations
+	});
+	$translateProvider.preferredLanguage('en_US');// is applied on first load
+	$translateProvider.useLocalStorage();// saves selected language to localStorage
+})
+
+.config(function (tmhDynamicLocaleProvider) {
+	tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
 })
 
 .run(function($rootScope, $location, $http, analytics, AppFunc, AppInfo, APP, DeviceService, AuthService) {

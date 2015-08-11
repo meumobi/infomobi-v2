@@ -1,14 +1,14 @@
 <div class="scrollable">
 	<div class="scrollable-content section">
 		<form action="" id="">
-			<div bs-panel title="Altera sua senha">
+			<div bs-panel title='{{"Change Password" | translate}}'>
 				<input bs-form-control type="text" label="Email" ng-model="user.mail" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" readonly>
-				<input bs-form-control type="password" ng-model="user.password" label="Senha" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder="Senha antiga">
-				<input bs-form-control type="password" ng-model="user.newPassword" label="Senha nova" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder="Senha nova">
-				<input bs-form-control type="password" ng-model="user.confirmNewPassword" label="Confirmar" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder="Confirmar senha nova">
+				<input bs-form-control type="password" ng-model="user.password" label='{{"Password" | translate}}' label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder='{{"Old password" | translate}}'>
+				<input bs-form-control type="password" ng-model="user.newPassword" label='{{"New password" | translate}}' label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder='{{"New password" | translate}}'>
+				<input bs-form-control type="password" ng-model="user.confirmNewPassword" label='{{"Confirm" | translate}}' label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder='{{"Confirm new password" | translate}}'>
 				<br/>
 				<div class="form-actions col-xs-1">
-					<button class="btn btn-primary" ng-click="change()">Salvar</button>
+					<button class="btn btn-primary" ng-click="change()">{{"Save" | translate}}</button>
 				</div>
 			</div>
 		</form>

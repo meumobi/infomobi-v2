@@ -30,7 +30,7 @@
 		function getSignature() {
 			var deviceConfig = {};
 			// Only save device from App, not webapp, because we use uuid as primary key
-			if (device && window.plugins.uniqueDeviceID) {
+			if (typeof(device) != "undefined" && device != null && typeof(window.plugins) != "undefined" && window.plugins.uniqueDeviceID) {
 				deviceConfig.model = device.model;
 				deviceConfig.platform = device.platform;
 				deviceConfig.version = device.version;
@@ -43,10 +43,12 @@
 		
 		function updateSignature() {
 			deviceReady(function() {
+				
 				var signature = getSignature();
 				console.log("Updating Signature");
+				
 				// uuid is the primary key of Device, so if not available no need to PUT it on API
-				if (window.plugins.uniqueDeviceID)
+				if (typeof(window.plugins) != "undefined" && window.plugins.uniqueDeviceID)
 				{
 					window.plugins.uniqueDeviceID.get(
 						function(uuid){

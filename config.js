@@ -22,10 +22,10 @@ module.exports = function(config) {
 	// Weinre Remote debug server
   
 	config.weinre.httpPort = 8080;
-	config.weinre.boundHost = '192.168.0.5';
+	config.weinre.boundHost = '192.168.1.173';
 
 	// Comment to enable weinre, uncomment to disable weinre 
-	// config.weinre = false;
+	config.weinre = false;
 	config.debug = false;
     
 	// 3rd party components
@@ -38,6 +38,12 @@ module.exports = function(config) {
 	//config.vendor.js.push('./src/js/lib/pushwoosh-android.js');
 	//config.vendor.js.push('./src/js/lib/pushwoosh-ios.js');
 	config.vendor.js.push('./bower_components/ladda/dist/spin.min.js');
-	config.vendor.js.push('./bower_components/ladda/dist/ladda.min.js');
+	config.vendor.js.push('./bower_components/angular-translate/angular-translate.min.js');
+	config.vendor.js.push('./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js');
+	config.vendor.js.push('./bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js');
+	config.vendor.js.push('./bower_components/angular-cookies/angular-cookies.min.js');
+	config.vendor.js.push('./bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js');
+	config.vendor.js.push('./bower_components/angular-translate-handler-log/angular-translate-handler-log.min.js');
+	config.vendor.js.push('./bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js');
 	// config.vendor.fonts.push('.bower_components/font/dist/*');
 };

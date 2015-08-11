@@ -7,17 +7,17 @@
 			<div>
 				<form name="loginForm" ng-submit="Login.submitForm(loginForm.$valid)" novalidate>
 					<input type="email" name="email" placeholder="email" ng-model="credentials.email" ng-required="true" class="form-control">
-					<p ng-show="loginForm.email.$invalid && submitted" class="help-block">E-mail inválido.</p>
+					<p ng-show="loginForm.email.$invalid && submitted" class="help-block">{{"Invalid Email" | translate}}</p>
 					<input type="password" name="password" placeholder="senha" ng-model="credentials.password" ng-required="true" class="form-control">
-					<p ng-show="loginForm.password.$invalid && submitted" class="help-block">Senha inválida.</p>
+					<p ng-show="loginForm.password.$invalid && submitted" class="help-block">{{"Invalid Password" | translate}}</p>
 					<button data-ui-ladda="Login.loading" class="btn btn-primary btn-block ladda-button" data-style="expand-right">
-						<span class="ladda-label">Entrar</span>
+						<span class="ladda-label">{{"Sign In" | translate}}</span>
 					</button>
 				</form>
 			</div>
 			<div id="forgot">
-				<span><a ng-click="go('/login/forgot','slideLeft')">Esqueceu a senha?</a></span>&nbsp;-&nbsp;
-				<span><a ng-click="go('/login/welcome','slideLeft')">Sobre @@name</a></span>
+				<span><a ng-click="go('/login/forgot','slideLeft')">{{"Forgot Password?" | translate}}</a></span>&nbsp;-&nbsp;
+				<span><a ng-click="go('/login/welcome','slideLeft')">{{"About" | translate}} @@name</a></span>
 			</div>
 		</div>
 	</div>
@@ -27,12 +27,12 @@
 	<div class="scrollable">
 		<div class="scrollable-content section" id="otp">
 	<div bs-panel title="Altera sua senha" style="text-align:left">
-		<p>Oi {{visitor.first_name}}, <br/>
-		para sua melhor segurança é preciso alterar a sua senha para continuar.</p>
+		<p>{{"Hello" | translate}} {{visitor.first_name}}, <br/>
+			{{"For security reason you need to type here a new personal password" | translate}}</p>
 		<form ng-submit="Login.changePassword()">
 			<input type="password" ng-model="Login.new_password" placeholder="Nova Senha" class="form-control"/>
 			<button class="btn btn-primary btn-block">
-				<span>Salvar</span>
+				<span>{{"Save" | translate}}</span>
 			</button>
 			<!--input type="submit" id="submit" class="ib-primary col-xs-12 needsclick from-control" value="Salvar" /-->
 		</form>

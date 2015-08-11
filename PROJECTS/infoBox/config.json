@@ -24,8 +24,8 @@
 			"brandPrimary": "#eb780a"
 		},
 		"WELCOME": {
-			"title": "Bem-vindo ao InfoBox",
-			"description": "O InfoBox é o novo aplicativo de Comunicação Interna da Siemens no Brasil. Com ele, você fica atualizado sobre as principais informações da empresa.",
+			"title": "Welcome to InfoBox",
+			"description": "InfoBox is the newest mobile App of Siemens Brazil Internal Communication. Sign in and keep in touch with all news about Siemens",
 			"images":[  
 				{  
 					"path":"images/welcome-1.png",
