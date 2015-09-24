@@ -1,0 +1,8 @@
+{
+	"APP": {
+		"cdnUrl": "http://comunique-se.meumobilesite.com/",
+		"domain": "dnadigital.meumobi.com",
+		"apiUrl": "http://comunique-se.meumobilesite.com/api/",
+		"halSupport": false
+	}
+}

@@ -9,8 +9,9 @@ angular
 		'pt_BR': 'Português',
 		'en_US': 'English'
 	},
-	'preferredLocale': 'en_US'
+	'preferredLocale': 'pt_BR'
 })
+
 .constant("CONFIG", @@CONFIG)
 //.constant("PUSH", {})
 //.constant("WELCOME", @@WELCOME)

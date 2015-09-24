@@ -101,7 +101,7 @@ var app = angular
 		prefix: 'locales/',// path to translations files
 		suffix: '.json'// suffix, currently- extension of the translations
 	});
-	$translateProvider.preferredLanguage('en_US');// is applied on first load
+	$translateProvider.preferredLanguage('pt_BR');// is applied on first load
 	$translateProvider.useLocalStorage();// saves selected language to localStorage
 })
 

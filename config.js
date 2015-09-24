@@ -26,7 +26,7 @@ module.exports = function(config) {
 
 	// Comment to enable weinre, uncomment to disable weinre 
 	config.weinre = false;
-	config.debug = false;
+	config.debug = true;
     
 	// 3rd party components
 	config.vendor.js.push('./bower_components/angular-touch/angular-touch.js');
@@ -37,6 +37,7 @@ module.exports = function(config) {
 	config.vendor.js.push('./bower_components/js-md5/js/md5.js');
 	//config.vendor.js.push('./src/js/lib/pushwoosh-android.js');
 	//config.vendor.js.push('./src/js/lib/pushwoosh-ios.js');
+	config.vendor.js.push('./bower_components/ladda/dist/ladda.min.js');
 	config.vendor.js.push('./bower_components/ladda/dist/spin.min.js');
 	config.vendor.js.push('./bower_components/angular-translate/angular-translate.min.js');
 	config.vendor.js.push('./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js');

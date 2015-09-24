@@ -90,11 +90,11 @@
 	
 	<!-- default mandatory splash 320x480px-->
 	<gap:splash src="splash.png" />
-	<gap:splash gap:platform="android" gap:qualifier="ldpi" src="res/screen/android/drawable-ldpi/screen.9.png" />
-	<gap:splash gap:platform="android" gap:qualifier="mdpi" src="res/screen/android/drawable-mdpi/screen.9.png" />
-	<gap:splash gap:platform="android" gap:qualifier="hdpi" src="res/screen/android/drawable-hdpi/screen.9.png" />
-	<gap:splash gap:platform="android" gap:qualifier="xhdpi" src="res/screen/android/drawable-xhdpi/screen.9.png" />
-	<gap:splash gap:platform="android" gap:qualifier="xxhdpi" src="res/screen/android/drawable-xxhdpi/screen.9.png" />
+	<gap:splash gap:platform="android" gap:qualifier="ldpi" src="res/screen/android/drawable-ldpi/Launch-image-android.9.png" />
+	<gap:splash gap:platform="android" gap:qualifier="mdpi" src="res/screen/android/drawable-mdpi/Launch-image-android.9.png" />
+	<gap:splash gap:platform="android" gap:qualifier="hdpi" src="res/screen/android/drawable-hdpi/Launch-image-android.9.png" />
+	<gap:splash gap:platform="android" gap:qualifier="xhdpi" src="res/screen/android/drawable-xhdpi/Launch-image-android.9.png" />
+	<gap:splash gap:platform="android" gap:qualifier="xxhdpi" src="res/screen/android/drawable-xxhdpi/Launch-image-android.9.png" />
 	<!--gap:splash gap:platform="android" gap:qualifier="fr-xhdpi" src="res/screen/android/screen-fr-xhdpi.png" />
 	<gap:splash gap:platform="android" gap:qualifier="port-xxhdpi" src="res/screen/android/screen-portrait-xxhdpi.png" />
 	<gap:splash gap:platform="android" gap:qualifier="land-xxhdpi" src="res/screen/android/screen-landscape-xxhdpi.png" /-->
