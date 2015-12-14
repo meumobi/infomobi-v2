@@ -1,26 +1,28 @@
 {
-	"name": "infobox",
-	"version": "0.0.0",
-	"private": true,
-	"dependencies": {
-		"angular": "~1.x",
-		"angular-route": "~1.x",
-		"angular-touch": "~1.x",
-		"angular-animate": "~1.x",
-		"mobile-angular-ui": "~1.1.0-beta.29",
-		"font-awesome": "4.2",
-		"bootstrap": "3.2",
-		"angular-sanitize": "~1.x",
-		"js-md5": "1.1.0",
-		"angular-carousel": "~0.3.x",
-		"angular-pull-to-refresh": "~0.3.0",
-		"ladda": "~0.9.8",
-		"angular-translate": "~2.7.2",
-		"angular-translate-loader-static-files": "~2.7.2",
-		"angular-translate-storage-local": "~2.7.2",
-		"angular-translate-handler-log": "~2.7.2",
-		"angular-dynamic-locale": "~0.1.27",
-		"angular-i18n": "~1.4.3",
-		"angular-resource": "~1.x"
-	}
+  "name": "infobox",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "angular-route": "~1.x",
+    "angular-touch": "~1.x",
+    "angular-animate": "~1.x",
+    "mobile-angular-ui": "~1.1.0-beta.29",
+    "font-awesome": "4.2",
+    "bootstrap": "3.2",
+    "angular-sanitize": "~1.x",
+    "js-md5": "1.1.0",
+    "angular-carousel": "~0.3.x",
+    "angular-pull-to-refresh": "~0.3.0",
+    "ladda": "~0.9.8",
+    "angular-translate": "~2.7.2",
+    "angular-translate-loader-static-files": "~2.7.2",
+    "angular-translate-storage-local": "~2.7.2",
+    "angular-translate-handler-log": "~2.7.2",
+    "angular-dynamic-locale": "~0.1.27",
+    "angular-i18n": "~1.4.3",
+    "angular-resource": "~1.x"
+  },
+  "devDependencies": {
+    "angular": "~1.4.8"
+  }
 }
