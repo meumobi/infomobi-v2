@@ -32,9 +32,9 @@
 	
 	<!-- 
 		<plugin name="pushwoosh-cordova-plugin" spec="~3.6.0" /> 
-		<plugin name="com.telerik.plugins.nativepagetransitions" spec="0.5.4" />
 	-->
 	<plugin name="com.pushwoosh.plugins.pushwoosh" source="pgb" version="~3.4.1" />
+	<plugin name="com.telerik.plugins.nativepagetransitions" spec="~0.5.7" />
 	<plugin name="cordova-open" spec="~1.0.9" />
 	<plugin name="cordova-plugin-apprate" spec="~1.1.11"/>
 	<plugin name="cordova-plugin-calendar" spec="~4.4.4" />

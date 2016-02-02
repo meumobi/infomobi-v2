@@ -1,22 +1,27 @@
-@import "mobile-angular-ui/src/less/mobile-angular-ui.less";
-@import "ladda-themeless.min.less"; /*TODO use gulp to include this*/
+@import "mobile-angular-ui/src/less/mobile-angular-ui-base.less";
 @import "mixins.less";
+@import "variables.less";
+@import "ladda-themeless.min.less";
 @import "home.less";
 @import "login.less";
 @import "contact.less";
-@import "screen-transition";
 @import "medias.less";
+
 
 /* ------------------ Variables Begin ------------------ */
 @zindex-modal-background: #fff;
 @brand-primary: @@brandPrimary; // Replaced by gulp
 @brand-primary-soft : #f1b882;
 
-/* ------------------ Variables End ------------------ */
+@navbar-top-default-color: #fff;
+@navbar-top-default-link-color: #fff;
+@navbar-top-default-bg: @brand-primary;
 
-img{
-  background-color: gray;
-}
+@navbar-default-color:                     @brand-primary;
+@navbar-default-bg:                        #f7f7f7;
+@navbar-default-link-color:                @brand-primary;
+
+/* ------------------ Variables End ------------------ */
 
 a[disabled] {
   pointer-events: none;
@@ -45,7 +50,6 @@ a[disabled] {
   &:extend(.navbar);
   &:extend(.navbar-app);
   &:extend(.navbar-absolute-bottom);
-  padding-top: 5px;
   &.btn-navbar{
     line-height: 20px;
     text-transform: none;
@@ -107,7 +111,9 @@ a[disabled] {
       margin-top: -5px;
     }
   }
-
+	.btn {
+		color: @navbar-top-default-link-color
+	}
   .pull-left button, .pull-right button{
     width: 40px;
     box-sizing: content-box;
@@ -207,4 +213,41 @@ ul[rn-carousel] > li img{
       content: ">";
     }
   }
+}
+
+/* From Bootstrap */
+
+.btn-group.open .dropdown-toggle {
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+    color: #333333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.open > .dropdown-toggle.btn-default {
+    color: #333333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.navbar-app .btn.active, .navbar-app .btn-navbar.active {
+        color: @navbar-default-link-active-color;
+        background-color: @navbar-default-link-active-bg;
+}
+
+.slide {
+	position: absolute;
+	top: 0; right: 0; bottom: 0; left: 0;
+	background: inherit;
+}
+
+.ng-enter {
+	opacity: 0;
+}
+.ng-enter.ng-enter-active {
+	opacity: 1;
 }

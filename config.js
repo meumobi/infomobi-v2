@@ -22,11 +22,12 @@ module.exports = function(config) {
 	// Weinre Remote debug server
   
 	config.weinre.httpPort = 8080;
-	config.weinre.boundHost = '192.168.1.173';
+	// How to get local ip: $ ifconfig |grep inet
+	config.weinre.boundHost = '192.168.1.44';
 
 	// Comment to enable weinre, uncomment to disable weinre 
 	config.weinre = false;
-	config.debug = true;
+	config.debug = false;
     
 	// 3rd party components
 	config.vendor.js.push('./bower_components/angular-touch/angular-touch.js');

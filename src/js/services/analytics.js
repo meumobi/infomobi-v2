@@ -1,4 +1,4 @@
-angular.module('services.Analytics', ['meumobi.Cordova'])
+angular.module('services.Analytics', ['meumobi.services.Cordova'])
   .provider('analytics', function() {
     var analyticsId = null;
     var gaPlugin = null;

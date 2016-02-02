@@ -1,16 +1,35 @@
 <div class="scrollable">
 	<div class="scrollable-content section">
-		<form action="" id="">
-			<div bs-panel title='{{"Change Password" | translate}}'>
-				<input bs-form-control type="text" label="Email" ng-model="user.mail" label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" readonly>
-				<input bs-form-control type="password" ng-model="user.password" label='{{"Password" | translate}}' label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder='{{"Old password" | translate}}'>
-				<input bs-form-control type="password" ng-model="user.newPassword" label='{{"New password" | translate}}' label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder='{{"New password" | translate}}'>
-				<input bs-form-control type="password" ng-model="user.confirmNewPassword" label='{{"Confirm" | translate}}' label-class="col-xs-4 col-sm-4 col-lg-4" class="col-xs-8 col-sm-8 col-lg-8" placeholder='{{"Confirm new password" | translate}}'>
-				<br/>
-				<div class="form-actions col-xs-1">
-					<button class="btn btn-primary" ng-click="change()">{{"Save" | translate}}</button>
+		<form role="form" ng-submit='change()'>
+			<fieldset>
+				<legend>{{"Change Password" | translate}}</legend>
+				<div class="form-group">
+					<label>Email</label>
+					<input type="email"
+					ng-model="user.mail"
+					class="form-control"
+					readonly />
 				</div>
-			</div>
+				<div class="form-group">
+					<label>{{"Old password" | translate}}</label>
+					<input type="password"
+					ng-model="user.password"
+					class="form-control" />
+				</div>
+				<div class="form-group">
+					<label>{{"New password" | translate}}</label>
+					<input type="password"
+					ng-model="user.newPassword"
+					class="form-control" />
+				</div>
+				<div class="form-group">
+					<label>{{"Confirm new password" | translate}}</label>
+					<input type="password"
+					ng-model="user.confirmNewPassword"
+					class="form-control" />
+				</div>
+			</fieldset>
+			<button class="btn btn-primary btn-block">{{"Save" | translate}}</button>
 		</form>
 	</div>
 </div>

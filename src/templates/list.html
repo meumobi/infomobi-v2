@@ -1,6 +1,6 @@
 <!-- input bs-form-control type="search" class="app-search" placeholder="Buscar..." ng-model="query" / -->
 
-<div content-for="navbarActionLeft">
+<div ui-content-for="navbarActionLeft">
 	<button ng-click="syncNews()" class="btn btn-primary">
 		<i class="fa fa-refresh"></i>
 	</button>
@@ -17,7 +17,7 @@
 					<i class="fa fa-spinner fa-spin"></i> {{"Loading..." | translate}}
 				</div>
 			</div>
-			<a ng-repeat="item in items | filter:query" ng-click="go('/show/'+$index,'slideLeft')" class="list-group-item ib-article">
+			<a ng-repeat="item in items | filter:query" href="{{'#/show/'+$index}}" ng-click="go('/show/'+$index,'slide-left')" class="list-group-item ib-article">
 				<div class="media">
 					<div class="ib-media-container pull-left" ng-if="item.images.length">
 						<img ng-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}">

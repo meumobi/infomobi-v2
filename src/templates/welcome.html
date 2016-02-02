@@ -1,5 +1,5 @@
-<div content-for="navbarActionLeft"></div>
-<div content-for="navbarActionRight"></div>
+<div ui-content-for="navbarActionLeft"></div>
+<div ui-content-for="navbarActionRight"></div>
 
 <div class="scrollable">
 	<div class="scrollable-content">
@@ -20,7 +20,7 @@
 				<br>
 			</h4>
 			<div ng-bind-html="item.description | hrefToJS"></div><br/>
-			<button ng-click="go('/login','slideRight')" class="btn btn-primary btn-block">{{"Continue" | translate}}</button>
+			<button ng-click="flip('#/login')" class="btn btn-primary btn-block">{{"Continue" | translate}}</button>
 		</div>
 	</div>
 </div>

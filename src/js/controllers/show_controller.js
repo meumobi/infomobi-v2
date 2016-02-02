@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('ShowController', ShowController);
 
-function ShowController($rootScope, $scope, $sce, $routeParams, API, APP, AppFunc) {
+function ShowController($rootScope, $scope, $sce, $routeParams, API, APP, UtilsService, $log) {
 	$scope.getTrustedResourceUrl = function(src) {
 		return $sce.trustAsResourceUrl(src);
 	}
@@ -27,9 +27,11 @@ function ShowController($rootScope, $scope, $sce, $routeParams, API, APP, AppFun
 		return results;
 	}
 
-	$scope.shareFeed = function() {
-		AppFunc.shareFeed($scope.item);
-	};	
+	$scope.shareItem = function() {
+		$log.debug("Share Item");
+		$log.debug($scope.item);
+		UtilsService.shareItem($scope.item);
+	};
 
 	$scope.item = $rootScope.news[$routeParams.id];
 	$scope.item.next = ($routeParams.id < $rootScope.news.length-1) ? '/show/' + (parseInt($routeParams.id) + 1) : "#";

@@ -2,7 +2,7 @@
 	'use strict';
 	
 	angular
-	.module('meumobi.Cordova', [])
+	.module('meumobi.services.Cordova', [])
 	.factory('deviceReady', deviceReady);
 	
 	function deviceReady() {

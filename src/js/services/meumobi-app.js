@@ -2,14 +2,13 @@
 	'use strict';
 
 	angular
-	.module('meumobi.appInfo', ['meumobi.Cordova'])
+	.module('meumobi.appInfo', ['meumobi.services.Cordova'])
 	.factory('AppInfo', AppInfo)
 	
 	function AppInfo(deviceReady, $rootScope) {
 		var service = {};
 		
 		service.isOnline = isOnline;
-		service.migrateVersion = migrateVersion;
 		service.clearRestrictedDatas = clearRestrictedDatas;
 		
 		return service;
@@ -57,47 +56,13 @@
 			localStorage.removeItem("news");
 			localStorage.removeItem("files");
 		}
-
-		function migrateDeviceInformations() {
-			localStorage.device = localStorage.deviceInformations;
-			console.log("migrate Device Informations");
-			localStorage.removeItem("deviceInformations");
-		}
-
-		function migrateUserToken() {
-			console.log("migrate User Token: " + localStorage.userToken);
-			//AuthService.updateCredentials(localStorage.userToken);
-			localStorage.authToken = localStorage.userToken;
-			localStorage.removeItem("userToken");
-		}
-
-		function migrateNewsList() {
-			console.log("migrate News list");
-			localStorage.news = localStorage.newsList;
-			localStorage.removeItem("newsList");
-		} 
-
-		function migrateVersion() {
-			if (localStorage.hasOwnProperty('newsList')) {
-				migrateNewsList();
-			}
-			if (localStorage.hasOwnProperty('userToken')) {
-				migrateUserToken();
-			}
-			if (localStorage.hasOwnProperty('deviceInformations')) {
-				migrateDeviceInformations();
-			}
-			if (localStorage.hasOwnProperty('mail')) {
-				localStorage.removeItem("mail");
-			}
-		}
 	}
 	
 	angular
-	.module('meumobi.appFunc', ['meumobi.Cordova', 'meumobi.settings'])
+	.module('meumobi.appFunc', ['meumobi.services.Cordova', 'meumobi.settings', 'meumobi.services.Push'])
 	.factory('AppFunc', AppFunc);
 
-	function AppFunc(deviceReady, $rootScope, $location, $window, $route, APP, API, CONFIG) {
+	function AppFunc(deviceReady, PushService, $rootScope, $location, $window, $route, APP, API, CONFIG, $log) {
 		var app = {
 			isOnline: function() {
 				deviceReady(function() {
@@ -112,22 +77,6 @@
 					return connection;
 				});
 			},
-			
-			shareFeed: function(item) {
-				var that = this;
-				deviceReady(function() {
-					if (window.plugins && window.plugins.socialsharing) {
-						var subject = item.title;
-						var message = item.description;
-						message = message.replace(/(<([^>]+)>)/ig, "");
-
-						var link = item.link;
-						var img = (item.images.length > 0) ? that.getImage(item.images[0].path) : null;
-
-						//Documentation: https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin
-						window.plugins.socialsharing.share(message, subject, img, link);
-					}});
-				},
 
 				confirm: function(message, callback, title) {
 					title = (title != undefined) ? title : 'Confirm';
@@ -169,16 +118,6 @@
 						}
 					});
 				},
-				transition: function(path, pageAnimationClass) {
-					if (path != "#") {
-						if (typeof(pageAnimationClass) === undefined) { // Use a default, your choice
-							$rootScope.pageAnimationClass = 'crossFade';
-						} else { // Use the specified animation
-							$rootScope.pageAnimationClass = pageAnimationClass;
-						}
-						$location.path(path);
-					}
-				},
 				getImage: function(path){
 					/*
 					if(localStorage["image_"+id]){
@@ -187,18 +126,8 @@
 					*/
 					return APP.cdnUrl + path;
 				},
-				initPushwoosh: function() {
-					deviceReady(function() {
-						if (window.plugins && window.plugins.pushNotification) {
-							if (device.platform == "Android") {
-								registerPushwooshAndroid();
-							}
-							if (device.platform == "iPhone" || device.platform == "iOS") {
-								registerPushwooshIOS();
-							}
-						}
-					});
-				},
+
+
 				eraseNotifications: function() {
 					deviceReady(function() {
 						if (window.plugins && window.plugins.pushNotification) {
@@ -214,20 +143,50 @@
 						var that = this;
 						//that.backButton();
 						deviceReady(function() {
-							that.hideSplashScreen();
-							app.initPushwoosh();
+							PushService.config( CONFIG.PUSHWOOSH.googleProjectNumber, CONFIG.PUSHWOOSH.applicationCode);
+							PushService.register(
+								function(token) {
+									$log.info("Device token: " + token);
+									that.saveDevice(token);
+								}, function(status) {
+									$log.warn('failed to register : ' + JSON.stringify(status));
+								}
+							);
 							that.statusBar();
+							that.hideSplashScreen();
 						});
-						that.receiveNotification();
-						//that.backButton();
+						// that.receiveNotification();
+						that.backButton();
 					},
-					/*			backButton: function() {
-						document.addEventListener("backbutton", function() {
-						alert("Back");
-						$window.history.back();
-						//$rootScope.go(window.history.back(), 'slideRight');
-						}, false);
-						},*/
+						backButton: function() {
+							document.addEventListener("backbutton", onBackKeyDown, false);
+
+							function onBackKeyDown() {
+								// alert("Back");
+								$rootScope.go(window.history.back(), 'slide-right');
+							}
+						},
+						saveDevice: function(token) {
+							deviceReady(function() {
+								var uniqueDeviceID = window.plugins && window.plugins.uniqueDeviceID;
+								if (uniqueDeviceID) {
+									uniqueDeviceID.get(
+										function(uuid) {
+											$log.info("UUID : " + uuid);
+											$log.info("Device token : " + token);
+											API.Devices.save({"push_id": token, "uuid": uuid }, 
+											function(response) {
+												$log.info(response);
+											}, function(error) {
+												$log.error(error);
+											});
+										}, function(error) {
+											$log.warn(error)
+										}
+									);
+								}
+							});
+						},
 						hideSplashScreen: function() {
 							if (navigator.splashscreen) {
 								navigator.splashscreen.hide();

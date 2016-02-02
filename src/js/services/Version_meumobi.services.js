@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Version', ['meumobi.Cordova', 'meumobi.appFunc'])
+	.module('meumobi.services.Version', ['meumobi.services.Cordova', 'meumobi.appFunc'])
 	.factory('VersionService', VersionService);
 		
 	function VersionService(deviceReady, $rootScope, $http, CONFIG, AppFunc) {

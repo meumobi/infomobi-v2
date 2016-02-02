@@ -2,10 +2,10 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Device', ['meumobi.Cordova', 'meumobi.utils'])
+	.module('meumobi.services.Device', ['meumobi.services.Cordova', 'meumobi.utils'])
 	.factory('DeviceService', DeviceService);
 		
-	function DeviceService(deviceReady, AppUtils, $rootScope, API) {
+	function DeviceService(deviceReady, AppUtils, $rootScope, API, $log) {
 		var service = {};
 			
 		service.updateSignature = updateSignature;
@@ -29,14 +29,20 @@
 		
 		function getSignature() {
 			var deviceConfig = {};
+			 
 			// Only save device from App, not webapp, because we use uuid as primary key
-			if (typeof(device) != "undefined" && device != null && typeof(window.plugins) != "undefined" && window.plugins.uniqueDeviceID) {
-				deviceConfig.model = device.model;
-				deviceConfig.platform = device.platform;
-				deviceConfig.version = device.version;
-				deviceConfig.app_version = AppVersion.version;
-				deviceConfig.app_build = AppVersion.build;
-				deviceConfig.push_id = localStorage.hasOwnProperty('push_id') ? localStorage['push_id'] : null;
+			if (typeof(window.plugins) != "undefined") {
+				if (typeof(AppVersion) !== 'undefined' && AppVersion != null) {
+					deviceConfig.app_version = AppVersion.version;
+					deviceConfig.app_build = AppVersion.build;
+				}
+			
+				if (typeof(device) != "undefined" && device != null) {
+					deviceConfig.model = device.model;
+					deviceConfig.platform = device.platform;
+					deviceConfig.version = device.version;
+					deviceConfig.push_id = localStorage.hasOwnProperty('push_id') ? localStorage['push_id'] : null;
+				}
 			}
 			return deviceConfig;
 		}
@@ -45,8 +51,8 @@
 			deviceReady(function() {
 				
 				var signature = getSignature();
-				console.log("Updating Signature");
-				
+				$log.debug("Updating Signature");
+
 				// uuid is the primary key of Device, so if not available no need to PUT it on API
 				if (typeof(window.plugins) != "undefined" && window.plugins.uniqueDeviceID)
 				{
@@ -54,12 +60,8 @@
 						function(uuid){
 
 							signature.uuid = uuid;
-							// if 1st connection then POST (device) else PUT (update)
-							if (!localStorage.hasOwnProperty("device")) {
-								API.Login.device(signature, success, error);
-							} else {
-								API.Login.update(signature, success, error);
-							}
+							$log.debug(signature);
+							API.Devices.save(signature, success, error);
 
 							//API.Login.update(signature, success, error);
 							loadDevice(signature);

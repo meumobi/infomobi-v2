@@ -31,7 +31,7 @@ angular
 			success: function(resp) {
 				AppFunc.toast("Mensagem enviada com sucesso");
 				//$scope.Forgot.informations.message = "";
-				$rootScope.go('/login', 'slideRight');
+				$rootScope.go('/login', 'slide-right');
 			},
 			error: function(err) {
 				AppFunc.toast("Erro ao enviar mensagem");

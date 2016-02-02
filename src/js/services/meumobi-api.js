@@ -140,6 +140,14 @@ var app = {
 			}
 		}
 	})(),
+	Devices: (function() {
+		var path = '/devices/';
+		return {
+			save: function(obj, success, error) {
+				api.put(path + obj.uuid, obj, success, error);
+			} 
+		}
+	})(),
 	Mail: (function() {
 		var path = '/mail/';
 		return {

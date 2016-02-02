@@ -3,10 +3,10 @@
 var app = angular
 
 .module('infoMobi', [
-	'meumobi.Cordova',
 	'meumobi.services.Device',
 	'meumobi.services.Version',
 	'meumobi.services.Auth',
+	'meumobi.services.Utils',
 	'ngRoute',
 	'ngTouch',
 	'angular-carousel',
@@ -14,6 +14,7 @@ var app = angular
 	'ngAnimate',
 	'ngSanitize',
 	'mobile-angular-ui',
+	'mobile-angular-ui.gestures.swipe',
 	'services.Analytics',
 	'meumobi.api',
 	//'meumobi.sync', 
@@ -43,7 +44,8 @@ var app = angular
 	.when('/show/:id', {
 		templateUrl: "show.html",
 		controller: "ShowController",
-		resolve: {
+		title: "Show"
+/*		resolve: {
 			viewName: function($route, $rootScope) {
 				//obs. this shoud be a service not a global rootScope property, but is using the implementatiopn of showController
 				var item = $rootScope.news[$route.current.params.id];
@@ -51,6 +53,7 @@ var app = angular
 					$route.current.$$route.title = item.title;
 			}
 		}
+*/
 	})
 	.when('/account', {
 		templateUrl: "account.html",
@@ -109,10 +112,136 @@ var app = angular
 	tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
 })
 
-.run(function($rootScope, $location, $http, analytics, AppFunc, AppInfo, APP, DeviceService, AuthService) {
+
+.config(['$logProvider', function($logProvider){
+    $logProvider.debugEnabled(@@debug);
+}])
+
+.config(
+	function configureAnimate( $animateProvider ) {
+		$animateProvider.classNameFilter( /\banimated\b/ );
+	}
+)
+
+.animation('.slide', ['$animateCss', '$rootScope', '$log', 'SharedState', function($animateCss, $rootScope, $log, SharedState) {
+	
+	var transition = {
+		"slide-left": {
+			enter: "slideInRight",
+			leave: "slideOutLeft"
+		},
+		"slide-right": {
+			enter: "slideInLeft",
+			leave: "slideOutRight"
+		}
+	}
+
+	/*var transition = {
+		"slide-left": {
+			enter: {
+			  from: {
+			    "-webkit-transform": "translate3d(100%, 0, 0)",
+			    transform: "translate3d(100%, 0, 0)",
+			  },
+
+			  to: {
+			    "-webkit-transform": "translate3d(0, 0, 0)",
+			    transform: "translate3d(0, 0, 0)"
+			  }
+			},
+			leave: {
+			  from: {
+			    "-webkit-transform": "translate3d(0, 0, 0)",
+			    transform: "translate3d(0, 0, 0)"
+			  },
+
+			  to: {
+			    "-webkit-transform": "translate3d(-100%, 0, 0)",
+			    transform: "translate3d(-100%, 0, 0)"
+			  }
+			}
+		},
+		"slide-right": {
+			enter: {
+			  from: {
+			    "-webkit-transform": "translate3d(-100%, 0, 0)",
+			    transform: "translate3d(-100%, 0, 0)",
+			  },
+
+			  to: {
+			    "-webkit-transform": "translate3d(0, 0, 0)",
+			    transform: "translate3d(0, 0, 0)"
+			  }
+			},
+			leave: {
+			  from: {
+			    "-webkit-transform": "translate3d(0, 0, 0)",
+			    transform: "translate3d(0, 0, 0)"
+			  },
+
+			  to: {
+			    "-webkit-transform": "translate3d(100%, 0, 0)",
+			    transform: "translate3d(100%, 0, 0)"
+			  }
+			}
+		}
+	}*/
+
+	return {
+		enter: function(element, done) { 
+			$log.debug(".animation SharedState: " + SharedState.get("transition"));
+			if (SharedState.get("transition")) {
+				var transform = transition[SharedState.get("transition")];
+					return $animateCss(element, {
+						event: 'enter',
+						structural: true,
+						addClass: transform.enter,
+						//from: transform.enter.from,
+					  //to: transform.enter.to,
+						// duration: 10.35
+						
+					}).start().done(function() {
+						$log.debug("done enter " + transform.enter);
+						$log.debug(SharedState.values());
+						done();
+					})
+			} else {
+				return $animateCss(element, {}).start().done(function() {
+					$log.debug("Nothing done");
+					done();
+				})
+			}
+		},
+		leave: function(element, done) {
+			$log.debug(".animation SharedState: " + SharedState.get("transition"));
+			if (SharedState.get("transition")) {
+				var transform = transition[SharedState.get("transition")];
+					return $animateCss(element, {
+						event: 'leave',
+						structural: true,
+						addClass: transform.leave,
+						//from: transform.leave,
+					  // to: transform.leave,
+						// duration: 10.35
+					}).start().done(function() {
+						$log.debug("done leave " + transform.leave);
+						done();
+					})
+			} else {
+				return $animateCss(element, {}).start().done(function() {
+					$log.debug("Nothing done");
+					done();
+				})
+			}
+		}
+	}
+	
+}])
+
+.run(function($rootScope, $location, $http, analytics, AppFunc, AppInfo, APP, SharedState, DeviceService, AuthService, $log, UtilsService) {
 
 	// migrate from dataStorage structure 1.0 to 1.1
-	AppInfo.migrateVersion();
+	// AppInfo.migrateVersion();
 
 	// If it's the first connection redirect to welcome page
 	if (!localStorage.hasOwnProperty("device")) {
@@ -148,7 +277,14 @@ var app = angular
 	});
 
 	$rootScope.history = window.history;
-	$rootScope.go = AppFunc.transition;
+	// $rootScope.go = AppFunc.transition;
+  $rootScope.go = function(path, transition) {
+		SharedState.set("transition", transition); 
+		$log.info("Shared State Transition: " + SharedState.get("transition", transition));
+		$location.path(path);
+			//if (window.indexedDB) { alert('WKWebView'); } else { alert('UIWebView'); }
+  };
+	
 	$rootScope.getImage = AppFunc.getImage;
 	
 	// $rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
@@ -163,10 +299,12 @@ var app = angular
 
 	$rootScope.$on('$routeChangeSuccess', function(e, current, prev) {
 		//send page to analytics
-		analytics.trackPage(current.$$route.title);
+		// analytics.trackPage(current.$$route.title);
 	});
 
-	$rootScope.versionServiceIsEnabled = true;
+	$rootScope.flip = UtilsService.nativeFlipTransition;
+
+	$rootScope.versionServiceIsEnabled = false;
 
 	AppFunc.startApp.executeAll();
 });

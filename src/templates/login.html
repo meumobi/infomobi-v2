@@ -1,42 +1,73 @@
 <div class="scrollable">
 	<div class="scrollable-content section" id="login">
-		<div class="col-xs-10 col-xs-offset-1" ng-class="{ 'has-error' : loginForm.$invalid && submitted }">
+		<div>
 			<div id="logo">
 				<img src="images/header-clean.png" alt="@@name">
 			</div>
-			<div>
-				<form name="loginForm" ng-submit="Login.submitForm(loginForm.$valid)" novalidate>
-					<input type="email" name="email" placeholder="email" ng-model="credentials.email" ng-required="true" class="form-control">
-					<p ng-show="loginForm.email.$invalid && submitted" class="help-block">{{"Invalid Email" | translate}}</p>
-					<input type="password" name="password" placeholder="senha" ng-model="credentials.password" ng-required="true" class="form-control">
-					<p ng-show="loginForm.password.$invalid && submitted" class="help-block">{{"Invalid Password" | translate}}</p>
-					<button data-ui-ladda="Login.loading" class="btn btn-primary btn-block ladda-button" data-style="expand-right">
-						<span class="ladda-label">{{"Sign In" | translate}}</span>
-					</button>
-				</form>
-			</div>
+			<form role="form" name="loginForm" ng-submit="Login.submitForm(loginForm.$valid)" ng-class="{ 'has-error' : loginForm.$invalid && submitted }">
+				<fieldset>
+					<div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+						<input type="email"
+						name="email"
+						placeholder="{{'Email' | translate}}"
+						ng-model="credentials.email"
+						class="form-control" />
+						<p ng-show="loginForm.email.$invalid && submitted" class="help-block">{{"Invalid Email" | translate}}</p>
+					</div>
+					<div class="form-group" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
+						<input type="password"
+						name="password"
+						placeholder="{{'Password' | translate}}"
+						ng-model="credentials.password"
+						class="form-control" />
+						<p ng-show="loginForm.password.$invalid && submitted" class="help-block">{{"Invalid Password" | translate}}</p>
+					</div>
+				</fieldset>
+
+				<button data-ui-ladda="Login.loading" class="btn btn-primary btn-block ladda-button" data-style="expand-right">
+					<span class="ladda-label">{{"Sign In" | translate}}</span>
+				</button>
+
+			</form>
+			<hr>
 			<div id="forgot">
-				<span><a ng-click="go('/login/forgot','slideLeft')">{{"Forgot Password?" | translate}}</a></span>&nbsp;-&nbsp;
-				<span><a ng-click="go('/login/welcome','slideLeft')">{{"About" | translate}} @@name</a></span>
+				<ul>
+					<li><a href="#/login/forgot" ng-click="flip('#/login/forgot')">{{"Forgot Password?" | translate}}</a></li>
+					<li><a ng-click="flip('#/login/welcome')">{{"About" | translate}} @@name</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- Overlay must be body direct child to cover entire page -->
-<div overlay="change-password-overlay">
-	<div class="scrollable">
-		<div class="scrollable-content section" id="otp">
-	<div bs-panel title="Altera sua senha" style="text-align:left">
-		<p>{{"Hello" | translate}} {{visitor.first_name}}, <br/>
-			{{"For security reason you need to type here a new personal password" | translate}}</p>
-		<form ng-submit="Login.changePassword()">
-			<input type="password" ng-model="Login.new_password" placeholder="Nova Senha" class="form-control"/>
-			<button class="btn btn-primary btn-block">
-				<span>{{"Save" | translate}}</span>
-			</button>
-			<!--input type="submit" id="submit" class="ib-primary col-xs-12 needsclick from-control" value="Salvar" /-->
-		</form>
-	</div>
+
+<!-- A plain modal dialog -->
+<div ui-content-for="modals">
+	<div class="modal modal-overlay" ui-if='modal1' ui-state='modal1'>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close"
+					ui-turn-off="modal1">&times;</button>
+					<h4 class="modal-title">Altera sua senha</h4>
+				</div>
+				<div class="modal-body">
+					<p>{{"Hello" | translate}} {{visitor.first_name}}, <br/>
+						{{"For security reason you need to type here a new personal password" | translate}}</p>
+					<form ng-submit="Login.changePassword()">
+							<div class="form-group">
+								<input type="password"
+								name="otp"
+								ng-model="Login.new_password"
+								placeholder="Nova Senha"
+								class="form-control"/>
+							</div>
+							<button class="btn btn-primary btn-block">
+								<span>{{"Save" | translate}}</span>
+							</button>
+						</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+

@@ -20,50 +20,66 @@
 		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src http://meu-css-manager.appspot.com/css/ 'self' 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * filesystem:;">
 	<link rel="stylesheet" href="css/app.min.css" />
 	<link rel="stylesheet" href="css/responsive.min.css" />
+	<link rel="stylesheet" href="css/animate.min.css" />
 	<!-- inject:js -->
 	<script src="js/app.min.js"></script>
 </head>
-<body ng-app="infoMobi" ng-controller="MainController">
-	<div class="app ib-app" ng-class="{'has-navbar-bottom':NavBarBottom, 'has-navbar-top':true}">
-		<!-- Navbars -->
-		<div class="navbar navbar-app navbar-absolute-top ib-nav-top" ng-show="NavBarTop">
-			<div class="navbar-brand navbar-brand-center">
-				<img src="images/header-color.png" alt="@@name"/>
-			</div>
-			<div class="btn-group pull-left" yield-to="navbarActionLeft"></div>
-			<div class="btn-group pull-right toggleable-dropdown" yield-to="navbarActionRight" active-class="open" id="myDropdown" toggleable>
-				<button type="button" class="btn btn-default dropdown-toggle" toggle target="myDropdown">
-					<i class="fa fa-ellipsis-v"></i>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li><a ng-click="go('/account')" toggle="off" target="myDropdown">{{"Account" | translate}}</a></li>
+<body 
+	ng-app="infoMobi"
+	ng-controller="MainController"
+	ui-prevent-touchmove-defaults >
+
+	<div ui-yield-to="modals"></div>
+	<div class="app ib-app" 
+		ng-class="{'has-navbar-bottom':NavBarBottom, 'has-navbar-top':true}">
+
+	<div class="navbar navbar-app navbar-absolute-top ib-nav-top" ng-show="NavBarTop">
+				<div class="navbar-brand navbar-brand-center" ui-yield-to="title">
+					<img src="images/header-color.png" alt="@@name"/>
+				</div>
+				<div class="btn-group pull-left" ui-yield-to="navbarActionLeft"></div>
+				<div class="btn-group pull-right" ui-yield-to="navbarActionRight">
+					<div ui-turn-on="myDropdown" class="btn">
+						<i class="fa fa-ellipsis-v"></i>
+					</div>
+				</div>
+				<ul 
+					class="dropdown-menu pull-right"
+					ui-outer-click="Ui.turnOff('myDropdown')"
+					ui-outer-click-if="Ui.active('myDropdown')"
+					role="menu"
+					ui-show="myDropdown" 
+					ui-state="myDropdown"
+					ui-turn-off="myDropdown">
+					<li><a href="#/files">
+						<i class="fa fa-download"></i> {{"Files" | translate}}
+					</a></li>
+					<li><a href="#/account"><i class="fa fa-gear"></i> {{"Account" | translate}}</a></li>
 					<li class="divider"></li>
-					<li><a ng-click="logout()" toggle="off" target="myDropdown">{{"Sign Out" | translate}}</a></li>
+					<li><a ng-click="logout()" ui-turn-off="myDropdown">{{"Sign Out" | translate}} <i class="fa fa-sign-out"></i></a></li>
 				</ul>
 			</div>
-		</div>
-
-		<div class="navbar navbar-app navbar-absolute-bottom nav-bottom" ng-if="NavBarBottom">
+	<div class="navbar navbar-app navbar-absolute-bottom nav-bottom" ng-if="NavBarBottom">
 			<div class="btn-group justified">
-				<a ng-click="go('/list')" class="btn btn-navbar">
+				<a href="#/list" ng-click="go('/list')" class="btn btn-navbar">
 					<i class="fa fa-rss fa-navbar"></i> {{"News" | translate}}
 				</a>
-				<a ng-click="go('/files')" class="btn btn-navbar">
+				<a href="#/files" ng-click="go('/files')" class="btn btn-navbar">
 					<i class="fa fa-download fa-navbar"></i> {{"Files" | translate}}
 				</a>
-				<a ng-click="go('/contact')" class="btn btn-navbar">
+				<a href="#/contact" ng-click="go('/contact')" class="btn btn-navbar">
 					<i class="fa fa-envelope fa-navbar"></i> {{"Contact" | translate}}
 				</a>
 			</div>
 		</div>
-
 		<!-- App Body -->
-		<div class="app-body" ng-class="{loading: loading, 'ib-login-screen-container' : !NavBarBottom}">
+	<div class="app-body" ng-class="{loading: loading, 'ib-login-screen-container' : !NavBarBottom}">
 			<div ng-show="loading" class="app-content-loading">
 				<i class="fa fa-spinner fa-spin loading-spinner"></i>
 			</div>
-			<ng-view class="app-content" ng-class="pageAnimationClass" ng-hide="loading"></ng-view>
+			<div class="app-content" ui-state="transition">
+				<ng-view class="slide animated" ng-hide="loading"></ng-view>  
+			</div>
 		</div>
-	</div>
 </body>
 </html>

@@ -1,3 +1,6 @@
+/* jshint node: true, strict: true */
+'use strict';
+
 /*=====================================
 =        Default Configuration        =
 =====================================*/
@@ -5,38 +8,53 @@
 // Please use config.js to override these selectively:
 
 var config = {
-	version: "1.0.0",
-	debug: false,
-	dest: 'www',
-	cordova: true,
-	minify_images: true,
+  dest: 'www',
+  cordova: true,
+  less: {
+    src: [
+      './src/less/app.less', './src/less/responsive.less'
+    ],
+    paths: [
+      './src/less', './bower_components'
+    ]
+  },
+  vendor: {
+    js: [
+      './bower_components/angular/angular.js',
+      './bower_components/angular-route/angular-route.js',
+      './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js',
+			'./bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.js'
+    ],
 
-	vendor: {
-		js: [
-			'./bower_components/angular/angular.js',
-			'./bower_components/angular-route/angular-route.js',
-			'./bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js'
-		],
+    css: {
+      prepend: [],
+      append: ['./src/css/animate.css'],
+    },
 
-		fonts: [
-			'./bower_components/font-awesome/fonts/fontawesome-webfont.*'
-		]
-	},
+    fonts: [
+      './bower_components/font-awesome/fonts/fontawesome-webfont.*'
+    ]
+  },
 
-	server: {
-		host: '0.0.0.0',
-		port: '8000'
-	},
+  server: {
+    host: '0.0.0.0',
+    port: '8000'
+  },
 
-	weinre: {
-		httpPort: 8001,
-		boundHost: 'localhost',
-		verbose: false,
-		debug: false,
-		readTimeout: 5,
-		deathTimeout: 15
-	}
+  weinre: {
+    httpPort:     8001,
+    boundHost:    'localhost',
+    verbose:      false,
+    debug:        false,
+    readTimeout:  5,
+    deathTimeout: 15
+  }
 };
+
+if (require('fs').existsSync('./config.js')) {
+  var configFn = require('./config');
+  configFn(config);
+}
 
 /*-----  End of Configuration  ------*/
 
@@ -46,34 +64,43 @@ var config = {
 ========================================*/
 
 var gulp = require('gulp'),
-seq = require('run-sequence'),
-connect = require('gulp-connect'),
-less = require('gulp-less'),
-uglify = require('gulp-uglify'),
-sourcemaps = require('gulp-sourcemaps'),
-cssmin = require('gulp-cssmin'),
-order = require('gulp-order'),
-concat = require('gulp-concat'),
-rimraf = require('gulp-rimraf'),
-imagemin = require('gulp-imagemin'),
-pngcrush = require('imagemin-pngcrush'),
-templateCache = require('gulp-angular-templatecache'),
-mobilizer = require('gulp-mobilizer'),
-ngAnnotate = require('gulp-ng-annotate'),
-replace = require('gulp-replace'),
-ngFilesort = require('gulp-angular-filesort'),
-streamqueue = require('streamqueue'),
-rename = require('gulp-rename'),
-path = require('path');
-args = require('yargs').argv;
-fs = require('fs');
-gulpif = require('gulp-if');
-zip = require('gulp-zip');
+	seq = require('run-sequence'),
+	connect = require('gulp-connect'),
+	less = require('gulp-less'),
+	uglify = require('gulp-uglify'),
+	sourcemaps = require('gulp-sourcemaps'),
+	cssmin = require('gulp-cssmin'),
+	order = require('gulp-order'),
+	concat = require('gulp-concat'),
+	ignore = require('gulp-ignore'),
+	rimraf = require('gulp-rimraf'),
+	imagemin = require('gulp-imagemin'),
+	pngcrush = require('imagemin-pngcrush'),
+	templateCache = require('gulp-angular-templatecache'),
+	mobilizer = require('gulp-mobilizer'),
+	ngAnnotate = require('gulp-ng-annotate'),
+	replace = require('gulp-replace'),
+	ngFilesort = require('gulp-angular-filesort'),
+	streamqueue = require('streamqueue'),
+	rename = require('gulp-rename'),
+	path = require('path'),
+	args = require('yargs').argv,
+	fs = require('fs'),
+	gulpif = require('gulp-if'),
+	zip = require('gulp-zip');
 
-if (fs.existsSync('./config.js')) {
-	var configFn = require('./config');
-	configFn(config);
-};
+/*================================================
+=            Report Errors to Console            =
+================================================*/
+
+gulp.on('err', function(e) {
+	throw(e);
+	//console.log(e.err.stack);
+});
+
+/*================================================
+=            Manage projects and envs            =
+================================================*/
 
 // Get the project from the command line
 var project = args.project || 'infoMobi';
@@ -99,6 +126,8 @@ if (config.debug) {
 	console.log("/!\\ === Be careful It's a debug release === /!\\ ");
 	console.log("Set config.debug = false on gulpfile.js to submit");
 }
+
+
 
 /*================================================
 =                  Copy App Assets               =
@@ -134,15 +163,6 @@ gulp.task('copy-splash', function () {
 	})
 	.pipe(rename('splash.png'))
 	.pipe(gulp.dest(config.dest))
-});
-
-
-/*================================================
-=            Report Errors to Console            =
-================================================*/
-
-gulp.on('err', function(e) {
-	console.log(e.err.stack);
 });
 
 
@@ -254,31 +274,29 @@ gulp.task('html', function() {
 ======================================================================*/
 
 gulp.task('less', function() {
-	var streamBuildAction = streamqueue({
-		objectMode: true
-	},
-	gulp.src(['./src/less/app.less', './src/less/responsive.less'])
-	.pipe(replace("@@brandPrimary", configProject.CONFIG.STYLE.brandPrimary))
-	.pipe(less({
-		paths: [path.resolve(__dirname, 'src/less'), path.resolve(__dirname, 'bower_components')]
-	}))
-	.pipe(mobilizer('app.css', {
-		'app.css': {
-			hover: 'exclude',
-			screens: ['0px']
-		},
-		'hover.css': {
-			hover: 'only',
-			screens: ['0px']
-		}
-	}))
-);
-return streamBuildAction
-.pipe(cssmin())
-.pipe(rename({
-	suffix: '.min'
-}))
-.pipe(gulp.dest(path.join(config.dest, 'css')));
+	streamqueue({ objectMode: true },
+    gulp.src(config.less.src)
+			.pipe(replace("@@brandPrimary", configProject.CONFIG.STYLE.brandPrimary))
+			.pipe(less({
+				paths: config.less.paths.map(function(p){
+					return path.resolve(__dirname, p);
+				})
+			}))
+			.pipe(mobilizer('app.css', {
+	      'app.css': {
+	        hover: 'exclude',
+	        screens: ['0px']
+	      },
+	      'hover.css': {
+	        hover: 'only',
+	        screens: ['0px']
+	      }
+			})),
+		gulp.src(config.vendor.css.append)
+	)
+    .pipe(cssmin())
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest(path.join(config.dest, 'css')));
 });
 
 /*====================================================================
@@ -338,6 +356,7 @@ gulp.task('js', function() {
 		'!./src/js/services/meumobi-settings.js', 
 		'!./src/js/lib/pushwoosh-*.js'
 	])
+	.pipe(replace('@@debug', config.debug))
 	.pipe(ngFilesort()),
 	gulp.src(['src/templates/**/*.html'])
 	.pipe(replace('@@name', configProject.name))
@@ -360,14 +379,14 @@ gulp.task('js', function() {
 =            Watch for source changes and rebuild/reload            =
 ===================================================================*/
 
-gulp.task('watch', function() {
-	if (typeof config.server === 'object') {
-		gulp.watch([config.dest + '/**/*'], ['livereload']);
-	};
-	gulp.watch(['./src/html/**/*'], ['html']);
-	gulp.watch(['./src/less/**/*'], ['less']);
-	gulp.watch(['./src/js/**/*', './src/templates/**/*', config.vendor.js], ['js']);
-	gulp.watch(['./src/images/**/*'], ['images']);
+gulp.task('watch', function () {
+  if (typeof config.server === 'object') {
+    gulp.watch([config.dest + '/**/*'], ['livereload']);
+  }
+  gulp.watch(['./src/html/**/*'], ['html']);
+  gulp.watch(['./src/less/**/*', './src/css/**/*'], ['less']);
+  gulp.watch(['./src/js/**/*', './src/templates/**/*', config.vendor.js], ['js']);
+  gulp.watch(['./src/images/**/*'], ['images']);
 });
 
 

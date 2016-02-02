@@ -6,7 +6,6 @@
     "angular-route": "~1.x",
     "angular-touch": "~1.x",
     "angular-animate": "~1.x",
-    "mobile-angular-ui": "~1.1.0-beta.29",
     "font-awesome": "4.2",
     "bootstrap": "3.2",
     "angular-sanitize": "~1.x",
@@ -23,6 +22,7 @@
     "angular-resource": "~1.x"
   },
   "devDependencies": {
-    "angular": "~1.4.8"
+    "angular": "~1.5.0",
+    "mobile-angular-ui": "~1.2.0-rc.3"
   }
 }

@@ -8,7 +8,7 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, App
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
-		AppFunc.initPushwoosh();
+		//AppFunc.initPushwoosh();
 		DeviceService.updateSignature();
 		$rootScope.go('/list');
 	};
@@ -40,7 +40,8 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, App
 				password: $scope.Login.new_password
 			}, function(resp) {
 				AuthService.loadAuthToken(resp.token);
-				$rootScope.toggle('change-password-overlay', 'off');
+				$rootScope.Ui.turnOff('modal1');
+				//$rootScope.toggle('change-password-overlay', 'off');
 				authenticateUser();
 			}, function() {
 				AppInfo.clearRestrictedDatas();
@@ -51,14 +52,15 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, App
 			//show modal if need change password, otherwise authenticate
 			if (resp.error && resp.error == "password expired") {
 				$scope.visitor = resp.visitor;
-				$rootScope.toggle('change-password-overlay', 'on');
+				//$rootScope.toggle('change-password-overlay', 'on');
+				$rootScope.Ui.turnOn('modal1');
 			} else {
 				authenticateUser();
 			}
 		},
 		loginError: function(resp) {
 			var msg;
-			if (resp.error) {
+			if (resp && resp.error) {
 				if (resp.error == "Invalid visitor")
 					msg = "Usuário e/ou Senha inválido(s)!";
 				else
