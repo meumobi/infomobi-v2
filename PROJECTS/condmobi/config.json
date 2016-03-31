@@ -1,6 +1,6 @@
 {
-	"name": "infoMobi",
-	"id": "com.meumobi.employee.infomobi",
+	"name": "condMobi",
+	"id": "com.meumobi.condmobi",
 	"description": "Mobile App for Internal Communication.",
 
 	"CONFIG": {
@@ -12,8 +12,8 @@
 			"id": "960458"
 		},
 		"PUSHWOOSH": {
-			"applicationCode": "A9FC4-681E3",
-			"googleProjectNumber": "138333716576"
+			"applicationCode": "80A32-61651",
+			"googleProjectNumber": ""
 		},
 		"HTTP": {
 			"limit": "10",
@@ -24,12 +24,12 @@
 			"brandPrimary": "#8ec525"
 		},
 		"WELCOME": {
-			"title": "Bem-vindo ao infoMobi",
-			"description": "infoMobi revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
+			"title": "Bem-vindo ao condMobi",
+			"description": "condMobi revoluciona a comunicação do seu condomínio, permitindo compartilhar informações importantes de forma direta e segmentada.",
 			"images":[  
 				{  
 					"path":"images/welcome-1.png",
-					"title":"Fica conectado com sua empresa"
+					"title":"Fica conectado com seu condomínio"
 				}
 			]
 		}	
