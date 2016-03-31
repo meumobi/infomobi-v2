@@ -1,0 +1,37 @@
+{
+	"name": "infoMobi",
+	"id": "com.meumobi.employee.infomobi",
+	"description": "Mobile App for Internal Communication.",
+
+	"CONFIG": {
+		"ANALYTICS": {
+			"trackId": "UA-59245997-3"
+		},
+		"BUILD": {
+			"auth_token": "dVp5pEQYSCPxXaUprtPP",
+			"id": "960458"
+		},
+		"PUSHWOOSH": {
+			"applicationCode": "A9FC4-681E3",
+			"googleProjectNumber": "138333716576"
+		},
+		"HTTP": {
+			"limit": "10",
+			"timeout": "5",
+			"halSupport": false
+		},
+		"STYLE": {
+			"brandPrimary": "#8ec525"
+		},
+		"WELCOME": {
+			"title": "Bem-vindo ao infoMobi",
+			"description": "infoMobi revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
+			"images":[  
+				{  
+					"path":"images/welcome-1.png",
+					"title":"Fica conectado com sua empresa"
+				}
+			]
+		}	
+	}
+}
