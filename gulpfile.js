@@ -87,7 +87,9 @@ var gulp = require('gulp'),
 	args = require('yargs').argv,
 	fs = require('fs'),
 	gulpif = require('gulp-if'),
-	zip = require('gulp-zip');
+	zip = require('gulp-zip'),
+	taskListing = require('gulp-task-listing'),
+	stripDebug = require('gulp-strip-debug');
 
 /*================================================
 =            Report Errors to Console            =
@@ -103,30 +105,34 @@ gulp.on('err', function(e) {
 ================================================*/
 
 // Get the project from the command line
-var project = args.project || 'infoMobi';
+var project = args.project || null;
 
 // Get the environment from the command line
-var env = args.env || 'integration';
+var env = args.env || null;
 var cwd = './PROJECTS/' + project;
 
 // Read the Environment & App Settings
-var filename = env + '.json';
-var configEnv = JSON.parse(fs.readFileSync(path.join(cwd, 'environments', filename), 'utf8'));
-var configProject = JSON.parse(fs.readFileSync(path.join(cwd,'config.json'), 'utf8'));
+var filename = env ? env + '.json': null;
 
-console.log(
-	"==== Gulp infoMobi: Project="
-	+ configProject.name
-	+ config.version
-	+ ", Environment="
-	+ env
-);
+if (filename !== null && cwd !== null) {
+	var configEnv = JSON.parse(fs.readFileSync(path.join(cwd, 'environments', filename), 'utf8'));
+	var configProject = JSON.parse(fs.readFileSync(path.join(cwd,'config.json'), 'utf8'));
 
-if (config.debug) {
-	console.log("/!\\ === Be careful It's a debug release === /!\\ ");
-	console.log("Set config.debug = false on gulpfile.js to submit");
+	console.log(
+		"==== Gulp infoMobi: Project="
+		+ configProject.name
+		+ config.version
+		+ ", Environment="
+		+ env
+	);
+
+	if (config.debug) {
+		console.log("/!\\ === Be careful It's a debug release === /!\\ ");
+		console.log("Set config.debug = false on gulpfile.js to submit");
+	}
 }
 
+gulp.task('help', taskListing);
 
 
 /*================================================
@@ -348,13 +354,13 @@ gulp.task('js', function() {
 	gulp.src('src/js/services/meumobi-settings.js')  
 	.pipe(replace('@@APP', JSON.stringify(app)))
 	.pipe(replace('@@CONFIG', JSON.stringify(configProject.CONFIG))),
-	gulp.src('src/js/lib/pushwoosh-*.js')
-	.pipe(replace('@@googleProjectNumber', configProject.CONFIG.PUSHWOOSH.googleProjectNumber))
-	.pipe(replace('@@applicationCode', configProject.CONFIG.PUSHWOOSH.applicationCode)),
+	//gulp.src('src/js/lib/pushwoosh-*.js')
+	//.pipe(replace('@@googleProjectNumber', configProject.CONFIG.PUSHWOOSH.googleProjectNumber))
+	//.pipe(replace('@@applicationCode', configProject.CONFIG.PUSHWOOSH.applicationCode)),
 	gulp.src([
 		'./src/js/**/*.js', 
-		'!./src/js/services/meumobi-settings.js', 
-		'!./src/js/lib/pushwoosh-*.js'
+		'!./src/js/services/meumobi-settings.js' 
+		//'!./src/js/lib/pushwoosh-*.js'
 	])
 	.pipe(replace('@@debug', config.debug))
 	.pipe(ngFilesort()),
@@ -368,6 +374,7 @@ gulp.task('js', function() {
 	.pipe(sourcemaps.init())
 	.pipe(concat('app.js'))
 	.pipe(ngAnnotate())
+	.pipe(gulpif(!config.debug, stripDebug()))
 	.pipe(gulpif(!config.debug, uglify({ mangle: false })))
 	.pipe(rename({suffix: '.min'}))
 	.pipe(sourcemaps.write('.'))
@@ -446,6 +453,7 @@ gulp.task('release', function(done) {
 		tasks.push('weinre');
 	};
 
+	config.cordova = true;
 	tasks.push('build-zip');
 
 	seq('build', tasks, done);

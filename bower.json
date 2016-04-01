@@ -19,7 +19,9 @@
     "angular-translate-handler-log": "~2.7.2",
     "angular-dynamic-locale": "~0.1.27",
     "angular-i18n": "~1.4.3",
-    "angular-resource": "~1.x"
+    "angular-resource": "~1.x",
+    "angular-imgcache": "angular-imgcache.js#~0.1.0",
+    "imgcache.js": "v1.0rc1"
   },
   "devDependencies": {
     "angular": "~1.5.0",

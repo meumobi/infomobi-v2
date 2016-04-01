@@ -4,13 +4,20 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController($rootScope, $http, $scope, $location, API, AppFunc, AppInfo, APP, DeviceService, AuthService) {
+function LoginController(DeviceService, PushService, $rootScope, $http, $scope, $location, API, AppFunc, APP, AuthService, $log) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
-		//AppFunc.initPushwoosh();
-		DeviceService.updateSignature();
 		$rootScope.go('/list');
+		PushService.register(
+			function(token) {
+				$log.info("Device token: " + token);
+				DeviceService.save(token);
+			}, function(status) {
+				DeviceService.save(null);
+				$log.warn('failed to register : ' + JSON.stringify(status));
+			}
+		);
 	};
 
 	$scope.credentials = {
@@ -44,7 +51,8 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, App
 				//$rootScope.toggle('change-password-overlay', 'off');
 				authenticateUser();
 			}, function() {
-				AppInfo.clearRestrictedDatas();
+				AppFunc.toast("Erro ao alterar sua senha. Confere sua conexão e tente novamente.");
+				AuthService.logout();
 			});
 		},
 		loginSuccess: function(resp) {
@@ -66,7 +74,7 @@ function LoginController($rootScope, $http, $scope, $location, API, AppFunc, App
 				else
 					msg = resp.error;
 			} else {
-				msg = "Erro ao realizar login. Tente novamente.";
+				msg = "Erro ao realizar login. Confere sua conexão e tente novamente.";
 			}
 			$scope.Login.loading = false;
 			AppFunc.toast(msg);

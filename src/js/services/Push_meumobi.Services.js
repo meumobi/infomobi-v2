@@ -27,25 +27,26 @@
 		}
 
 		this.register = function(success, error) {
+			// var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
 			var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
 
 			if (pushNotification) {
 				$log.info("Plugin pushNotification loaded");
 
-			//initialize the plugin
-			pushNotification.onDeviceReady({
-				pw_appid: applicationCode
-			});
+				//initialize the plugin
+				pushNotification.onDeviceReady({
+					pw_appid: applicationCode
+				});
 
-			//register for push notifications
-			pushNotification.registerDevice(
-				function(status)
-				{
-					var deviceToken = status['deviceToken'];
-					$log.info('registerDevice: ' + deviceToken);
-					//callback when pushwoosh is ready
-					success(deviceToken);
-				}, error);
+				//register for push notifications
+				pushNotification.registerDevice(
+					function(status) {
+						var deviceToken = status['deviceToken'];
+						$log.info('registerDevice: ' + deviceToken);
+						//callback when pushwoosh is ready
+						success(deviceToken);
+					}, error
+				);
 	
 				//reset badges on start
 				pushNotification.setApplicationIconBadgeNumber(0);
@@ -78,6 +79,7 @@
 
 		this.register = function(success, error) {
 			
+			// var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
 			var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
 
 			if (pushNotification) {
@@ -102,6 +104,7 @@
 
 		var platform = window.cordova && window.cordova.platformId;
 
+		$log.debug("Platform: " + platform);
 		if (platform == "android") {
 			return $injector.get('PushwooshAndroidImpl');
 		} else {
