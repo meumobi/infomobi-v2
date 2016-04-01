@@ -7,6 +7,8 @@ var app = angular
 	'meumobi.services.Version',
 	'meumobi.services.Auth',
 	'meumobi.services.Utils',
+	'meumobi.services.Bootstrap',
+	'meumobi.services.Push',
 	'ngRoute',
 	'ngTouch',
 	'angular-carousel',
@@ -17,9 +19,7 @@ var app = angular
 	'mobile-angular-ui.gestures.swipe',
 	'services.Analytics',
 	'meumobi.api',
-	//'meumobi.sync', 
 	'meumobi.settings',
-	'meumobi.appInfo',
 	'meumobi.appFunc',
 	'meumobi.utils',
 	'meumobi.filters.Common',
@@ -29,7 +29,8 @@ var app = angular
 	'meumobi.directives.DownloadFile',
 	'pascalprecht.translate',// angular-translate
 	'tmh.dynamicLocale',// angular-dynamic-locale
-	"ngCookies"
+	"ngCookies",
+	'ImgCache'
 ])
 
 .config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider, CONFIG) {
@@ -90,7 +91,7 @@ var app = angular
     title: "Bem Vindo"
 	})
 	.otherwise({
-		redirectTo: '/login'
+		redirectTo: '/list'
 	});
 
 	analyticsProvider.setup(CONFIG.ANALYTICS.trackId);
@@ -112,6 +113,18 @@ var app = angular
 	tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
 })
 
+.config(function(ImgCacheProvider) {
+	// or more options at once
+	ImgCacheProvider.setOptions({
+		debug: @@debug,
+		usePersistentCache: true
+	});
+
+	// ImgCache library is initialized automatically,
+	// but set this option if you are using platform like Ionic -
+	// in this case we need init imgcache.js manually after device is ready
+	ImgCacheProvider.manualInit = true;
+})
 
 .config(['$logProvider', function($logProvider){
     $logProvider.debugEnabled(@@debug);
@@ -238,44 +251,8 @@ var app = angular
 	
 }])
 
-.run(function($rootScope, $location, $http, analytics, AppFunc, AppInfo, APP, SharedState, DeviceService, AuthService, $log, UtilsService) {
-
-	// migrate from dataStorage structure 1.0 to 1.1
-	// AppInfo.migrateVersion();
-
-	// If it's the first connection redirect to welcome page
-	if (!localStorage.hasOwnProperty("device")) {
-		$location.path('/login/welcome');
-		console.log("No Device on localStorage");
-	} else 	if (!AuthService.isAuthenticated()) {
-		// If authToken or site is missing from Local Storage then clear all except device and redirect to home
-		AppInfo.clearRestrictedDatas();
-		$location.path('/login');
-		console.log("No authToken on localStorage");
-	} else {
-		AuthService.loadAuthToken(localStorage.authToken);
-		AuthService.getVisitor();
-		DeviceService.updateSignature();
-		$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
-		//$rootScope.userToken = localStorage['userToken'] || "";
-		//$rootScope.defaultSite = APP.domain;
-	}
-
-	$rootScope.$on('$locationChangeStart', function (event, next, current) {
-		// redirect to login page if not logged in and trying to access a restricted page
-		var restrictedPage = $location.path().indexOf('login') == -1;
-		var loggedIn = $rootScope.authToken ? $rootScope.authToken : false;
-		$rootScope.NavBarBottom = restrictedPage; //loggedIn|| $location.path().indexOf('login') == -1) ? true : false;
-		if (restrictedPage && !loggedIn) {
-			$location.path('/login');
-		}
-		// redirect to /list if loggedIn and try to access non-restricted page
-		if (!restrictedPage && loggedIn) {
-			$location.path('/list');
-		}
-		$rootScope.NavBarTop = ($location.path() == "/login") ? false : true;
-	});
-
+.run(function($rootScope, $location, $http, analytics, AppFunc, APP, BootstrapService, SharedState, DeviceService, AuthService, $log, UtilsService) {
+	
 	$rootScope.history = window.history;
 	// $rootScope.go = AppFunc.transition;
   $rootScope.go = function(path, transition) {
@@ -297,6 +274,13 @@ var app = angular
 		// $rootScope.loading = false;
 	})
 
+	$rootScope.$on("logout", function(){
+		$log.debug("$on.logout"); // $emit if Api returns 401
+		AuthService.logout();
+		$location.path('/login');
+		//$rootScope.flip('#/login');
+	});
+
 	$rootScope.$on('$routeChangeSuccess', function(e, current, prev) {
 		//send page to analytics
 		// analytics.trackPage(current.$$route.title);
@@ -306,5 +290,34 @@ var app = angular
 
 	$rootScope.versionServiceIsEnabled = false;
 
-	AppFunc.startApp.executeAll();
+	// If it's the first connection redirect to welcome page
+	if (!localStorage.hasOwnProperty("device")) {
+		$location.path('/login/welcome');
+		$log.debug("No Device on localStorage");
+	}  else if (!AuthService.isAuthenticated()) {
+		AuthService.logout();
+		$log.debug("No authToken on localStorage");
+	}  else {
+		AuthService.loadAuthToken(localStorage.authToken);
+		AuthService.getVisitor();
+		$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
+	}
+
+	BootstrapService.startApp();
+
+	$rootScope.$on('$locationChangeStart', function (event, next, current) {
+		// redirect to login page if not logged in and trying to access a restricted page
+		/*var restrictedPage = $location.path().indexOf('login') == -1;
+		var loggedIn = $rootScope.authToken ? $rootScope.authToken : false;
+		$rootScope.NavBarBottom = restrictedPage; //loggedIn|| $location.path().indexOf('login') == -1) ? true : false;
+		if (restrictedPage && !loggedIn) {
+			$location.path('/login');
+		}
+		// redirect to /list if loggedIn and try to access non-restricted page
+		if (!restrictedPage && loggedIn) {
+			$location.path('/list');
+		}*/
+		$rootScope.NavBarBottom = $location.path().indexOf('login') == -1;
+		$rootScope.NavBarTop = ($location.path() == "/login") ? false : true;
+	});
 });

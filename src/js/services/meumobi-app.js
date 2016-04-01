@@ -2,67 +2,10 @@
 	'use strict';
 
 	angular
-	.module('meumobi.appInfo', ['meumobi.services.Cordova'])
-	.factory('AppInfo', AppInfo)
-	
-	function AppInfo(deviceReady, $rootScope) {
-		var service = {};
-		
-		service.isOnline = isOnline;
-		service.clearRestrictedDatas = clearRestrictedDatas;
-		
-		return service;
-		
-		function isConnectionOnline(type) {
-			var states = {};
-			states[Connection.UNKNOWN] = false;
-			states[Connection.ETHERNET] = true;
-			states[Connection.WIFI] = true;
-			states[Connection.CELL_2G] = true;
-			states[Connection.CELL_3G] = true;
-			states[Connection.CELL_4G] = true;
-			states[Connection.CELL] = true;
-			states[Connection.NONE] = false;
-			var connection = states[type] ? true : false;	
-			
-			return connection;
-		}
-
-		function isOnline(done) {
-			deviceReady(function() {
-				var connection = false;
-				if (navigator.connection) {
-					console.log("navigator.connection: [BEGIN]" );
-					var networkState = navigator.connection.type;
-					connection = isConnectionOnline(networkState);
-					console.log("navigator.connection: " + connection);
-					done(connection);
-				} else {
-					connection = navigator.onLine;
-					done(connection);
-				}
-			});
-		}
-
-		function clearRestrictedDatas() {
-			// Maybe we should clear rootScope and localstorage
-			// To achieve it we should have a function to restore defaults config
-			//$rootScope.authToken = {};
-			localStorage.removeItem("visitor");
-			localStorage.removeItem("authToken");
-			delete $rootScope.news;
-			delete $rootScope.authToken;
-			delete $rootScope.visitor;
-			localStorage.removeItem("news");
-			localStorage.removeItem("files");
-		}
-	}
-	
-	angular
 	.module('meumobi.appFunc', ['meumobi.services.Cordova', 'meumobi.settings', 'meumobi.services.Push'])
 	.factory('AppFunc', AppFunc);
 
-	function AppFunc(deviceReady, PushService, $rootScope, $location, $window, $route, APP, API, CONFIG, $log) {
+	function AppFunc(deviceReady, PushService, $rootScope, $location, $window, $route, APP, API, CONFIG, $log, AuthService) {
 		var app = {
 			isOnline: function() {
 				deviceReady(function() {
@@ -142,19 +85,21 @@
 					executeAll: function() {
 						var that = this;
 						//that.backButton();
-						deviceReady(function() {
-							PushService.config( CONFIG.PUSHWOOSH.googleProjectNumber, CONFIG.PUSHWOOSH.applicationCode);
-							PushService.register(
-								function(token) {
-									$log.info("Device token: " + token);
-									that.saveDevice(token);
-								}, function(status) {
-									$log.warn('failed to register : ' + JSON.stringify(status));
-								}
-							);
-							that.statusBar();
-							that.hideSplashScreen();
-						});
+						if (AuthService.isAuthenticated()) {
+							deviceReady(function() {
+								PushService.config( CONFIG.PUSHWOOSH.googleProjectNumber, CONFIG.PUSHWOOSH.applicationCode);
+								PushService.register(
+									function(token) {
+										$log.info("Device token: " + token);
+										that.saveDevice(token);
+									}, function(status) {
+										$log.warn('failed to register : ' + JSON.stringify(status));
+									}
+								);
+							});
+						}
+						that.statusBar();
+						that.hideSplashScreen();
 						// that.receiveNotification();
 						that.backButton();
 					},
@@ -186,18 +131,6 @@
 									);
 								}
 							});
-						},
-						hideSplashScreen: function() {
-							if (navigator.splashscreen) {
-								navigator.splashscreen.hide();
-							}
-						},
-						statusBar: function() {
-							if (typeof StatusBar !== 'undefined') {
-								StatusBar.overlaysWebView(false);
-								StatusBar.styleLightContent();
-								StatusBar.backgroundColorByName("black");	
-							}
 						},
 						receiveNotification: function() {
 							document.addEventListener('push-notification', function(event) {

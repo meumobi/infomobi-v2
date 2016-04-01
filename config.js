@@ -3,7 +3,7 @@ module.exports = function(config) {
 	// Output directory
 	config.dest = 'www';
 	
-	config.version = "1.3.0"; // version of the App
+	config.version = "1.3.2"; // version of the App
   
 	// Inject cordova script into html
 	config.cordova = true;
@@ -27,7 +27,7 @@ module.exports = function(config) {
 
 	// Comment to enable weinre, uncomment to disable weinre 
 	config.weinre = false;
-	config.debug = false;
+	config.debug = true;
     
 	// 3rd party components
 	config.vendor.js.push('./bower_components/angular-touch/angular-touch.js');
@@ -47,5 +47,7 @@ module.exports = function(config) {
 	config.vendor.js.push('./bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js');
 	config.vendor.js.push('./bower_components/angular-translate-handler-log/angular-translate-handler-log.min.js');
 	config.vendor.js.push('./bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js');
+	config.vendor.js.push('./bower_components/angular-imgcache/angular-imgcache.js');
+	config.vendor.js.push('./bower_components/imgcache.js/js/imgcache.js');
 	// config.vendor.fonts.push('.bower_components/font/dist/*');
 };

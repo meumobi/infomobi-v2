@@ -5,7 +5,7 @@
 	.module('infoMobi')
 	.controller('AccountController', AccountController);
 
-	function AccountController($rootScope, $scope, $location, API, AppFunc, AppInfo, AuthService) {
+	function AccountController($rootScope, $scope, $location, API, AppFunc, AuthService, UtilsService) {
 		var defaultUser = {
 			mail: $rootScope.visitor ? $rootScope.visitor.email : 'default@siemens.com',
 			password: '',
@@ -41,8 +41,8 @@
 		}
 		
 		$scope.change = function () {
-			AppInfo.isOnline(function(online) {
-				if (true) {
+			UtilsService.isOnline(function(online) {
+				if (online) {
 					if (isPasswordValid()) {
 						var payload = {
 							current_password: $scope.user.password,
