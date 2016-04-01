@@ -2,10 +2,10 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Auth', ['meumobi.api', 'meumobi.settings', 'meumobi.appInfo'])
+	.module('meumobi.services.Auth', ['meumobi.api', 'meumobi.settings'])
 	.factory('AuthService', AuthService);
 		
-	function AuthService($http, $rootScope, API, APP, AppInfo) {
+	function AuthService($http, $rootScope, API, APP, $log) {
 		var service = {};
 
 		service.loadAuthToken = loadAuthToken;
@@ -38,8 +38,26 @@
 		}
 		
 		function logout() {
-			AppInfo.clearRestrictedDatas();
-			$rootScope.go('/login');
+			// Maybe we should clear rootScope and localstorage
+			// To achieve it we should have a function to restore defaults config
+			//$rootScope.authToken = {};
+
+			/*
+			for(var i=0; i < localStorage.length; i++){
+				var propertyName = localStorage.key(i);
+				$log.debug(  i + " : " + propertyName + " = " +
+				localStorage.getItem(propertyName).substring(0, 10));
+			}
+			*/
+			
+			localStorage.removeItem("visitor");
+			localStorage.removeItem("authToken");
+			localStorage.removeItem("news");
+			localStorage.removeItem("files");
+			
+			delete $rootScope.news;
+			delete $rootScope.authToken;
+			delete $rootScope.visitor;
 		}
 		
 		function isAuthenticated() {
@@ -63,6 +81,7 @@
 
 		function getVisitor() {
 			// If offline I'll use localStorage datas
+			
 			if (localStorage.hasOwnProperty("visitor")) {
 				loadVisitor(JSON.parse(localStorage.visitor));
 			}
@@ -71,7 +90,6 @@
 					loadVisitor(data);
 				},
 				error: function(data, status) {
-					
 				} 
 			};
 			

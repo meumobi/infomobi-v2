@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('MainController', MainController);
 
-function MainController($rootScope, $scope, $location, AuthService, AppInfo) {
+function MainController($rootScope, $scope, $location, AuthService) {
 		
 	$scope.userAgent = navigator.userAgent;
 
@@ -19,5 +19,6 @@ function MainController($rootScope, $scope, $location, AuthService, AppInfo) {
 
 	$scope.logout = function() {
 		AuthService.logout();
+		$rootScope.flip('#/login');
 	}
 }

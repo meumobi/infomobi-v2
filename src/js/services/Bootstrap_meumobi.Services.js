@@ -2,10 +2,10 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Bootstrap', ['meumobi.services.Cordova', 'meumobi.services.Push', 'meumobi.services.Device'])
+	.module('meumobi.services.Bootstrap', ['meumobi.services.Cordova', 'meumobi.services.Push'])
 	.factory('BootstrapService', BootstrapService);
 
-	function BootstrapService(deviceReady, PushService, DeviceService, AuthService, $rootScope, UtilsService, CONFIG, ImgCache, $log, API) {
+	function BootstrapService($log, deviceReady, PushService, $rootScope, UtilsService, CONFIG, ImgCache, DeviceService, API, AuthService) {
 		var service = {};
 
 		service.startApp = startApp;
@@ -33,7 +33,7 @@
 			deviceReady(function() {
 				document.addEventListener("online", $rootScope.toggleCon, false);
 				document.addEventListener("offline", $rootScope.toggleCon, false);
-				/// ImgCache.$init();
+				ImgCache.$init();
 				PushService.config(CONFIG.PUSHWOOSH.googleProjectNumber, CONFIG.PUSHWOOSH.applicationCode);
 				/*
 				PushService.handler(
