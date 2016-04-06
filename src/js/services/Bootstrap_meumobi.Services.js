@@ -52,6 +52,7 @@
 						alert(notification.title);
 				}, "onStart");
 				*/
+				DeviceService.save();
 				if (AuthService.isAuthenticated()) {
 					PushService.register(
 						function(token) {

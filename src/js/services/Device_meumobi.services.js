@@ -78,7 +78,8 @@
 				if (uniqueDeviceID) {
 					uniqueDeviceID.get(
 						function(uuid){
-							deviceSignature.push_id = token;
+							if (token != 'undefined')
+								deviceSignature.push_id = token;
 							deviceSignature.uuid = uuid;
 							$log.debug(deviceSignature);
 							API.Devices.save(deviceSignature, success, error);

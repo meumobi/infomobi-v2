@@ -3,34 +3,35 @@
 var app = angular
 
 .module('infoMobi', [
-	'meumobi.services.Device',
-	'meumobi.services.Version',
-	'meumobi.services.Auth',
-	'meumobi.services.Utils',
-	'meumobi.services.Bootstrap',
-	'meumobi.services.Push',
-	'ngRoute',
-	'ngTouch',
+	"ngCookies",
 	'angular-carousel',
 	'angular-carousel.shifty',
-	'ngAnimate',
-	'ngSanitize',
-	'mobile-angular-ui',
-	'mobile-angular-ui.gestures.swipe',
-	'services.Analytics',
+	'ImgCache',
 	'meumobi.api',
-	'meumobi.settings',
 	'meumobi.appFunc',
-	'meumobi.utils',
+	'meumobi.directives.DownloadFile',
+	'meumobi.Polls',
 	'meumobi.filters.Common',
 	'meumobi.filters.DownloadFiles',
-	'meumobi.stubs',
+	'meumobi.services.Auth',
+	'meumobi.services.Bootstrap',
+	'meumobi.services.Device',
 	'meumobi.services.Files',
-	'meumobi.directives.DownloadFile',
+	'meumobi.services.Push',
+	'meumobi.services.Utils',
+	'meumobi.services.Version',
+	'meumobi.settings',
+	'meumobi.stubs',
+	'meumobi.utils',
+	'mobile-angular-ui',
+	'mobile-angular-ui.gestures.swipe',
+	'ngAnimate',
+	'ngRoute',
+	'ngSanitize',
+	'ngTouch',
 	'pascalprecht.translate',// angular-translate
-	'tmh.dynamicLocale',// angular-dynamic-locale
-	"ngCookies",
-	'ImgCache'
+	'services.Analytics',
+	'tmh.dynamicLocale' // angular-dynamic-locale
 ])
 
 .config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider, CONFIG) {
@@ -296,6 +297,7 @@ var app = angular
 		$log.debug("No Device on localStorage");
 	}  else if (!AuthService.isAuthenticated()) {
 		AuthService.logout();
+		$location.path('/login');
 		$log.debug("No authToken on localStorage");
 	}  else {
 		AuthService.loadAuthToken(localStorage.authToken);
