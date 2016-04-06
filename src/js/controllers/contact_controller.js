@@ -4,7 +4,7 @@ angular
 	.module('infoMobi')
 	.controller('ContactController', ContactController)
 
-	function ContactController($rootScope, $scope, API, AppFunc) {
+	function ContactController($rootScope, $scope, API, UtilsService) {
 		$scope.Contact = {
 			informations: {
 				name: "infobox",
@@ -17,12 +17,12 @@ angular
 			},
 			success: function(resp) {
 				console.log(resp);
-				AppFunc.toast("Mensagem enviada com sucesso");
+				UtilsService.toast("Mensagem enviada com sucesso");
 				$scope.Contact.informations.message = "";
 			},
 			error: function(err) {
 				console.log(err);
-				AppFunc.toast("Erro ao enviar mensagem");
+				UtilsService.toast("Erro ao enviar mensagem");
 			}
 		}
 	}

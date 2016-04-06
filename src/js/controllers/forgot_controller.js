@@ -4,7 +4,7 @@ angular
 	.module('infoMobi')
 	.controller('ForgotController', ForgotController);
 
-	function ForgotController($rootScope, $scope, API, AppFunc) {
+	function ForgotController($rootScope, $scope, API, UtilsService) {
 		
 		$scope.Forgot = {
 			informations: {
@@ -16,7 +16,7 @@ angular
 			submitForm: function(isValid) {
 				$scope.submitted = true;
 				if (!isValid) {
-					AppFunc.toast('Erro de validação');
+					UtilsService.toast('Erro de validação');
 				}
 				else {
 					$scope.Forgot.sendMail();
@@ -29,12 +29,12 @@ angular
 				API.Mail.save(payload, $scope.Forgot.success, $scope.Forgot.error);
 			},
 			success: function(resp) {
-				AppFunc.toast("Mensagem enviada com sucesso");
+				UtilsService.toast("Mensagem enviada com sucesso");
 				//$scope.Forgot.informations.message = "";
 				$rootScope.go('/login', 'slide-right');
 			},
 			error: function(err) {
-				AppFunc.toast("Erro ao enviar mensagem");
+				UtilsService.toast("Erro ao enviar mensagem");
 			}
 		}
 	}

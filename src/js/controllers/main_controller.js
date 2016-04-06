@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('MainController', MainController);
 
-function MainController($rootScope, $scope, $location, AuthService, API) {
+function MainController($rootScope, $scope, $location, AuthService, API, UtilsService, $log) {
 		
 	$scope.userAgent = navigator.userAgent;
 
@@ -20,23 +20,5 @@ function MainController($rootScope, $scope, $location, AuthService, API) {
 	$scope.logout = function() {
 		AuthService.logout();
 		$rootScope.flip('#/login');
-	}
-
-	$scope.Poll = {
-		submit: function(vote, id) {
-			console.log(vote);
-			var obj = {};
-			obj.vote = vote;
-			obj.id = id;
-			API.Poll.submit(obj, $scope.Poll.success, $scope.Poll.error);
-		},
-		success: function(resp) {
-			console.log(resp);
-			AppFunc.toast("Mensagem enviada com sucesso");
-		},
-		error: function(err) {
-			console.log(err);
-			AppFunc.toast("Erro ao enviar mensagem");
-		}
 	}
 }

@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController(DeviceService, PushService, $rootScope, $http, $scope, $location, API, AppFunc, APP, AuthService, $log) {
+function LoginController(DeviceService, PushService, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
@@ -29,7 +29,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 		submitForm: function(isValid) {
 			$scope.submitted = true;
 			if (!isValid) {
-				AppFunc.toast('Erro de validação');
+				UtilsService.toast('Erro de validação');
 			}
 			else {
         // Login.loading used by Ladda on submit button
@@ -51,7 +51,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 				//$rootScope.toggle('change-password-overlay', 'off');
 				authenticateUser();
 			}, function() {
-				AppFunc.toast("Erro ao alterar sua senha. Confere sua conexão e tente novamente.");
+				UtilsService.toast("Erro ao alterar sua senha. Confere sua conexão e tente novamente.");
 				AuthService.logout();
 			});
 		},
@@ -77,7 +77,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 				msg = "Erro ao realizar login. Confere sua conexão e tente novamente.";
 			}
 			$scope.Login.loading = false;
-			AppFunc.toast(msg);
+			UtilsService.toast(msg);
 		}
 	}
 }

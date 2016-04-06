@@ -2,10 +2,10 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Version', ['meumobi.services.Cordova', 'meumobi.appFunc'])
+	.module('meumobi.services.Version', ['meumobi.services.Cordova'])
 	.factory('VersionService', VersionService);
 		
-	function VersionService(deviceReady, $rootScope, $http, CONFIG, AppFunc) {
+	function VersionService(deviceReady, $rootScope, $http, CONFIG, UtilsService) {
 		var service = {};
 		var config = {
 			path: "infomobi/app.apk"
@@ -37,19 +37,19 @@
 				type: 'application/vnd.android.package-archive'
 			}, function () {
 			}, function () {
-				AppFunc.toast("Install Failed: try again later");
+				UtilsService.toast("Install Failed: try again later");
 				console.log("Failed to open URL via Android Intent. URL: " + entry.toURL);
 			});
 		}
 
 		function promptForInstall(version) {
-			AppFunc.confirm("Uma nova versão disponivel: " + version, updateAndroidAPK);
+			UtilsService.confirm("Uma nova versão disponivel: " + version, updateAndroidAPK);
 		}
 
 		function downloadLatestAndroidBuild(url) {
 			var downloadAPK = {
 				success: function(entry) {
-					AppFunc.confirm("Uma nova versão esta disponivel, deseja atualizar agora ?", 
+					UtilsService.confirm("Uma nova versão esta disponivel, deseja atualizar agora ?", 
 					function(confirmed) {
 						if (confirmed) {
 							console.log("Install Confirmed");
@@ -85,7 +85,7 @@
 		
 		function downloadLatestIOSBuild(url) {
 			
-			AppFunc.confirm("Uma nova versão esta disponivel, deseja atualizar agora ?", 
+			UtilsService.confirm("Uma nova versão esta disponivel, deseja atualizar agora ?", 
 			function(confirmed) {
 				if (confirmed) {
 					console.log("Install Confirmed");
@@ -115,7 +115,7 @@
 				}
 			});
 		}
-		
+
 		function success(data, status) {
 			console.log("[VersionService:getLatestAppVersion]: success");
 			console.log(data);

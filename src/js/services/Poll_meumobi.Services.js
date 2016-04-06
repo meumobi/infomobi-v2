@@ -127,6 +127,7 @@
 						},
 						error: function(error) {
 							$log.debug(error);
+							UtilsService.toast("Erro ao enviar seu voto. Confere sua conexão e tente novamente.");
 							deferred.reject(error);
 						}
 					};
