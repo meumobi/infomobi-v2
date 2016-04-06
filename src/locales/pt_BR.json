@@ -1,4 +1,5 @@
 {
+	"Email": "Email",
 	"News": "Notícias",
 	"Files": "Arquivos",
 	"Contact": "Contato",
@@ -28,5 +29,6 @@
 	"Confirm new password": "Confirmar senha nova",
 	"Files Downloaded": "Arquivos baixados",
 	"Optional Message": "Mensagem opcional",
-	"Share it": "Compartilhar"
+	"Share it": "Compartilhar",
+	"Vote": "Vote"
 }

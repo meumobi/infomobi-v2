@@ -1,0 +1,12 @@
+<div class="clearfix poll-container" style="line-height: 35px">
+	<form role="form">
+		<div class="radio" id="poll-option-label" ng-repeat="option in poll.options track by $index" style="margin:0px">
+			<label>
+				<input type="radio" value="1" name="option" ng-model="poll.values[$index]" style="margin-top: 10px">
+				{{option}}
+			</label>
+		</div>
+		<small> {{poll.total}} Votes | <!--i ng-bind="poll.end_date * 1000 |date:'d MMM, yyyy'"></i--></small>
+		<button class="btn btn-primary btn-block" ng-click="vote()">{{"Vote" | translate}}</button>
+	</form>
+</div>

@@ -4,8 +4,8 @@ angular
 .module('infoMobi')
 .controller('ListController', ListController);
 
-function ListController($rootScope, $scope, $http, API, AppFunc, VersionService, PushService) {
-	
+function ListController($rootScope, $scope, $http, API, UtilsService, VersionService, PushService) {
+
 	var loadingStatus = {
 		setPercentage: function(value) {
 			return Math.floor(value * 100) + "%";
@@ -44,14 +44,15 @@ function ListController($rootScope, $scope, $http, API, AppFunc, VersionService,
 		localStorage.news = JSON.stringify(data.items);
 		$rootScope.news = data.items;
 		$scope.items = $rootScope.news;
-		AppFunc.eraseNotifications();
+		// Remove cached polls from localstorage if fetch them from server
+		localStorage.removeItem("polls");
 	}
 
 	function error(data, status) {
 		var msg = data.error || "Request failed";
 		if (status === 401) {
-			delete $http.defaults.headers.common['X-Visitor-Token'];			
+			delete $http.defaults.headers.common['X-Visitor-Token'];
 		};
-		AppFunc.toast(msg);
+		UtilsService.toast(msg);
 	}
 }

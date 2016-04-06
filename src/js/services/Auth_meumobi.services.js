@@ -54,6 +54,7 @@
 			localStorage.removeItem("authToken");
 			localStorage.removeItem("news");
 			localStorage.removeItem("files");
+			localStorage.removeItem("polls");
 			
 			delete $rootScope.news;
 			delete $rootScope.authToken;

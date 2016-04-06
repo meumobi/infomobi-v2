@@ -16,14 +16,13 @@
 		service.shareItem = shareItem;
 		service.shareMedia = shareMedia;
 		service.openMedia = openMedia;
-		service.initPushwoosh = initPushwoosh;
-		service.addEvent2Calendar = addEvent2Calendar;
 		service.confirm = confirm;
 		service.toast = toast;
 		service.saveImage = saveImage;
 		service.loadImage = loadImage;
 		service.openInAppBrowser = openInAppBrowser;
 		service.nativeFlipTransition = nativeFlipTransition;
+		service.isCordovaApp = isCordovaApp;
  
 		var spinner = {
 			show: function () {
@@ -33,7 +32,7 @@
 						spinner.show();
 					} else {
 						// TODO: Browser fallback
-						console.log("Spinnner.show");
+						$log.debug("Spinnner.show");
 					}
 				});
 			},
@@ -44,7 +43,7 @@
 						spinner.hide();
 					} else {
 						// TODO: Browser fallback
-						console.log("Spinnner.hide");
+						$log.debug("Spinnner.hide");
 					}
 				});
 			}
@@ -57,8 +56,6 @@
 		/* TODO: use a dynamic var for name of transition */
 		
 		function nativeFlipTransition(path) {
-			$log.debug(path);
-			
 			var options = {
 				"direction" : "right", // 'left|right|up|down', default 'left' (which is like 'next')
 				"duration" : 350, // in milliseconds (ms), default 400
@@ -80,7 +77,7 @@
 						}
 					);
 				} else {
-					$location.path(options.href);
+					$location.path(options.href.slice(1));
 				}
 			});
 		}
@@ -89,13 +86,31 @@
 			deviceReady(function() {
 				if (typeof cordova !== "undefined") {
 					var iab = cordova && cordova.InAppBrowser.open;
-					if (iab)
+					if (iab) {
 						window.open = iab;
+					}
 				}
-				
-				var name = target ? target : "_blank";
-				var specs = options ? options : "location=yes";
-				var ref = window.open(url, name, specs);
+				/*
+					The target in which to load the URL:
+					_self: Opens in the Cordova WebView if the URL is in the white list, otherwise it opens in the InAppBrowser.
+					_blank: Opens in the InAppBrowser.
+					_system: Opens in the system's web browser.
+				*/
+				target = target || "_blank";
+				options = options || "location=yes,enableViewportScale=yes";
+				var ref = window.open(url, target, options);
+				ref.addEventListener('loadstart', 
+					function() {
+						/* 
+							Exists a default spinner on iOS but not for Android
+							See: https://github.com/apache/cordova-plugin-inappbrowser/pull/89
+						*/
+						spinner.show();
+					}, false);
+				ref.addEventListener('loadstop', 
+					function() {
+						spinner.hide();
+					}, false);
 			})
 		};
 		
@@ -112,54 +127,7 @@
 			}
 			return src;
 		}
-		
-		function addEvent2Calendar(item) {
-			deviceReady(function() {
-				if (window.plugins && window.plugins.calendar) {
-					var description = striptags(br2nl(item.description));
-					var startDate = new Date(item.start_date * 1000); // must be Date obj
-					var endDate = new Date(item.end_date * 1000);
-					var title = striptags(item.title);
-					var address = striptags(item.address);
-					var success = function(message) {
-						toast(translate("Event Successfully Created!"));
-					};
-					var error = function(message) { toast("Error: " + JSON.stringify(message)); };
 
-					confirm(translate("Add Event to Device Calendar?"), 
-						function(confirmed) {
-							if (confirmed) {
-								console.log("Create Event Confirmed");
-								if (device.platform == "Android") {
-									var calOptions = window.plugins.calendar.getCalendarOptions();
-									calOptions.interval = 1;
-									window.plugins.calendar.createEventInteractivelyWithOptions(title,address,description,startDate,endDate,calOptions, success,error);
-								} else {
-									window.plugins.calendar.createEvent(title,address,description,startDate,endDate,success,error);
-								}
-							}
-							else {
-								console.log("Create Event Canceled");
-							}
-						}
-					);
-				 } else {
-					console.log("Missing window.plugins.calendar");
-				}
-			});
-		}
-		
-		function initPushwoosh() {
-			if (window.plugins && window.plugins.pushNotification) {
-				if (device.platform == "Android") {
-					registerPushwooshAndroid();
-				}
-				if (device.platform == "iPhone" || device.platform == "iOS") {
-					registerPushwooshIOS();
-				}
-			}
-		}
-		
 		function saveImage(path, domain) {
 			console.log("Canvas: " + domain + path);
 			//console.log(UtilsService);
@@ -214,17 +182,21 @@
 		}
 		
 		function hideSplashScreen() {
-			if (navigator.splashscreen) {
-				navigator.splashscreen.hide();
-			}
+			deviceReady(function() {
+				if (navigator.splashscreen) {
+					navigator.splashscreen.hide();
+				}
+			});
 		}
 		
 		function statusBar() {
-			if (typeof StatusBar !== 'undefined') {
-				StatusBar.overlaysWebView(false);
-				StatusBar.styleLightContent();
-				StatusBar.backgroundColorByName("black");	
-			}
+			deviceReady(function() {
+				if (typeof StatusBar !== 'undefined') {
+					StatusBar.overlaysWebView(false);
+					StatusBar.styleLightContent();
+					StatusBar.backgroundColorByName("black");	
+				}
+			});
 		}
 		
 		function safeApply(scope, fn) {
@@ -311,7 +283,9 @@
 			deviceReady(function() {
 				var social = window.plugins && window.plugins.socialsharing;
 				if (social) {
-					subject += "; via @RIweb App";
+					var postString = "; via #RIWeb_App";
+					message += postString;
+					subject += postString;
 					social.share(message, subject, img, link);
 				}
 			});
@@ -321,32 +295,27 @@
 		// ex: file:/storage/sdcard/DCIM/Camera/1404177327783.jpg
 		function openMedia(media) {
 			deviceReady(function() {
-
-				console.log("Open Media");
-				console.log(media);
-				
 				var open = cordova.plugins.disusered.open;
 				var path = null;
 
 				var success = function(fileEntry) {
-					console.log("window.resolveLocalFileSystemURL Success");
-					console.log(fileEntry);
+					$log.debug("window.resolveLocalFileSystemURL Success");
+					$log.debug(fileEntry);
 					open(fileEntry.nativeURL, function(e) {console.log(e)}, openError);
 				}
 				
 				var error = function(e) {
-					console.log(e);
+					$log.debug(e);
 					// TODO : disclaimer
 				}
 				
 				var openError = function(code) {
-				  if (code === 1) {
-				    console.log('No file handler found');
-				  } else {
-				    console.log('Undefined error');
-				  }
+					if (code === 1) {
+						$log.debug('No file handler found');
+					} else {
+						$log.debug('Undefined error');
+					}
 				}
-
 				window.resolveLocalFileSystemURL(media.path, success, error);
 			});
 		}
@@ -391,6 +360,15 @@
 					alert(message);
 				}
 			});
+		}
+		
+		/*
+			http://damien.antipa.at/blog/2014/02/08/3-ways-to-detect-that-your-application-is-running-in-cordova-slash-phonegap/
+		*/
+		function isCordovaApp() {
+			var isCordovaApp = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+			$log.debug("isCordovaApp ? " + isCordovaApp);
+			return isCordovaApp;
 		}
 	}
 })();

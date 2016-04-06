@@ -10,6 +10,7 @@
 function errorInterceptor($q, $rootScope, $location, APP, $log) {
 	return {
 		request: function(config) {
+			config.requestTimestamp = new Date().getTime();
 			$rootScope.$broadcast('loading:show');
 			return config || $q.when(config);
 		},
@@ -18,6 +19,7 @@ function errorInterceptor($q, $rootScope, $location, APP, $log) {
 			return $q.reject(request);
 		},
 		response: function(response) {
+			response.config.responseTimestamp = new Date().getTime();
 			$rootScope.$broadcast('loading:hide');
 			return response || $q.when(response);
 		},
@@ -144,6 +146,14 @@ var app = {
 			save: function(obj, success, error) {
 				api.put(path + obj.uuid, obj, success, error);
 			} 
+		}
+	})(),
+	Poll: (function() {
+		var path = '/items/';
+		return {
+			submit: function(obj, success, error) {
+				api.post(path + obj.id + '/poll', obj.params, success, error);
+			}
 		}
 	})(),
 	Mail: (function() {
