@@ -8,7 +8,6 @@ var app = angular
 	'angular-carousel.shifty',
 	'ImgCache',
 	'meumobi.api',
-	'meumobi.appFunc',
 	'meumobi.directives.DownloadFile',
 	'meumobi.Polls',
 	'meumobi.filters.Common',
@@ -252,10 +251,9 @@ var app = angular
 	
 }])
 
-.run(function($rootScope, $location, $http, analytics, AppFunc, APP, BootstrapService, SharedState, DeviceService, AuthService, $log, UtilsService) {
+.run(function($rootScope, $location, $http, analytics, APP, BootstrapService, SharedState, DeviceService, AuthService, $log, UtilsService) {
 	
 	$rootScope.history = window.history;
-	// $rootScope.go = AppFunc.transition;
   $rootScope.go = function(path, transition) {
 		SharedState.set("transition", transition); 
 		$log.info("Shared State Transition: " + SharedState.get("transition", transition));
@@ -263,7 +261,9 @@ var app = angular
 			//if (window.indexedDB) { alert('WKWebView'); } else { alert('UIWebView'); }
   };
 	
-	$rootScope.getImage = AppFunc.getImage;
+	$rootScope.getImage = function(path){
+		return APP.cdnUrl + path;
+	};
 	
 	// $rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
 	// $http.defaults.headers.common['X-Visitor-Token'] = $rootScope.user.token;

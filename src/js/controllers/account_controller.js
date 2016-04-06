@@ -5,7 +5,7 @@
 	.module('infoMobi')
 	.controller('AccountController', AccountController);
 
-	function AccountController($rootScope, $scope, $location, API, AppFunc, AuthService, UtilsService) {
+	function AccountController($rootScope, $scope, $location, API, AuthService, UtilsService) {
 		var defaultUser = {
 			mail: $rootScope.visitor ? $rootScope.visitor.email : 'default@siemens.com',
 			password: '',
@@ -21,7 +21,7 @@
 		
 		function success(data, status) {
 			AuthService.loadAuthToken(data.token);
-			AppFunc.toast("Senha alterada com sucesso");
+			UtilsService.toast("Senha alterada com sucesso");
 			$scope.user = defaultUser;
 		}
 
@@ -37,7 +37,7 @@
 			} else {
 				msg = data.statusText;
 			}
-			AppFunc.toast(msg);
+			UtilsService.toast(msg);
 		}
 		
 		$scope.change = function () {
@@ -50,10 +50,10 @@
 						};
 						API.Login.save(payload, success, error);
 					} else {
-						AppFunc.toast("Erro ao confirmar senha");
+						UtilsService.toast("Erro ao confirmar senha");
 					}
 				} else {
-					AppFunc.toast("Verifique sua conexão");
+					UtilsService.toast("Verifique sua conexão");
 				}
 			})
 		}
