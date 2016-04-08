@@ -131,9 +131,9 @@
 		<splash height="1136" src="res/screen/ios/Default-568h@2x.png" width="640" />
   
 		<!-- iPhone 6 -->
-		<gap:splash src="res/screen/ios/iPhone6-portrait@2x.png" gap:platform="ios" width="750" height="1334" />    
-		<gap:splash src="res/screen/ios/iPhone6-Plus-portrait@3x.png" gap:platform="ios" width="1242" height="2208" /> 
-		<gap:splash src="res/screen/ios/iPhone6-Plus-landscape@3x.png" gap:platform="ios" width="2208" height="1242" />
+		<gap:splash src="res/screen/ios/Default-667h@2x.png" gap:platform="ios" width="750" height="1334" />    
+		<gap:splash src="res/screen/ios/Default-Portrait-736h@3x.png" gap:platform="ios" width="1242" height="2208" /> 
+		<gap:splash src="res/screen/ios/Default-Landscape-736h@3x.png" gap:platform="ios" width="2208" height="1242" />
 
 		<!-- iPad -->
 		<splash height="1024" src="res/screen/ios/Default~ipad~nostatusbar.png" width="768" />
