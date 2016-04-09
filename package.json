@@ -6,14 +6,15 @@
     "gulp-angular-filesort": "^1.1.1",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-concat": "^2.6.0",
-    "gulp-connect": "^2.3.1",
+    "gulp-connect": "^3.2.2",
     "gulp-cssmin": "^0.1.7",
     "gulp-if": "^2.0.0",
     "gulp-ignore": "^2.0.1",
     "gulp-imagemin": "^2.4.0",
     "gulp-less": "^3.0.5",
+    "gulp-load-plugins": "^1.2.0",
     "gulp-mobilizer": "^0.0.3",
-    "gulp-ng-annotate": "^1.1.0",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-order": "^1.1.1",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
@@ -27,7 +28,7 @@
     "run-sequence": "^1.1.5",
     "streamqueue": "^1.1.1",
     "weinre": "^2.0.0-pre-I0Z7U9OV",
-    "yargs": "^3.31.0"
+    "yargs": "^4.4.0"
   },
   "dependencies": {
     "gulp-task-listing": "^1.0.1"
