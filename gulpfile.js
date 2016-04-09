@@ -64,32 +64,20 @@ if (require('fs').existsSync('./config.js')) {
 ========================================*/
 
 var gulp = require('gulp'),
+	$ = require('gulp-load-plugins')(),
+
 	seq = require('run-sequence'),
-	connect = require('gulp-connect'),
 	less = require('gulp-less'),
-	uglify = require('gulp-uglify'),
-	sourcemaps = require('gulp-sourcemaps'),
-	cssmin = require('gulp-cssmin'),
 	order = require('gulp-order'),
-	concat = require('gulp-concat'),
 	ignore = require('gulp-ignore'),
-	rimraf = require('gulp-rimraf'),
-	imagemin = require('gulp-imagemin'),
 	pngcrush = require('imagemin-pngcrush'),
 	templateCache = require('gulp-angular-templatecache'),
 	mobilizer = require('gulp-mobilizer'),
-	ngAnnotate = require('gulp-ng-annotate'),
-	replace = require('gulp-replace'),
 	ngFilesort = require('gulp-angular-filesort'),
 	streamqueue = require('streamqueue'),
-	rename = require('gulp-rename'),
 	path = require('path'),
 	args = require('yargs').argv,
-	fs = require('fs'),
-	gulpif = require('gulp-if'),
-	zip = require('gulp-zip'),
-	taskListing = require('gulp-task-listing'),
-	stripDebug = require('gulp-strip-debug');
+	fs = require('fs');
 
 /*================================================
 =            Report Errors to Console            =
@@ -132,7 +120,7 @@ if (filename !== null && cwd !== null) {
 	}
 }
 
-gulp.task('help', taskListing);
+gulp.task('help', $.taskListing);
 
 
 /*================================================
@@ -158,7 +146,7 @@ gulp.task('copy-icon', function () {
 	return gulp.src('./res/icon/ios/AppIcon.appiconset/Icon-60@2x.png', {
 		cwd: cwd
 	})
-	.pipe(rename('icon.png'))
+	.pipe($.rename('icon.png'))
 	.pipe(gulp.dest(config.dest))
 });
 
@@ -167,7 +155,7 @@ gulp.task('copy-splash', function () {
 	return gulp.src('./res/screen/ios/Default.png', {
 		cwd: cwd
 	})
-	.pipe(rename('splash.png'))
+	.pipe($.rename('splash.png'))
 	.pipe(gulp.dest(config.dest))
 });
 
@@ -191,7 +179,7 @@ gulp.task('clean', function(cb) {
 	], {
 		read: false
 	})
-	.pipe(rimraf());
+	.pipe($.rimraf());
 });
 
 
@@ -201,7 +189,7 @@ gulp.task('clean', function(cb) {
 
 gulp.task('connect', function() {
 	if (typeof config.server === 'object') {
-		connect.server({
+		$.connect.server({
 			root: config.dest,
 			host: config.server.host,
 			port: config.server.port,
@@ -219,7 +207,7 @@ gulp.task('connect', function() {
 
 gulp.task('livereload', function() {
 	gulp.src(path.join(config.dest, '*.html'))
-	.pipe(connect.reload());
+	.pipe($.connect.reload());
 });
 
 
@@ -235,7 +223,7 @@ gulp.task('images', function() {
 	gulp.src('./images/**/*', {cwd: cwd})
 );
 return streamBuildAction
-.pipe(gulpif(config.minify_images, imagemin({
+.pipe($.if(config.minify_images, $.imagemin({
 	progressive: true,
 	svgoPlugins: [{
 		removeViewBox: false
@@ -269,8 +257,8 @@ gulp.task('html', function() {
 		inject.push('<script src="cordova.js"></script>');
 	}
 	return gulp.src(['src/html/**/*.html'])
-	.pipe(replace('<!-- inject:js -->', inject.join('\n    ')))
-	.pipe(replace('@@name', configProject.name))
+	.pipe($.replace('<!-- inject:js -->', inject.join('\n    ')))
+	.pipe($.replace('@@name', configProject.name))
 	.pipe(gulp.dest(config.dest));
 });
 
@@ -282,7 +270,7 @@ gulp.task('html', function() {
 gulp.task('less', function() {
 	streamqueue({ objectMode: true },
     gulp.src(config.less.src)
-			.pipe(replace("@@brandPrimary", configProject.CONFIG.STYLE.brandPrimary))
+			.pipe($.replace("@@brandPrimary", configProject.CONFIG.STYLE.brandPrimary))
 			.pipe(less({
 				paths: config.less.paths.map(function(p){
 					return path.resolve(__dirname, p);
@@ -300,8 +288,8 @@ gulp.task('less', function() {
 			})),
 		gulp.src(config.vendor.css.append)
 	)
-    .pipe(cssmin())
-    .pipe(rename({suffix: '.min'}))
+    .pipe($.cssmin())
+    .pipe($.rename({suffix: '.min'}))
     .pipe(gulp.dest(path.join(config.dest, 'css')));
 });
 
@@ -311,10 +299,10 @@ gulp.task('less', function() {
 
 gulp.task('phonegap-config', function() {
 	return gulp.src('src/config.xml')
-	.pipe(replace('@@id', configProject.id))
-	.pipe(replace('@@version', config.version))
-	.pipe(replace('@@name', configProject.name))
-	.pipe(replace('@@description', configProject.description))
+	.pipe($.replace('@@id', configProject.id))
+	.pipe($.replace('@@version', config.version))
+	.pipe($.replace('@@name', configProject.name))
+	.pipe($.replace('@@description', configProject.description))
 	.pipe(gulp.dest(config.dest));
 });
 
@@ -334,7 +322,7 @@ gulp.task('locales', function() {
 gulp.task('build-zip', ['copy', 'pgbomit', 'copy-icon', 'copy-splash'], function () {
 	var filename = project + "-" + env +"_rel-" + config.version + ".zip";
 	return gulp.src('www/**/*')
-		.pipe(zip(filename))
+		.pipe($.zip(filename))
 		.pipe(gulp.dest('dist'));
 });
 
@@ -352,32 +340,32 @@ gulp.task('js', function() {
 	},
 	gulp.src(config.vendor.js),
 	gulp.src('src/js/services/meumobi-settings.js')  
-	.pipe(replace('@@APP', JSON.stringify(app)))
-	.pipe(replace('@@CONFIG', JSON.stringify(configProject.CONFIG))),
+	.pipe($.replace('@@APP', JSON.stringify(app)))
+	.pipe($.replace('@@CONFIG', JSON.stringify(configProject.CONFIG))),
 	//gulp.src('src/js/lib/pushwoosh-*.js')
-	//.pipe(replace('@@googleProjectNumber', configProject.CONFIG.PUSHWOOSH.googleProjectNumber))
-	//.pipe(replace('@@applicationCode', configProject.CONFIG.PUSHWOOSH.applicationCode)),
+	//.pipe($.replace('@@googleProjectNumber', configProject.CONFIG.PUSHWOOSH.googleProjectNumber))
+	//.pipe($.replace('@@applicationCode', configProject.CONFIG.PUSHWOOSH.applicationCode)),
 	gulp.src([
 		'./src/js/**/*.js', 
 		'!./src/js/services/meumobi-settings.js' 
 		//'!./src/js/lib/pushwoosh-*.js'
 	])
-	.pipe(replace('@@debug', config.debug))
+	.pipe($.replace('@@debug', config.debug))
 	.pipe(ngFilesort()),
 	gulp.src(['src/templates/**/*.html'])
-	.pipe(replace('@@name', configProject.name))
+	.pipe($.replace('@@name', configProject.name))
 	.pipe(templateCache({
 			module: 'infoMobi'
 		}))
 	);
 	return streamBuildAction
-	.pipe(sourcemaps.init())
-	.pipe(concat('app.js'))
-	.pipe(ngAnnotate())
-	.pipe(gulpif(!config.debug, stripDebug()))
-	.pipe(gulpif(!config.debug, uglify({ mangle: false })))
-	.pipe(rename({suffix: '.min'}))
-	.pipe(sourcemaps.write('.'))
+	.pipe($.sourcemaps.init())
+	.pipe($.concat('app.js'))
+	.pipe($.ngAnnotate())
+	.pipe($.if(!config.debug, $.stripDebug()))
+	.pipe($.if(!config.debug, $.uglify({ mangle: false })))
+	.pipe($.rename({suffix: '.min'}))
+	.pipe($.sourcemaps.write('.'))
 	.pipe(gulp.dest(path.join(config.dest, 'js')));
 });
 
