@@ -54,6 +54,7 @@
 				var result = {};
 				var total = api.totalVotes(poll);
 				$log.debug("Total votes: " + total);
+				$log.debug(poll.voted);
 				
 				for (var x in poll.results) {
 					result = poll.results[x];

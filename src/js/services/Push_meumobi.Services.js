@@ -27,8 +27,8 @@
 		}
 
 		this.register = function(success, error) {
-			// var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
-			var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
+			var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
+			//var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
 
 			if (pushNotification) {
 				$log.info("Plugin pushNotification loaded");
@@ -79,8 +79,8 @@
 
 		this.register = function(success, error) {
 			
-			// var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
-			var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
+			var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
+			// var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
 
 			if (pushNotification) {
 				$log.info("Plugin pushNotification loaded");
