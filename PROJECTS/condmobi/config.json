@@ -1,15 +1,15 @@
 {
-	"name": "condMobi",
+	"name": "CondMobi",
 	"id": "com.meumobi.condmobi",
-	"description": "Mobile App for Internal Communication.",
+	"description": "Mobile App for Condominium Communication.",
 
 	"CONFIG": {
 		"ANALYTICS": {
 			"trackId": "UA-59245997-3"
 		},
 		"BUILD": {
-			"auth_token": "dVp5pEQYSCPxXaUprtPP",
-			"id": "960458"
+			"auth_token": "",
+			"id": ""
 		},
 		"PUSHWOOSH": {
 			"applicationCode": "80A32-61651",
@@ -24,8 +24,8 @@
 			"brandPrimary": "#8ec525"
 		},
 		"WELCOME": {
-			"title": "Bem-vindo ao condMobi",
-			"description": "condMobi revoluciona a comunicação do seu condomínio, permitindo compartilhar informações importantes de forma direta e segmentada.",
+			"title": "Bem-vindo ao CondMobi",
+			"description": "CondMobi revoluciona a comunicação do seu condomínio, permitindo compartilhar informações importantes de forma direta e segmentada.",
 			"images":[  
 				{  
 					"path":"images/welcome-1.png",
