@@ -15,6 +15,26 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+## rel-1.4.1 (20160411)
+* ENHANCEMENT: add flip trnasition on welcome page
+* ENHANCEMENT: Closes #73, manage images on offline mode
+* FEATURE: Closes #159, add polls
+* HOTFIX: Closes #165, Use gulp-load-plugins to lazy load plugins
+* HOTFIX: remove AppFunc, replaced by UtilsService
+* HOTFIX: rename android splash screen, remove first Upper case
+* PROJECTS: add condmobi project
+* PROJECTS: udpate infomobi assets
+* PROJECTS: udpate visa assets
+* PROJECTS: update condmobi and infomobi logo on launch-image
+* PROJECTS: update condmobi pw_appid and profile
+* PROJECTS: update credentials to match new bundle id
+* PROJECTS: update headers and welcome images
+* PROJECTS: update infomobi iOS credentials
+* PROJECTS: update welcome/description of projects and add uppercase of first letter of Apps
+* UPGRADE, migrate to pushwoosh 4.2.2 using new package name
+* UPGRADE: Closes #155, Closes #99, Closes #125, upgrade phonegap version to 6.0
+* UPGRADE: Closes #164, update iOS splash file names
+
 ## rel-1.3.0 (20151214)
 * BUG: Close #129, upgrade angular to prevent iOS9 infinite  loop
 * BUG: Close #89, remove warning on gulp command when uglify js
