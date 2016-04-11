@@ -47,7 +47,7 @@
 	<plugin name="cordova-plugin-uniquedeviceid" spec="~1.3.2" />
 	<plugin name="cordova-plugin-x-socialsharing" spec="~5.0.2" />	
 	<plugin name="cordova-plugin-x-toast" spec="~2.4.2" />
-	<plugin name="pushwoosh-cordova-plugin" spec="4.2.0" />
+	<plugin name="pushwoosh-cordova-plugin" spec="~4.2.2" />
 
 
 	<!-- Cordova Core plugins
@@ -82,11 +82,11 @@
 		<icon gap:qualifier="xxhdpi" src="res/icon/android/drawable-xxhdpi/ic_launcher.png" />
 		<icon gap:qualifier="fr-xxhdpi" src="res/icon/android/drawable-xxxhdpi/ic_launcher.png" />
 			
-		<splash gap:qualifier="ldpi" src="res/screen/android/drawable-ldpi/Launch-image-android.9.png" />
-		<splash gap:qualifier="mdpi" src="res/screen/android/drawable-mdpi/Launch-image-android.9.png" />
-		<splash gap:qualifier="hdpi" src="res/screen/android/drawable-hdpi/Launch-image-android.9.png" />
-		<splash gap:qualifier="xhdpi" src="res/screen/android/drawable-xhdpi/Launch-image-android.9.png" />
-		<splash gap:qualifier="xxhdpi" src="res/screen/android/drawable-xxhdpi/Launch-image-android.9.png" />
+		<splash gap:qualifier="ldpi" src="res/screen/android/drawable-ldpi/launch-image-android.9.png" />
+		<splash gap:qualifier="mdpi" src="res/screen/android/drawable-mdpi/launch-image-android.9.png" />
+		<splash gap:qualifier="hdpi" src="res/screen/android/drawable-hdpi/launch-image-android.9.png" />
+		<splash gap:qualifier="xhdpi" src="res/screen/android/drawable-xhdpi/launch-image-android.9.png" />
+		<splash gap:qualifier="xxhdpi" src="res/screen/android/drawable-xxhdpi/launch-image-android.9.png" />
 		<!--splash gap:qualifier="fr-xhdpi" src="res/screen/android/screen-fr-xhdpi.png" />
 		<splash gap:qualifier="port-xxhdpi" src="res/screen/android/screen-portrait-xxhdpi.png" />
 		<splash gap:qualifier="land-xxhdpi" src="res/screen/android/screen-landscape-xxhdpi.png" /-->
