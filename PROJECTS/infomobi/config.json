@@ -1,5 +1,5 @@
 {
-	"name": "infoMobi",
+	"name": "InfoMobi",
 	"id": "com.meumobi.employee.infomobi",
 	"description": "Mobile App for Internal Communication.",
 
@@ -8,8 +8,8 @@
 			"trackId": "UA-59245997-3"
 		},
 		"BUILD": {
-			"auth_token": "dVp5pEQYSCPxXaUprtPP",
-			"id": "960458"
+			"auth_token": "",
+			"id": ""
 		},
 		"PUSHWOOSH": {
 			"applicationCode": "A9FC4-681E3",
@@ -24,8 +24,8 @@
 			"brandPrimary": "#ff8c04"
 		},
 		"WELCOME": {
-			"title": "Bem-vindo ao infoMobi",
-			"description": "infoMobi revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
+			"title": "Bem-vindo ao InfoMobi",
+			"description": "InfoMobi revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
 			"images":[  
 				{  
 					"path":"images/welcome-1.png",

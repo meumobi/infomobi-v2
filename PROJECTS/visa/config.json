@@ -1,5 +1,5 @@
 {
-	"name": "meu Visa",
+	"name": "Meu Visa",
 	"id": "com.meumobi.employee.infomobi",
 	"description": "Mobile App for Internal Communication.",
 
@@ -21,11 +21,11 @@
 			"halSupport": false
 		},
 		"STYLE": {
-			"brandPrimary": "#23205F"
+			"brandPrimary": "#1A1F71"
 		},
 		"WELCOME": {
 			"title": "Bem-vindo ao infoMobi",
-			"description": "infoMobi revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
+			"description": "MeuVisa App permite compartilhar informações relevantes em tempo real, propocionando uma interação eficaz com sua empresa.",
 			"images":[  
 				{  
 					"path":"images/welcome-1.png",
