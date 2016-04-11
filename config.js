@@ -3,7 +3,7 @@ module.exports = function(config) {
 	// Output directory
 	config.dest = 'www';
 	
-	config.version = "1.3.2"; // version of the App
+	config.version = "1.4.1"; // version of the App
   
 	// Inject cordova script into html
 	config.cordova = true;
@@ -27,7 +27,7 @@ module.exports = function(config) {
 
 	// Comment to enable weinre, uncomment to disable weinre 
 	config.weinre = false;
-	config.debug = true;
+	config.debug = false;
     
 	// 3rd party components
 	config.vendor.js.push('./bower_components/angular-touch/angular-touch.js');
