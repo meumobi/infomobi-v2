@@ -2,7 +2,7 @@
 <div ui-content-for="navbarActionRight"></div>
 
 <div class="scrollable">
-	<div class="scrollable-content">
+	<div class="scrollable-content section">
 		<div class="thumbnail" ng-if="item.images.length > 1">
 			<ul rn-carousel rn-carousel-transition="slide" rn-carousel-controls rn-carousel-auto-slide rn-carousel-pause-on-hover ng-carousel-buffered rn-carousel-index="carouselIndex">
 				<li ng-repeat="image in item.images">
@@ -14,7 +14,7 @@
 		<div class="thumbnail" ng-if="item.images.length == 1">
 			<img ng-src="{{item.images[0].path}}" class="media-object" alt="{{item.title}}">
 		</div>
-		<div class="section container">
+		<div>
 			<h4>
 				{{item.title}}
 				<br>
