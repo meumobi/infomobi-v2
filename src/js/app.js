@@ -289,8 +289,6 @@ var app = angular
 
 	$rootScope.flip = UtilsService.nativeFlipTransition;
 
-	$rootScope.versionServiceIsEnabled = false;
-
 	// If it's the first connection redirect to welcome page
 	if (!localStorage.hasOwnProperty("device")) {
 		$location.path('/login/welcome');

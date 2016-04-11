@@ -39,6 +39,6 @@ angular
 		class: 'fa-file-powerpoint-o',
 		label: 'View',
 		extension: 'ppt',
-		download: true,
+		download: true
 	}
 })

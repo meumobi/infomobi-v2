@@ -33,9 +33,6 @@ function ListController($rootScope, $scope, $http, API, UtilsService, VersionSer
 
 	$scope.syncNews = function () {
 		API.Items.latest(success, error);
-		if ($rootScope.versionServiceIsEnabled) {
-			VersionService.getLatestAppSignature();
-		}
 	}
 		
 	$scope.syncNews();
