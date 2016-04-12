@@ -44,7 +44,7 @@ function API($http, APP, $rootScope, $log) {
 
 	function buildUrl(endp) {
 		// Temporary fix because /visitors/forgot_password not exists yet, we need to force site on url to call /mail unlogged
-		var site = (endp.indexOf("login") != -1) ? "" : APP.domain;
+		var site = ""; //(endp.indexOf("login") != -1) ? "" : APP.domain;
 		if ($rootScope.visitor && $rootScope.visitor.site) {
 			site = $rootScope.visitor.site;
 		}
@@ -137,6 +137,9 @@ var app = {
 			},
 			update: function(obj, success, error) {
 				api.put(path + 'devices/' + obj.uuid, obj, success, error);
+			},
+			reset: function(obj, success, error) {
+				api.post(path + 'forgot_password', obj, success, error);
 			}
 		}
 	})(),

@@ -4,14 +4,12 @@ angular
 	.module('infoMobi')
 	.controller('ForgotController', ForgotController);
 
-	function ForgotController($rootScope, $scope, API, UtilsService) {
+	function ForgotController($rootScope, $scope, API, UtilsService, $log) {
 		
 		$scope.Forgot = {
 			informations: {
-				name: "infobox",
-				mail: "",
-				phone: "",
-				message: ""
+				name: "infomobi",
+				email: "",
 			},
 			submitForm: function(isValid) {
 				$scope.submitted = true;
@@ -24,17 +22,16 @@ angular
 			},
 			sendMail: function() {
 				var payload = $scope.Forgot.informations;
-				var message = "[Esqueci minha senha]: ";
-				payload.message = message + payload.message;
-				API.Mail.save(payload, $scope.Forgot.success, $scope.Forgot.error);
+
+				API.Login.reset(payload, $scope.Forgot.success, $scope.Forgot.error);
 			},
 			success: function(resp) {
-				UtilsService.toast("Mensagem enviada com sucesso");
-				//$scope.Forgot.informations.message = "";
+				UtilsService.toast("Senha resetada com sucesso. Confere sua caixa de email.");
 				$rootScope.flip('#/login');
 			},
 			error: function(err) {
-				UtilsService.toast("Erro ao enviar mensagem");
+				UtilsService.toast("Email não encontrado.");
+				$log.debug("Email não encontrado.");
 			}
 		}
 	}

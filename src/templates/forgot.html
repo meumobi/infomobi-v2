@@ -15,19 +15,19 @@
 					<label>Email</label>
 					<input type="email"
 					name="email"
-					ng-model="Forgot.informations.mail"
+					ng-model="Forgot.informations.email"
 					class="form-control" required/>
 					<p ng-show="forgotForm.email.$invalid && submitted" class="help-block">{{"Invalid Email" | translate}}</p>
 				</div>
 
-				<div class="form-group">
+				<!--div class="form-group">
 					<label>{{"Message" | translate}}</label>
 					<textarea
 					ng-model="Forgot.informations.message"
 					class="form-control"
 					rows="4"
 					placeholder='{{"Optional Message" | translate}}'></textarea>
-				</div>
+				</div-->
 			</fieldset>
 			<button class="btn btn-primary btn-block">{{"Reset my Password" | translate}}</button>
 		</form>
