@@ -254,6 +254,7 @@ var app = angular
 .run(function($rootScope, $location, $http, analytics, APP, BootstrapService, SharedState, DeviceService, AuthService, $log, UtilsService) {
 	
 	$rootScope.flip = UtilsService.nativeFlipTransition;	
+
 	$rootScope.history = window.history;
   $rootScope.go = function(path, transition) {
 		if (transition !== undefined) {
