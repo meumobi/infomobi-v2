@@ -4,9 +4,10 @@
 			<div id="logo">
 				<img src="images/header-clean.png" alt="@@name">
 			</div>
-			<form role="form" name="loginForm" ng-submit="Login.submitForm(loginForm.$valid)" ng-class="{ 'has-error' : loginForm.$invalid && submitted }">
+
+			<form role="form" name="loginForm" ng-submit="Login.submitForm(loginForm.$valid)" novalidate>
 				<fieldset>
-					<div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+					<div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine && submitted }">
 						<input type="email"
 						name="email"
 						placeholder="{{'Email' | translate}}"

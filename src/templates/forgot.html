@@ -5,35 +5,18 @@
 </div>
 <div ui-content-for="navbarActionRight"></div>
 
-<!--div class="scrollable">
-	<div class="scrollable-content section">
-		<div bs-panel title='{{"Forgot Password?" | translate}}'>
-			<form name="forgotForm" ng-submit="Forgot.submitForm(forgotForm.$valid)" novalidate>
-				<div ng-class="{ 'has-error' : forgotForm.email.$invalid && submitted }">
-					<input bs-form-control label="Email" type="email" name="email" ng-required="true" placeholder="me@siemens.com" ng-model="Forgot.informations.mail" />
-					<p ng-show="forgotForm.email.$invalid && submitted" class="help-block">{{"Invalid Email" | translate}}</p>
-				</div>
-					<textarea bs-form-control label='{{"Message" | translate}}' rows="4" placeholder='{{"Optional Message" | translate}}' ng-model="Forgot.informations.message"></textarea>
-				<button class="btn btn-primary btn-block">{{"Reset my Password" | translate}}</button>
-			</form>
-		</div>
-	</div>
-</div-->
-
-
 <div class="scrollable">
 	<div class="scrollable-content section">
 
-		<form name="forgotForm" role="form" ng-submit='Forgot.submitForm(forgotForm.$valid)' novalidate>
+		<form role="form" name="forgotForm" ng-submit='Forgot.submitForm(forgotForm.$valid)' novalidate>
 			<fieldset>
 				<legend>{{"Forgot Password?" | translate}}</legend>
-				<div class="form-group" ng-class="{ 'has-error' : forgotForm.email.$invalid && submitted }">
+				<div class="form-group" ng-class="{ 'has-error' : forgotForm.email.$invalid && !forgotForm.email.$pristine && submitted }">
 					<label>Email</label>
 					<input type="email"
 					name="email"
 					ng-model="Forgot.informations.mail"
-					class="form-control"
-					required />
+					class="form-control" required/>
 					<p ng-show="forgotForm.email.$invalid && submitted" class="help-block">{{"Invalid Email" | translate}}</p>
 				</div>
 

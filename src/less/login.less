@@ -35,3 +35,29 @@ div#logo{
 		margin-bottom: 10px;
 	}
 }
+
+input.ng-valid       {  }
+input.ng-invalid     {  }
+input.ng-pristine    {  }
+input.ng-dirty       {  }
+input.ng-touched     {  }
+
+/* really specific css rules applied by angular */
+.ng-invalid-required        {  }
+.ng-invalid-minlength       {  }
+.ng-valid-max-length        {  }
+
+
+/* Reset mobile-angular-ui css, from mobile-angular-ui/src/less/lib/validations.less */
+
+input.ng-invalid, textarea.ng-invalid {
+	border-color: none;
+}
+
+.ng-dirty input.ng-invalid {
+	border-color: none;
+}
+
+.ng-dirty input.ng-invalid ~ span.ko {
+  color: none; 
+}
