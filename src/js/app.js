@@ -253,10 +253,16 @@ var app = angular
 
 .run(function($rootScope, $location, $http, analytics, APP, BootstrapService, SharedState, DeviceService, AuthService, $log, UtilsService) {
 	
+	$rootScope.flip = UtilsService.nativeFlipTransition;	
 	$rootScope.history = window.history;
   $rootScope.go = function(path, transition) {
-		SharedState.set("transition", transition); 
-		$log.info("Shared State Transition: " + SharedState.get("transition", transition));
+		if (transition !== undefined) {
+			SharedState.set("transition", transition);
+			$log.info("Shared State Transition: " + SharedState.get("transition", transition));
+		} else {
+			$log.info("No transition defined");
+		}
+
 		$location.path(path);
 			//if (window.indexedDB) { alert('WKWebView'); } else { alert('UIWebView'); }
   };
@@ -286,8 +292,6 @@ var app = angular
 		//send page to analytics
 		// analytics.trackPage(current.$$route.title);
 	});
-
-	$rootScope.flip = UtilsService.nativeFlipTransition;
 
 	// If it's the first connection redirect to welcome page
 	if (!localStorage.hasOwnProperty("device")) {
