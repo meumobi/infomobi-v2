@@ -6,7 +6,7 @@
 				{{option}}
 			</label>
 		</div>
-		<small> {{poll.total}} Votes | <!--i ng-bind="poll.end_date * 1000 |date:'d MMM, yyyy'"></i--></small>
+		<small> {{poll.total}} Votes | Fim da votação em <i ng-bind="poll.end_date * 1000 |date:'d MMM, yyyy'"></i></small>
 		<button class="btn btn-primary btn-block" ng-click="vote()">{{"Vote" | translate}}</button>
 	</form>
 </div>

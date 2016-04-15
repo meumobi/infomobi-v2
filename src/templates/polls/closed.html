@@ -1,1 +1,12 @@
-<h4>CLOSED</h4>
+<div class="clearfix poll-container" ng-repeat="result in poll.results" style="line-height: 35px">
+	<div class="bar" style="width: {{result.ratio}};">&nbsp;</div>
+	<div class="pull-left" id="poll-option-label">
+		<span>{{result.label}}</span>
+		<span class="check-vote" ng-if="result.myVote"><i class="fa fa-check-circle-o"></i></span>
+	</div>
+	<div class="pull-right" id="poll-option-ratio">
+		<span>{{result.ratio}}</span>
+	</div>
+</div>
+
+<small> {{poll.total}} Votes | Votação encerrada em <i ng-bind="poll.end_date * 1000 |date:'d MMM, yyyy'"></i></small>

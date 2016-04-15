@@ -31,7 +31,15 @@
 				
 			},
 			api.hasExpired = function(date) {
-				return false;
+				var now = Date.now();
+				var end_date = date * 1000; // convert sec. to ms
+				var hasExpired = (now - end_date) > 0; 
+				
+				$log.debug("end_date: " + end_date);
+				$log.debug("now_date: " + now);
+				$log.debug("Has Expired ? " + hasExpired);
+				
+				return hasExpired;
 			},
 			api.hasVoted = function(poll) {
 				$log.debug("Poll is voted [Object]" + (poll.voted != null));
@@ -57,12 +65,18 @@
 				$log.debug(poll.voted);
 				
 				for (var x in poll.results) {
-					result = poll.results[x];
-					result["myVote"] = poll.voted.values.hasOwnProperty(x);
-					result["label"] = poll.options[result.value];
-					result["ratio"] = (parseInt(poll.results[x].votes) / total) * 100 + "%";
-					$log.debug(result);
-					results.push(result);
+					/**
+					* Should ignore if value i "_"
+					* For more details see https://github.com/meumobi/sitebuilder/issues/351
+					*/
+					if (!isNaN(poll.results[x].value)) {
+						result = poll.results[x];
+						result["myVote"] = (poll.voted!=null) ? poll.voted.values.hasOwnProperty(x): false;
+						result["label"] = poll.options[result.value];
+						result["ratio"] = (total!=0) ? (parseInt(poll.results[x].votes) / total) * 100 + "%" : "0%";
+						$log.debug(result);
+						results.push(result);
+					}
 				};
 				
 				return results;
@@ -86,7 +100,7 @@
 				},
 				get: function(poll) {
 					var status = this.getStatus(poll);
-					//load poll from localstorage if needed
+					//load poll from localstorage if voted but feed hasn't been reloaded from server
 					if (status == this.statuses.voted && !!api.polls()[poll._id]) {
 						poll = api.polls()[poll._id];
 						$log.debug("Poll loaded from localStorage");
@@ -108,6 +122,7 @@
 					} else if (api.hasVoted(poll)) {
 						status = statuses.voted;
 					}
+					$log.debug("Get Status: " + status);
 					return status;
 				},
 				vote: function(poll) {
