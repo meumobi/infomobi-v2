@@ -15,6 +15,16 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+## rel-1.4.2 (20160415)
+* ENHANCEMENT: Closes #147, allows visitor to reset password, instead of sending email to contact
+* ENHANCEMENT: Closes #167, Polls, manage status closed (end_date expired)
+* FIX: Closes #146, login form inputs appears as invalid on load
+* HOTFIX, function go: handle missing transition
+* HOTFIX: Closes #141, disable Build version check
+* PROJECTS: udpate condmobi push credentials
+* HOTFIX: remove margin on welcome page
+* PROJECTS: update certificates of condmobi and infomobi
+
 ## rel-1.4.1 (20160411)
 * ENHANCEMENT: add flip trnasition on welcome page
 * ENHANCEMENT: Closes #73, manage images on offline mode
