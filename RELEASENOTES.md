@@ -15,6 +15,10 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+## rel-1.5.0 (20160502)
+* FEATURE: Closes #178, customize logged area with site's skin
+* PROJECTS: Update bundle Id of condmobi and infomobi, then udpate signing identities
+
 ## rel-1.4.2 (20160415)
 * ENHANCEMENT: Closes #147, allows visitor to reset password, instead of sending email to contact
 * ENHANCEMENT: Closes #167, Polls, manage status closed (end_date expired)
