@@ -4,11 +4,21 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController(DeviceService, PushService, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log) {
+function LoginController(DeviceService, PushService, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log, MeumobiCloud) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
 		$rootScope.go('/list');
+		MeumobiCloud.syncPerformance(
+			function(response) {
+				var data = response.data;
+				data.logo = data.site.hasOwnProperty("logo") && data.site.logo != "" ? APP.cdnUrl + data.site.logo : defaultLogo;
+				$rootScope.performance = data;
+			}, function(error) {
+				$log.debug("MeumobiCloud.syncPerformance ERROR");
+				$log.debug(error);
+			}
+		)
 		PushService.register(
 			function(token) {
 				$log.info("Device token: " + token);

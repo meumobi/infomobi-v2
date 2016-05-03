@@ -10,6 +10,7 @@ var app = angular
 	'meumobi.api',
 	'meumobi.directives.DownloadFile',
 	'meumobi.Polls',
+	'meumobi.Cloud',
 	'meumobi.filters.Common',
 	'meumobi.filters.DownloadFiles',
 	'meumobi.services.Auth',
@@ -28,6 +29,7 @@ var app = angular
 	'ngRoute',
 	'ngSanitize',
 	'ngTouch',
+	'http-with-fallback',
 	'pascalprecht.translate',// angular-translate
 	'services.Analytics',
 	'tmh.dynamicLocale' // angular-dynamic-locale
@@ -38,9 +40,10 @@ var app = angular
 	$httpProvider.defaults.timeout = 5000;
 
 	$routeProvider.when('/list', {
-		templateUrl: "list.html",
 		controller: "ListController",
-    title: "Notícias"
+		// controllerAs: 'vm',
+		templateUrl: "list.html",
+		title: "Notícias"
 	})
 	.when('/show/:id', {
 		templateUrl: "show.html",
@@ -107,6 +110,13 @@ var app = angular
 	});
 	$translateProvider.preferredLanguage('pt_BR');// is applied on first load
 	$translateProvider.useLocalStorage();// saves selected language to localStorage
+})
+
+.config(function (MeumobiCloudProvider, APP) {
+	MeumobiCloudProvider.Settings.cdnUrl = APP.cdnUrl;
+	MeumobiCloudProvider.Settings.apiUrl = APP.apiUrl;
+	MeumobiCloudProvider.Settings.domains = APP.domains;
+	MeumobiCloudProvider.Settings.language = localStorage.Settings && localStorage.Settings.language ? localStorage.Settings.language : "pt";
 })
 
 .config(function (tmhDynamicLocaleProvider) {
@@ -253,7 +263,11 @@ var app = angular
 
 .run(function($rootScope, $location, $http, analytics, APP, BootstrapService, SharedState, DeviceService, AuthService, $log, UtilsService) {
 	
-	$rootScope.flip = UtilsService.nativeFlipTransition;	
+	$rootScope.flip = UtilsService.nativeFlipTransition;
+	
+	$rootScope.getImage = function(path){
+		return APP.cdnUrl + path;
+	};
 
 	$rootScope.history = window.history;
   $rootScope.go = function(path, transition) {
@@ -261,16 +275,13 @@ var app = angular
 			SharedState.set("transition", transition);
 			$log.info("Shared State Transition: " + SharedState.get("transition", transition));
 		} else {
+			SharedState.set("transition", null);
 			$log.info("No transition defined");
 		}
 
 		$location.path(path);
 			//if (window.indexedDB) { alert('WKWebView'); } else { alert('UIWebView'); }
   };
-	
-	$rootScope.getImage = function(path){
-		return APP.cdnUrl + path;
-	};
 	
 	// $rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
 	// $http.defaults.headers.common['X-Visitor-Token'] = $rootScope.user.token;

@@ -18,24 +18,27 @@
 
 		<!-- Enable all requests, inline styles, and eval() -->
 		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src http://meu-css-manager.appspot.com/css/ 'self' 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * filesystem:;">
+		
 	<link rel="stylesheet" href="css/app.min.css" />
 	<link rel="stylesheet" href="css/responsive.min.css" />
 	<link rel="stylesheet" href="css/animate.min.css" />
 	<!-- inject:js -->
 	<script src="js/app.min.js"></script>
+	
 </head>
 <body 
 	ng-app="infoMobi"
 	ng-controller="MainController"
-	ui-prevent-touchmove-defaults >
+	ui-prevent-touchmove-defaults>
 
 	<div ui-yield-to="modals"></div>
 	<div class="app ib-app" 
 		ng-class="{'has-navbar-bottom':NavBarBottom, 'has-navbar-top':true}">
 
 	<div class="navbar navbar-app navbar-absolute-top ib-nav-top" ng-show="NavBarTop">
-				<div class="navbar-brand navbar-brand-center" ui-yield-to="title">
-					<img src="images/header-color.png" alt="@@name"/>
+				<div class="navbar-brand navbar-brand-center">
+					<img img-cache ic-src="{{performance.logo}}" alt="@@name" ng-if="performance.logo" />
+					<img src="images/header-color.png" alt="@@name" ng-if="!performance.logo" />
 				</div>
 				<div class="btn-group pull-left" ui-yield-to="navbarActionLeft"></div>
 				<div class="btn-group pull-right" ui-yield-to="navbarActionRight">
@@ -72,6 +75,7 @@
 				</a>
 			</div>
 		</div>
+		
 		<!-- App Body -->
 	<div class="app-body" ng-class="{loading: loading, 'ib-login-screen-container' : !NavBarBottom}">
 			<div ng-show="loading" class="app-content-loading">
@@ -80,6 +84,6 @@
 			<div class="app-content" ui-state="transition">
 				<ng-view class="slide animated" ng-hide="loading"></ng-view>  
 			</div>
-		</div>
+	</div>
 </body>
 </html>

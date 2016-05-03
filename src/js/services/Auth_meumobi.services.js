@@ -55,10 +55,12 @@
 			localStorage.removeItem("news");
 			localStorage.removeItem("files");
 			localStorage.removeItem("polls");
+			localStorage.removeItem("performance");
 			
 			delete $rootScope.news;
 			delete $rootScope.authToken;
 			delete $rootScope.visitor;
+			delete $rootScope.performance;
 		}
 		
 		function isAuthenticated() {
@@ -73,8 +75,9 @@
 		}
 
 		function loadVisitor(visitor) {
+			// TODO: How visitor could have not site property ?
 			if (!visitor.hasOwnProperty("site")) {
-				visitor.site = APP.domain;
+				visitor.site = APP.DOMAINS["pt"];
 			}
 			$rootScope.visitor = visitor;
 			localStorage.visitor = JSON.stringify(visitor);
