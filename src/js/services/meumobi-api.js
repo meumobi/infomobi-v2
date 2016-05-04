@@ -11,6 +11,7 @@ function errorInterceptor($q, $rootScope, $location, APP, $log) {
 	return {
 		request: function(config) {
 			config.requestTimestamp = new Date().getTime();
+			config.timeout = 10000;
 			$rootScope.$broadcast('loading:show');
 			return config || $q.when(config);
 		},
@@ -24,6 +25,8 @@ function errorInterceptor($q, $rootScope, $location, APP, $log) {
 			return response || $q.when(response);
 		},
 		responseError: function(response) {
+			// See w3.org for Status code definitions: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+			
 			$rootScope.$broadcast('loading:hide');
 			$log.debug("[API:errorInterceptor]: BEGIN");
 			$log.debug(response);
@@ -32,7 +35,16 @@ function errorInterceptor($q, $rootScope, $location, APP, $log) {
 			if (response && response.status === 404) {}
 			if (response && response.status === 401) {
 				$log.debug("[API:errorInterceptor]: response.status == 401");
+				$log.debug("The request requires user authentication.  If the request already included Authorization credentials, then the 401 response indicates that authorization has been refused for those credentials.")
 				$rootScope.$emit("logout");
+			}
+			if (response && response.status === 404) {
+				$log.debug("[API:errorInterceptor]: response.status == " + response.status);
+				$log.debug("The requested resource could not be found.");
+			}
+			if (response && response.status === 408) {
+				$log.debug("[API:errorInterceptor]: response.status == " + response.status);
+				$log.debug("The server timed out waiting for the request.");
 			}
 			if (response && response.status >= 500) {}
 			return $q.reject(response);
@@ -117,6 +129,14 @@ var app = {
 		return {
 			latest: function(success, error) {
 				api.get(path + 'latest', success, error);
+			}
+		}
+	})(),
+	Site: (function() {
+		var path = '/performance';
+		return {
+			performance: function(success, error) {
+				api.get(path, success, error);
 			}
 		}
 	})(),

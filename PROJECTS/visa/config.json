@@ -15,11 +15,6 @@
 			"applicationCode": "A9FC4-681E3",
 			"googleProjectNumber": "138333716576"
 		},
-		"HTTP": {
-			"limit": "10",
-			"timeout": "5",
-			"halSupport": false
-		},
 		"STYLE": {
 			"brandPrimary": "#1A1F71"
 		},

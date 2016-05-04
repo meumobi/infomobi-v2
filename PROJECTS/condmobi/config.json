@@ -15,11 +15,6 @@
 			"applicationCode": "80A32-61651",
 			"googleProjectNumber": "225600686959"
 		},
-		"HTTP": {
-			"limit": "10",
-			"timeout": "5",
-			"halSupport": false
-		},
 		"STYLE": {
 			"brandPrimary": "#8ec525"
 		},

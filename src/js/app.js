@@ -37,7 +37,6 @@ var app = angular
 
 .config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider, CONFIG) {
 	$httpProvider.interceptors.push('errorInterceptor');
-	$httpProvider.defaults.timeout = 5000;
 
 	$routeProvider.when('/list', {
 		controller: "ListController",
