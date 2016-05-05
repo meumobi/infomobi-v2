@@ -30,5 +30,7 @@
 	"Files Downloaded": "Arquivos baixados",
 	"Optional Message": "Mensagem opcional",
 	"Share it": "Compartilhar",
-	"Vote": "Vote"
+	"Vote": "Vote",
+	"file.type": "Tipo",
+	"file.size": "Tamanho"
 }

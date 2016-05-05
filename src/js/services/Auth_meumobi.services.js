@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Auth', ['meumobi.api', 'meumobi.settings'])
+	.module('meumobi.services.Auth', ['meumobi.api', 'meumobi.services.Settings'])
 	.factory('AuthService', AuthService);
 		
 	function AuthService($http, $rootScope, API, APP, $log) {

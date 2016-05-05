@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-	.module('meumobi.api', ['ngResource', 'meumobi.settings'])
+	.module('meumobi.api', ['ngResource', 'meumobi.services.Settings'])
 // Simple Authentication for Angular.js App: http://beletsky.net/2013/11/simple-authentication-in-angular-dot-js-app.html
 	.factory('errorInterceptor', errorInterceptor)
 	.factory('API', API)

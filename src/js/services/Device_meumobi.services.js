@@ -22,7 +22,7 @@
 					directory = cordova.file.externalDataDirectory;
 					$log.debug("[Android] Set download dir: " + directory)
 				} else {
-	        directory = cordova.file.dataDirectory;
+					directory = cordova.file.dataDirectory;
 					$log.debug("[iOS] Set download dir: " + directory);
 				}
 				done(directory);
@@ -33,7 +33,37 @@
 			$rootScope.device = {};
 			localStorage.removeItem("device");
 		}
-		
+
+		function save(token, success) {
+			try {
+				var device = getSignature();
+			
+				deviceReady(function() {
+					var uniqueDeviceID = window.plugins && window.plugins.uniqueDeviceID;
+				
+					if (uniqueDeviceID) {
+						uniqueDeviceID.get(
+							function(uuid){
+								// device = getSignature();
+								device.push_id = token;
+								device.uuid = uuid;
+								success(device);
+							}, function(error){
+								$rootScope.$apply(function(){
+									throw new Error('Unable to retrieve uuid');
+								});
+							}
+						);
+					} else {
+						success(device);
+						throw new Error('Missing uniqueDeviceID plugin');
+					}
+				});
+			} catch (error) {
+				$exceptionHandler(error);
+			}
+		}
+
 		function success(data, status) {
 			console.log("[DeviceService:updateSignature]: success " + data);
 		}

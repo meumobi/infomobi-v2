@@ -1,0 +1,16 @@
+	<article class="media" ng-class-odd="'bg'">
+		<span ng-if="media.thumbnails.length" class="pull-left thumb-large">
+			<img img-cache ic-src="{{media.thumbnails[0].url}}" alt="{{media.title}}">
+		</span>
+		<span ng-if="!media.thumbnails.length" class="pull-left thumb-large">
+			<i class="fa {{media.type|mediaIconClass}} fa-5x"></i>
+		</span>
+		<div class="media-body">
+			<h5 class="media-heading">{{media.title}}</h5>
+			<div class="block">
+				<span id="media-type">{{"file.type" | translate}}: {{media.type}}<span><br/>
+				<span id="media-length" ng-if="media.length">{{"file.size" | translate}}: {{media.length|bytesToSize}}</span>
+			</div>
+			<download-file-controls file="media"></download-file-controls>
+		</div>
+	</article>
