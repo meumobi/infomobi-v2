@@ -206,7 +206,7 @@ gulp.task('connect', function() {
 ==============================================================*/
 
 gulp.task('livereload', function() {
-	gulp.src(path.join(config.dest, '*.html'))
+	return gulp.src(path.join(config.dest, '*.html'))
 	.pipe($.connect.reload());
 });
 
@@ -339,7 +339,7 @@ gulp.task('js', function() {
 		objectMode: true
 	},
 	gulp.src(config.vendor.js),
-	gulp.src('src/js/services/meumobi-settings.js')  
+	gulp.src('src/js/services/Settings_meumobi.Services.js')  
 	.pipe($.replace('@@APP', JSON.stringify(app)))
 	.pipe($.replace('@@CONFIG', JSON.stringify(configProject.CONFIG))),
 	//gulp.src('src/js/lib/pushwoosh-*.js')
@@ -347,7 +347,7 @@ gulp.task('js', function() {
 	//.pipe($.replace('@@applicationCode', configProject.CONFIG.PUSHWOOSH.applicationCode)),
 	gulp.src([
 		'./src/js/**/*.js', 
-		'!./src/js/services/meumobi-settings.js' 
+		'!./src/js/services/Settings_meumobi.Services.js' 
 		//'!./src/js/lib/pushwoosh-*.js'
 	])
 	.pipe($.replace('@@debug', config.debug))

@@ -4,6 +4,6 @@ angular
 	.module('infoMobi')
 	.controller('FilesController', FilesController);
 
-	function FilesController($rootScope, $scope, $window, Files) {
-		$scope.downloadedFiles = Files.list();
+	function FilesController($rootScope, $scope, $window, files) {
+		$scope.downloadedFiles = files.list();
 	}

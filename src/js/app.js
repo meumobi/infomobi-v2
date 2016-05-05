@@ -20,7 +20,7 @@ var app = angular
 	'meumobi.services.Push',
 	'meumobi.services.Utils',
 	'meumobi.services.Version',
-	'meumobi.settings',
+	'meumobi.services.Settings',
 	'meumobi.stubs',
 	'meumobi.utils',
 	'mobile-angular-ui',
