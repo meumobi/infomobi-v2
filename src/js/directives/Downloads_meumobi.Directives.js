@@ -29,8 +29,9 @@
 			*/
 			var isDownloadFile = (scope.file.type in MEDIAS) && MEDIAS[scope.file.type].download;
 
-			
-			if (UtilsService.isCordovaApp() && isDownloadFile) {
+			if (!UtilsService.isCordovaApp() || !isDownloadFile) {
+				scope.file.status = files.statuses.open_by_link;
+			} else {
 				//load file status and localstorage data
 				scope.file = files.get(scope.file);
 				/*
@@ -93,8 +94,6 @@
 						}
 					);
 				};
-			} else {
-				scope.file.status = files.statuses.open_by_link;
 			}
 		}
 	}
