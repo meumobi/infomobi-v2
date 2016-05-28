@@ -270,7 +270,7 @@ gulp.task('html', function() {
 gulp.task('less', function() {
 	streamqueue({ objectMode: true },
     gulp.src(config.less.src)
-			.pipe($.replace("@@brandPrimary", configProject.CONFIG.STYLE.brandPrimary))
+			.pipe($.replace("@@brandPrimary", configProject.STYLE.brandPrimary))
 			.pipe(less({
 				paths: config.less.paths.map(function(p){
 					return path.resolve(__dirname, p);
@@ -341,14 +341,10 @@ gulp.task('js', function() {
 	gulp.src(config.vendor.js),
 	gulp.src('src/js/services/Settings_meumobi.Services.js')  
 	.pipe($.replace('@@APP', JSON.stringify(app)))
-	.pipe($.replace('@@CONFIG', JSON.stringify(configProject.CONFIG))),
-	//gulp.src('src/js/lib/pushwoosh-*.js')
-	//.pipe($.replace('@@googleProjectNumber', configProject.CONFIG.PUSHWOOSH.googleProjectNumber))
-	//.pipe($.replace('@@applicationCode', configProject.CONFIG.PUSHWOOSH.applicationCode)),
+	.pipe($.replace('@@CONFIG', JSON.stringify(configProject))),
 	gulp.src([
 		'./src/js/**/*.js', 
 		'!./src/js/services/Settings_meumobi.Services.js' 
-		//'!./src/js/lib/pushwoosh-*.js'
 	])
 	.pipe($.replace('@@debug', config.debug))
 	.pipe(ngFilesort()),

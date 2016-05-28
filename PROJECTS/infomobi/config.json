@@ -5,30 +5,28 @@
 	"ITUNES": {
 		"id": "1105999961"
 	},
-	"CONFIG": {
-		"ANALYTICS": {
-			"trackId": "UA-59245997-3"
-		},
-		"BUILD": {
-			"auth_token": "",
-			"id": ""
-		},
-		"PUSHWOOSH": {
-			"applicationCode": "A9FC4-681E3",
-			"googleProjectNumber": "138333716576"
-		},
-		"STYLE": {
-			"brandPrimary": "#ff8c04"
-		},
-		"WELCOME": {
-			"title": "Bem-vindo ao InfoMobi",
-			"description": "InfoMobi revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
-			"images":[  
-				{  
-					"path":"images/welcome-1.png",
-					"title":"Fica conectado com sua empresa"
-				}
-			]
-		}	
-	}
+	"ANALYTICS": {
+		"trackId": "UA-59245997-3"
+	},
+	"BUILD": {
+		"auth_token": "",
+		"id": ""
+	},
+	"PUSHWOOSH": {
+		"applicationCode": "A9FC4-681E3",
+		"googleProjectNumber": "138333716576"
+	},
+	"STYLE": {
+		"brandPrimary": "#ff8c04"
+	},
+	"WELCOME": {
+		"title": "Bem-vindo ao InfoMobi",
+		"description": "InfoMobi revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
+		"images":[  
+			{  
+				"path":"images/welcome-1.png",
+				"title":"Fica conectado com sua empresa"
+			}
+		]
+	}	
 }

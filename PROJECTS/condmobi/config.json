@@ -2,31 +2,28 @@
 	"name": "CondMobi",
 	"id": "com.meumobi.condmobi2",
 	"description": "Mobile App for Condominium Communication.",
-
-	"CONFIG": {
-		"ANALYTICS": {
-			"trackId": "UA-59245997-3"
-		},
-		"BUILD": {
-			"auth_token": "",
-			"id": ""
-		},
-		"PUSHWOOSH": {
-			"applicationCode": "80A32-61651",
-			"googleProjectNumber": "225600686959"
-		},
-		"STYLE": {
-			"brandPrimary": "#8ec525"
-		},
-		"WELCOME": {
-			"title": "Bem-vindo ao CondMobi",
-			"description": "CondMobi revoluciona a comunicação do seu condomínio, permitindo compartilhar informações importantes de forma direta e segmentada.",
-			"images":[  
-				{  
-					"path":"images/welcome-1.png",
-					"title":"Fica conectado com seu condomínio"
-				}
-			]
-		}	
-	}
+	"ANALYTICS": {
+		"trackId": "UA-59245997-3"
+	},
+	"BUILD": {
+		"auth_token": "",
+		"id": ""
+	},
+	"PUSHWOOSH": {
+		"applicationCode": "80A32-61651",
+		"googleProjectNumber": "225600686959"
+	},
+	"STYLE": {
+		"brandPrimary": "#8ec525"
+	},
+	"WELCOME": {
+		"title": "Bem-vindo ao CondMobi",
+		"description": "CondMobi revoluciona a comunicação do seu condomínio, permitindo compartilhar informações importantes de forma direta e segmentada.",
+		"images":[  
+			{  
+				"path":"images/welcome-1.png",
+				"title":"Fica conectado com seu condomínio"
+			}
+		]
+	}	
 }
