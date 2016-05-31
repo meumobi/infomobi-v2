@@ -1,13 +1,20 @@
 <div class="scrollable">
 	<div class="scrollable-content section">
 		<div bs-panel title='{{"Files Downloaded" | translate}}'>
-			<div class="ib-loading-news" ng-show="downloadedFiles | isEmpty">
-				<div>
-					{{"No Files Downloaded" | translate}}
-				</div>
-			</div>
+						<article class="media" ng-if="downloadedFiles | isEmpty">
+							<div class="pull-left thumb-small">
+								<span class="fa-stack fa-lg">
+									<i class="fa fa-circle fa-stack-2x text-success"></i>
+									<i class="fa fa-file fa-stack-1x text-white"></i>
+								</span>
+							</div>
+							<div class="media-body">
+								<h4>{{"No Files Downloaded" | translate}}</h4>
+								<small class="block">{{"All files downloaded on App are available here for Sharing and Offline Reading." | translate}}</small>
+							</div>
+						</article>
 			<div class="list-group ib-home-news">
-				<download-file ng-repeat="file in downloadedFiles" file="file"></download-file>
+				<section ng-repeat="media in downloadedFiles" id="media-list" ng-include="'items/media/details.html'"></section>
 			</div>
 		</div>
 	</div>
