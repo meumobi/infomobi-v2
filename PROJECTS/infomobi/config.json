@@ -5,6 +5,9 @@
 	"ITUNES": {
 		"id": "1105999961"
 	},
+	"OPTIONS": {
+		"appRate": true
+	},
 	"ANALYTICS": {
 		"trackId": "UA-59245997-3"
 	},

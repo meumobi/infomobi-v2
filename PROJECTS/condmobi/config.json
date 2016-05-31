@@ -2,6 +2,12 @@
 	"name": "CondMobi",
 	"id": "com.meumobi.condmobi2",
 	"description": "Mobile App for Condominium Communication.",
+	"ITUNES": {
+		"id": "1106001957"
+	},
+	"OPTIONS": {
+		"appRate": true
+	},
 	"ANALYTICS": {
 		"trackId": "UA-59245997-3"
 	},
