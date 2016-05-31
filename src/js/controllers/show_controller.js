@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('ShowController', ShowController);
 
-function ShowController($rootScope, $scope, $sce, $routeParams, API, APP, UtilsService, $log) {
+function ShowController($rootScope, $scope, $filter, $sce, $routeParams, API, APP, UtilsService, $log) {
 	$scope.getTrustedResourceUrl = function(src) {
 		return $sce.trustAsResourceUrl(src);
 	}
@@ -34,6 +34,13 @@ function ShowController($rootScope, $scope, $sce, $routeParams, API, APP, UtilsS
 	};
 
 	$scope.item = $rootScope.news[$routeParams.id];
+	/*
+	if RSS use enclosure to illustrate article with images, these images are converted on meumobi as image and media. Then we skip here media those type is image/jpeg to prevent download AND display on carousel.
+	Images should be displayed on top of articles and enlarge (fullscreen) by click.
+	No need to download them, they are cached for offline use.
+	*/
+	$scope.media = $filter('filter')($scope.item.medias, {type: "!image/jpeg"});
+
 	$scope.item.next = ($routeParams.id < $rootScope.news.length-1) ? '/show/' + (parseInt($routeParams.id) + 1) : "#";
 	$scope.item.previous = ($routeParams.id > 0) ? '/show/' + (parseInt($routeParams.id) - 1) : "#";
 	

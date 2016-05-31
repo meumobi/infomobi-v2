@@ -25,5 +25,5 @@
 			<div ng-bind-html="item.description | hrefToJS"></div>
 			<!--download-file ng-repeat="media in item.medias|filter:mediaFilter" file="media"></download-file-->
 			
-			<section ng-repeat="media in item.medias" id="media-list" ng-include="'items/media/details.html'"></section>
+			<section ng-repeat="media in media" id="media-list" ng-include="'items/media/details.html'"></section>
 		</div>
