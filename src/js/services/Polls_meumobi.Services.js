@@ -150,13 +150,12 @@
 						error: function(response) {
 							var msg = translateFilter("poll.vote.Error");
 							if (response.data && response.data.error) {
-								$log.debug(response.data.error);
-								msg += translateFilter("[API]: " + response.data.error);
+								msg += ": " + translateFilter("[API]: " + response.data.error);
 							} else {
-								msg += translateFilter("default.network.Error");
+								msg += ": " + translateFilter("default.network.Error");
 							}
 							UtilsService.toast(msg);
-							
+							$log.debug(msg);
 							deferred.reject(response.data);
 						}
 					};

@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController(DeviceService, PushService, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log, MeumobiCloud) {
+function LoginController(DeviceService, PushService, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log, MeumobiCloud, translateFilter) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
@@ -19,20 +19,73 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 				$log.debug(error);
 			}
 		)
-		PushService.register(
-			function(token) {
-				$log.info("Device token: " + token);
-				DeviceService.save(token);
-			}, function(status) {
-				DeviceService.save(null);
-				$log.warn('failed to register : ' + JSON.stringify(status));
-			}
-		);
+		PushService.register(cb_push.register.success, cb_push.register.error);
 	};
 
 	$scope.credentials = {
 		email: "",
 		password: ""
+	};
+
+	var cb_push = {
+		register: {
+			success: function(token){
+				$log.debug("Device token: " + token);
+				DeviceService.save(token);
+			},
+			error: function(status){
+				DeviceService.save(null);
+				$log.debug('failed to register : ' + JSON.stringify(status));
+			}
+		}
+	};
+	
+	var cb_auth = {
+		login: {
+			success: function(response){
+				$scope.Login.loading = false;
+				//show modal if need change password, otherwise authenticate
+				if (response.data && response.data.error) {
+					if (response.data.error == "password expired") {
+						$scope.visitor = response.data.visitor;
+						$rootScope.Ui.turnOn('modal1');
+					} 
+				} else {
+					authenticateUser();
+				} 
+			},
+			error: function(response){
+				var msg = translateFilter("auth.login.Error");
+				if (response.data && response.data.error) {
+					msg += ": " + translateFilter("[API]: " + response.data.error);
+				} else {
+					msg += ": " + translateFilter("default.network.Error");
+				}
+				$scope.Login.loading = false;
+				UtilsService.toast(msg);
+				$log.debug(msg)
+			}
+		}
+	};
+	
+	var cb_login = { 
+		save: {
+			success: function(response) {
+				UtilsService.toast(translateFilter("password.save.Success"));
+				AuthService.loadAuthToken(response.data.token);
+				$rootScope.Ui.turnOff('modal1');
+				authenticateUser();
+			},
+			error: function(response) {
+				var msg = translateFilter("password.save.Error");
+				if (response.data && response.data.error) {
+					msg += ": " + translateFilter("[API]: " + response.data.error);
+				} else {
+					msg += ": " + translateFilter("default.network.Error");
+				}
+				UtilsService.toast(msg);
+			}
+		}
 	};
 
 	$scope.Login = {
@@ -48,46 +101,16 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 			}
 		},
 		signin: function(credentials) {
-			AuthService.login(credentials, $scope.Login.loginSuccess, $scope.Login.loginError)
+			AuthService.login(credentials, cb_auth.login.success, cb_auth.login.error)
 		},
 
 		changePassword: function() {
-			API.Login.save({
+			var payload = {
 				current_password: $scope.credentials.password,
 				password: $scope.Login.new_password
-			}, function(resp) {
-				AuthService.loadAuthToken(resp.data.token);
-				$rootScope.Ui.turnOff('modal1');
-				//$rootScope.toggle('change-password-overlay', 'off');
-				authenticateUser();
-			}, function() {
-				UtilsService.toast("Erro ao alterar sua senha. Confere sua conexão e tente novamente.");
-				AuthService.logout();
-			});
-		},
-		loginSuccess: function(resp) {
-			$scope.Login.loading = false;
-			//show modal if need change password, otherwise authenticate
-			if (resp.data && resp.data.error && resp.data.error == "password expired") {
-				$scope.visitor = resp.visitor;
-				//$rootScope.toggle('change-password-overlay', 'on');
-				$rootScope.Ui.turnOn('modal1');
-			} else {
-				authenticateUser();
-			}
-		},
-		loginError: function(resp) {
-			var msg;
-			if (resp.data && resp.data.error) {
-				if (resp.data.error == "Invalid visitor")
-					msg = "Usuário e/ou Senha inválido(s)!";
-				else
-					msg = resp.data.error;
-			} else {
-				msg = "Erro ao realizar login. Confere sua conexão e tente novamente.";
-			}
-			$scope.Login.loading = false;
-			UtilsService.toast(msg);
+			};
+			
+			API.Login.save(payload, cb_login.save.success, cb_login.save.error);
 		}
 	}
 }

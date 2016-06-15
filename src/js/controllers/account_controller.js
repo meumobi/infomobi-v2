@@ -5,7 +5,7 @@
 	.module('infoMobi')
 	.controller('AccountController', AccountController);
 
-	function AccountController($rootScope, $scope, $location, API, AuthService, UtilsService, $log) {
+	function AccountController($rootScope, $scope, $location, API, AuthService, UtilsService, $log, translateFilter) {
 		var defaultUser = {
 			mail: $rootScope.visitor ? $rootScope.visitor.email : 'default@siemens.com',
 			password: '',
@@ -18,29 +18,28 @@
 		function isPasswordValid() {
 			return ($scope.user.newPassword == $scope.user.confirmNewPassword);
 		}
-		
-		function success(response) {
-			AuthService.loadAuthToken(response.data.token);
-			AuthService.loadVisitor(response.data);
-			UtilsService.toast("Senha alterada com sucesso");
-			$scope.user = defaultUser;
+
+		var cb_login = {
+			save: {
+				success: function(response) {
+					AuthService.loadAuthToken(response.data.token);
+					$log.debug(response);
+					AuthService.loadVisitor(response.data.visitor);
+					UtilsService.toast(translateFilter("password.save.Success"));
+					$scope.user = defaultUser;
+				},
+				error: function(response) {
+					var msg = translateFilter("password.save.Error");
+					if (response.data && response.data.error) {
+						msg += ": " + translateFilter("[API]: " + response.data.error);
+					} else {
+						msg += ": " + translateFilter("default.network.Error");
+					}
+					UtilsService.toast(msg);
+				}
+			}
 		}
 
-		function error(data) {
-			var msg = "";
-			if (response.status == 403) {
-				msg = "Senha Inválida";
-			} else if (response.status == 401) {
-				$location.path('login');
-				return false;
-			} else if (response.status == 0) {
-				msg = "Verifique sua conexão";
-			} else {
-				msg = response.statusText;
-			}
-			UtilsService.toast(msg);
-		}
-		
 		$scope.change = function () {
 			UtilsService.isOnline(function(online) {
 				if (online) {
@@ -49,7 +48,7 @@
 							current_password: $scope.user.password,
 							password: $scope.user.newPassword
 						};
-						API.Login.save(payload, success, error);
+						API.Login.save(payload, cb_login.save.success, cb_login.save.error);
 					} else {
 						UtilsService.toast("Erro ao confirmar senha");
 					}

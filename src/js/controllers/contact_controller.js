@@ -5,6 +5,23 @@ angular
 	.controller('ContactController', ContactController)
 
 	function ContactController($rootScope, $scope, $log, API, UtilsService, CONFIG, translateFilter) {
+		
+		var cb_mail = {
+			save: {
+				success: function(response) {
+					var msg = translateFilter("contact.mail.Success");
+					UtilsService.toast(msg);
+					$scope.Contact.informations.message = "";
+				},
+				error: function(response) {
+					var msg = translateFilter("contact.mail.Error");
+					if (response.data && response.data.error)
+						msg += ": " + translateFilter(response.data.error);
+					UtilsService.toast(msg);
+				}
+			}
+		}
+		
 		$scope.Contact = {
 			informations: {
 				name: CONFIG.name,
@@ -13,18 +30,7 @@ angular
 				message: ""
 			},
 			sendMail: function() {
-				API.Mail.save($scope.Contact.informations, $scope.Contact.success, $scope.Contact.error);
-			},
-			success: function(response) {
-				var msg = translateFilter("contact.mail.Success");
-				UtilsService.toast(msg);
-				$scope.Contact.informations.message = "";
-			},
-			error: function(response) {
-				var msg = translateFilter("contact.mail.Error");
-				if (response.data && response.data.error)
-					msg += ": " + translateFilter(response.data.error);
-				UtilsService.toast(msg);
+				API.Mail.save($scope.Contact.informations, cb_mail.save.success, cb_mail.save.error);
 			}
 		}
 	}

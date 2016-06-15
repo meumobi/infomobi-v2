@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('ListController', ListController);
 
-function ListController($rootScope, $scope, $http, API, UtilsService, VersionService, PushService) {
+function ListController($rootScope, $scope, $http, API, UtilsService, VersionService, PushService, translateFilter) {
 
 	var loadingStatus = {
 		setPercentage: function(value) {
@@ -31,25 +31,31 @@ function ListController($rootScope, $scope, $http, API, UtilsService, VersionSer
 		$scope.loadingItems = false;
 	})
 
-	$scope.syncNews = function () {
-		API.Items.latest(success, error);
-	}
-		
-	$scope.syncNews();
 
-	function success(response) {
-		localStorage.news = JSON.stringify(response.data.items);
-		$rootScope.news = response.data.items;
-		$scope.items = $rootScope.news;
-		// Remove cached polls from localstorage if fetch them from server
-		localStorage.removeItem("polls");
+	var cb_items = {
+		latest: {
+			success: function(response) {
+				localStorage.news = JSON.stringify(response.data.items);
+				$rootScope.news = response.data.items;
+				$scope.items = $rootScope.news;
+				// Remove cached polls from localstorage if fetch them from server
+				localStorage.removeItem("polls");
+			},
+			error: function(response) {
+				var msg = translateFilter("items.latest.Error");
+				var status = response.statusText || "Request failed";
+				msg += ": " + translateFilter(status);
+
+				UtilsService.toast(msg);
+			}
+		}
 	}
 
-	function error(response) {
-		var msg = response.statusText || "Request failed";
-		if (response.status === 401) {
-			delete $http.defaults.headers.common['X-Visitor-Token'];
-		};
-		UtilsService.toast(msg);
+	$scope.news = {
+		sync: function() {
+			API.Items.latest(cb_items.latest.success, cb_items.latest.error);
+		}
 	}
+	
+	$scope.news.sync();
 }

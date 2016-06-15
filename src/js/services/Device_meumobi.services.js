@@ -5,7 +5,7 @@
 	.module('meumobi.services.Device', ['meumobi.services.Cordova'])
 	.factory('DeviceService', DeviceService);
 		
-	function DeviceService(deviceReady, $rootScope, API, $log) {
+	function DeviceService(deviceReady, $rootScope, API, $log, $exceptionHandler) {
 		var service = {};
 			
 		service.save = save;
@@ -16,17 +16,21 @@
 		return service;
 
 		function getDownloadDir(done) {
-			deviceReady(function() {
-				var directory = null;
-				if (device.platform == "Android") {
-					directory = cordova.file.externalDataDirectory;
-					$log.debug("[Android] Set download dir: " + directory)
-				} else {
-					directory = cordova.file.dataDirectory;
-					$log.debug("[iOS] Set download dir: " + directory);
-				}
-				done(directory);
-			})
+			try {
+				deviceReady(function() {
+					var directory = null;
+					if (device.platform == "Android") {
+						directory = cordova.file.externalDataDirectory;
+						$log.debug("[Android] Set download dir: " + directory)
+					} else {
+						directory = cordova.file.dataDirectory;
+						$log.debug("[iOS] Set download dir: " + directory);
+					}
+					done(directory);
+				})
+			} catch (error) {
+				$exceptionHandler(error);
+			}
 		}
 
 		function clearSignature() {
@@ -64,14 +68,6 @@
 			}
 		}
 
-		function success(data, status) {
-			console.log("[DeviceService:updateSignature]: success " + data);
-		}
-		
-		function error(data, status) {
-			console.log("[DeviceService:updateSignature]: error " + data.error);
-		}
-		
 		function getSignature() {
 			var deviceConfig = {};
 			 
@@ -101,6 +97,27 @@
 		function save(token) {
 			$log.debug("DeviceService.save");
 			var deviceSignature = getSignature();
+			/*
+				Devices Callbacks
+			*/
+			var cb_devices = {
+				save: {
+					success: function(response) {
+						$log.debug("[DeviceService:updateSignature]: success ");
+						$log.debug(response);
+					},
+					error: function(response) {
+						var msg = translateFilter("devices.save.Error");
+						if (response.data && response.data.error) {
+							msg += translateFilter("[API]: " + response.data.error);
+						} else {
+							msg += translateFilter("default.network.Error");
+						}
+						// UtilsService.toast(msg);
+						$log.debug(msg)
+					}
+				}
+			};
 			
 			deviceReady(function() {
 				var uniqueDeviceID = window.plugins && window.plugins.uniqueDeviceID;
@@ -112,7 +129,7 @@
 								deviceSignature.push_id = token;
 							deviceSignature.uuid = uuid;
 							$log.debug(deviceSignature);
-							API.Devices.save(deviceSignature, success, error);
+							API.Devices.save(deviceSignature, cb_devices.save.success, cb_devices.save.error);
 							loadDevice(deviceSignature);
 						}, function(error){
 							$rootScope.$apply(function(){
@@ -121,6 +138,7 @@
 						}
 					);
 				} else {
+					$log.debug("uniqueDeviceID Not loaded");
 					loadDevice(deviceSignature);
 				}	
 			});

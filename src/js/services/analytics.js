@@ -12,7 +12,6 @@ angular.module('services.Analytics', ['meumobi.services.Cordova'])
         if (!window.plugins || !window.plugins.gaPlugin || !analyticsId)
           return;
         gaPlugin = window.plugins.gaPlugin;
-        console.log('ui id: ' + analyticsId);
         gaPlugin.init(function(success) {
           console.log('GAplugin setup sucess: ' + success);
         }, function(error) {

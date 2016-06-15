@@ -18,22 +18,24 @@
 		return service;
 
 		function login(user, success, error) {
-			var req = {
-				success: function(response) {
-					if (response.data.error && response.data.error == "password expired") {
-						$http.defaults.headers.common['X-Visitor-Token'] = response.data.token;
-					} else {
-						loadAuthToken(response.data.token);
+			var cb_login = {
+				signin: {
+					success: function(response){
+						if (response.data.error && response.data.error == "password expired") {
+							$http.defaults.headers.common['X-Visitor-Token'] = response.data.token;
+						} else {
+							loadAuthToken(response.data.token);
+						}
+						loadVisitor(response.data.visitor);
+						success(response);
+					},
+					error: function(response){
+						error(response);
 					}
-					loadVisitor(response.data.visitor);
-					success(response.data);
-				},
-				error: function(response) {
-					error(response.data);
 				}
 			};
 
-			API.Login.signin(user, req.success, req.error);
+			API.Login.signin(user, cb_login.signin.success, cb_login.signin.error);
 		}
 		
 		function logout() {
@@ -60,6 +62,7 @@
 			delete $rootScope.authToken;
 			delete $rootScope.visitor;
 			delete $rootScope.performance;
+			delete $http.defaults.headers.common['X-Visitor-Token'];
 		}
 		
 		function isAuthenticated() {
@@ -88,15 +91,26 @@
 			if (localStorage.hasOwnProperty("visitor")) {
 				loadVisitor(JSON.parse(localStorage.visitor));
 			}
-			var req = {
-				success: function(response) {
-					loadVisitor(response.data);
-				},
-				error: function(response) {
-				} 
+
+			var cb_login = {
+				get: {
+					success: function(response) {
+						loadVisitor(response.data);
+					},
+					error: function(response) {
+						var msg = translateFilter("auth.get.Error");
+						if (response.data && response.data.error) {
+							msg += ": " + translateFilter("[API]: " + response.data.error);
+						} else {
+							msg += ": " + translateFilter("default.network.Error");
+						}
+						$log.debug(msg);
+						$log.debug(response);
+					} 
+				}
 			};
 			
-			API.Login.get(req.success, req.error);
+			API.Login.get(cb_login.get.success, cb_login.get.error);
 		}
 	}
 })();

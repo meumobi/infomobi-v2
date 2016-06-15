@@ -2,7 +2,7 @@
 	'use strict';
 	
 	angular
-	.module('meumobi.Polls', [])
+	.module('meumobi.Polls')
 	.directive('poll', poll);
 
 	function poll($rootScope, translateFilter, Poll, $timeout, UtilsService, $log) {
