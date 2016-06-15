@@ -19,12 +19,12 @@
     "angular-translate-handler-log": "~2.7.2",
     "angular-dynamic-locale": "~0.1.27",
     "angular-i18n": "~1.4.3",
-    "angular-resource": "~1.x",
-    "angular-imgcache": "angular-imgcache.js#~0.1.0",
-    "imgcache.js": "v1.0rc1"
+    "angular-resource": "~1.x"
   },
   "devDependencies": {
     "angular": "~1.5.0",
-    "mobile-angular-ui": "~1.2.0-rc.3"
+    "mobile-angular-ui": "~1.2.0-rc.3",
+    "imgcache.js": "^1.0.0",
+    "angular-imgcache": "angular-imgcache.js#^1.0.1"
   }
 }
