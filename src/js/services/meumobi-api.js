@@ -74,8 +74,7 @@ var api = (function() {
 					//'If-None-Match': localStorage['ETag']
 				}
 			})
-			.success(success)
-			.error(error);
+			.then(success, error);
 		},
 		post: function(endp, obj, success, error) {
 			$http({
@@ -87,8 +86,7 @@ var api = (function() {
 					"Content-Type": "application/json",
 				}
 			})
-			.success(success)
-			.error(error);
+			.then(success, error);
 		},
 		put: function(endp, obj, success, error) {
 			$http({
@@ -100,8 +98,7 @@ var api = (function() {
 					"Content-Type": "application/json",
 				}
 			})
-			.success(success)
-			.error(error);
+			.then(success, error);
 		},
 		del: function(endp, id, success, error) {
 			$http({
@@ -109,8 +106,7 @@ var api = (function() {
 				url: buildUrl(endp),
 				responseType: 'json',
 			})
-			.success(success)
-			.error(error);
+			.then(success, error);
 		}
 	}
 })();

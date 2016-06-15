@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('MainController', MainController);
 
-function MainController($rootScope, $scope, $location, AuthService, API, UtilsService, $log, APP, MeumobiCloud) {
+function MainController($rootScope, $scope, $location, AuthService, UtilsService, $log, APP, MeumobiCloud) {
 
 	$scope.userAgent = navigator.userAgent;
 
@@ -25,16 +25,15 @@ function MainController($rootScope, $scope, $location, AuthService, API, UtilsSe
 	if (AuthService.isAuthenticated()) {
 		var data = {};
 		var defaultLogo = "images/header-color.png";
+		MeumobiCloud.syncPerformance(
+			function(response) {
+				var data = response.data;
+				data.logo = data.site.hasOwnProperty("logo") && data.site.logo != "" ? APP.cdnUrl + data.site.logo : defaultLogo;
+				$rootScope.performance = data;
+			}, function(error) {
+				$log.debug("MeumobiCloud.syncPerformance ERROR");
+				$log.debug(error);
+			}
+		)
 	}
-
-	MeumobiCloud.syncPerformance(
-		function(response) {
-			var data = response.data;
-			data.logo = data.site.hasOwnProperty("logo") && data.site.logo != "" ? APP.cdnUrl + data.site.logo : defaultLogo;
-			$rootScope.performance = data;
-		}, function(error) {
-			$log.debug("MeumobiCloud.syncPerformance ERROR");
-			$log.debug(error);
-		}
-	)
 }

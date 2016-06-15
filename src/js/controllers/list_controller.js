@@ -37,17 +37,17 @@ function ListController($rootScope, $scope, $http, API, UtilsService, VersionSer
 		
 	$scope.syncNews();
 
-	function success(data, status) {
-		localStorage.news = JSON.stringify(data.items);
-		$rootScope.news = data.items;
+	function success(response) {
+		localStorage.news = JSON.stringify(response.data.items);
+		$rootScope.news = response.data.items;
 		$scope.items = $rootScope.news;
 		// Remove cached polls from localstorage if fetch them from server
 		localStorage.removeItem("polls");
 	}
 
-	function error(data, status) {
-		var msg = data.error || "Request failed";
-		if (status === 401) {
+	function error(response) {
+		var msg = response.statusText || "Request failed";
+		if (response.status === 401) {
 			delete $http.defaults.headers.common['X-Visitor-Token'];
 		};
 		UtilsService.toast(msg);

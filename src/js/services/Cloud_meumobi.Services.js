@@ -19,7 +19,7 @@
 
 		this.$get = MeumobiCloud;
 		
-		function MeumobiCloud($exceptionHandler, $q, $rootScope, UtilsService, API, $log, httpWithFallback, $http) {
+		function MeumobiCloud($exceptionHandler, $q, $rootScope, UtilsService, $log, httpWithFallback, $http) {
 			
 			var that = this;
 			

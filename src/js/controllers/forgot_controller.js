@@ -4,7 +4,7 @@ angular
 	.module('infoMobi')
 	.controller('ForgotController', ForgotController);
 
-	function ForgotController($rootScope, $scope, API, UtilsService, $log) {
+	function ForgotController($rootScope, $scope, API, UtilsService, $log, translateFilter) {
 		
 		$scope.Forgot = {
 			informations: {
@@ -25,13 +25,16 @@ angular
 
 				API.Login.reset(payload, $scope.Forgot.success, $scope.Forgot.error);
 			},
-			success: function(resp) {
-				UtilsService.toast("Senha resetada com sucesso. Confere sua caixa de email.");
+			success: function(response) {
+				var msg = translateFilter("forgot.reset.Success");
+				UtilsService.toast(msg);
 				$rootScope.flip('#/login');
 			},
-			error: function(err) {
-				UtilsService.toast("Email não encontrado.");
-				$log.debug("Email não encontrado.");
+			error: function(response) {
+				var msg = translateFilter("forgot.reset.Error");
+				if (response.data && response.data.error)
+					msg += ": " + translateFilter(response.data.error);
+				UtilsService.toast(msg);
 			}
 		}
 	}

@@ -5,7 +5,7 @@
 	.module('infoMobi')
 	.controller('AccountController', AccountController);
 
-	function AccountController($rootScope, $scope, $location, API, AuthService, UtilsService) {
+	function AccountController($rootScope, $scope, $location, API, AuthService, UtilsService, $log) {
 		var defaultUser = {
 			mail: $rootScope.visitor ? $rootScope.visitor.email : 'default@siemens.com',
 			password: '',
@@ -19,23 +19,24 @@
 			return ($scope.user.newPassword == $scope.user.confirmNewPassword);
 		}
 		
-		function success(data, status) {
-			AuthService.loadAuthToken(data.token);
+		function success(response) {
+			AuthService.loadAuthToken(response.data.token);
+			AuthService.loadVisitor(response.data);
 			UtilsService.toast("Senha alterada com sucesso");
 			$scope.user = defaultUser;
 		}
 
-		function error(data, status) {
+		function error(data) {
 			var msg = "";
-			if (status == 403) {
+			if (response.status == 403) {
 				msg = "Senha Inválida";
-			} else if (status == 401) {
+			} else if (response.status == 401) {
 				$location.path('login');
 				return false;
-			} else if (status == 0) {
+			} else if (response.status == 0) {
 				msg = "Verifique sua conexão";
 			} else {
-				msg = data.statusText;
+				msg = response.statusText;
 			}
 			UtilsService.toast(msg);
 		}

@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('ShowController', ShowController);
 
-function ShowController($rootScope, $scope, $filter, $sce, $routeParams, API, APP, UtilsService, $log) {
+function ShowController($rootScope, $scope, $filter, $sce, $routeParams, APP, UtilsService, $log) {
 	$scope.getTrustedResourceUrl = function(src) {
 		return $sce.trustAsResourceUrl(src);
 	}

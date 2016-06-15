@@ -56,7 +56,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 				current_password: $scope.credentials.password,
 				password: $scope.Login.new_password
 			}, function(resp) {
-				AuthService.loadAuthToken(resp.token);
+				AuthService.loadAuthToken(resp.data.token);
 				$rootScope.Ui.turnOff('modal1');
 				//$rootScope.toggle('change-password-overlay', 'off');
 				authenticateUser();
@@ -68,7 +68,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 		loginSuccess: function(resp) {
 			$scope.Login.loading = false;
 			//show modal if need change password, otherwise authenticate
-			if (resp.error && resp.error == "password expired") {
+			if (resp.data && resp.data.error && resp.data.error == "password expired") {
 				$scope.visitor = resp.visitor;
 				//$rootScope.toggle('change-password-overlay', 'on');
 				$rootScope.Ui.turnOn('modal1');
@@ -78,11 +78,11 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 		},
 		loginError: function(resp) {
 			var msg;
-			if (resp && resp.error) {
-				if (resp.error == "Invalid visitor")
+			if (resp.data && resp.data.error) {
+				if (resp.data.error == "Invalid visitor")
 					msg = "Usuário e/ou Senha inválido(s)!";
 				else
-					msg = resp.error;
+					msg = resp.data.error;
 			} else {
 				msg = "Erro ao realizar login. Confere sua conexão e tente novamente.";
 			}

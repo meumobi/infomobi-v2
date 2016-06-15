@@ -19,18 +19,17 @@
 
 		function login(user, success, error) {
 			var req = {
-				success: function(data, status) {
-					if (data.error && data.error == "password expired") {
-						$http.defaults.headers.common['X-Visitor-Token'] = data.token;
+				success: function(response) {
+					if (response.data.error && response.data.error == "password expired") {
+						$http.defaults.headers.common['X-Visitor-Token'] = response.data.token;
 					} else {
-						loadAuthToken(data.token);
+						loadAuthToken(response.data.token);
 					}
-					loadVisitor(data.visitor);
-					console.log(data);
-					success(data);
+					loadVisitor(response.data.visitor);
+					success(response.data);
 				},
-				error: function(data, status) {
-					error(data);
+				error: function(response) {
+					error(response.data);
 				}
 			};
 
@@ -90,10 +89,10 @@
 				loadVisitor(JSON.parse(localStorage.visitor));
 			}
 			var req = {
-				success: function(data, status) {
-					loadVisitor(data);
+				success: function(response) {
+					loadVisitor(response.data);
 				},
-				error: function(data, status) {
+				error: function(response) {
 				} 
 			};
 			

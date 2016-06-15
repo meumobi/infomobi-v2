@@ -32,5 +32,13 @@
 	"Share it": "Compartilhar",
 	"Vote": "Vote",
 	"file.type": "Tipo",
-	"file.size": "Tamanho"
+	"file.size": "Tamanho",
+	"contact.mail.Error": "Erro ao enviar mensagem",
+	"contact.mail.Success": "Mensagem enviada com sucesso.",
+	"forgot.reset.Success": "Senha resetada com sucesso. Confere sua caixa de email.",
+	"forgot.reset.Error": "Não foi possível resetar sua senha",
+	"poll.vote.Error": "Erro ao enviar seu voto: ",
+	"poll.vote.Success": "Voto registrado com sucesso.",
+	"default.network.Error": "Confere sua conexão e tente novamente.",
+	"[API]: item not found": "Objeto não encontrado" 
 }
