@@ -283,7 +283,7 @@
 			deviceReady(function() {
 				var social = window.plugins && window.plugins.socialsharing;
 				if (social) {
-					var postString = "; via #RIWeb_App";
+					var postString = "; via #InfoMobiApp";
 					message += postString;
 					subject += postString;
 					social.share(message, subject, img, link);
