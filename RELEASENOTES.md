@@ -15,6 +15,28 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+## rel-1.5.1 (20160616)
+* ENHANCEMENT: Improve /files page if empty
+* ENHANCEMENT: Closes #171, display thumbnail of media
+* FEATURE: Closes #193, Add App Rate if enabled on config.json
+* FIX: Closes #180, customize bg color of clicked button
+* FIX: Closes #181, download doesn't work on Android 5.1
+* FIX: Closes #192, requests to create/update device on launch are duplicated
+* FIX: Closes #197, on login device is not saved
+* FIX: Closes #198, FATAL EXCEPTION on andwhen register device on Android
+* FIX: Closes #74, Closes #157 request timeout doesn't fire
+* HOTFIX: Closes #162, replace  legacy promise deprecated methods success and error by standard method then
+* HOTFIX: Closes #199, homogenize callback functions
+* HOTFIX: Prevent download of images declared as media, display them on top of article
+* HOTFIX: Remove unused project phonegap
+* HOTFIX: rename files to homogenize
+* HOTFIX: Update config.json format to homogenize with IRmobi
+* HOTFIX: Update translations tokens
+* HOTFIX: Update translations tokens
+* HOTFIX: homogenize layout of /files page
+* HOTFIX: Replace suffix of sharing title to #InfoMobiApp
+* UPGRADE: Closes #161, upgrade imgcache.js
+
 ## rel-1.5.0 (20160502)
 * FEATURE: Closes #178, customize logged area with site's skin
 * PROJECTS: Update bundle Id of condmobi and infomobi, then udpate signing identities
