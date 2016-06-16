@@ -21,8 +21,7 @@
 					AppRate.preferences.usesUntilPrompt = 3;
 					AppRate.preferences.useLanguage = 'pt';
 					AppRate.preferences.displayAppName = CONFIG.name;
-					AppRate.promptForRating();
-					$log.debug("appRate is enabled");
+					AppRate.promptForRating(false);
 				} catch (e) {
 					$log.debug(e);
 				}
@@ -60,16 +59,21 @@
 						alert(notification.title);
 				}, "onStart");
 				*/
-				DeviceService.save();
-				if (AuthService.isAuthenticated()) {
-					PushService.register(
-						function(token) {
-							$log.info("Device token: " + token);
+
+				var cb_push = {
+					register: {
+						success: function(token){
+							$log.debug("Device token: " + token);
 							DeviceService.save(token);
-						}, function(status) {
-							$log.warn('failed to register : ' + JSON.stringify(status));
+						},
+						error: function(){
+							DeviceService.save(null);
 						}
-					);	
+					}
+				};
+				
+				if (AuthService.isAuthenticated()) {
+					PushService.register(cb_push.register.success, cb_push.register.error);	
 				} else {
 					$log.info("Authentication failed");
 				}

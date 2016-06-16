@@ -33,9 +33,8 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 				$log.debug("Device token: " + token);
 				DeviceService.save(token);
 			},
-			error: function(status){
+			error: function(){
 				DeviceService.save(null);
-				$log.debug('failed to register : ' + JSON.stringify(status));
 			}
 		}
 	};

@@ -8,7 +8,7 @@
 	.service('PushwooshAndroidImpl', PushwooshAndroidImpl)
 	.factory('PushService', PushService);
 	
-	function PushwooshiOSImpl($log) {
+	function PushwooshiOSImpl($log, $exceptionHandler) {
 
 		var applicationCode;
 	
@@ -26,37 +26,45 @@
 			});
 		}
 
-		this.register = function(success, error) {
-			var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
-			//var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
+		this.register = function(success, fail) {
+			try {
+				var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
+				//var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
 
-			if (pushNotification) {
-				$log.info("Plugin pushNotification loaded");
+				if (pushNotification) {
+					
+					$log.info("Plugin pushNotification loaded");
 
-				//initialize the plugin
-				pushNotification.onDeviceReady({
-					pw_appid: applicationCode
-				});
+					//initialize the plugin
+					pushNotification.onDeviceReady({
+						pw_appid: applicationCode
+					});
 
-				//register for push notifications
-				pushNotification.registerDevice(
-					function(status) {
-						var deviceToken = status['deviceToken'];
-						$log.info('registerDevice: ' + deviceToken);
-						//callback when pushwoosh is ready
-						success(deviceToken);
-					}, error
-				);
+					//register for push notifications
+					pushNotification.registerDevice(
+						function(status) {
+							var deviceToken = status['deviceToken'];
+							$log.info('registerDevice: ' + deviceToken);
+							//callback when pushwoosh is ready
+							success(deviceToken);
+						}, function(status) {
+							throw new Error('failed to register : ' + JSON.stringify(status));
+						}
+					);
 	
-				//reset badges on start
-				pushNotification.setApplicationIconBadgeNumber(0);
-			} else {
-				$log.info("Plugin pushNotification NOT loaded");
+					//reset badges on start
+					pushNotification.setApplicationIconBadgeNumber(0);
+				} else {
+					throw new Error("Plugin pushNotification NOT loaded");
+				}
+			} catch (error) {
+				fail();
+				$exceptionHandler(error);
 			}
 		}
 	}
 	
-	function PushwooshAndroidImpl($log) {
+	function PushwooshAndroidImpl($log, $exceptionHandler) {
 
 		var googleProjectNumber;
 		var applicationCode;
@@ -77,25 +85,31 @@
 			});
 		}
 
-		this.register = function(success, error) {
-			
-			var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
-			// var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
+		this.register = function(success, fail) {
+			try {
+				var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
+				// var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
 
-			if (pushNotification) {
-				$log.info("Plugin pushNotification loaded");
+				if (pushNotification) {
+					$log.info("Plugin pushNotification loaded");
 
-				pushNotification.onDeviceReady({ 
-					projectid: googleProjectNumber,
-					pw_appid: applicationCode}
-				);
+					pushNotification.onDeviceReady({ 
+						projectid: googleProjectNumber,
+						pw_appid: applicationCode}
+					);
 
-				//register for push notifications
-				pushNotification.registerDevice(success, error);
-				//clear the app badge
-				pushNotification.setApplicationIconBadgeNumber(0);
-			} else {
-				$log.info("Plugin pushNotification NOT loaded");
+					//register for push notifications
+					pushNotification.registerDevice(success, function(status) {
+						throw new Error('failed to register : ' + JSON.stringify(status));
+					});
+					//clear the app badge
+					pushNotification.setApplicationIconBadgeNumber(0);
+				} else {
+					throw new Error("Plugin pushNotification NOT loaded");
+				}
+			} catch (error) {
+				fail();
+				$exceptionHandler(error);
 			}
 		}
 	}

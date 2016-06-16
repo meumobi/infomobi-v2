@@ -9,8 +9,7 @@
 		var service = {};
 			
 		service.save = save;
-		service.clearSignature = clearSignature;
-		service.loadDevice = loadDevice;
+		service.getUniqueDeviceID = getUniqueDeviceID;
 		service.getDownloadDir = getDownloadDir;
  
 		return service;
@@ -33,42 +32,74 @@
 			}
 		}
 
-		function clearSignature() {
-			$rootScope.device = {};
-			localStorage.removeItem("device");
-		}
-
-		function save(token, success) {
+		function getUniqueDeviceID(success, fail) {
 			try {
-				var device = getSignature();
-			
 				deviceReady(function() {
 					var uniqueDeviceID = window.plugins && window.plugins.uniqueDeviceID;
-				
 					if (uniqueDeviceID) {
-						uniqueDeviceID.get(
-							function(uuid){
-								// device = getSignature();
-								device.push_id = token;
-								device.uuid = uuid;
-								success(device);
-							}, function(error){
-								$rootScope.$apply(function(){
-									throw new Error('Unable to retrieve uuid');
-								});
+						var cb_uniqueDeviceID = {
+							get: {
+								success: function(uuid) {
+									success(uuid);
+								},
+								error: function() {
+									$rootScope.$apply(function(){
+										throw new Error('Unable to retrieve uuid');
+									});
+								}
 							}
-						);
+						}
+						uniqueDeviceID.get(cb_uniqueDeviceID.get.success, cb_uniqueDeviceID.get.error);
 					} else {
-						success(device);
 						throw new Error('Missing uniqueDeviceID plugin');
 					}
 				});
+			} catch (error) {
+				fail();
+				$exceptionHandler(error);
+			}
+		}
+		
+		function save(token) {
+			try {
+				var config = getDeviceConfig();
+				if (token != null)
+					config.push_id = token;
+				/*
+					Save it to identify first connection: if localStorage.device NOT exists then 1st connection is true
+				*/
+				localStorage.device = JSON.stringify(config);
+				var cb_devices = {
+					save: {
+						success: function(response) {
+							$log.debug("Device successfully saved");
+							$log.debug(response);
+						},
+						error: function(response) {
+							$rootScope.$apply(function(){
+								throw new Error("Device NOT saved");
+							});
+							$log.debug(reponse);
+						}
+					}
+				}
+				var cb_uniqueDeviceID = {
+					get: {
+						success: function(uuid) {
+							config.uuid = uuid;
+							$log.debug(config);
+							API.Devices.save(config, cb_devices.save.success, cb_devices.save.error);
+						},
+						error: function() {}
+					}
+				}
+				getUniqueDeviceID(cb_uniqueDeviceID.get.success, cb_uniqueDeviceID.get.error)
 			} catch (error) {
 				$exceptionHandler(error);
 			}
 		}
 
-		function getSignature() {
+		function getDeviceConfig() {
 			var deviceConfig = {};
 			 
 			// Only save device from App, not webapp, because we use uuid as primary key
@@ -88,65 +119,8 @@
 				// Running on Web Browser
 				deviceConfig.model = navigator.userAgent;
 			}
-			
-			$log.debug("Device Signature");
-			$log.debug(deviceConfig);
-			return deviceConfig;
-		}
-		
-		function save(token) {
-			$log.debug("DeviceService.save");
-			var deviceSignature = getSignature();
-			/*
-				Devices Callbacks
-			*/
-			var cb_devices = {
-				save: {
-					success: function(response) {
-						$log.debug("[DeviceService:updateSignature]: success ");
-						$log.debug(response);
-					},
-					error: function(response) {
-						var msg = translateFilter("devices.save.Error");
-						if (response.data && response.data.error) {
-							msg += translateFilter("[API]: " + response.data.error);
-						} else {
-							msg += translateFilter("default.network.Error");
-						}
-						// UtilsService.toast(msg);
-						$log.debug(msg)
-					}
-				}
-			};
-			
-			deviceReady(function() {
-				var uniqueDeviceID = window.plugins && window.plugins.uniqueDeviceID;
-				
-				if (uniqueDeviceID) {
-					uniqueDeviceID.get(
-						function(uuid){
-							if (token != 'undefined')
-								deviceSignature.push_id = token;
-							deviceSignature.uuid = uuid;
-							$log.debug(deviceSignature);
-							API.Devices.save(deviceSignature, cb_devices.save.success, cb_devices.save.error);
-							loadDevice(deviceSignature);
-						}, function(error){
-							$rootScope.$apply(function(){
-								throw new Error('Unable to retrieve uuid');
-							});
-						}
-					);
-				} else {
-					$log.debug("uniqueDeviceID Not loaded");
-					loadDevice(deviceSignature);
-				}	
-			});
-		}
 
-		function loadDevice(device) {
-			$rootScope.device = device;
-			localStorage.device = JSON.stringify(device);
+			return deviceConfig;
 		}
 	}
 })();
