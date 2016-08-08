@@ -46,8 +46,9 @@
 	"Vote": "Vote",
 	"We are hearing you": "Escutamos você",
 	"[API]: authentication required": "Erro de autenticação",
-	"[API]: Invalid visitor": "Senha inválida!",
-	"[API]: invalid visitor": "Usuário e/ou Senha inválido(s)!",
+	"[API]: invalid visitor": "Senha inválida!",
+	"[API]: invalid email or password": "Usuário e/ou Senha inválido(s)!",
 	"[API]: item not found": "Objeto não encontrado",
+  "[API]: authentication required": "Acesso não autorizado",
 	"All files downloaded on App are available here for Sharing and Offline Reading.": "Todos os arquivos baixados no Aplicativo ficam disponíveis aqui para compartilha-los ou visualiza-los sem conexão."
 }

@@ -5,7 +5,7 @@
 	.module('meumobi.services.Auth', ['meumobi.api', 'meumobi.services.Settings'])
 	.factory('AuthService', AuthService);
 		
-	function AuthService($http, $rootScope, API, APP, $log) {
+	function AuthService($http, $rootScope, API, APP, $log, translateFilter) {
 		var service = {};
 
 		service.loadAuthToken = loadAuthToken;

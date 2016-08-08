@@ -43,8 +43,12 @@ function ListController($rootScope, $scope, $http, API, UtilsService, VersionSer
 			},
 			error: function(response) {
 				var msg = translateFilter("items.latest.Error");
-				var status = response.statusText || "Request failed";
-				msg += ": " + translateFilter(status);
+        
+				if (response.data && response.data.error) {
+					msg += ": " + translateFilter("[API]: " + response.data.error);
+				} else {
+					msg += ": " + translateFilter("Request failed");
+				}
 
 				UtilsService.toast(msg);
 			}
