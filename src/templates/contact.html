@@ -1,13 +1,13 @@
 <div class="scrollable">
 	<div class="scrollable-content section">
 
-		<form role="form" ng-submit='Contact.sendMail()'>
+		<form role="form" ng-submit='vm.sendMail()'>
 			<fieldset>
-				<legend>{{"Chat with the Internal Communication" | translate}}</legend>
+				<legend>{{vm.title | translate}}</legend>
 				<div class="form-group">
 					<label>Email</label>
 					<input type="email"
-					ng-model="Contact.informations.mail"
+					ng-model="vm.informations.mail"
 					class="form-control"
 					readonly />
 				</div>
@@ -15,7 +15,7 @@
 				<div class="form-group">
 					<label>{{"Message" | translate}}</label>
 					<textarea
-					ng-model="Contact.informations.message"
+					ng-model="vm.informations.message"
 					class="form-control"
 					rows="4"
 					placeholder='{{"We are hearing you" | translate}}'></textarea>

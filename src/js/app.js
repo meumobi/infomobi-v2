@@ -66,6 +66,7 @@ var app = angular
 	.when('/contact', {
 		templateUrl: "contact.html",
 		controller: "ContactController",
+    controllerAs: 'vm',
     title: "Fale com a Comunicação Interna"
 	})
 	.when('/login', {

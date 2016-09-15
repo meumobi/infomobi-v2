@@ -43,11 +43,11 @@ Installation
 sudo npm install -g bower gulp phonegap
 
 # Clone Repository
-git clone "https://github.com/meumobi/infobox.git" && cd infobox
+git clone "https://github.com/meumobi/infomobi.git" && cd infomobi
 
 # Install dependencies
 bower install
-sudo npm install
+npm install
 
 # Build your project for the first time
 gulp build
