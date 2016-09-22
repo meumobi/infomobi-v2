@@ -22,12 +22,13 @@
     "angular-resource": "~1.x",
     "ng-meumobi-utils": "master",
     "moment-timezone": "^0.5.5",
-    "angular-moment": "^0.10.3"
+    "angular-imgcache": "angular-imgcache.js#~1.1.0",
+    "angular-moment": "~1.0.0-beta.6",
+    "moment": "^2.15.1",
+    "angular": "~1.5.0",
+    "imgcache.js": "^1.0.0"
   },
   "devDependencies": {
-    "angular": "~1.5.0",
-    "mobile-angular-ui": "~1.2.0-rc.3",
-    "imgcache.js": "^1.0.0",
-    "angular-imgcache": "angular-imgcache.js#^1.0.1"
+    "mobile-angular-ui": "~1.2.0-rc.3", 
   }
 }

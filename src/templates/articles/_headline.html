@@ -9,7 +9,7 @@
 		<div class="media-body">
 			<h4 class="media-heading">{{item.title}}
 				<br/>
-				<small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>
+        <small><i><span>{{item.pubdate * 1000| amCalendar}}</span></i></small>
 			</h4>
 			<!--p>{{item.caption}}</p-->
 		</div>
