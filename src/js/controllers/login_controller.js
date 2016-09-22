@@ -8,6 +8,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
+    var defaultLogo = "images/header-color.png";
 		MeumobiCloud.syncPerformance(
 			function(response) {
 				var data = response.data;
@@ -19,7 +20,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 			}
 		)
 		PushService.register(cb_push.register.success, cb_push.register.error);
-		$rootScope.go('/list');
+		$rootScope.go('/items');
 	};
 
 	$scope.credentials = {
