@@ -25,6 +25,10 @@ var app = angular
 	'meumobi.utils',
 	'mobile-angular-ui',
 	'mobile-angular-ui.gestures.swipe',
+  'ngMeumobi.Utils',
+  'ngMeumobi.Items.events',
+  'ngMeumobi.Items.articles',
+  'ngMeumobi.Items.polls',
 	'ngAnimate',
 	'ngRoute',
 	'ngSanitize',
@@ -32,21 +36,23 @@ var app = angular
 	'http-with-fallback',
 	'pascalprecht.translate',// angular-translate
 	'services.Analytics',
-	'tmh.dynamicLocale' // angular-dynamic-locale
+	'tmh.dynamicLocale', // angular-dynamic-locale
+  'angularMoment'
 ])
 
 .config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider, CONFIG) {
 	$httpProvider.interceptors.push('errorInterceptor');
 
-	$routeProvider.when('/list', {
-		controller: "ListController",
-		// controllerAs: 'vm',
-		templateUrl: "list.html",
-		title: "Notícias"
+	$routeProvider.when('/events/show/:id', {
+		templateUrl: "items/show.html",
+		controller: "EventsShowController",
+    controllerAs: 'vm',
+    title: "Eventos" // Should resolve category name here for analytics
 	})
-	.when('/show/:id', {
-		templateUrl: "show.html",
+	.when('/:type/show/:id', {
+		templateUrl: "items/show.html",
 		controller: "ShowController",
+    controllerAs: 'vm',
 		title: "Show"
 /*		resolve: {
 			viewName: function($route, $rootScope) {
@@ -83,6 +89,18 @@ var app = angular
 		controller: "FilesController",
     title: "Arquivos"
 	})
+	.when('/items', {
+		templateUrl: "items/list.html",
+		controller: "ItemsListController",
+    controllerAs: 'vm',
+    title: "Notícias" // Should resolve category name here for analytics
+	})
+	.when('/items/list/:id', {
+		templateUrl: "items/list.html",
+		controller: "ItemsListController",
+    controllerAs: 'vm',
+    title: "Eventos" // Should resolve category name here for analytics
+	})
 	.when('/login/forgot', {
 		templateUrl: "forgot.html",
 		controller: "ForgotController",
@@ -94,7 +112,7 @@ var app = angular
     title: "Bem Vindo"
 	})
 	.otherwise({
-		redirectTo: '/list'
+		redirectTo: '/items'
 	});
 
 	analyticsProvider.setup(CONFIG.ANALYTICS.trackId);

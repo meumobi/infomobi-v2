@@ -1,6 +1,6 @@
-<a href="{{'#/show/'+$index}}" ng-click="go('/show/'+$index,'slide-left')" class="list-group-item ib-article">
+<div class="list-group-item">
 	<div class="media">
-		<div class="ib-media-container pull-left" ng-if="item.images.length">
+		<div class="pull-left" ng-if="item.images.length">
 			<img img-cache ic-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}">
 		</div>
 		<div class="media-body">
@@ -11,4 +11,5 @@
 			<!--p>{{item.caption}}</p-->
 		</div>
 	</div>
-</a>
+	<poll data="item" />
+</div>

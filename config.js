@@ -34,9 +34,10 @@ module.exports = function(config) {
 	config.vendor.js.push('./bower_components/angular-sanitize/angular-sanitize.js');
 	config.vendor.js.push('./bower_components/angular-animate/angular-animate.js');
 	config.vendor.js.push('./bower_components/angular-resource/angular-resource.js');
-	config.vendor.js.push('./bower_components/angular-carousel/dist/angular-carousel.js');
-	config.vendor.js.push('./bower_components/js-md5/js/md5.js');
+	config.vendor.js.push('./bower_components/angular-carousel/dist/angular-carousel.min.js');
+	config.vendor.js.push('./bower_components/js-md5/js/md5.min.js');
 	config.vendor.js.push('./src/js/lib/http-with-fallback.js');
+  config.vendor.js.push('./src/js/lib/meu-api.js');
 	//config.vendor.js.push('./src/js/lib/pushwoosh-ios.js');
 	config.vendor.js.push('./bower_components/ladda/dist/spin.min.js');
 	config.vendor.js.push('./bower_components/ladda/dist/ladda.min.js');
@@ -48,6 +49,13 @@ module.exports = function(config) {
 	config.vendor.js.push('./bower_components/angular-translate-handler-log/angular-translate-handler-log.min.js');
 	config.vendor.js.push('./bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js');
 	config.vendor.js.push('./bower_components/angular-imgcache/angular-imgcache.js');
-	config.vendor.js.push('./bower_components/imgcache.js/js/imgcache.js');
+	config.vendor.js.push(
+    './bower_components/imgcache.js/js/imgcache.js',
+    './bower_components/ng-meumobi-utils/dist/ng-meumobi-utils.min.js',
+    './bower_components/moment/min/moment.min.js',
+    './bower_components/moment/locale/pt-br.js',
+    './bower_components/angular-moment/angular-moment.min.js',
+    './bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.min.js'
+  );
 	// config.vendor.fonts.push('.bower_components/font/dist/*');
 };

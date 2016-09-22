@@ -1,27 +1,16 @@
-		<div ui-swipe-left="go(item.next, 'slide-left')" ui-swipe-right="go(item.previous, 'slide-right')">
-			<h4>
-				{{item.title}}
-				<br>
-				<small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>
-			</h4>
-			<p>
-				<audio id="audio" controls autoplay ng-if="audio.length > 0">
-					<source ng-src="{{getTrustedResourceUrl(audio.url)}}" type="{{audio.type}}"></source>
-				</audio>
-				<video id="video" controls autoplay ng-if="video.length > 0">
-					<source ng-src="{{getTrustedResourceUrl(video.url)}}" type="{{video.type}}" />
-				</video>
-			</p>
-			<div class="row text-right" ng-if="item.link">
-				<a ng-click="shareItem()" ng-hide="item.groups.length">
-					<span class="btn btn-white">
-						<i class="fa fa-share-alt"></i> {{"Share it" | translate}}
-					</span>
-				</a>
-				<span class="btn btn-white" ng-show="item.groups.length">
-					<i class="fa fa-lock"></i> Conteúdo restrito
-				</span>
-			</div>
-			<poll data="item" />
-			<download-file ng-repeat="media in item.medias|filter:mediaFilter" file="media"></download-file>
-		</div>
+<h4>
+  {{vm.item.title}}
+  <br>
+  <small><i ng-bind="vm.item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>
+</h4>
+<p>
+  <audio id="audio" controls autoplay ng-if="vm.audio.length > 0">
+    <source ng-src="{{vm.getTrustedResourceUrl(vm.audio.url)}}" type="{{vm.audio.type}}"></source>
+  </audio>
+  <video id="video" controls autoplay ng-if="vm.video.length > 0">
+    <source ng-src="{{vm.getTrustedResourceUrl(vm.video.url)}}" type="{{vm.video.type}}" />
+  </video>
+</p>
+
+<poll data="vm.item" />
+<download-file ng-repeat="media in vm.item.medias|filter:mediaFilter" file="media"></download-file>

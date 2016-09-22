@@ -1,0 +1,32 @@
+<div class="media events-type">
+  <div class="pull-left bg-data">
+    <span class="day" ng-bind="vm.item.start_date * 1000 |date:'dd'"></span>
+    <span class="month" ng-bind="vm.item.start_date * 1000 |date:'MMM'"></span>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">{{vm.item.title}}
+      <br/>
+      <p ng-switch="vm.item.dayLong">
+        <span class="text-muted" ng-switch-when="false">
+          <small><i>{{vm.item.start_date * 1000 | amDateFormat : 'LT'}} - {{vm.item.end_date * 1000 | amDateFormat : 'LT'}}</i></small>
+          <!--small ng-if="vm.global.timezone">{{vm.global.timezone}}</small-->
+        </span>
+        <small class="text-muted" ng-switch-when="true">{{"All day" | translate}}</small>
+      </p>
+    </h4>
+    <div ng-if="vm.item.description">
+      <small>
+        <span class="text-muted" ng-bind-html="vm.item.description"/>
+      </small>
+    </div>
+  
+
+    <div class="block" ng-if="vm.item.address">
+      <span id="event-address">Local: {{vm.item.address}}</span>
+    </div>
+    <ul class="media-controls">
+      <li><a ng-click="vm.addEvent(vm.item)" class="btn btn-action btn-circle"><i class="fa fa-calendar fa-lg"></i></a></li>
+      <!--li><a ng-click="shareMedia(file)" class="btn btn-action btn-circle"><i class="fa fa-share-alt fa-lg"></i></a></li-->
+    </ul>
+  </div>
+</div>
