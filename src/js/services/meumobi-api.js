@@ -52,7 +52,7 @@ function errorInterceptor($q, $rootScope, $location, APP, $log) {
 	};
 }
 
-function API($http, APP, $rootScope, $log) {
+function API($http, APP, $rootScope, $log, httpWithFallback) {
 
 	function buildUrl(endp) {
 		// Temporary fix because /visitors/forgot_password not exists yet, we need to force site on url to call /mail unlogged
@@ -65,15 +65,8 @@ function API($http, APP, $rootScope, $log) {
 
 var api = (function() {
 	return {
-		get: function(endp, success, error) {
-			$http({
-				method: 'GET',
-				url: buildUrl(endp),
-				responseType: 'json',
-				headers: {
-					//'If-None-Match': localStorage['ETag']
-				}
-			})
+		get: function(endp, config, success, error) {
+			httpWithFallback.get(buildUrl(endp), config)
 			.then(success, error);
 		},
 		post: function(endp, obj, success, error) {
@@ -116,7 +109,10 @@ var app = {
 		var path = '/categories/';
 		return {
 			query: function(success, error) {
-				api.get(path, success, error);
+				api.get(path, {}, success, error);
+			},
+			items: function(category_id, config, success, error) {
+				api.get(path + category_id + '/items', config, success, error);
 			}
 		}
 	})(),
@@ -124,7 +120,7 @@ var app = {
 		var path = '/items/';
 		return {
 			latest: function(success, error) {
-				api.get(path + 'latest', success, error);
+				api.get(path + 'latest', {}, success, error);
 			}
 		}
 	})(),
@@ -132,7 +128,7 @@ var app = {
 		var path = '/performance';
 		return {
 			performance: function(success, error) {
-				api.get(path, success, error);
+				api.get(path, {}, success, error);
 			}
 		}
 	})(),
@@ -143,7 +139,7 @@ var app = {
 				api.post(path + 'login', obj, success, error);
 			},
 			get: function(success, error) {
-				api.get(path, success, error);
+				api.get(path, {}, success, error);
 			},
 			save: function(obj, success, error) {
 				api.put(path, obj, success, error);

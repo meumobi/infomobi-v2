@@ -1,0 +1,28 @@
+<a href="{{'#/events/show/'+item._id}}" ng-click="go('/events/show/'+item._id,'slide-left')" class="list-group-item">
+  <div class="media events-type">
+    <div class="pull-left bg-data">
+      <span class="day" ng-bind="item.start_date * 1000 |date:'dd'"></span>
+      <span class="month" ng-bind="item.start_date * 1000 |date:'MMM'"></span>
+    </div>
+    <div class="pull-right m-t-small">
+      <i class="fa fa-chevron-right"></i>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">{{item.title}}
+        <br/>
+        <p ng-switch="item.dayLong">
+          <span class="text-muted" ng-switch-when="false">
+            <small><i>{{item.start_date * 1000 | amDateFormat : 'LT'}} - {{item.end_date * 1000 | amDateFormat : 'LT'}}</i></small>
+            <!--small ng-if="vm.global.timezone">{{vm.global.timezone}}</small-->
+          </span>
+          <span class="text-muted" ng-switch-when="true">
+            <small>{{"All day" | translate}}</small>
+          </span>
+        </p>
+      </h4>
+      <div ng-if="item.address">
+        <span id="event-address">{{item.address}}</span>
+      </div>
+    </div>
+  </div>
+</a>

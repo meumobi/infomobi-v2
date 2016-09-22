@@ -1,0 +1,26 @@
+<div ui-content-for="navbarActionLeft">
+  <button ng-click="go(history.back(),'slide-right')" class="btn btn-primary" ng-show="history.length" >
+    <i class="fa fa-chevron-left"></i>
+  </button>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content section">
+    <div class="thumbnail" ng-if="vm.item.images.length > 1">
+      <ul rn-carousel rn-carousel-transition="slide" rn-carousel-auto-slide rn-carousel-pause-on-hover ng-carousel-buffered rn-carousel-index="carouselIndex">
+        <li ng-repeat="image in vm.item.images">
+          <img img-cache ic-src="{{getImage(image.path)}}" class="media-object" alt="{{image.title}}">
+        </li>
+      </ul>
+      <div rn-carousel-indicators slides="vm.item.images" rn-carousel-index="carouselIndex" ng-if="vm.item.images.length > 1"></div>
+    </div>
+    <div class="thumbnail" ng-if="vm.item.images.length == 1">
+      <img img-cache ic-src="{{getImage(vm.item.images[0].path)}}" class="media-object" alt="{{vm.item.title}}">
+    </div>
+    <div ui-swipe-left="go(vm.item.next, 'slide-left')" ui-swipe-right="go(vm.item.previous, 'slide-right')">
+      <ng-include src="vm.item.type + '/show.html'" />
+    </div>
+  </div>
+</div>
+
+<ng-include src="'utils/_header-title.html'" ng-if="performance"/>

@@ -1,3 +1,21 @@
+.media {
+  .pull-left {
+    width: 30%;
+  }
+}
+
+@media (max-width: @screen-desktop) {
+  section:first-of-type .media {
+    .pull-left {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+    .media-body {
+      clear: both;
+    }  
+  }
+}
+
 video, audio { width:100%; max-width:100%; box-sizing: border-box; display: inline-block; }
 
 audio { margin-top:10px; }

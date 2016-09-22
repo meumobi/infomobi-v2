@@ -30,7 +30,11 @@
 	ng-app="infoMobi"
 	ng-controller="MainController"
 	ui-prevent-touchmove-defaults>
-
+  <!--div ng-include="'sidebar.html'" 
+          class="sidebar sidebar-left"></div>
+  <div ng-include="'sidebarRight.html'" 
+          class="sidebar sidebar-right"></div-->
+  
 	<div ui-yield-to="modals"></div>
 	<div class="app ib-app" 
 		ng-class="{'has-navbar-bottom':NavBarBottom, 'has-navbar-top':true}">
@@ -40,12 +44,22 @@
 					<img img-cache ic-src="{{performance.logo}}" alt="@@name" ng-if="performance.logo" />
 					<img src="images/header-color.png" alt="@@name" ng-if="!performance.logo" />
 				</div>
-				<div class="btn-group pull-left" ui-yield-to="navbarActionLeft"></div>
+        <div class="btn-group pull-left" ui-yield-to="navbarActionLeft"></div>
+        <!--div class="btn-group pull-left" ui-yield-to="navbarActionLeft2">
+          <div ui-toggle="uiSidebarLeft" class="btn">
+            <i class="fa fa-bars"></i> Menu
+          </div>
+        </div -->
 				<div class="btn-group pull-right" ui-yield-to="navbarActionRight">
 					<div ui-turn-on="myDropdown" class="btn">
 						<i class="fa fa-ellipsis-v"></i>
 					</div>
 				</div>
+        <!-- div class="btn-group pull-right" ui-yield-to="navbarActionRight2">
+          <div ui-toggle="uiSidebarRight" class="btn">
+            <i class="fa fa-users"></i>
+          </div>
+        </div -->
 				<ul 
 					class="dropdown-menu pull-right"
 					ui-outer-click="Ui.turnOff('myDropdown')"
@@ -64,7 +78,7 @@
 			</div>
 	<div class="navbar navbar-app navbar-absolute-bottom nav-bottom" ng-if="NavBarBottom">
 			<div class="btn-group justified">
-				<a href="#/list" ng-click="go('/list')" class="btn btn-navbar">
+				<a href="#/items" ng-click="go('/items')" class="btn btn-navbar">
 					<i class="fa fa-rss fa-navbar"></i> {{"News" | translate}}
 				</a>
 				<a href="#/files" ng-click="go('/files')" class="btn btn-navbar">
