@@ -1,9 +1,7 @@
 <div class="list-group-item">
 	<div class="media">
-		<div class="pull-left" ng-if="item.images.length">
-			<img img-cache ic-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}">
-		</div>
 		<div class="media-body">
+      <img img-cache ic-src="{{getImage(item.images[0].path)}}" class="pull-left img-responsive" alt="{{item.title}}" ng-if="item.images.length">
 			<h4 class="media-heading">{{item.title}}
 				<br/>
 				<small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>

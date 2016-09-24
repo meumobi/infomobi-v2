@@ -1,18 +1,19 @@
-.media {
-  .pull-left {
-    width: 30%;
-  }
-}
-
 @media (max-width: @screen-desktop) {
   section:first-of-type .media {
     .pull-left {
-      width: 100%;
+      max-width: 100%;
       margin-bottom: 5px;
+      padding: 0;
     }
     .media-body {
       clear: both;
     }  
+  }
+}
+
+.media {
+  img.pull-left {
+    max-width: 25%;
   }
 }
 

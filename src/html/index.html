@@ -41,8 +41,8 @@
 
 	<div class="navbar navbar-app navbar-absolute-top ib-nav-top" ng-show="NavBarTop">
 				<div class="navbar-brand navbar-brand-center">
-					<img img-cache ic-src="{{performance.logo}}" alt="@@name" ng-if="performance.logo" />
-					<img src="images/header-color.png" alt="@@name" ng-if="!performance.logo" />
+					<img img-cache ic-src="{{performance.logo}}" alt="@@name" class="center-block" ng-if="performance.logo" />
+					<img src="images/header-color.png" alt="@@name" class="center-block" ng-if="!performance.logo" />
 				</div>
         <div class="btn-group pull-left" ui-yield-to="navbarActionLeft"></div>
         <!--div class="btn-group pull-left" ui-yield-to="navbarActionLeft2">
@@ -66,7 +66,7 @@
 					ui-outer-click-if="Ui.active('myDropdown')"
 					role="menu"
 					ui-show="myDropdown" 
-					ui-state="myDropdown"
+					ui-shared-state="myDropdown"
 					ui-turn-off="myDropdown">
 					<li><a href="#/files">
 						<i class="fa fa-download"></i> {{"Files" | translate}}
@@ -95,7 +95,7 @@
 			<div ng-show="loading" class="app-content-loading">
 				<i class="fa fa-spinner fa-spin loading-spinner"></i>
 			</div>
-			<div class="app-content" ui-state="transition">
+			<div class="app-content" ui-shared-state="transition">
 				<ng-view class="slide animated" ng-hide="loading"></ng-view>  
 			</div>
 	</div>
