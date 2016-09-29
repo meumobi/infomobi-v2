@@ -5,7 +5,7 @@
 	.module('infoMobi')
 	.controller('EventsShowController', EventsShowController)
 
-  function EventsShowController($rootScope, UtilsService, translateFilter, $log, $scope, $routeParams, Events) {
+  function EventsShowController($rootScope, $log, $routeParams, Events) {
     
     var vm = this;
     

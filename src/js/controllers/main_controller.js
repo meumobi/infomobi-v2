@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('MainController', MainController);
 
-function MainController($rootScope, $scope, $location, AuthService, UtilsService, $log, APP, MeumobiCloud) {
+function MainController($rootScope, $scope, $location, AuthService, UtilsService, $log, APP, MeumobiCloud, meuAnalytics, deviceReady) {
 
 	$scope.userAgent = navigator.userAgent;
 
@@ -21,6 +21,22 @@ function MainController($rootScope, $scope, $location, AuthService, UtilsService
 		AuthService.logout();
 		$rootScope.flip('#/login');
 	}
+  
+  /*
+    Track current page
+  */
+	$rootScope.$on('$routeChangeSuccess', function(e, current, prev) {
+    if (current.$$route)
+      deviceReady(function(){
+        
+        /*
+          TODO: Replace by Global service and getCurrentItem, getCurrentCategory methods
+        */
+        var title = current.$$route.title || $rootScope.items[current.params.id].title || "Screen title missing";
+        
+        meuAnalytics.trackView(title);
+      });
+	});
 
 	if (AuthService.isAuthenticated()) {
 		var data = {};

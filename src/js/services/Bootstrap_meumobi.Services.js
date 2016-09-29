@@ -5,11 +5,10 @@
 	.module('meumobi.services.Bootstrap', ['meumobi.services.Cordova', 'meumobi.services.Push'])
 	.factory('BootstrapService', BootstrapService);
 
-	function BootstrapService($log, deviceReady, PushService, $rootScope, UtilsService, CONFIG, DeviceService, API, AuthService) {
+	function BootstrapService($log, deviceReady, PushService, $rootScope, UtilsService, CONFIG, DeviceService, AuthService, meuAnalytics, $locale) {
 		var service = {};
 
 		service.startApp = startApp;
-		service.appRate = appRate;
 
 		return service;
 
@@ -30,13 +29,26 @@
 
 		function startApp() {
 			// UtilsService.spinner.show();
+      /*
+        MeuAPI.init(function() {
+          $log.debug("Init MeuMobi API Handler");
+        }, function() {
+          $log.debug("ERROR: Init MeuMobi API Handler");
+        });        
+      */
 			UtilsService.statusBar();
 			UtilsService.hideSplashScreen();
+      $log.debug($locale);
 
 			deviceReady(function() {
 				document.addEventListener("online", $rootScope.toggleCon, false);
 				document.addEventListener("offline", $rootScope.toggleCon, false);
+        
+        meuAnalytics.startTrackerWithId(CONFIG.ANALYTICS.trackId);
+
+        ImgCache.options.cacheClearSize = 10;
 				ImgCache.$init();
+        
 				$log.debug("is Cordova ?: " + ImgCache.helpers.isCordova())
 				if (CONFIG.OPTIONS.appRate && ImgCache.helpers.isCordova()) 
 					appRate();

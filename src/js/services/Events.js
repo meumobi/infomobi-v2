@@ -6,7 +6,7 @@
   .factory('Events', Events)
 	.directive('eventsHeadline', eventsHeadline)
 
-  function Events(meuCalendar, $log, $locale, moment) {
+  function Events(meuCalendar, meuAnalytics, $log, $locale, moment) {
     
 		var service = {};
 
@@ -26,7 +26,7 @@
       };
 			meuCalendar.createEventInteractively(options)
         .then(function() {
-          //meuAnalytics.trackEvent('Events', 'create', item.title, 1);
+          meuAnalytics.trackEvent('Events', 'Save', item.title, 1);
         });
 		};  
     
@@ -59,9 +59,7 @@
 			templateUrl: 'events/_headline.html',
 			link: function(scope, element, attrs) {
         scope.addEvent = Events.addEvent;
-				scope.goToItem = $rootScope.goToItem;
         scope.item = Events.addSchedule(scope.item);
-        $log.debug(scope.item);
 			}
 		};
 	}

@@ -35,12 +35,12 @@ var app = angular
 	'ngTouch',
 	'http-with-fallback',
 	'pascalprecht.translate',// angular-translate
-	'services.Analytics',
 	'tmh.dynamicLocale', // angular-dynamic-locale
   'angularMoment'
 ])
 
-.config(function($routeProvider, $locationProvider, $httpProvider, analyticsProvider, CONFIG) {
+.config(function($routeProvider, $locationProvider, $httpProvider, CONFIG) {
+  
 	$httpProvider.interceptors.push('errorInterceptor');
 
 	$routeProvider.when('/events/show/:id', {
@@ -52,17 +52,7 @@ var app = angular
 	.when('/:type/show/:id', {
 		templateUrl: "items/show.html",
 		controller: "ShowController",
-    controllerAs: 'vm',
-		title: "Show"
-/*		resolve: {
-			viewName: function($route, $rootScope) {
-				//obs. this shoud be a service not a global rootScope property, but is using the implementatiopn of showController
-				var item = $rootScope.news[$route.current.params.id];
-				if (item)
-					$route.current.$$route.title = item.title;
-			}
-		}
-*/
+    controllerAs: 'vm'
 	})
 	.when('/account', {
 		templateUrl: "account.html",
@@ -114,8 +104,6 @@ var app = angular
 	.otherwise({
 		redirectTo: '/items'
 	});
-
-	analyticsProvider.setup(CONFIG.ANALYTICS.trackId);
 })
 
 .config(function ($translateProvider) {
@@ -175,111 +163,57 @@ var app = angular
 			enter: "slideInLeft",
 			leave: "slideOutRight"
 		}
-	}
-
-	/*var transition = {
-		"slide-left": {
-			enter: {
-			  from: {
-			    "-webkit-transform": "translate3d(100%, 0, 0)",
-			    transform: "translate3d(100%, 0, 0)",
-			  },
-
-			  to: {
-			    "-webkit-transform": "translate3d(0, 0, 0)",
-			    transform: "translate3d(0, 0, 0)"
-			  }
-			},
-			leave: {
-			  from: {
-			    "-webkit-transform": "translate3d(0, 0, 0)",
-			    transform: "translate3d(0, 0, 0)"
-			  },
-
-			  to: {
-			    "-webkit-transform": "translate3d(-100%, 0, 0)",
-			    transform: "translate3d(-100%, 0, 0)"
-			  }
-			}
-		},
-		"slide-right": {
-			enter: {
-			  from: {
-			    "-webkit-transform": "translate3d(-100%, 0, 0)",
-			    transform: "translate3d(-100%, 0, 0)",
-			  },
-
-			  to: {
-			    "-webkit-transform": "translate3d(0, 0, 0)",
-			    transform: "translate3d(0, 0, 0)"
-			  }
-			},
-			leave: {
-			  from: {
-			    "-webkit-transform": "translate3d(0, 0, 0)",
-			    transform: "translate3d(0, 0, 0)"
-			  },
-
-			  to: {
-			    "-webkit-transform": "translate3d(100%, 0, 0)",
-			    transform: "translate3d(100%, 0, 0)"
-			  }
-			}
-		}
-	}*/
+	};
 
 	return {
 		enter: function(element, done) { 
 			$log.debug(".animation SharedState: " + SharedState.get("transition"));
+      
 			if (SharedState.get("transition")) {
 				var transform = transition[SharedState.get("transition")];
 					return $animateCss(element, {
 						event: 'enter',
 						structural: true,
 						addClass: transform.enter,
-						//from: transform.enter.from,
-					  //to: transform.enter.to,
-						// duration: 10.35
-						
 					}).start().done(function() {
-						$log.debug("done enter " + transform.enter);
-						$log.debug(SharedState.values());
+            /*
+              After animation set default animation for a@href links
+            */
+            SharedState.set("transition", 'slide-left');
 						done();
 					})
 			} else {
 				return $animateCss(element, {}).start().done(function() {
-					$log.debug("Nothing done");
 					done();
 				})
 			}
 		},
 		leave: function(element, done) {
 			$log.debug(".animation SharedState: " + SharedState.get("transition"));
+      
 			if (SharedState.get("transition")) {
 				var transform = transition[SharedState.get("transition")];
 					return $animateCss(element, {
 						event: 'leave',
 						structural: true,
 						addClass: transform.leave,
-						//from: transform.leave,
-					  // to: transform.leave,
-						// duration: 10.35
 					}).start().done(function() {
-						$log.debug("done leave " + transform.leave);
+            /*
+              After animation set default animation for a@href links
+            */
+            SharedState.set("transition", 'slide-left');
 						done();
 					})
 			} else {
 				return $animateCss(element, {}).start().done(function() {
-					$log.debug("Nothing done");
 					done();
 				})
 			}
 		}
 	}
-	
 }])
 
-.run(function($rootScope, $location, $http, analytics, APP, BootstrapService, SharedState, DeviceService, AuthService, $log, UtilsService) {
+.run(function($rootScope, $location, $http, APP, BootstrapService, SharedState, DeviceService, AuthService, $log, UtilsService) {
 	
 	$rootScope.flip = UtilsService.nativeFlipTransition;
 	
@@ -300,9 +234,7 @@ var app = angular
 		$location.path(path);
 			//if (window.indexedDB) { alert('WKWebView'); } else { alert('UIWebView'); }
   };
-	
-	// $rootScope.user = localStorage.user ? JSON.parse(localStorage.user) : "";
-	// $http.defaults.headers.common['X-Visitor-Token'] = $rootScope.user.token;
+
 	$rootScope.$on('loading:show', function() {
 		// $rootScope.loading = true;
 	})
@@ -316,11 +248,6 @@ var app = angular
 		AuthService.logout();
 		$location.path('/login');
 		//$rootScope.flip('#/login');
-	});
-
-	$rootScope.$on('$routeChangeSuccess', function(e, current, prev) {
-		//send page to analytics
-		// analytics.trackPage(current.$$route.title);
 	});
 
 	// If it's the first connection redirect to welcome page
