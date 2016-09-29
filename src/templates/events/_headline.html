@@ -1,10 +1,18 @@
-<a href="{{'#/events/show/'+item._id}}" ng-click="go('/events/show/'+item._id,'slide-left')" class="list-group-item">
+<a href="{{'#/events/show/'+item._id}}" class="list-group-item">
   <div class="media events-type">
     <div class="media-left">
       <div class="bg-data center-block">
         <span class="day" ng-bind="item.start_date * 1000 |date:'dd'"></span>
         <span class="month" ng-bind="item.start_date * 1000 |date:'MMM'"></span>
       </div>
+=======
+    <div class="pull-left bg-data">
+      <span class="day" ng-bind="item.start_date * 1000 |date:'dd'"></span>
+      <span class="month" ng-bind="item.start_date * 1000 |date:'MMM'"></span>
+    </div>
+    <div class="pull-right m-t-small">
+      <i class="fa fa-chevron-right"></i>
+>>>>>>> bf340e587201d86445db3640421736150bf22395
     </div>
     <div class="media-body">
       <h4 class="media-heading">{{item.title}}
