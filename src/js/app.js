@@ -16,7 +16,6 @@ var app = angular
 	'meumobi.services.Auth',
 	'meumobi.services.Bootstrap',
 	'meumobi.services.Device',
-	'meumobi.services.Files',
 	'meumobi.services.Push',
 	'meumobi.services.Utils',
 	'meumobi.services.Version',
@@ -26,6 +25,8 @@ var app = angular
 	'mobile-angular-ui',
 	'mobile-angular-ui.gestures.swipe',
   'ngMeumobi.Utils',
+  'ngMeumobi.Items.utils',
+  'ngMeumobi.Media.utils',
   'ngMeumobi.Items.events',
   'ngMeumobi.Items.articles',
   'ngMeumobi.Items.polls',
@@ -133,7 +134,8 @@ var app = angular
 	// or more options at once
 	ImgCacheProvider.setOptions({
 		debug: @@debug,
-		usePersistentCache: true
+		usePersistentCache: true,
+    cacheClearSize: 10
 	});
 
 	// ImgCache library is initialized automatically,
@@ -166,9 +168,7 @@ var app = angular
 	};
 
 	return {
-		enter: function(element, done) { 
-			$log.debug(".animation SharedState: " + SharedState.get("transition"));
-      
+		enter: function(element, done) {       
 			if (SharedState.get("transition")) {
 				var transform = transition[SharedState.get("transition")];
 					return $animateCss(element, {
@@ -188,9 +188,7 @@ var app = angular
 				})
 			}
 		},
-		leave: function(element, done) {
-			$log.debug(".animation SharedState: " + SharedState.get("transition"));
-      
+		leave: function(element, done) {      
 			if (SharedState.get("transition")) {
 				var transform = transition[SharedState.get("transition")];
 					return $animateCss(element, {

@@ -80,7 +80,6 @@
 			if (response.promise) response.promise.then(function(response) {
         $log.debug("Promise hhtp-with-fallback");
         
-        $log.debug(response);
         fulfill(response);
 			});
 		}

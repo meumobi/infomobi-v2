@@ -38,7 +38,9 @@ angular
     
     try {
       $log.debug(vm.informations);
-      vm.title = $rootScope.performance.site.theme.tokens.contact_screen_title
+      var tokens = $rootScope.performance.site.theme.tokens;
+      if (tokens.contact_screen_title != "")
+        vm.title = tokens.contact_screen_title;
     } catch (e) {
       $log.debug("Screen title not available, use default")
       $log.debug(e); 
