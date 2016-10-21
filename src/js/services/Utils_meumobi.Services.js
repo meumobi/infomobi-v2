@@ -8,18 +8,12 @@
 	function UtilsService(deviceReady, striptags, br2nl, translate, $log, $location) {
 		var service = {};
 		
-		service.createBase64Image = createBase64Image;
 		service.safeApply = safeApply;
 		service.isOnline = isOnline;
 		service.hideSplashScreen = hideSplashScreen;
 		service.statusBar = statusBar;
-		service.shareItem = shareItem;
-		service.shareMedia = shareMedia;
-		service.openMedia = openMedia;
 		service.confirm = confirm;
 		service.toast = toast;
-		service.saveImage = saveImage;
-		service.loadImage = loadImage;
 		service.openInAppBrowser = openInAppBrowser;
 		service.nativeFlipTransition = nativeFlipTransition;
 		service.isCordovaApp = isCordovaApp;
@@ -90,13 +84,14 @@
 						window.open = iab;
 					}
 				}
+        $log.debug(url);
 				/*
 					The target in which to load the URL:
 					_self: Opens in the Cordova WebView if the URL is in the white list, otherwise it opens in the InAppBrowser.
 					_blank: Opens in the InAppBrowser.
 					_system: Opens in the system's web browser.
 				*/
-				target = target || "_blank";
+				target = ImgCache.helpers.isCordovaIOS() ? "_blank" : "_system";
 				options = options || "location=yes,enableViewportScale=yes";
 				var ref = window.open(url, target, options);
 				ref.addEventListener('loadstart', 
@@ -113,73 +108,6 @@
 					}, false);
 			})
 		};
-		
-		function loadImage(url, placeholder) {
-			var src = url;
-			if (localStorage.hasOwnProperty(url)) {
-				console.log("Load from localStorage: " + url);
-				src = localStorage[url];
-			} else if (placeholder != undefined) {
-				console.log("Load from placeholder: " + placeholder);
-				src = placeholder;
-			} else {
-				console.log("Load from Url");
-			}
-			return src;
-		}
-
-		function saveImage(path, domain) {
-			console.log("Canvas: " + domain + path);
-			//console.log(UtilsService);
-			createBase64Image(domain+path, function(img64) {
-				localStorage[path] = img64;
-			});
-		}
-
-		function saveAllImages(imagesUrls, callback) {
-			var imagesToSave = imagesUrls.length,
-			totalImages = imagesToSave - 1;
-			while (imagesToSave--) {
-				//can't save all the images. the 5MB limit has been exceeded
-				//app.saveImage(imagesUrls[imagesToSave],function(imageId, img64){
-					//totalImages--;
-					//if(imagesToSave == totalImages){
-						callback();
-						//}
-						//});
-					}
-				}
-		
-				function deleteImages() {
-					for (prop in localStorage) {
-						if (prop.indexOf('image_') != -1) {
-							delete localStorage[prop];
-						}
-					}
-				}
-		
-		function createBase64Image(url, callback) {
-			var img = new Image;
-			img.setAttribute('crossOrigin', 'anonymous');
-			img.onload = function() {
-				imgToBase64(img, callback);
-			}
-			img.src = url;
-		}
-			
-		function imgToBase64(img, callback) {
-			var canvas = document.createElement("canvas");
-			canvas.width = img.width;
-			canvas.height = img.height;
-			console.log(img.width, img.height)
-			canvas.getContext("2d").drawImage(img, 0, 0);
-			var base64 = canvas.toDataURL('image/png');
-			if (callback) {
-				callback(base64);
-			} else {
-				return base64;
-			}
-		}
 		
 		function hideSplashScreen() {
 			deviceReady(function() {
@@ -238,86 +166,6 @@
 					done(navigator.onLine);
 				}
 			})
-		}
-		
-		function shareItem(item) {
-			
-			var options = {};
-			// TODO: to use item.description use html tags and chars, if remove one or both the description will be unreadable, living them show html. Don't know any good solution then we I recommend to not share it (victor.dias)
-			//message = message.replace(/(<([^>]+)>)/ig, "");
-			options.message = item.title;
-			options.subject = item.title;
-			options.img = (item.thumbnails.length > 0) ? item.thumbnails[0].url : null;
-			// TODO: test if we sharing works without link param
-			options.link = item.hasOwnProperty("link") ? item.link : null;
-
-			console.log(options);
-			socialShare(options.message, options.subject, options.img, options.link);
-		}
-
-		function shareMedia(media) {
-
-			var options = {};
-			console.log(media);
-
-			options.message = media.title;
-			options.subject = media.title;
-			options.img = null;
-			options.link = media.url;
-			
-			// If media is saved locally (media.path) then share it
-			// Else share its link (media.url)
-			// Couldn't share together local pdf and link
-			if (media.hasOwnProperty("path")) {
-				options.img = media.path;
-				options.link = null;
-			} else if (media.thumbnails.length > 0) {
-				options.img = media.thumbnails[0].url;
-			}
-			
-			console.log(options);
-			socialShare(options.message, options.subject, options.img, options.link);
-		}
-		
-		function socialShare(message, subject, img, link) {
-			deviceReady(function() {
-				var social = window.plugins && window.plugins.socialsharing;
-				if (social) {
-					var postString = "; via #InfoMobiApp";
-					message += postString;
-					subject += postString;
-					social.share(message, subject, img, link);
-				}
-			});
-		}
-
-		// Get full path of file as param
-		// ex: file:/storage/sdcard/DCIM/Camera/1404177327783.jpg
-		function openMedia(media) {
-			deviceReady(function() {
-				var open = cordova.plugins.disusered.open;
-				var path = null;
-
-				var success = function(fileEntry) {
-					$log.debug("window.resolveLocalFileSystemURL Success");
-					$log.debug(fileEntry);
-					open(fileEntry.nativeURL, function(e) {console.log(e)}, openError);
-				}
-				
-				var error = function(e) {
-					$log.debug(e);
-					// TODO : disclaimer
-				}
-				
-				var openError = function(code) {
-					if (code === 1) {
-						$log.debug('No file handler found');
-					} else {
-						$log.debug('Undefined error');
-					}
-				}
-				window.resolveLocalFileSystemURL(media.path, success, error);
-			});
 		}
 
 		function confirm(message, callback, title) {

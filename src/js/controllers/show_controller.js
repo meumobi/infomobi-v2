@@ -4,11 +4,11 @@ angular
 .module('infoMobi')
 .controller('ShowController', ShowController);
 
-function ShowController($rootScope, $scope, $filter, $sce, $routeParams, APP, UtilsService, $log) {
+function ShowController($rootScope, $scope, $filter, $sce, $routeParams, Items, $log) {
   
   var vm = this;
   
-  vm.shareItem = UtilsService.shareItem;
+  vm.shareItem = Items.share;
   
 	vm.getTrustedResourceUrl = function(src) {
 		return $sce.trustAsResourceUrl(src);
