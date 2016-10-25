@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('MainController', MainController);
 
-function MainController($rootScope, $scope, $location, AuthService, UtilsService, $log, APP, MeumobiCloud, meuAnalytics, deviceReady) {
+function MainController($rootScope, $scope, $location, AuthService, UtilsService, $log, APP, MeumobiCloud, meuAnalytics, deviceReady, API) {
 
 	$scope.userAgent = navigator.userAgent;
 
@@ -41,11 +41,34 @@ function MainController($rootScope, $scope, $location, AuthService, UtilsService
 	if (AuthService.isAuthenticated()) {
 		var data = {};
 		var defaultLogo = "images/header-color.png";
+    var query = {
+      type: "contacts"
+    }
+    API.Items.search(
+      query, 
+      function(response) {
+        $log.debug('API search')
+        $rootScope.contacts = response.data.items && response.data.items.contacts;
+        $log.debug($rootScope.contacts);
+      }, 
+      function(e) {
+        $log.debug('Search error');
+        $log.debug(e);
+      }
+    );
+    
 		MeumobiCloud.syncPerformance(
 			function(response) {
 				var data = response.data;
 				data.logo = data.site.hasOwnProperty("logo") && data.site.logo != "" ? APP.cdnUrl + data.site.logo : defaultLogo;
 				$rootScope.performance = data;
+        if (data.site && data.site.analytics_token) {
+          meuAnalytics.startTrackerWithId(data.site.analytics_token);   
+          $log.debug("Own Project Analytics token: " + data.site.analytics_token);       
+        } else {
+          $log.debug("Infomobi Analytics token");
+        }
+        MeuAPI.setCategories($rootScope.performance.categories);
 			}, function(error) {
 				$log.debug("MeumobiCloud.syncPerformance ERROR");
 				$log.debug(error);

@@ -4,21 +4,32 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController(DeviceService, PushService, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log, MeumobiCloud, translateFilter) {
+function LoginController(DeviceService, PushService, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log, MeumobiCloud, translateFilter, meuAnalytics, meuDialogs) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
     var defaultLogo = "images/header-color.png";
+    
 		MeumobiCloud.syncPerformance(
 			function(response) {
 				var data = response.data;
 				data.logo = data.site.hasOwnProperty("logo") && data.site.logo != "" ? APP.cdnUrl + data.site.logo : defaultLogo;
 				$rootScope.performance = data;
+        MeuAPI.setCategories($rootScope.performance.categories);
+        if (data.site && data.site.analytics_token) {
+          meuAnalytics.startTrackerWithId(data.site.analytics_token);   
+          $log.debug("Own Project Analytics token: " + data.site.analytics_token);       
+        } else {
+          $log.debug("Infomobi Analytics token");
+        }
+        $log.debug('categories from performance');
+        $log.debug($rootScope.categories);
 			}, function(error) {
 				$log.debug("MeumobiCloud.syncPerformance ERROR");
 				$log.debug(error);
 			}
 		)
+    
 		PushService.register(cb_push.register.success, cb_push.register.error);
 		$rootScope.go('/items');
 	};
@@ -62,7 +73,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 					msg += ": " + translateFilter("default.network.Error");
 				}
 				$scope.Login.loading = false;
-				UtilsService.toast(msg);
+				meuDialogs.toast(msg);
 				$log.debug(msg)
 			}
 		}
@@ -71,7 +82,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 	var cb_login = { 
 		save: {
 			success: function(response) {
-				UtilsService.toast(translateFilter("password.save.Success"));
+				meuDialogs.toast(translateFilter("password.save.Success"));
 				AuthService.loadAuthToken(response.data.token);
 				$rootScope.Ui.turnOff('modal1');
 				authenticateUser();
@@ -83,7 +94,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 				} else {
 					msg += ": " + translateFilter("default.network.Error");
 				}
-				UtilsService.toast(msg);
+				meuDialogs.toast(msg);
 			}
 		}
 	};
@@ -92,7 +103,7 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 		submitForm: function(isValid) {
 			$scope.submitted = true;
 			if (!isValid) {
-				UtilsService.toast('Erro de validação');
+				meuDialogs.toast('Erro de validação');
 			}
 			else {
         // Login.loading used by Ladda on submit button
