@@ -78,7 +78,7 @@
 						result = poll.results[x];
 						result["myVote"] = (poll.voted != null) ? poll.voted.values.hasOwnProperty(x): false;
 						result["label"] = poll.options[result.value];
-						result["ratio"] = (total != 0) ? (parseInt(poll.results[x].votes) / total) * 100 + "%" : "0%";
+						result["ratio"] = (total != 0) ? parseFloat((poll.results[x].votes / total) * 100).toFixed(2) + "%" : "0%";
 						results.push(result);
 					}
 				};
