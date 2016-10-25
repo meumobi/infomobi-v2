@@ -1,4 +1,3 @@
-
 <h4>
 	{{vm.item.title}}
 	<br>
@@ -23,6 +22,7 @@
 	</span>
 </div>
 <div ng-bind-html="vm.item.description | hrefToJS"></div>
+<div class="author" ng-bind="vm.item.author"></div>
 <!--download-file ng-repeat="media in vm.item.medias|filter:mediaFilter" file="media"></download-file-->
 
 <section ng-repeat="media in vm.media" id="media-list" ng-include="'items/media/details.html'"></section>
