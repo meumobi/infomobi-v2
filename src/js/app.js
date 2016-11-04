@@ -43,6 +43,7 @@ var app = angular
 .config(function($routeProvider, $locationProvider, $httpProvider, CONFIG) {
   
 	$httpProvider.interceptors.push('errorInterceptor');
+  $httpProvider.interceptors.push('loadingInterceptor');
 
 	$routeProvider.when('/events/show/:id', {
 		templateUrl: "items/show.html",
@@ -232,14 +233,6 @@ var app = angular
 		$location.path(path);
 			//if (window.indexedDB) { alert('WKWebView'); } else { alert('UIWebView'); }
   };
-
-	$rootScope.$on('loading:show', function() {
-		// $rootScope.loading = true;
-	})
-
-	$rootScope.$on('loading:hide', function() {
-		// $rootScope.loading = false;
-	})
 
 	$rootScope.$on("logout", function(){
 		$log.debug("$on.logout"); // $emit if Api returns 401

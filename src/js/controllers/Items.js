@@ -15,6 +15,7 @@
 		var vm = this;
     
     vm.reload = activate;
+    vm.loading = false;
 
     var cb_items = {
       success: function(response) {
@@ -26,6 +27,14 @@
     };
     
     activate();
+
+  	$rootScope.$on('loading:start', function() {
+  		vm.loading = true;
+  	})
+
+  	$rootScope.$on('loading:stop', function() {
+  		vm.loading = false;
+  	})
 
 		function activate() {
 			vm.items = {};

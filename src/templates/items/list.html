@@ -8,15 +8,15 @@
 <div class="scrollable">
 	<div class="scrollable-content">
 		<div class="list-group">
-			<div class="ib-loading-news" ng-show="loadingItems">
+			<div class="ib-loading-news" ng-show="vm.loading">
 				<div>
 					<i class="fa fa-spinner fa-spin"></i> {{"Loading..." | translate}}
 				</div>
 			</div>
     	<div ng-repeat="item in vm.items | filter:query" ng-switch on="item.type">
-    		<events-headline item="item" category="" ng-switch-when="events"></events-headline>
-        <articles-headline item="item" category="" ng-switch-when="articles"></articles-headline>
-  			<polls-headline item="item" category="" ng-switch-when="polls"></polls-headline>
+    		<events-headline item="item" ng-switch-when="events"></events-headline>
+        <articles-headline item="item" ng-switch-when="articles"></articles-headline>
+  			<polls-headline item="item" ng-switch-when="polls"></polls-headline>
     	</div>
 		</div>
 	</div>
