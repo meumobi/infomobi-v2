@@ -49,6 +49,14 @@ var MeuAPI = {
   Helpers.hasAngularJS = function() {
     return MeuAPI.AngularJS;
   }
+  
+  Helpers.lookup = function(array) {
+    var lookup = [];
+    for (var i = 0, len = array.length; i < len; i++) {
+        lookup[array[i].id] = array[i];
+    }
+    return lookup;
+  }
 
 /*
   Private
@@ -63,7 +71,6 @@ var MeuAPI = {
       }
       return true;
   };
-
   Private.attributes.hasLocalStorage = false;
   Private.hasLocalStorage = function () {
       // if already tested, avoid doing the check again
@@ -90,13 +97,26 @@ var MeuAPI = {
     MeuAPI.AngularJS = typeof window.angular !== 'undefined' ? true : false; // is AngularJS
     success_callback();
   }
+  
+  MeuAPI.getCategory = function(id) {
+    return MeuAPI.attributes.categories[id];
+  }
+  
+  MeuAPI.getCategories = function() {
+    return MeuAPI.attributes.categories;
+  }
+  
+  MeuAPI.setCategories = function(categories) {
+    MeuAPI.attributes.categories = Helpers.lookup(categories);
+  }
 
 	MeuAPI.attributes = {
     cdnURl: "",
     apiURl: "",
     domains: "",
     language: "",
-    currentItem: ""
+    currentItem: "",
+    categories: []
   }; 
   
  /*

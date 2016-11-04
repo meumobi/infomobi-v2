@@ -16,7 +16,6 @@
 		return service;
     
     function addEvent(item) {
-      $log.debug("Add Event to device calendar");
       var options = {
         title: item.title,
         address: item.address,
@@ -26,7 +25,7 @@
       };
 			meuCalendar.createEventInteractively(options)
         .then(function() {
-          meuAnalytics.trackEvent('Events', 'Save', item.title, 1);
+          meuAnalytics.trackEvent('Events', 'Add to Calendar', item.title);
         });
 		};  
     
@@ -53,13 +52,13 @@
 		return {
 			restrict: 'E',
 			scope: {
-				item: '=',
-				category: '='
-			},
+				item: '='			
+      },
 			templateUrl: 'events/_headline.html',
 			link: function(scope, element, attrs) {
         scope.addEvent = Events.addEvent;
         scope.item = Events.addSchedule(scope.item);
+        scope.category = MeuAPI.getCategory(scope.item.parent_id);
 			}
 		};
 	}

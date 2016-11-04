@@ -17,12 +17,12 @@
 		return {
 			restrict: 'E',
 			scope: {
-				item: '=',
-				category: '='
+				item: '='
 			},
 			templateUrl: 'polls/_headline.html',
 			link: function(scope, element, attrs) {
         scope.getImage = $rootScope.getImage;
+        scope.category = MeuAPI.getCategory(scope.item.parent_id);
 			}
 		};
 	};

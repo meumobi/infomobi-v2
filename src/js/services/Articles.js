@@ -6,10 +6,10 @@
   .factory('Articles', Articles)
 	.directive('articlesHeadline', articlesHeadline)
 
-  function Articles($log) {
+  function Articles($log, $rootScope) {
     
 		var service = {};
-
+    
 		return service;
   };
     
@@ -17,12 +17,12 @@
 		return {
 			restrict: 'E',
 			scope: {
-				item: '=',
-				category: '='
+				item: '='
 			},
 			templateUrl: 'articles/_headline.html',
 			link: function(scope, element, attrs) {
         scope.getImage = $rootScope.getImage;
+        scope.category = MeuAPI.getCategory(scope.item.parent_id);
 			}
 		};
 	};

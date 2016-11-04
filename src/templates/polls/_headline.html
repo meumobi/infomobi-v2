@@ -4,6 +4,7 @@
 			<img img-cache ic-src="{{getImage(item.images[0].path)}}" class="media-object" alt="{{item.title}}">
 		</div>
 		<div class="media-body">
+      <span class="label label-default">{{category.title}}</span>
 			<h4 class="media-heading">{{item.title}}
 				<br/>
 				<small><i ng-bind="item.pubdate * 1000 |date:'d MMM, yyyy'"></i></small>

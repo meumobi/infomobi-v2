@@ -78,7 +78,7 @@
 
 			// if we have a promise, we will use the same current function when it is fulfilled
 			if (response.promise) response.promise.then(function(response) {
-        $log.debug("Promise hhtp-with-fallback");
+        $log.debug("Promise http-with-fallback");
         
         fulfill(response);
 			});

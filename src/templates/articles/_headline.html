@@ -1,15 +1,14 @@
 <a href="{{'#/articles/show/'+item._id}}" class="list-group-item">
-	<div class="media">  
+  <div class="media">
 		<div class="media-body">
-      <img img-cache ic-src="{{getImage(item.images[0].path)}}" class="pull-left img-responsive" alt="{{item.title}}" ng-if="item.images.length">
-			<h4 class="media-heading">{{item.title}}
-				<br/>
-        <small><i><span>{{item.pubdate * 1000| amCalendar}}</span></i></small>
-			</h4>
-			<!--p>{{item.caption}}</p-->
+      <img img-cache ic-src="{{getImage(item.images[0].path)}}" class="pull-left img-responsive" alt="{{item.title}}" ng-if="item.images.length" />
+      <span class="label label-default">{{category.title}}</span>
+      <h4 class="media-heading">{{item.title}}</h4>
+			<small><i>{{item.pubdate * 1000| amCalendar}}</i></small>
 		</div>
     <div class="media-right media-middle">
       <i class="fa fa-chevron-right"></i>
     </div>
-	</div>
+  </div>
+  <div class="pull-right"></div>
 </a>
