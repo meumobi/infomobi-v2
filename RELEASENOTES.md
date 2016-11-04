@@ -15,6 +15,22 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+<a name="rel-1.6.0"></a>
+# [rel-1.6.0](https://github.com/meumobi/infomobi/compare/rel-1.5.1...rel-1.6.0)
+* ENHANCEMENT: Closes #176, add author on articles/show
+* ENHANCEMENT: Closes #215, allow to customize (theme) screen.title of contact page
+* ENHANCEMENT: Closes #216: change Google Analytics TrackId during navigation
+* ENHANCEMENT: Closes #95, Closes #15, import meuFiles Bower Pakage as AngularJS Service to manage downloads
+* FEATURE: Closes #172, add Events, list, show and save on device
+* FEATURE: Closes #228, manage item's type contacts
+* FIX: Closes #204, share media not working
+* FIX: Closes #205, analytics not working
+* FIX: Closes #209, polls results should be truncated if decimals
+* FIX: Closes #217, loginController defaultLogo not defined
+* UPGRADE: Closes #211, update error tokens from API responses
+* UPGRADE: Closes #220, mobile-angular-ui, bootstrap, font-awesome
+* UPGRADE: moment, angular-moment and imgcache
+
 ## rel-1.5.1 (20160616)
 * ENHANCEMENT: Improve /files page if empty
 * ENHANCEMENT: Closes #171, display thumbnail of media
