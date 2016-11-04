@@ -15,6 +15,11 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+<a name="rel-1.6.1"></a>
+# [rel-1.6.1](https://github.com/meumobi/infomobi/compare/rel-1.6.0...rel-1.6.1)
+* FIX: restore loading message
+* FIX: Closes #234, images not displayed on Android 5.1
+
 <a name="rel-1.6.0"></a>
 # [rel-1.6.0](https://github.com/meumobi/infomobi/compare/rel-1.5.1...rel-1.6.0)
 * ENHANCEMENT: Closes #176, add author on articles/show
