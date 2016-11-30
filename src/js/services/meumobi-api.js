@@ -12,22 +12,17 @@ function errorInterceptor($q, $rootScope, $location, APP, $log) {
 		request: function(config) {
 			config.requestTimestamp = new Date().getTime();
 			config.timeout = 10000;
-			$rootScope.$broadcast('loading:show');
 			return config || $q.when(config);
 		},
 		requestError: function(request) {
-			$rootScope.$broadcast('loading:hide');
 			return $q.reject(request);
 		},
 		response: function(response) {
 			response.config.responseTimestamp = new Date().getTime();
-			$rootScope.$broadcast('loading:hide');
 			return response || $q.when(response);
 		},
 		responseError: function(response) {
-			// See w3.org for Status code definitions: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-			
-			$rootScope.$broadcast('loading:hide');
+			// See w3.org for Status code definitions: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html			
 			$log.debug("[API:errorInterceptor]: BEGIN");
 			$log.debug(response);
 			$log.debug("[API:errorInterceptor]: END");
@@ -53,6 +48,15 @@ function errorInterceptor($q, $rootScope, $location, APP, $log) {
 }
 
 function API($http, APP, $rootScope, $log, httpWithFallback) {
+  
+  function convertJsonAsUriParameters(data) {
+    var url = Object.keys(data).map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+    }).join('&');
+    $log.debug(url);
+    
+    return url;
+  };
 
 	function buildUrl(endp) {
 		// Temporary fix because /visitors/forgot_password not exists yet, we need to force site on url to call /mail unlogged
@@ -121,7 +125,12 @@ var app = {
 		return {
 			latest: function(success, error) {
 				api.get(path + 'latest', {}, success, error);
-			}
+			},
+      search: function(obj, success, error) {
+        var url = path + 'search?' + convertJsonAsUriParameters(obj);
+        $log.debug(url);
+        api.get(url, {}, success, error);
+      }
 		}
 	})(),
 	Site: (function() {

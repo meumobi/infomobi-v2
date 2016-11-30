@@ -28,12 +28,11 @@
 </head>
 <body 
 	ng-app="infoMobi"
-	ng-controller="MainController"
+	ng-controller="MainController as vm"
 	ui-prevent-touchmove-defaults>
   <!--div ng-include="'sidebar.html'" 
           class="sidebar sidebar-left"></div-->
-  <div ng-include="'sidebarRight.html'" 
-          class="sidebar sidebar-right" ng-if="contacts && contacts.length"></div>
+	<contacts-sidebar-right></contacts-sidebar-right>
   
 	<div ui-yield-to="modals"></div>
 	<div class="app ib-app" 
@@ -53,16 +52,14 @@
 				<div class="btn-group pull-right" ui-yield-to="navbarActionRight">
 					<div ui-turn-on="myDropdown" class="btn">
 						<i class="fa fa-ellipsis-v"></i>
-					</div>
-          <div ui-toggle="uiSidebarRight" class="btn" ng-if="contacts && contacts.length">
-            <i class="fa fa-phone"></i>
-          </div>
+					</div>         
 				</div>
-        <div class="btn-group pull-right" ui-yield-to="navbarActionRight2"  ng-if="contacts.length">
-          <div ui-toggle="uiSidebarRight" class="btn">
-            <i class="fa fa-phone"></i>
-          </div>
-        </div>
+				<div class="btn-group pull-right" ui-shared-state='contactsEnabled' ui-if='contactsEnabled'>
+					<div ui-toggle="uiSidebarRight" class="btn">
+						<i class="fa fa-phone"></i>
+					</div>
+				</div>
+				
 				<ul 
 					class="dropdown-menu pull-right"
 					ui-outer-click="Ui.turnOff('myDropdown')"
@@ -76,7 +73,7 @@
 					</a></li>
 					<li><a href="#/account"><i class="fa fa-gear"></i> {{"Account" | translate}}</a></li>
 					<li class="divider"></li>
-					<li><a ng-click="logout()" ui-turn-off="myDropdown">{{"Sign Out" | translate}} <i class="fa fa-sign-out"></i></a></li>
+					<li><a ng-click="vm.logout()" ui-turn-off="myDropdown">{{"Sign Out" | translate}} <i class="fa fa-sign-out"></i></a></li>
 				</ul>
 			</div>
 	<div class="navbar navbar-app navbar-absolute-bottom nav-bottom" ng-if="NavBarBottom">
