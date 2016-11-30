@@ -25,6 +25,7 @@
         $http.get(url, config)
         .then(
           function(response) {
+            console.log("[httpWithFallback]: then response success status:" + response.status);
             // Store in local storage when status === 200
             if (!response.config.dontStoreFallback && response.status === 200) {
               localStorage.setItem(url, JSON.stringify({
@@ -36,9 +37,12 @@
                                         }));
             }
             // Resolve with original response
+            if (response.headers('etag') === response.config['If-None-Match'])
+              response.unchanged = true;
             deferred.resolve(response);
           },
           function(response) {
+            console.log("[httpWithFallback]: then response fail status:" + response.status);
             // Try to retrieve from local storage
             var storedResponse = localStorage.getItem(url);
             if (storedResponse) {
@@ -49,7 +53,7 @@
             if (response.config.fallback) {
               return deferred.resolve({
                 data: config.fallback,
-                status: 200,
+                status: response.status,
                 headers: response.headers,
                 config: response.config,
                 isFallback: true

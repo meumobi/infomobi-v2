@@ -18,6 +18,8 @@ function errorInterceptor($q, $rootScope, $location, APP, $log) {
 			return $q.reject(request);
 		},
 		response: function(response) {
+			$log.debug("[API:errorInterceptor]: response");
+			$log.debug(response);
 			response.config.responseTimestamp = new Date().getTime();
 			return response || $q.when(response);
 		},
@@ -70,7 +72,11 @@ function API($http, APP, $rootScope, $log, httpWithFallback) {
 var api = (function() {
 	return {
 		get: function(endp, config, success, error) {
-			httpWithFallback.get(buildUrl(endp), config)
+      var url = buildUrl(endp);
+      var cache = JSON.parse(localStorage.getItem(url));
+      if (cache && cache.headers)
+        config['If-None-Match'] = cache.headers.etag;
+			httpWithFallback.get(url, config)
 			.then(success, error);
 		},
 		post: function(endp, obj, success, error) {
