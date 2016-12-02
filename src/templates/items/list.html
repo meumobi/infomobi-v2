@@ -13,7 +13,7 @@
 					<i class="fa fa-spinner fa-spin"></i> {{"Loading..." | translate}}
 				</div>
 			</div>
-    	<div ng-repeat="item in vm.items | filter:query" ng-switch on="item.type">
+    	<div ng-repeat="item in vm.items | filter:query" ng-switch on="item.type" ui-set="{transition: 'slide-left'}">
     		<events-headline item="item" ng-switch-when="events"></events-headline>
         <articles-headline item="item" ng-switch-when="articles"></articles-headline>
   			<polls-headline item="item" ng-switch-when="polls"></polls-headline>

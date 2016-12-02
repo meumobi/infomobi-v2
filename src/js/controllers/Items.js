@@ -10,27 +10,30 @@
     
   };
 
-	function ItemsListController(API, $rootScope, UtilsService, translateFilter, $log, $scope, $routeParams) {
+	function ItemsListController(API, $rootScope, UtilsService, translateFilter, $log, $scope, $routeParams, meuDialogs) {
 
 		var vm = this;
     
-    vm.reload = activate;
+    vm.reload = reload;
     vm.loading = false;
 
     var cb_items = {
       success: function(response) {
+        $log.debug('[ItemsListController]: cb_item.success');
         fulfill(response);
       },
-      error: function(response) {
+      fail: function(response) {
+        $log.debug('[ItemsListController]: cb_item.fail');
         $log.debug(response);
       }
     };
     
+    function reload() {
+      vm.loading = true;
+      activate();
+    }
+    
     activate();
-
-  	$rootScope.$on('loading:start', function() {
-  		vm.loading = true;
-  	})
 
   	$rootScope.$on('loading:stop', function() {
   		vm.loading = false;
@@ -45,12 +48,12 @@
           category_id,
           {},//{order: 'start_date,DESC'},
           cb_items.success,
-          cb_items.error
+          cb_items.fail
         );
       } else {
         API.Items.latest(
           cb_items.success,
-          cb_items.error
+          cb_items.fail
         );
       }
 		}
@@ -72,9 +75,24 @@
       }
       return lookup;
     }
-
-		function fulfill(response) {
+    
+    function fulfill(response) {
+      if (!response.unchanged)
+        updateDatas(response);
+      // if we have a promise, we will use the same current function when it is fulfilled
+      if (response.promise) {
+        response.promise
+        .then(function(response) {
+          fulfill(response);
+        })
+        .catch(function(response) {
+        })
+      }
+    }
+    
+    function updateDatas(response) {
       if (response.data && response.data.items) {
+        $log.debug('[ItemsListController]: updateDatas');
         var items = response.data.items;
         vm.items = items.map(function(e, index, arr) {
           return decorateItem(e, index, arr);
@@ -84,13 +102,14 @@
 				localStorage.removeItem("polls");
       }
       vm.next = response._meta && response._meta.next;
-
-			// if we have a promise, we will use the same current function when it is fulfilled
-			if (response.promise) response.promise.then(function(response) {
-        $log.debug("Promise http-with-fallback");
-        
-        fulfill(response);
-			});
-		}
+      
+      // if response.isFallback is true and !response.promise then an error occurs preventing update
+      /*
+        TODO: if online then toggle connectionStatus and display alert else if connectionStatus == offline don't show alert
+      */
+      if (response.isFallback && !response.promise) {
+        meuDialogs.toast("Connection issue prevent syncing!");
+      }
+    }
 	}
 })();

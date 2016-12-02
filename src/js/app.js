@@ -165,6 +165,18 @@ var app = angular
 		"slide-right": {
 			enter: "slideInLeft",
 			leave: "slideOutRight"
+		},
+		"fade": {
+			enter: "fadeIn",
+			leave: "fadeOut"
+		},
+		"fadeDown": {
+			enter: "fadeInDown",
+			leave: "fadeOutDown"
+		},
+		"flipX": {
+			enter: "flipInX",
+			leave: "flipOutX"
 		}
 	};
 
@@ -180,7 +192,7 @@ var app = angular
             /*
               After animation set default animation for a@href links
             */
-            SharedState.set("transition", 'slide-left');
+            //SharedState.set("transition", 'slide-left');
 						done();
 					})
 			} else {
@@ -200,7 +212,7 @@ var app = angular
             /*
               After animation set default animation for a@href links
             */
-            SharedState.set("transition", 'slide-left');
+            //SharedState.set("transition", 'slide-left');
 						done();
 					})
 			} else {

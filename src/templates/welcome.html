@@ -1,5 +1,6 @@
 <div ui-content-for="navbarActionLeft"></div>
 <div ui-content-for="navbarActionRight"></div>
+<div ui-content-for="navbarActionRight2"></div>
 
 <div class="scrollable">
 	<div class="scrollable-content section">
@@ -14,13 +15,13 @@
 		<div class="thumbnail" ng-if="item.images.length == 1">
 			<img ng-src="{{item.images[0].path}}" class="media-object" alt="{{item.title}}">
 		</div>
-		<div>
+		<div ui-set="{transition: 'slide-right'}">
 			<h4>
 				{{item.title}}
 				<br>
 			</h4>
 			<div ng-bind-html="item.description | hrefToJS"></div><br/>
-			<button ng-click="flip('#/login')" class="btn btn-primary btn-block">{{"Continue" | translate}}</button>
+			<button ng-click="go('/login', 'slide-right')" class="btn btn-primary btn-block">{{"Continue" | translate}}</button>
 			<!-- button ng-click="go('/login')" class="btn btn-primary btn-block">{{"Continue" | translate}}</button -->
 		</div>
 	</div>

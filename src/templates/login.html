@@ -1,3 +1,7 @@
+<div ui-content-for="navbarActionLeft"></div>
+<div ui-content-for="navbarActionRight"></div>
+<div ui-content-for="navbarActionRight2"></div>
+
 <div class="scrollable">
 	<div class="scrollable-content section" id="login">
 		<div>
@@ -31,10 +35,10 @@
 
 			</form>
 			<hr>
-			<div id="forgot">
+			<div id="forgot" ui-set="{transition: 'slide-left'}">
 				<ul>
-					<li><a ng-click="flip('#/login/forgot')">{{"Forgot Password?" | translate}}</a></li>
-					<li><a ng-click="flip('#/login/welcome')">{{"About" | translate}} @@name</a></li>
+					<li><a href="#/login/forgot">{{"Forgot Password?" | translate}}</a></li>
+					<li><a href="#/login/welcome">{{"About" | translate}} @@name</a></li>
 				</ul>
 			</div>
 		</div>
