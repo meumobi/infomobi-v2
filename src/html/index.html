@@ -29,6 +29,7 @@
 <body 
 	ng-app="infoMobi"
 	ng-controller="MainController as vm"
+	ng-cloak
 	ui-prevent-touchmove-defaults>
   <!--div ng-include="'sidebar.html'" 
           class="sidebar sidebar-left"></div-->
@@ -36,7 +37,10 @@
 		<sidebar-left categories="vm.site.categories"></sidebar-left>
 	</div-->
 	
-	<contacts-sidebar-right></contacts-sidebar-right>
+	<section ng-if="visitor">
+		<ng-include src="'sidebar-right.html'"/>
+	</section>
+	
   
 	<div ui-yield-to="modals"></div>
 	<div class="app ib-app" 
@@ -58,7 +62,7 @@
 						<i class="fa fa-ellipsis-v"></i>
 					</div>         
 				</div>
-				<div class="btn-group pull-right" ui-yield-to="navbarActionRight2" ui-shared-state='contactsEnabled' ui-if='contactsEnabled'>
+				<div class="btn-group pull-right" ui-yield-to="navbarActionRight2" ng-if='visitor'>
 					<div ui-toggle="uiSidebarRight" class="btn">
 						<i class="fa fa-phone"></i>
 					</div>

@@ -2,10 +2,8 @@
 	'use strict';
  
   var contacts = {
-    templateUrl: 'contacts/sidebar-right.html',
+    templateUrl: 'contacts/list.html',
     controller: function (SharedState, API, $log) {
-      SharedState.setOne('contactsEnabled', true);
-      
       var query = {
         type: "contacts"
       };
@@ -13,11 +11,9 @@
       
       var cb_search = {
         success: function(response) {
-          $log.debug('[contactsSidebarRight Component]: cb_search.success');
           fulfill(response);
         }, 
         fail: function(e) {
-          $log.debug('[contactsSidebarRight Component]: cb_search.fail');
           $log.debug(e);
         }
       };
@@ -73,5 +69,4 @@
 	angular
 	.module('infoMobi')
 	.component('contactsSidebarRight', contacts);
-  
 })();
