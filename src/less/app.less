@@ -185,8 +185,10 @@ div.rn-carousel-indicator span {
   div.rn-carousel-indicator span.active {
     color: #ddd; }
 
-ul[rn-carousel] > li img{
-  width: 100%;
+ul[rn-carousel]>li img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
 }
 
 /* prev/next controls */
@@ -255,4 +257,10 @@ ul[rn-carousel] > li img{
 
 .media-body img {
   padding-right: 10px;
+}
+
+.chat-user-avatar {
+  font-size: 40px;
+  background: #ccc;
+  padding: 5px 10px;
 }
