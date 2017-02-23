@@ -5,7 +5,7 @@
 	.module('meumobi.services.Bootstrap', ['meumobi.services.Cordova', 'meumobi.services.Push'])
 	.factory('BootstrapService', BootstrapService);
 
-	function BootstrapService($log, deviceReady, PushService, $rootScope, UtilsService, CONFIG, DeviceService, AuthService, meuAnalytics, $locale) {
+	function BootstrapService($log, deviceReady, PushService, $rootScope, UtilsService, CONFIG, DeviceService, AuthService, meuAnalytics, meuSocialSharing, $locale) {
 		var service = {};
 
 		service.startApp = startApp;
@@ -41,6 +41,7 @@
       $log.debug($locale);
 
 			deviceReady(function() {
+        meuSocialSharing.setOption("postfix", CONFIG.TOKENS.sharingSuffix);
 				document.addEventListener("online", $rootScope.toggleCon, false);
 				document.addEventListener("offline", $rootScope.toggleCon, false);
         
