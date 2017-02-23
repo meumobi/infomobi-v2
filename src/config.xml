@@ -37,22 +37,25 @@
 	
 	<!-- plugin spec="https://github.com/Telerik-Verified-Plugins/NativePageTransitions.git#0.6.2" / -->
 	<!-- plugin name="com.adobe.plugins.gaplugin" spec="2.4.0" source="pgb"/ -->
+	<plugin name="call-number" spec="~1.0.1"/>
 	<plugin name="com.telerik.plugins.nativepagetransitions" spec="~0.6.0"/>
 	<plugin name="cordova-open" spec="~1.0.9"/>
 	<plugin name="cordova-plugin-apprate" spec="~1.1.12"/>
 	<plugin name="cordova-plugin-appversion" spec="~1.0.0"/>
 	<plugin name="cordova-plugin-calendar" spec="~4.5.0"/>
+	<plugin name="cordova-plugin-google-analytics" spec="~0.9.0"/>
 	<plugin name="cordova-plugin-spinnerdialog" spec="~1.3.2"/>
 	<plugin name="cordova-plugin-uniquedeviceid" spec="~1.3.2"/>
 	<plugin name="cordova-plugin-x-socialsharing" spec="~5.0.11"/>
 	<plugin name="cordova-plugin-x-toast" spec="~2.4.2"/>
-  <plugin name="cordova-plugin-google-analytics" spec="~0.9.0"/>
+	<plugin name="onesignal-cordova-plugin" spec="~1.12.5"/>
+
 	<!--
 		forked it to fix issue /meumobi/infomobi/issues/198 
 		following recomendation of @macdonst /phonegap/phonegap-plugin-push/issues/909#issuecomment-220923606
 	-->
-	<plugin name="pushwoosh-cordova-plugin" spec="https://github.com/meumobi/pushwoosh-phonegap-plugin.git"/>
-	<plugin name="onesignal-cordova-plugin" spec="~1.12.5"/>
+	<!--plugin name="pushwoosh-cordova-plugin" spec="https://github.com/meumobi/pushwoosh-phonegap-plugin.git"/-->
+	
 	<!--
 		Cordova Core plugins
 		-->
