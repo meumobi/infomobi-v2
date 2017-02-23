@@ -45,6 +45,8 @@
 	"Sign Out": "Sair",
 	"Vote": "Vote",
 	"We are hearing you": "Escutamos você",
+  "Add to Calendar": "Salvar na sua agenda",
+  "All day": "O dia todo",
 	"[API]: authentication required": "Erro de autenticação",
 	"[API]: invalid visitor": "Senha inválida!",
 	"[API]: invalid email or password": "Usuário e/ou Senha inválido(s)!",
