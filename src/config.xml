@@ -21,7 +21,7 @@
 	<preference name="stay-in-webview" value="false"/>
 	<preference name="target-device" value="universal"/>
 	<preference name="webviewbounce" value="false"/>
-	<preference name="phonegap-version" value="cli-6.3.0"/>
+	<preference name="phonegap-version" value="cli-6.5.0"/>
 	<!-- 
 		cordova-plugin-splashscreen 
 		-->
@@ -51,8 +51,8 @@
 		forked it to fix issue /meumobi/infomobi/issues/198 
 		following recomendation of @macdonst /phonegap/phonegap-plugin-push/issues/909#issuecomment-220923606
 	-->
-	<plugin name="pushwoosh-cordova-plugin" spec="https://github.com/meumobi/pushwoosh-phonegap-plugin.git"/>
-	<plugin name="onesignal-cordova-plugin" spec="~1.12.5"/>
+	<!--plugin name="pushwoosh-cordova-plugin" spec="https://github.com/meumobi/pushwoosh-phonegap-plugin.git"/-->
+	<plugin name="onesignal-cordova-plugin" spec="~1.13.1" />
 	<!--
 		Cordova Core plugins
 		-->

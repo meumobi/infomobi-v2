@@ -15,10 +15,11 @@
 		"auth_token": "",
 		"id": ""
 	},
-	"PUSHWOOSH": {
-		"applicationCode": "A9FC4-681E3",
-		"googleProjectNumber": "138333716576"
-	},
+  "PUSH": {
+    "provider": "onesignal",
+    "appId": "c3657938-b2f1-44fb-bd53-7a52d7784c30",
+    "googleProjectNumber": "138333716576"
+  },
 	"STYLE": {
 		"brandPrimary": "#ff8c04"
 	},

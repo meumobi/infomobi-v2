@@ -53,7 +53,7 @@
 				if (CONFIG.OPTIONS.appRate && ImgCache.helpers.isCordova()) 
 					appRate();
 				
-				PushService.config(CONFIG.PUSHWOOSH.googleProjectNumber, CONFIG.PUSHWOOSH.applicationCode);
+				PushService.config(CONFIG.PUSH.googleProjectNumber, CONFIG.PUSH.appId);
 				/*
 				PushService.handler(
 					function(notification) {

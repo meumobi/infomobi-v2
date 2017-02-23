@@ -6,9 +6,10 @@
 	
 	.service('PushwooshiOSImpl', PushwooshiOSImpl)
 	.service('PushwooshAndroidImpl', PushwooshAndroidImpl)
+	.service('OneSignalImpl', OneSignalImpl)
 	.factory('PushService', PushService);
 	
-	function PushwooshiOSImpl($log, $exceptionHandler) {
+	function PushwooshiOSImpl($log) {
 
 		var applicationCode;
 	
@@ -26,45 +27,37 @@
 			});
 		}
 
-		this.register = function(success, fail) {
-			try {
-				var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
-				//var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
+		this.register = function(success, error) {
+			var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
+			// var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
 
-				if (pushNotification) {
-					
-					$log.info("Plugin pushNotification loaded");
+			if (pushNotification) {
+				$log.info("Plugin PushwooshiOS loaded");
 
-					//initialize the plugin
-					pushNotification.onDeviceReady({
-						pw_appid: applicationCode
-					});
+				//initialize the plugin
+				pushNotification.onDeviceReady({
+					pw_appid: applicationCode
+				});
 
-					//register for push notifications
-					pushNotification.registerDevice(
-						function(status) {
-							var deviceToken = status['deviceToken'];
-							$log.info('registerDevice: ' + deviceToken);
-							//callback when pushwoosh is ready
-							success(deviceToken);
-						}, function(status) {
-							throw new Error('failed to register : ' + JSON.stringify(status));
-						}
-					);
+				//register for push notifications
+				pushNotification.registerDevice(
+					function(status) {
+						var deviceToken = status['deviceToken'];
+						$log.info('registerDevice: ' + deviceToken);
+						//callback when pushwoosh is ready
+						success(deviceToken);
+					}, error
+				);
 	
-					//reset badges on start
-					pushNotification.setApplicationIconBadgeNumber(0);
-				} else {
-					throw new Error("Plugin pushNotification NOT loaded");
-				}
-			} catch (error) {
-				fail();
-				$exceptionHandler(error);
+				//reset badges on start
+				pushNotification.setApplicationIconBadgeNumber(0);
+			} else {
+				$log.info("Plugin pushNotification NOT loaded");
 			}
 		}
 	}
 	
-	function PushwooshAndroidImpl($log, $exceptionHandler) {
+	function PushwooshAndroidImpl($log) {
 
 		var googleProjectNumber;
 		var applicationCode;
@@ -85,41 +78,73 @@
 			});
 		}
 
-		this.register = function(success, fail) {
-			try {
-				var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
-				// var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
+		this.register = function(success, error) {
+			var pushNotification = (typeof cordova !== 'undefined') && cordova.require("pushwoosh-cordova-plugin.PushNotification");
+			// var pushNotification = (typeof cordova !== 'undefined') && cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
 
-				if (pushNotification) {
-					$log.info("Plugin pushNotification loaded");
+			if (pushNotification) {
+				$log.info("Plugin PushwooshAndroid loaded");
 
-					pushNotification.onDeviceReady({ 
-						projectid: googleProjectNumber,
-						pw_appid: applicationCode}
-					);
+				pushNotification.onDeviceReady({ 
+					projectid: googleProjectNumber,
+					pw_appid: applicationCode}
+				);
 
-					//register for push notifications
-					pushNotification.registerDevice(success, function(status) {
-						throw new Error('failed to register : ' + JSON.stringify(status));
-					});
-					//clear the app badge
-					pushNotification.setApplicationIconBadgeNumber(0);
-				} else {
-					throw new Error("Plugin pushNotification NOT loaded");
-				}
-			} catch (error) {
-				fail();
-				$exceptionHandler(error);
+				//register for push notifications
+				pushNotification.registerDevice(success, error);
+				//clear the app badge
+				pushNotification.setApplicationIconBadgeNumber(0);
+			} else {
+				$log.info("Plugin pushNotification NOT loaded");
 			}
 		}
 	}
 	
-	function PushService($injector, $log) {
+	function OneSignalImpl($log) {
+
+		var googleProjectNumber;
+		var appId;
+	
+		this.config = function(g, a) {
+			googleProjectNumber = g;
+			appId = a;
+		}
+		
+		this.register = function(success, error) {
+			var pushNotification = (typeof cordova !== 'undefined') && window.plugins.OneSignal;
+
+			if (pushNotification) {
+				$log.info("Plugin OneSignal loaded");
+
+				var notificationOpenedCallback = function(jsonData) {
+					$log.debug('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+				};
+		
+				pushNotification.init(appId,
+					{googleProjectNumber: googleProjectNumber},
+					notificationOpenedCallback);
+
+					// Show an alert box if a notification comes in when the user is in your app.
+					pushNotification.enableInAppAlertNotification(true);
+			
+					pushNotification.getIds(function(ids) {
+						success(ids.pushToken);
+						$log.debug('getIds: ' + JSON.stringify(ids));
+					});
+
+			} else {
+				$log.info("Plugin pushNotification NOT loaded");
+			}
+		}
+		}
+	
+	function PushService($injector, $log, CONFIG) {
 
 		var platform = window.cordova && window.cordova.platformId;
 
-		$log.debug("Platform: " + platform);
-		if (platform == "android") {
+		if (CONFIG.PUSH.provider == "onesignal") {
+			return $injector.get('OneSignalImpl');
+		} else if (platform == "android" && CONFIG.PUSH.provider == "pushwoosh") {
 			return $injector.get('PushwooshAndroidImpl');
 		} else {
 			return $injector.get('PushwooshiOSImpl');
