@@ -22,6 +22,9 @@
 	"STYLE": {
 		"brandPrimary": "#ff8c04"
 	},
+  "TOKENS": {
+    "sharingSuffix": "| via #Infomobi_App"
+  },
 	"WELCOME": {
 		"title": "Bem-vindo ao InfoMobi",
 		"description": "InfoMobi revoluciona a comunicação corporativa, permitindo compartilhar informações importantes de forma direta e segmentada.",
