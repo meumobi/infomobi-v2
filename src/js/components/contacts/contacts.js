@@ -3,11 +3,25 @@
  
   var contacts = {
     templateUrl: 'contacts/list.html',
-    controller: function (SharedState, API, $log) {
+    controller: function (SharedState, API, $log, meuPhoneCall, meuAnalytics) {
       var query = {
         type: "contacts"
       };
       var vm = this;
+      
+      vm.call = callNumber;
+      
+      
+      function callNumber(number) {
+         meuPhoneCall.call(number)
+          .then(function() {
+            meuAnalytics.trackEvent("Contacts", "Call Number", number);
+            $log.debug('Resolve call Number');
+          })
+          .catch(function() {
+            $log.debug('Reject call Number');
+          });
+      }
       
       var cb_search = {
         success: function(response) {
