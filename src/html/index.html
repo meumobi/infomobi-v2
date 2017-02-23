@@ -31,11 +31,10 @@
 	ng-controller="MainController as vm"
 	ng-cloak
 	ui-prevent-touchmove-defaults>
-  <!--div ng-include="'sidebar.html'" 
-          class="sidebar sidebar-left"></div-->
-	<!--div class="sidebar sidebar-left">
-		<sidebar-left categories="vm.site.categories"></sidebar-left>
-	</div-->
+	
+	<section ng-if="performance">
+		<categories-sidebar-left categories="performance.categories"></categories-sidebar-left>
+	</section>
 	
 	<section ng-if="visitor">
 		<ng-include src="'sidebar-right.html'"/>
