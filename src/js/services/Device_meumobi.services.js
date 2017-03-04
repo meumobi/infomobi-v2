@@ -60,11 +60,13 @@
 			}
 		}
 		
-		function save(token) {
+		function save(pushIds) {
 			try {
 				var config = getDeviceConfig();
-				if (token != null)
-					config.push_id = token;
+        if (pushIds && pushIds.token)
+            config.push_id = pushIds.token;
+        if (pushIds && pushIds.uuid)
+            config.player_id = pushIds.uuid;
 				/*
 					Save it to identify first connection: if localStorage.device NOT exists then 1st connection is true
 				*/

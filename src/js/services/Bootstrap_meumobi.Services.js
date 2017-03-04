@@ -2,10 +2,10 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Bootstrap', ['meumobi.services.Cordova', 'meumobi.services.Push'])
+	.module('meumobi.services.Bootstrap', ['meumobi.services.Cordova'])
 	.factory('BootstrapService', BootstrapService);
 
-	function BootstrapService($log, deviceReady, PushService, $rootScope, UtilsService, CONFIG, DeviceService, AuthService, meuAnalytics, meuSocialSharing, $locale) {
+	function BootstrapService($log, deviceReady, $rootScope, UtilsService, CONFIG, DeviceService, AuthService, meuAnalytics, meuSocialSharing, meuDialogs, $locale, $injector) {
 		var service = {};
 
 		service.startApp = startApp;
@@ -46,6 +46,7 @@
 				document.addEventListener("offline", $rootScope.toggleCon, false);
         
         meuAnalytics.startTrackerWithId(CONFIG.ANALYTICS.trackId);
+        localStorage.notifications_count = 0;
 
         ImgCache.options.cacheClearSize = 10;
 				ImgCache.$init();
@@ -54,39 +55,8 @@
 				if (CONFIG.OPTIONS.appRate && ImgCache.helpers.isCordova()) 
 					appRate();
 				
-				PushService.config(CONFIG.PUSH.googleProjectNumber, CONFIG.PUSH.appId);
-				/*
-				PushService.handler(
-					function(notification) {
-						$log.info("foreground Handler");
-						$log.info(notification);
-						// alert(notification.title);
-						meumobiSite.setSelectedItem(JSON.parse(notification.u));
-						$location.path('/items/565609feb5a5088b7a8b4567');
-						//$rootScope.goToItem(JSON.parse(notification.u));
-				}, "foreground");
-				PushService.handler(
-					function(notification) {
-						$log.info("onStart Handler");
-						$log.info(notification);
-						alert(notification.title);
-				}, "onStart");
-				*/
-
-				var cb_push = {
-					register: {
-						success: function(token){
-							$log.debug("Device token: " + token);
-							DeviceService.save(token);
-						},
-						error: function(){
-							DeviceService.save(null);
-						}
-					}
-				};
-				
-				if (AuthService.isAuthenticated()) {
-					PushService.register(cb_push.register.success, cb_push.register.error);	
+				if (ImgCache.helpers.isCordova() && AuthService.isAuthenticated()) {
+          AuthService.registerPush();	
 				} else {
 					$log.info("Authentication failed");
 				}

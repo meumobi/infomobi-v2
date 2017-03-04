@@ -16,7 +16,6 @@ var app = angular
 	'meumobi.services.Auth',
 	'meumobi.services.Bootstrap',
 	'meumobi.services.Device',
-	'meumobi.services.Push',
 	'meumobi.services.Utils',
 	'meumobi.services.Version',
 	'meumobi.services.Settings',

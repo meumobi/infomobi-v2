@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController(DeviceService, PushService, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log, MeumobiCloud, translateFilter, meuAnalytics, meuDialogs) {
+function LoginController(DeviceService, $injector, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log, MeumobiCloud, translateFilter, meuAnalytics, meuDialogs) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
@@ -30,25 +30,14 @@ function LoginController(DeviceService, PushService, $rootScope, $http, $scope, 
 			}
 		)
     
-		PushService.register(cb_push.register.success, cb_push.register.error);
-		$rootScope.go('/items');
+    AuthService.registerPush();
+    
+    $rootScope.go('/items');
 	};
 
 	$scope.credentials = {
 		email: "",
 		password: ""
-	};
-
-	var cb_push = {
-		register: {
-			success: function(token){
-				$log.debug("Device token: " + token);
-				DeviceService.save(token);
-			},
-			error: function(){
-				DeviceService.save(null);
-			}
-		}
 	};
 	
 	var cb_auth = {

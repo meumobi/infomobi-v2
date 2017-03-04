@@ -5,7 +5,7 @@
 	.module('meumobi.services.Auth', ['meumobi.api', 'meumobi.services.Settings'])
 	.factory('AuthService', AuthService);
 		
-	function AuthService($http, $rootScope, API, APP, $log, translateFilter) {
+	function AuthService($http, $rootScope, API, APP, $log, translateFilter, $injector, DeviceService, CONFIG) {
 		var service = {};
 
 		service.loadAuthToken = loadAuthToken;
@@ -14,8 +14,28 @@
 		service.login = login;
 		service.isAuthenticated = isAuthenticated;
 		service.logout = logout;
+    service.registerPush = registerPush;
  
 		return service;
+    
+    function registerPush() {
+      var push = $injector.get(CONFIG.PUSH.provider);
+  		push.config(CONFIG.PUSH.googleProjectNumber, CONFIG.PUSH.appId);
+    
+  		var cb_push = {
+  			register: {
+  				success: function(pushIds){
+  					$log.debug("Push Ids: " + angular.toJson(pushIds));
+  					DeviceService.save(pushIds);
+  				},
+  				error: function(){
+  					DeviceService.save(null);
+  				}
+  			}
+  		};
+		
+  		push.register(cb_push.register.success, cb_push.register.error);
+    }
 
 		function login(user, success, error) {
 			var cb_login = {

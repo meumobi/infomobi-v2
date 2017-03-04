@@ -20,7 +20,7 @@
     "angular-dynamic-locale": "~0.1.27",
     "angular-i18n": "~1.4.3",
     "angular-resource": "~1.x",
-    "ng-meumobi-utils": "0.0.1",
+    "ng-meumobi-utils": "0.0.2",
     "moment-timezone": "^0.5.5",
     "angular-imgcache": "angular-imgcache.js#~1.1.0",
     "angular-moment": "~1.0.0-beta.6",

@@ -1,10 +1,10 @@
 {
 	"APP": {
-		"cdnUrl": "http://enterprise.meumobilesite.com/",
+		"cdnUrl": "http://employee.meumobilesite.com/",
 		"domains": {
 			"pt": "infomobi.meumobi.com"
 		},
-		"apiUrl": "http://enterprise.meumobilesite.com/api/",
+		"apiUrl": "http://employee.meumobilesite.com/api/",
 		"halSupport": false
 	}
 }
