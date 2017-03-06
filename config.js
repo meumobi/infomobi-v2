@@ -3,7 +3,7 @@ module.exports = function(config) {
 	// Output directory
 	config.dest = 'www';
 	
-	config.version = "1.6.1"; // version of the App
+	config.version = "2.0.0"; // version of the App
   
 	// Inject cordova script into html
 	config.cordova = true;

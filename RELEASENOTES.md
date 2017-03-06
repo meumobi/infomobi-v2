@@ -15,6 +15,28 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+
+<a name="rel-2.0.0"></a>
+# [rel-2.0.0](https://github.com/meumobi/infomobi/compare/rel-1.6.1...rel-2.0.0)
+* ENHANCE: Add disclosure when poll is closed
+* ENHANCE: Closes #113, Closes #142, append custom suffix on sharing title
+* ENHANCE: Closes #230, Prevent useless refresh if request raised a 304 response code
+* ENHANCE: Closes #231, Migrate Push from PushWoosh to OneSignal
+* ENHANCE: Closes #247, homegeneize IRmobi and infomobi push config, appId vs applicationCode
+* ENHANCE: Enlarge item thumb
+* ENHANCE: Improve events display
+* ENHANCE: Improve transitions to reduce blinks
+* ENHANCE: Replace refresh button by auto-pull
+* ENHANCE: Toggle sidebar-right if click on any area except links
+* FEATURE: Closes #236, Add side menu to filter by category
+* FIX: Closes #240, on iOS phone calls not launch phone App
+* FIX: Closes #243, contacts are not synced on launch
+* FIX: Closes #250, carousel crop images
+* FIX: Closes #255, onesignal must request Push permission 
+* UPGRADE: Closes #258, upgrade pushwoosh SDK 
+* UPGRADE: Closes #263, upgrade onesignal SDK 
+* UPGRADE: Upgrade cordova core plugins
+
 <a name="rel-1.6.1"></a>
 # [rel-1.6.1](https://github.com/meumobi/infomobi/compare/rel-1.6.0...rel-1.6.1)
 * FIX: restore loading message
@@ -22,10 +44,10 @@ Use Resume of Changes from previous command on commit message
 
 <a name="rel-1.6.0"></a>
 # [rel-1.6.0](https://github.com/meumobi/infomobi/compare/rel-1.5.1...rel-1.6.0)
-* ENHANCEMENT: Closes #176, add author on articles/show
-* ENHANCEMENT: Closes #215, allow to customize (theme) screen.title of contact page
-* ENHANCEMENT: Closes #216: change Google Analytics TrackId during navigation
-* ENHANCEMENT: Closes #95, Closes #15, import meuFiles Bower Pakage as AngularJS Service to manage downloads
+* ENHANCE: Closes #176, add author on articles/show
+* ENHANCE: Closes #215, allow to customize (theme) screen.title of contact page
+* ENHANCE: Closes #216: change Google Analytics TrackId during navigation
+* ENHANCE: Closes #95, Closes #15, import meuFiles Bower Pakage as AngularJS Service to manage downloads
 * FEATURE: Closes #172, add Events, list, show and save on device
 * FEATURE: Closes #228, manage item's type contacts
 * FIX: Closes #204, share media not working
@@ -37,8 +59,8 @@ Use Resume of Changes from previous command on commit message
 * UPGRADE: moment, angular-moment and imgcache
 
 ## rel-1.5.1 (20160616)
-* ENHANCEMENT: Improve /files page if empty
-* ENHANCEMENT: Closes #171, display thumbnail of media
+* ENHANCE: Improve /files page if empty
+* ENHANCE: Closes #171, display thumbnail of media
 * FEATURE: Closes #193, Add App Rate if enabled on config.json
 * FIX: Closes #180, customize bg color of clicked button
 * FIX: Closes #181, download doesn't work on Android 5.1
@@ -63,8 +85,8 @@ Use Resume of Changes from previous command on commit message
 * PROJECTS: Update bundle Id of condmobi and infomobi, then udpate signing identities
 
 ## rel-1.4.2 (20160415)
-* ENHANCEMENT: Closes #147, allows visitor to reset password, instead of sending email to contact
-* ENHANCEMENT: Closes #167, Polls, manage status closed (end_date expired)
+* ENHANCE: Closes #147, allows visitor to reset password, instead of sending email to contact
+* ENHANCE: Closes #167, Polls, manage status closed (end_date expired)
 * FIX: Closes #146, login form inputs appears as invalid on load
 * HOTFIX, function go: handle missing transition
 * HOTFIX: Closes #141, disable Build version check
@@ -73,8 +95,8 @@ Use Resume of Changes from previous command on commit message
 * PROJECTS: update certificates of condmobi and infomobi
 
 ## rel-1.4.1 (20160411)
-* ENHANCEMENT: add flip trnasition on welcome page
-* ENHANCEMENT: Closes #73, manage images on offline mode
+* ENHANCE: add flip trnasition on welcome page
+* ENHANCE: Closes #73, manage images on offline mode
 * FEATURE: Closes #159, add polls
 * HOTFIX: Closes #165, Use gulp-load-plugins to lazy load plugins
 * HOTFIX: remove AppFunc, replaced by UtilsService
