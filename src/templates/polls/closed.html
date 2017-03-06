@@ -9,4 +9,4 @@
 	</div>
 </div>
 
-<small> {{poll.total}} Votes | Votação encerrada em <i ng-bind="poll.end_date * 1000 |date:'d MMM, yyyy'"></i></small>
+<small> {{poll.total}} {{"Votes" | translate}} | {{"Poll closed at" | translate}} &nbsp;<i ng-bind="poll.end_date * 1000 |date:'d MMM, yyyy'"></i></small>
