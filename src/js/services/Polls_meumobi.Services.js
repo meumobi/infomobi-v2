@@ -35,18 +35,10 @@
 				var end_date = date * 1000; // convert sec. to ms
 				var hasExpired = (now - end_date) > 0; 
 				
-				// $log.debug("end_date: " + end_date);
-				// $log.debug("now_date: " + now);
-				$log.debug("Has expired ? " + hasExpired);
-				
 				return hasExpired;
 			},
 			api.hasVoted = function(poll) {
 				var hasVoted = poll.voted != null || !!api.polls()[poll._id];
-				
-				$log.debug("Poll is voted [Object]" + (poll.voted != null));
-				$log.debug("Poll is voted [locaStorage]" + !!api.polls()[poll._id]);
-				$log.debug("Has voted ? " + hasVoted);
 
 				return hasVoted;
 			},
@@ -57,8 +49,6 @@
 				values.value = poll.values;
 				obj.params = values;
 				obj.id = poll._id;
-				$log.debug("Object sent to vote");
-				$log.debug(JSON.stringify(obj));
 
 				return obj;
 			},
@@ -66,8 +56,6 @@
 				var results = [];
 				var result = {};
 				var total = api.totalVotes(poll);
-				$log.debug("Total votes: " + total);
-				// $log.debug(poll.voted);
 
 				for (var x in poll.results) {
 					/**
@@ -103,12 +91,10 @@
 					voted: 'voted'
 				},
 				get: function(poll) {
-					$log.debug("===== Poll: " + poll.title);
 					var status = this.getStatus(poll);
 					//load poll from localstorage if voted but feed hasn't been reloaded from server
 					if (status == this.statuses.voted && !!api.polls()[poll._id]) {
 						poll = api.polls()[poll._id];
-						$log.debug("Poll loaded from localStorage");
 					} else {
 						poll.status = status;
 						poll.total = api.totalVotes(poll);
@@ -155,7 +141,6 @@
 								msg += ": " + translateFilter("default.network.Error");
 							}
 							UtilsService.toast(msg);
-							$log.debug(msg);
 							deferred.reject(response.data);
 						}
 					};

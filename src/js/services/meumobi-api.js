@@ -18,16 +18,11 @@ function errorInterceptor($q, $rootScope, $location, APP, $log) {
 			return $q.reject(request);
 		},
 		response: function(response) {
-			$log.debug("[API:errorInterceptor]: response");
-			$log.debug(response);
 			response.config.responseTimestamp = new Date().getTime();
 			return response || $q.when(response);
 		},
 		responseError: function(response) {
 			// See w3.org for Status code definitions: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html			
-			$log.debug("[API:errorInterceptor]: BEGIN");
-			$log.debug(response);
-			$log.debug("[API:errorInterceptor]: END");
 			if (response && response.status === 0) {} // network offline or CORS error
 			if (response && response.status === 404) {}
 			if (response && response.status === 401) {
