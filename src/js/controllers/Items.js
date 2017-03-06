@@ -10,7 +10,7 @@
     
   };
 
-	function ItemsListController(API, $rootScope, UtilsService, translateFilter, $log, $scope, $routeParams, meuDialogs) {
+	function ItemsListController(API, $rootScope, UtilsService, translateFilter, $log, $scope, $routeParams, meuDialogs, $timeout) {
 
 		var vm = this;
     
@@ -35,13 +35,16 @@
     
     activate();
 
-  	$rootScope.$on('loading:stop', function() {
+  	$rootScope.$on('loading:start', function() {
+  		vm.loading = true;
+  	})
+    $rootScope.$on('loading:stop', function() {
   		vm.loading = false;
   	})
 
 		function activate() {
-			vm.items = {};
       var category_id = $routeParams.id; 
+      $timeout(activate, 12000);
       
       if (category_id) {
         API.Categories.items(
@@ -77,7 +80,14 @@
     }
     
     function fulfill(response) {
-      if (!response.unchanged)
+      /*
+        Update data if $rootScope.items is empty (1st load) or response is not unchanged (!fallback or !304)
+      */
+      var isFallback = response.hasOwnProperty('isFallback') ? response.isFallback : null;
+      var unchanged = response.hasOwnProperty('unchanged') ? response.unchanged : null;
+      $log.debug('fresh data? ' + !(unchanged || isFallback));
+      
+      if (!vm.hasOwnProperty('items') || !(unchanged || isFallback))
         updateDatas(response);
       // if we have a promise, we will use the same current function when it is fulfilled
       if (response.promise) {
@@ -91,6 +101,7 @@
     }
     
     function updateDatas(response) {
+      $log.debug('Update datas');
       if (response.data && response.data.items) {
         $log.debug('[ItemsListController]: updateDatas');
         var items = response.data.items;

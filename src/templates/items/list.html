@@ -1,19 +1,14 @@
 <div ui-content-for="navbarActionLeft">
-	<button ng-click="vm.reload()" class="btn btn-primary">
-		<i class="fa fa-refresh"></i>
-	</button>
+  <div ui-toggle="uiSidebarLeft" class="btn">
+    <i class="fa fa-bars"></i> Menu
+  </div>
 </div>
 <!--input bs-form-control type="search" class="app-search" placeholder="Buscar..." ng-model="query" /-->
 
 <div class="scrollable">
 	<div class="scrollable-content">
 		<div class="list-group">
-			<div class="ib-loading-news" ng-show="vm.loading">
-				<div>
-					<i class="fa fa-spinner fa-spin"></i> {{"Loading..." | translate}}
-				</div>
-			</div>
-    	<div ng-repeat="item in vm.items | filter:query" ng-switch on="item.type" ui-set="{transition: 'slide-left'}">
+    	<div ng-repeat="item in vm.items" ng-switch on="item.type" ui-set="{transition: 'slide-left'}">
     		<events-headline item="item" ng-switch-when="events"></events-headline>
         <articles-headline item="item" ng-switch-when="articles"></articles-headline>
   			<polls-headline item="item" ng-switch-when="polls"></polls-headline>
@@ -22,4 +17,6 @@
 	</div>
 </div>
 
-<ng-include src="'utils/_header-title.html'" ng-if="performance"/>
+<section ng-if="performance">
+	<ng-include src="'utils/_header-title.html'"/>
+</section>
