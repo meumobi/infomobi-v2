@@ -15,11 +15,14 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+<a name="rel-2.0.2"></a>
+# [rel-2.0.2](https://github.com/meumobi/infomobi/compare/rel-2.0.1...rel-2.0.2)
+* FIX: Closes #268, App freeze on launch image on iOS10
 <a name="rel-2.0.1"></a>
 # [rel-2.0.1](https://github.com/meumobi/infomobi/compare/rel-2.0.0...rel-2.0.1)
-* FIX: remove useless
+* FIX: remove useless $apply call
 * FIX: Remove breaking logout link on side-left menu
-* FIX: Closes #267, Stop  when starting new controller
+* FIX: Closes #267, Stop $timeout when starting new controller
 * FIX: Remove useless plugin
 
 <a name="rel-2.0.0"></a>
