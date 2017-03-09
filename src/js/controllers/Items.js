@@ -43,8 +43,14 @@
   	})
 
 		function activate() {
+      $log.debug('ItemsListController: activate');
       var category_id = $routeParams.id; 
-      $timeout(activate, 12000);
+      var promise = $timeout(activate, 15000);
+
+      // Listen for the $destroy event to halt activate, when starting new controller for example
+      $scope.$on('$destroy', function(){
+          $timeout.cancel(promise);
+      });
       
       if (category_id) {
         API.Categories.items(
