@@ -43,9 +43,7 @@
 									success(uuid);
 								},
 								error: function() {
-									$rootScope.$apply(function(){
-										throw new Error('Unable to retrieve uuid');
-									});
+									throw new Error('Unable to retrieve uuid');
 								}
 							}
 						}
