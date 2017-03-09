@@ -6,8 +6,6 @@
 				<div ng-repeat="category in vm.categories">{{category.title}}</div>
 				<a class="list-group-item" href="#/items">Home <i class="fa fa-chevron-right pull-right"></i></a>
 				<a class="list-group-item" href="#/items/list/{{category.id}}" ng-repeat="category in $ctrl.categories | selectTypes">{{category.title}} <i class="fa fa-chevron-right pull-right"></i></a>
-				<a class="list-group-item" href="#/account">{{"Account" | translate}} <i class="fa fa-chevron-right pull-right"></i></a>
-				<a class="list-group-item" ng-click="logout()">{{"Sign Out" | translate}} <i class="fa fa-sign-out pull-right"></i></a>
 			</div>
 		</div>
 	</div>
