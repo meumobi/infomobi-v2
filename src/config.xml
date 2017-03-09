@@ -38,7 +38,6 @@
 	<!-- plugin spec="https://github.com/Telerik-Verified-Plugins/NativePageTransitions.git#0.6.2" / -->
 	<!-- plugin name="com.adobe.plugins.gaplugin" spec="2.4.0" source="pgb"/ -->
 	
-	<plugin name="cordova-open" spec="~1.0.9"/>
 	<plugin name="call-number" spec="~1.0.1"/>
 	<plugin name="cordova-plugin-apprate" spec="~1.2.0"/>
 	<plugin name="cordova-plugin-appversion" spec="~1.0.0"/>
