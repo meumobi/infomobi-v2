@@ -15,6 +15,13 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+<a name="rel-2.0.3"></a>
+# [rel-2.0.3](https://github.com/meumobi/infomobi/compare/rel-2.0.2...rel-2.0.3)
+* FIX: Closes #268, App freeze on launch image on iOS10
+* ENHANCE: Remove useless plugin, media and call-number and console
+* FIX: Closes #271, can't search contacts: close side menu
+* ENHANCE: move Device Service to ng-meumobi-utils
+
 <a name="rel-2.0.2"></a>
 # [rel-2.0.2](https://github.com/meumobi/infomobi/compare/rel-2.0.1...rel-2.0.2)
 * FIX: Closes #268, App freeze on launch image on iOS10
