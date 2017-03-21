@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-	.module('ngMeumobi.Items.events', [])
+	.module('ngMeumobi.Entities.events', [])
   .factory('Events', Events)
 	.directive('eventsHeadline', eventsHeadline)
 

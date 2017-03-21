@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController(DeviceService, $injector, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log, MeumobiCloud, translateFilter, meuAnalytics, meuDialogs) {
+function LoginController($injector, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log, MeumobiCloud, translateFilter, meuAnalytics, meuDialogs) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
 	var authenticateUser = function() {
@@ -18,12 +18,9 @@ function LoginController(DeviceService, $injector, $rootScope, $http, $scope, $l
         MeuAPI.setCategories($rootScope.performance.categories);
         if (data.site && data.site.analytics_token) {
           meuAnalytics.startTrackerWithId(data.site.analytics_token);   
-          $log.debug("Own Project Analytics token: " + data.site.analytics_token);       
         } else {
-          $log.debug("Infomobi Analytics token");
+          $log.debug("Missing data.site.analytics_token, using default");
         }
-        $log.debug('categories from performance');
-        $log.debug($rootScope.categories);
 			}, function(error) {
 				$log.debug("MeumobiCloud.syncPerformance ERROR");
 				$log.debug(error);

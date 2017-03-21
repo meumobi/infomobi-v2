@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-	.module('ngMeumobi.Items.utils', [])
+	.module('ngMeumobi.Entities.items', [])
   .factory('Items', Items)
 
   function Items($log, meuSocialSharing, meuAnalytics) {

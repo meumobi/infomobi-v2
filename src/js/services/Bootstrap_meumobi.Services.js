@@ -5,7 +5,7 @@
 	.module('meumobi.services.Bootstrap', ['meumobi.services.Cordova'])
 	.factory('BootstrapService', BootstrapService);
 
-	function BootstrapService($log, deviceReady, $rootScope, UtilsService, CONFIG, DeviceService, AuthService, meuAnalytics, meuSocialSharing, meuDialogs, $locale, $injector) {
+	function BootstrapService($log, $q, deviceReady, $rootScope, UtilsService, CONFIG, AuthService, meuAnalytics, meuSocialSharing, meuDialogs, $locale, $injector, Devices) {
 		var service = {};
 
 		service.startApp = startApp;
@@ -17,7 +17,7 @@
 				try {
 					AppRate.preferences.storeAppURL.ios = CONFIG.ITUNES.id;
 					AppRate.preferences.storeAppURL.android = 'market://details?id=' + CONFIG.id;
-					AppRate.preferences.usesUntilPrompt = 3;
+					AppRate.preferences.usesUntilPrompt = 10;
 					AppRate.preferences.useLanguage = 'pt';
 					AppRate.preferences.displayAppName = CONFIG.name;
 					AppRate.promptForRating(false);
@@ -51,10 +51,9 @@
         ImgCache.options.cacheClearSize = 10;
 				ImgCache.$init();
         
-				$log.debug("is Cordova ?: " + ImgCache.helpers.isCordova())
+				$log.debug("is Cordova ?: " + ImgCache.helpers.isCordova());
 				if (CONFIG.OPTIONS.appRate && ImgCache.helpers.isCordova()) 
 					appRate();
-				
 				if (ImgCache.helpers.isCordova() && AuthService.isAuthenticated()) {
           AuthService.registerPush();	
 				} else {

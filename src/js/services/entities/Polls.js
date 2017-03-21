@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-	.module('ngMeumobi.Items.polls', [])
+	.module('ngMeumobi.Entities.polls', [])
   .factory('PollsService', PollsService)
 	.directive('pollsHeadline', pollsHeadline)
 

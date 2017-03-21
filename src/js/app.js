@@ -24,11 +24,7 @@ var app = angular
 	'mobile-angular-ui',
 	'mobile-angular-ui.gestures.swipe',
   'ngMeumobi.Utils',
-  'ngMeumobi.Items.utils',
-  'ngMeumobi.Media.utils',
-  'ngMeumobi.Items.events',
-  'ngMeumobi.Items.articles',
-  'ngMeumobi.Items.polls',
+  'ngMeumobi.Entities',
 	'ngAnimate',
 	'ngRoute',
 	'ngSanitize',
@@ -223,7 +219,7 @@ var app = angular
 	}
 }])
 
-.run(function($rootScope, $location, $http, APP, BootstrapService, SharedState, DeviceService, AuthService, $log, UtilsService) {
+.run(function($rootScope, $location, $http, APP, BootstrapService, SharedState, AuthService, $log, UtilsService) {
 	
 	$rootScope.flip = UtilsService.nativeFlipTransition;
 	

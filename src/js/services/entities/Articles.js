@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-	.module('ngMeumobi.Items.articles', [])
+	.module('ngMeumobi.Entities.articles', [])
   .factory('Articles', Articles)
 	.directive('articlesHeadline', articlesHeadline)
 

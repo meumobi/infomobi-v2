@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-	.module('ngMeumobi.Media.utils', [])
+	.module('ngMeumobi.Entities.media', [])
   .factory('Media', Media)
 
   function Media($log, meuSocialSharing, meuAnalytics) {
