@@ -6,12 +6,14 @@
     bindings: {
       categories: '<'
     },
-    controller: function() {
+    controller: function(meuUtils, meuCordova) {
       var vm = this;
       
-			if (typeof(AppVersion) !== 'undefined' && AppVersion != null) {
-				vm.app_version = AppVersion.version;
-			}
+      meuUtils.deviceReady(function() {
+        meuCordova.device.getAppVersion().then(function(version) {
+          vm.app_version = AppVersion.version;
+        })
+      });
     }
   };
   
@@ -33,6 +35,5 @@
 	angular
 	.module('infoMobi')
   .filter('selectTypes', selectTypes)
-	.component('categoriesSidebarLeft', categories);
-  
+	.component('categoriesSidebarLeft', categories);  
 })();
