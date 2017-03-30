@@ -4,28 +4,44 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController($injector, $rootScope, $http, $scope, $location, API, UtilsService, APP, AuthService, $log, MeumobiCloud, translateFilter, meuAnalytics, meuDialogs) {
+function LoginController($rootScope, $scope, API, AuthService, $log, translateFilter, meuCordova, meuCloud, Site) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
+  var activate = function() {
+    $log.debug('Api url: ' + meuCloud.API.Config.getProperty('apiUrl'));
+    $log.debug('Api domain: ' + meuCloud.API.Config.getProperty('domain'));
+    meuCloud.API.Site.performance()
+    .then(function(response) {
+      updateDatas(response);
+      if (response.promise)
+        return response.promise;
+    })
+    // If response contains a promise, means is from cache and promise will sync w/ Server
+    .then(function(response) {
+      updateDatas(response)
+    })
+    .catch(function(e) {
+      $exceptionHandler(e);
+    })
+  };
+  
+  var updateDatas = function(response) {
+    var data = response.data;
+
+    meuCloud.syncPerformance(data)
+    .then(function(data) {
+      Site.updateAnalytics();
+      
+      //vm.data = data;
+      data.logo = meuCloud.getSiteLogoUrl();
+      $rootScope.performance = data;
+    });
+  };
+  
 	var authenticateUser = function() {
     var defaultLogo = "images/header-color.png";
     
-		MeumobiCloud.syncPerformance(
-			function(response) {
-				var data = response.data;
-				data.logo = data.site.hasOwnProperty("logo") && data.site.logo != "" ? APP.cdnUrl + data.site.logo : defaultLogo;
-				$rootScope.performance = data;
-        MeuAPI.setCategories($rootScope.performance.categories);
-        if (data.site && data.site.analytics_token) {
-          meuAnalytics.startTrackerWithId(data.site.analytics_token);   
-        } else {
-          $log.debug("Missing data.site.analytics_token, using default");
-        }
-			}, function(error) {
-				$log.debug("MeumobiCloud.syncPerformance ERROR");
-				$log.debug(error);
-			}
-		)
+		activate();
     
     AuthService.registerPush();
     
@@ -40,7 +56,7 @@ function LoginController($injector, $rootScope, $http, $scope, $location, API, U
 	var cb_auth = {
 		login: {
 			success: function(response){
-				$scope.Login.loading = false;
+				$scope.Login.isLoading = false;
 				//show modal if need change password, otherwise authenticate
 				if (response.data && response.data.error) {
 					if (response.data.error == "password expired") {
@@ -58,8 +74,8 @@ function LoginController($injector, $rootScope, $http, $scope, $location, API, U
 				} else {
 					msg += ": " + translateFilter("default.network.Error");
 				}
-				$scope.Login.loading = false;
-				meuDialogs.toast(msg);
+				$scope.Login.isLoading = false;
+				meuCordova.dialogs.toast(msg);
 				$log.debug(msg)
 			}
 		}
@@ -68,9 +84,10 @@ function LoginController($injector, $rootScope, $http, $scope, $location, API, U
 	var cb_login = { 
 		save: {
 			success: function(response) {
-				meuDialogs.toast(translateFilter("password.save.Success"));
+				meuCordova.dialogs.toast(translateFilter("password.save.Success"));
 				AuthService.loadAuthToken(response.data.token);
 				$rootScope.Ui.turnOff('modal1');
+        $scope.Login.isLoading = false;
 				authenticateUser();
 			},
 			error: function(response) {
@@ -80,7 +97,8 @@ function LoginController($injector, $rootScope, $http, $scope, $location, API, U
 				} else {
 					msg += ": " + translateFilter("default.network.Error");
 				}
-				meuDialogs.toast(msg);
+				meuCordova.dialogs.toast(msg);
+        $scope.Login.isLoading = false;
 			}
 		}
 	};
@@ -89,11 +107,11 @@ function LoginController($injector, $rootScope, $http, $scope, $location, API, U
 		submitForm: function(isValid) {
 			$scope.submitted = true;
 			if (!isValid) {
-				meuDialogs.toast('Erro de validação');
+				meuCordova.dialogs.toast('Erro de validação');
 			}
 			else {
         // Login.loading used by Ladda on submit button
-				$scope.Login.loading = true;
+				$scope.Login.isLoading = true;
 				$scope.Login.signin($scope.credentials);
 			}
 		},
@@ -102,6 +120,7 @@ function LoginController($injector, $rootScope, $http, $scope, $location, API, U
 		},
 
 		changePassword: function() {
+      $scope.Login.isLoading = true;
 			var payload = {
 				current_password: $scope.credentials.password,
 				password: $scope.Login.new_password

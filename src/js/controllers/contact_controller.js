@@ -1,40 +1,47 @@
-'use strict';
+(function() {
+  'use strict';
 
-angular
-	.module('infoMobi')
-	.controller('ContactController', ContactController)
+  angular
+  .module('infoMobi')
+  .controller('ContactController', ContactController)
 
-	function ContactController($rootScope, $scope, $log, API, UtilsService, CONFIG, translateFilter) {
+  function ContactController($rootScope, $log, UtilsService, CONFIG, translateFilter, meuCordova, meuCloud) {
 		
     var vm = this;
+    vm.isLoading = false;
     vm.sendMail = sendMail;
     vm.title = "Chat with the Internal Communication";
-		vm.informations = {
-			name: CONFIG.name,
-			mail: $rootScope.visitor ? $rootScope.visitor.email : '',
-			phone: "",
-			message: ""
-		};
+    vm.informations = {
+      name: CONFIG.name,
+      mail: $rootScope.visitor ? $rootScope.visitor.email : '',
+      phone: "",
+      message: ""
+    };
     
-		var cb_mail = {
-			save: {
-				success: function(response) {
-					var msg = translateFilter("contact.mail.Success");
-					UtilsService.toast(msg);
-					vm.informations.message = "";
-				},
-				error: function(response) {
-					var msg = translateFilter("contact.mail.Error");
-					if (response.data && response.data.error)
-						msg += ": " + translateFilter(response.data.error);
-					UtilsService.toast(msg);
-				}
-			}
-		};
+    var cb_mail = {
+      save: {
+        success: function(response) {
+          vm.isLoading = false;
+          var msg = translateFilter("contact.mail.Success");
+          meuCordova.dialogs.toast(msg);
+          vm.informations.message = "";
+        },
+        error: function(response) {
+          vm.isLoading = false;
+          var msg = translateFilter("contact.mail.Error");
+          if (response.data && response.data.error)
+            msg += ": " + translateFilter(response.data.error);
+          meuCordova.dialogs.toast(msg);
+        }
+      }
+    };
       
-		function sendMail() {
-			API.Mail.save(vm.informations, cb_mail.save.success, cb_mail.save.error);
-		};
+    function sendMail() {
+      vm.isLoading = true;
+      meuCloud.API.Mail.save(vm.informations)
+      .then(cb_mail.save.success)
+      .catch(cb_mail.save.error);
+    };
     
     try {
       $log.debug(vm.informations);
@@ -45,4 +52,5 @@ angular
       $log.debug("Screen title not available, use default")
       $log.debug(e); 
     }
-}
+  }
+})();

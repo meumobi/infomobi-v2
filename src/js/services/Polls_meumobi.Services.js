@@ -6,7 +6,7 @@
 	.provider('Poll', Poll);
 	
 	function Poll() {
-		this.$get = function($q, $rootScope, translateFilter, UtilsService, API, $log, $http) {
+		this.$get = function($q, $rootScope, translateFilter, UtilsService, API, $log, $http, meuCordova, meuCloud) {
 			var api = {};
 			var polls = {};
 			/**
@@ -117,37 +117,37 @@
 					return status;
 				},
 				vote: function(poll) {
-					
-					var deferred = $q.defer();
-					var statuses = this.statuses;
+          var statuses = this.statuses;
+          $log.debug(poll);
+          
+          return $q(function(resolve, reject) {
 
-					var vote = {
-						success: function(response) {
-							$log.debug(response);
-							UtilsService.toast(translateFilter("poll.vote.Success"));
-							poll.status = statuses.voted;
-							poll.total = api.totalVotes(response.data);
-							poll.results = api.computeResults(response.data);
-							poll.voted = response.data.voted;
-							poll.status = statuses.voted;
-							api.addPoll(poll); 
-							deferred.resolve(poll);
-						},
-						error: function(response) {
-							var msg = translateFilter("poll.vote.Error");
-							if (response.data && response.data.error) {
-								msg += ": " + translateFilter("[API]: " + response.data.error);
-							} else {
-								msg += ": " + translateFilter("default.network.Error");
-							}
-							UtilsService.toast(msg);
-							deferred.reject(response.data);
-						}
-					};
+  					var vote = {
+  						success: function(response) {
+                $log.debug(response);
+                
+                if (response.data.errors) {
+                  reject(response.data);
+                } else {
+    							meuCordova.dialogs.toast(translateFilter("poll.vote.Success"));
+    							poll.status = statuses.voted;
+    							poll.total = api.totalVotes(response.data);
+    							poll.results = api.computeResults(response.data);
+    							poll.voted = response.data.voted;
+    							poll.status = statuses.voted;
+    							api.addPoll(poll); 
+    							resolve(poll);
+                }
+  						},
+  						error: function(response) {
+  							reject(response.data);
+  						}
+  					};
 
-					API.Poll.submit(api.paramify(poll), vote.success, vote.error);
-
-					return deferred.promise;
+  					meuCloud.API.Poll.submit(api.paramify(poll))
+            .then(vote.success)
+            .catch(vote.error);
+          });
 				}
 			}
 		}

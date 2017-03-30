@@ -1,6 +1,6 @@
 <div class="scrollable">
 	<div class="scrollable-content section">
-		<form role="form" ng-submit='change()'>
+		<form role="form" ng-submit='Save.submitForm()'>
 			<fieldset>
 				<legend>{{"Change Password" | translate}}</legend>
 				<div class="form-group">
@@ -29,7 +29,7 @@
 					class="form-control" />
 				</div>
 			</fieldset>
-			<button class="btn btn-primary btn-block">{{"Save" | translate}}</button>
+			<button data-ui-ladda="Save.isLoading" data-style="expand-right" class="btn btn-primary btn-block"><span class="ladda-label">{{"Save" | translate}}</span></button>
 		</form>
 	</div>
 </div>

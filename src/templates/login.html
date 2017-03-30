@@ -29,7 +29,7 @@
 					</div>
 				</fieldset>
 
-				<button data-ui-ladda="Login.loading" class="btn btn-primary btn-block ladda-button" data-style="expand-right">
+				<button data-ui-ladda="Login.isLoading" class="btn btn-primary btn-block" data-style="expand-right">
 					<span class="ladda-label">{{"Sign In" | translate}}</span>
 				</button>
 
@@ -66,8 +66,8 @@
 								placeholder="Nova Senha"
 								class="form-control"/>
 							</div>
-							<button class="btn btn-primary btn-block">
-								<span>{{"Save" | translate}}</span>
+							<button data-ui-ladda="Login.isLoading" class="btn btn-primary btn-block" data-style="expand-right">
+								<span class="ladda-label">{{"Save" | translate}}</span>
 							</button>
 						</form>
 				</div>
