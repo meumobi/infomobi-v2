@@ -16,6 +16,7 @@ var app = angular
 	'meumobi.services.Settings',
 	'meumobi.stubs',
 	'meumobi.directives.uiLadda',
+  'meumobi.directives.Headline',
 	'mobile-angular-ui',
 	'mobile-angular-ui.gestures.swipe',
   'ngMeumobi.Utils',

@@ -8,7 +8,7 @@
       <span class="label label-default">{{category.title}}</span>
       <h4 class="media-heading">{{item.title}}
         <br/>
-        <p ng-switch="item.dayLong">
+        <p ng-switch="Item.addSchedule(item).dayLong">
           <span class="text-muted" ng-switch-when="false">
             <small><i>{{item.start_date * 1000 | amDateFormat : 'LT'}} - {{item.end_date * 1000 | amDateFormat : 'LT'}}</i></small>
             <!--small ng-if="vm.global.timezone">{{vm.global.timezone}}</small-->

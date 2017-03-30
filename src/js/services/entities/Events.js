@@ -4,9 +4,8 @@
 	angular
 	.module('ngMeumobi.Entities.events', [])
   .factory('Events', Events)
-	.directive('eventsHeadline', eventsHeadline)
 
-  function Events(meuCalendar, meuAnalytics, $log, $locale, moment) {
+  function Events(meuCordova, $log, $locale, moment) {
     
 		var service = {};
 
@@ -23,9 +22,9 @@
         start_date: item.start_date,
         end_date: item.end_date
       };
-			meuCalendar.createEventInteractively(options)
+			meuCordova.calendar.createEventInteractively(options)
         .then(function() {
-          meuAnalytics.trackEvent('Events', 'Add to Calendar', item.title);
+          meuCordova.analytics.trackEvent('Events', 'Add to Calendar', item.title);
         });
 		};  
     
@@ -47,19 +46,4 @@
       return event;
     } 
   }
-
-	function eventsHeadline($rootScope, Events, $log) {
-		return {
-			restrict: 'E',
-			scope: {
-				item: '='			
-      },
-			templateUrl: 'events/_headline.html',
-			link: function(scope, element, attrs) {
-        scope.addEvent = Events.addEvent;
-        scope.item = Events.addSchedule(scope.item);
-        scope.category = MeuAPI.getCategory(scope.item.parent_id);
-			}
-		};
-	}
 })();

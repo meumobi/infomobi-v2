@@ -8,10 +8,8 @@
 <div class="scrollable">
 	<div class="scrollable-content">
 		<div class="list-group">
-    	<div ng-repeat="item in vm.items" ng-switch on="item.type" ui-set="{transition: 'slide-left'}">
-    		<events-headline item="item" ng-switch-when="events"></events-headline>
-        <articles-headline item="item" ng-switch-when="articles"></articles-headline>
-  			<polls-headline item="item" ng-switch-when="polls"></polls-headline>
+			<div ng-repeat="item in vm.items" ui-set="{transition: 'slide-left'}">
+				<headline item="item"></headline>
     	</div>
 		</div>
 	</div>
