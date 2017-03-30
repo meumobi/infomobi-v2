@@ -6,32 +6,15 @@
 	.controller('ItemsShowController', ItemsShowController)
 	.controller('ItemsListController', ItemsListController)
 
-  function ItemsShowController(API, $rootScope, UtilsService, translateFilter, $log, $scope, $routeParams) {
+  function ItemsShowController($rootScope, UtilsService, translateFilter, $log, $scope, $routeParams) {
     
   };
 
-	function ItemsListController(API, $rootScope, UtilsService, translateFilter, $log, $scope, $routeParams, meuDialogs, $timeout) {
+	function ItemsListController($rootScope, UtilsService, translateFilter, $log, $scope, $routeParams, meuCordova, meuCloud, $timeout, SharedState) {
 
 		var vm = this;
     
-    vm.reload = reload;
     vm.loading = false;
-
-    var cb_items = {
-      success: function(response) {
-        $log.debug('[ItemsListController]: cb_item.success');
-        fulfill(response);
-      },
-      fail: function(response) {
-        $log.debug('[ItemsListController]: cb_item.fail');
-        $log.debug(response);
-      }
-    };
-    
-    function reload() {
-      vm.loading = true;
-      activate();
-    }
     
     activate();
 
@@ -45,6 +28,7 @@
 		function activate() {
       $log.debug('ItemsListController: activate');
       var category_id = $routeParams.id; 
+  
       var promise = $timeout(activate, 25000);
 
       // Listen for the $destroy event to halt activate, when starting new controller for example
@@ -53,17 +37,36 @@
       });
       
       if (category_id) {
-        API.Categories.items(
+        meuCloud.API.Categories.items(
           category_id,
-          {},//{order: 'start_date,DESC'},
-          cb_items.success,
-          cb_items.fail
-        );
+          {}//{order: 'start_date,DESC'}
+        )
+        .then(function(response) {
+          updateDatas(response);
+          if (response.promise)
+            return response.promise;
+        })
+        // If response contains a promise, means is from cache and promise will sync w/ Server
+        .then(function(response) {
+          updateDatas(response)
+        })
+        .catch(function(e) {
+          $exceptionHandler(e);
+        })
       } else {
-        API.Items.latest(
-          cb_items.success,
-          cb_items.fail
-        );
+        meuCloud.API.Items.latest()
+        .then(function(response) {
+          updateDatas(response);
+          if (response.promise)
+            return response.promise;
+        })
+        // If response contains a promise, means is from cache and promise will sync w/ Server
+        .then(function(response) {
+          updateDatas(response)
+        })
+        .catch(function(e) {
+          $exceptionHandler(e);
+        })
       }
 		}
 
@@ -76,56 +79,32 @@
       
       return item;
     }
-
-    function lookup(array) {
-      var lookup = [];
-      for (var i = 0, len = array.length; i < len; i++) {
-          lookup[array[i]._id] = array[i];
-      }
-      return lookup;
-    }
     
-    function fulfill(response) {
+    function updateDatas(response) {
       /*
         Update data if $rootScope.items is empty (1st load) or response is not unchanged (!fallback or !304)
       */
-      var isFallback = response.hasOwnProperty('isFallback') ? response.isFallback : null;
-      var unchanged = response.hasOwnProperty('unchanged') ? response.unchanged : null;
-      $log.debug('fresh data? ' + !(unchanged || isFallback));
+      $log.debug('fresh data? ' + meuCloud.helpers.isFreshResponse(response));
+      if (!vm.hasOwnProperty('items') || meuCloud.helpers.isFreshResponse(response)) {
+        if (response.data && response.data.items) {
+          $log.debug('[ItemsListController]: updateDatas');
+          var items = response.data.items;
+          vm.items = items.map(function(e, index, arr) {
+            return decorateItem(e, index, arr);
+          });
+  				$rootScope.items = meuCloud.helpers.lookup(vm.items);
+  				// Remove cached polls from localstorage if fetch them from server
+  				localStorage.removeItem("polls");
+        }
+        vm.next = response._meta && response._meta.next;
       
-      if (!vm.hasOwnProperty('items') || !(unchanged || isFallback))
-        updateDatas(response);
-      // if we have a promise, we will use the same current function when it is fulfilled
-      if (response.promise) {
-        response.promise
-        .then(function(response) {
-          fulfill(response);
-        })
-        .catch(function(response) {
-        })
-      }
-    }
-    
-    function updateDatas(response) {
-      $log.debug('Update datas');
-      if (response.data && response.data.items) {
-        $log.debug('[ItemsListController]: updateDatas');
-        var items = response.data.items;
-        vm.items = items.map(function(e, index, arr) {
-          return decorateItem(e, index, arr);
-        });
-				$rootScope.items = lookup(vm.items);
-				// Remove cached polls from localstorage if fetch them from server
-				localStorage.removeItem("polls");
-      }
-      vm.next = response._meta && response._meta.next;
-      
-      // if response.isFallback is true and !response.promise then an error occurs preventing update
-      /*
-        TODO: if online then toggle connectionStatus and display alert else if connectionStatus == offline don't show alert
-      */
-      if (response.isFallback && !response.promise) {
-        meuDialogs.toast("Connection issue prevent syncing!");
+        // if response.isFallback is true and !response.promise then an error occurs preventing update
+        /*
+          TODO: if online then toggle connectionStatus and display alert else if connectionStatus == offline don't show alert
+        */
+        if (response.isFallback && !response.promise) {
+          meuCordova.dialogs.toast("Connection issue prevent syncing!");
+        }        
       }
     }
 	}

@@ -5,7 +5,7 @@
 	.module('ngMeumobi.Entities.devices', [])
   .factory('Devices', Devices)
 
-  function Devices($log, $q, $exceptionHandler, meuDevice, API) {
+  function Devices($log, $q, $exceptionHandler, meuCordova, meuUtils, meuCloud) {
     
 		var service = {};
     var properties = {};
@@ -24,48 +24,34 @@
         properties[name] = value;
     };
     
-    function getProperties() { 
-      return meuDevice.getUUID()
+    function getProperties() {
+      return meuCordova.device.getUUID()
         .then(function (uuid) {
           properties.uuid = uuid;
-          return meuDevice.getInformations();
+          return meuCordova.device.getInformations();
         })
         .then(function (infos) {
           angular.merge(properties, infos);
-          return meuDevice.getAppVersion().catch(function (e) {
+          $log.debug('After getInformations');
+          $log.debug(properties);
+          return meuCordova.device.getAppVersion().catch(function (e) {
               // Not a critical error, continue chain
+            $log.debug('After getAppVersion catch');
+            $log.debug(properties);
             return $q.resolve();
           });
         })
         .then(function (app) {
           angular.merge(properties, app);
-          $log.debug('merge');
+          $log.debug('After getAppVersion resolve');
+          $log.debug(properties);
           return $q.resolve();
         })
         .catch(function(e) {
           $log.debug('Failed to get Device Properties');
           return $q.reject(e);
           /* potentially some code for generating an error specific message here */
-        });
-    }
-    
-    function sendToApi(device) {
-
-      return $q(function (resolve, reject) {
-  			var cb_devices = {
-  				save: {
-  					success: function(response) {
-  						$log.debug('Device successfuly sent to API');
-  						resolve(response);
-  					},
-  					error: function(response) {
-              $log.debug('Failed to send Device to API');
-  						reject(response);
-  					}
-  				}
-  			};
-        API.Devices.save(device, cb_devices.save.success, cb_devices.save.error);
-      })
+        });        
     }
     
     function save() {
@@ -79,7 +65,7 @@
           localStorage.device = JSON.stringify(properties);
           if (!properties.hasOwnProperty('uuid'))
             throw new Error('Missing UUID');
-          sendToApi(properties)
+          meuCloud.API.Devices.save(properties)
           .then(function(response) {
             resolve(response);
           })

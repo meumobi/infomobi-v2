@@ -2,10 +2,10 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Auth', ['meumobi.api', 'meumobi.services.Settings'])
+	.module('meumobi.services.Auth', ['meumobi.services.Settings'])
 	.factory('AuthService', AuthService);
 		
-	function AuthService($http, $rootScope, API, APP, $log, translateFilter, $injector, Devices, CONFIG) {
+	function AuthService($http, $rootScope, APP, $log, translateFilter, $injector, Devices, CONFIG, meuCloud, $exceptionHandler, $q) {
 		var service = {};
 
 		service.loadAuthToken = loadAuthToken;
@@ -40,25 +40,34 @@
       Devices.save();
     }
 
-		function login(user, success, error) {
-			var cb_login = {
-				signin: {
-					success: function(response){
-						if (response.data.error && response.data.error == "password expired") {
-							$http.defaults.headers.common['X-Visitor-Token'] = response.data.token;
-						} else {
-							loadAuthToken(response.data.token);
-						}
-						loadVisitor(response.data.visitor);
-						success(response);
-					},
-					error: function(response){
-						error(response);
-					}
-				}
-			};
+		function login(user) {
+      return $q(function(resolve, reject) {
+        try {
+    			var cb_login = {
+    				signin: {
+    					success: function(response){
+    						if (response.data.error && response.data.error == "password expired") {
+    							$http.defaults.headers.common['X-Visitor-Token'] = response.data.token;
+    						} else {
+    							loadAuthToken(response.data.token);
+    						}
+    						loadVisitor(response.data.visitor);
+    						resolve(response);
+    					},
+    					error: function(response){
+    						reject(response);
+    					}
+    				}
+    			};
 
-			API.Login.signin(user, cb_login.signin.success, cb_login.signin.error);
+    			meuCloud.API.Login.signin(user)
+          .then(cb_login.signin.success)
+          .catch(cb_login.signin.error);
+        } catch (e) {
+          $exceptionHandler(e);
+          reject(e);
+        };
+      });
 		}
 		
 		function logout() {
@@ -76,16 +85,15 @@
 			
 			localStorage.removeItem("visitor");
 			localStorage.removeItem("authToken");
-			localStorage.removeItem("news");
 			localStorage.removeItem("files");
 			localStorage.removeItem("polls");
 			localStorage.removeItem("performance");
 			
-			delete $rootScope.news;
 			delete $rootScope.authToken;
 			delete $rootScope.visitor;
 			delete $rootScope.performance;
 			delete $http.defaults.headers.common['X-Visitor-Token'];
+      meuCloud.API.Config.setProperty('domain', null);
 		}
 		
 		function isAuthenticated() {
@@ -105,6 +113,7 @@
 				visitor.site = APP.DOMAINS["pt"];
 			}
 			$rootScope.visitor = visitor;
+      meuCloud.API.Config.setProperty('domain', visitor.site);
 			localStorage.visitor = JSON.stringify(visitor);
 		}
 
@@ -133,7 +142,9 @@
 				}
 			};
 			
-			API.Login.get(cb_login.get.success, cb_login.get.error);
+			meuCloud.API.Login.get()
+      .then(cb_login.get.success)
+      .catch(cb_login.get.error);
 		}
 	}
 })();

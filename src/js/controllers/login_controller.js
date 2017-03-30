@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController($rootScope, $scope, API, AuthService, $log, translateFilter, meuCordova, meuCloud, Site) {
+function LoginController($rootScope, $scope, AuthService, $log, translateFilter, meuCordova, meuCloud, Site) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
   var activate = function() {
@@ -116,7 +116,9 @@ function LoginController($rootScope, $scope, API, AuthService, $log, translateFi
 			}
 		},
 		signin: function(credentials) {
-			AuthService.login(credentials, cb_auth.login.success, cb_auth.login.error)
+			AuthService.login(credentials)
+      .then(cb_auth.login.success)
+      .catch(cb_auth.login.error);
 		},
 
 		changePassword: function() {
@@ -126,7 +128,9 @@ function LoginController($rootScope, $scope, API, AuthService, $log, translateFi
 				password: $scope.Login.new_password
 			};
 			
-			API.Login.save(payload, cb_login.save.success, cb_login.save.error);
+			meuCloud.API.Login.save(payload)
+      .then(cb_login.save.success)
+      .catch(cb_login.save.error);
 		}
 	}
 }

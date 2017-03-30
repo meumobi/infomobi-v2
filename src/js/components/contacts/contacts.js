@@ -3,7 +3,7 @@
  
   var contacts = {
     templateUrl: 'contacts/list.html',
-    controller: function (SharedState, API, $log, meuPhoneCall, meuAnalytics) {
+    controller: function (SharedState, meuCloud, $log, meuCordova) {
       var query = {
         type: "contacts"
       };
@@ -13,9 +13,9 @@
       
       
       function callNumber(number) {
-         meuPhoneCall.call(number)
+         meuCordova.callNumber(number)
           .then(function() {
-            meuAnalytics.trackEvent("Contacts", "Call Number", number);
+            meuCordova.analytics.trackEvent("Contacts", "Call Number", number);
             $log.debug('Resolve call Number');
           })
           .catch(function() {
@@ -23,25 +23,24 @@
           });
       }
       
-      var cb_search = {
-        success: function(response) {
-          fulfill(response);
-        }, 
-        fail: function(e) {
-          $log.debug(e);
-        }
-      };
-      
       activate();
       
       function activate() {
-        API.Items.search(
-          query, 
-          cb_search.success, 
-          cb_search.fail
-        );
+        meuCloud.API.Items.search(query)
+        .then(function(response) {
+          updateDatas(response);
+          if (response.promise)
+            return response.promise;
+        })
+        // If response contains a promise, means is from cache and promise will sync w/ Server
+        .then(function(response) {
+          updateDatas(response)
+        })
+        .catch(function(e) {
+          $exceptionHandler(e);
+        })
       };
-  
+       
       function decorateItem(item, index, items) {
         /*
           If phone number use "ramal" then hide prefix on link label
@@ -53,20 +52,6 @@
         item.phone = item.phone.replace(/[^0-9\+]/g,'');    
       
         return item;
-      }
-      
-      function fulfill(response) {
-        if (!response.unchanged)
-          updateDatas(response);
-        // if we have a promise, we will use the same current function when it is fulfilled
-        if (response.promise) {
-          response.promise
-          .then(function(response) {
-            fulfill(response);
-          })
-          .catch(function(response) {
-          })
-        }
       }
       
       function updateDatas(response) {

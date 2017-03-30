@@ -7,29 +7,23 @@ var app = angular
 	'angular-carousel',
 	'angular-carousel.shifty',
 	'ImgCache',
-	'meumobi.api',
 	'meumobi.directives.DownloadFile',
 	'meumobi.Polls',
-	'meumobi.Cloud',
-	'meumobi.filters.Common',
-	'meumobi.filters.DownloadFiles',
 	'meumobi.services.Auth',
 	'meumobi.services.Bootstrap',
-	'meumobi.services.Device',
 	'meumobi.services.Utils',
 	'meumobi.services.Version',
 	'meumobi.services.Settings',
 	'meumobi.stubs',
-	'meumobi.utils',
+	'meumobi.directives.uiLadda',
 	'mobile-angular-ui',
 	'mobile-angular-ui.gestures.swipe',
   'ngMeumobi.Utils',
+  'ngMeumobi.Cordova',
   'ngMeumobi.Entities',
 	'ngAnimate',
 	'ngRoute',
-	'ngSanitize',
 	'ngTouch',
-	'http-with-fallback',
 	'pascalprecht.translate',// angular-translate
 	'tmh.dynamicLocale', // angular-dynamic-locale
   'angularMoment'
@@ -37,8 +31,8 @@ var app = angular
 
 .config(function($routeProvider, $locationProvider, $httpProvider, CONFIG) {
   
-	$httpProvider.interceptors.push('errorInterceptor');
-  $httpProvider.interceptors.push('loadingInterceptor');
+	$httpProvider.interceptors.push('meuErrorInterceptor');
+  $httpProvider.interceptors.push('meuLoadingInterceptor');
 
 	$routeProvider.when('/events/show/:id', {
 		templateUrl: "items/show.html",
@@ -115,11 +109,12 @@ var app = angular
 	$translateProvider.useLocalStorage();// saves selected language to localStorage
 })
 
-.config(function (MeumobiCloudProvider, APP) {
-	MeumobiCloudProvider.Settings.cdnUrl = APP.cdnUrl;
-	MeumobiCloudProvider.Settings.apiUrl = APP.apiUrl;
-	MeumobiCloudProvider.Settings.domains = APP.domains;
-	MeumobiCloudProvider.Settings.language = localStorage.Settings && localStorage.Settings.language ? localStorage.Settings.language : "pt";
+.config(function (meuCloudProvider, APP) {
+  meuCloudProvider.setOptions({
+	  'cdnUrl': APP.cdnUrl,
+    'apiUrl': APP.apiUrl
+	})
+	//MeumobiCloudProvider.Settings.language = localStorage.Settings && localStorage.Settings.language ? localStorage.Settings.language : "pt";
 })
 
 .config(function (tmhDynamicLocaleProvider) {
@@ -219,13 +214,12 @@ var app = angular
 	}
 }])
 
-.run(function($rootScope, $location, $http, APP, BootstrapService, SharedState, AuthService, $log, UtilsService) {
+.run(function($rootScope, $location, meuCloud, BootstrapService, SharedState, AuthService, $log, UtilsService) {
 	
-	$rootScope.flip = UtilsService.nativeFlipTransition;
+	meuCloud.init();
+  $rootScope.flip = UtilsService.nativeFlipTransition;
 	
-	$rootScope.getImage = function(path){
-		return APP.cdnUrl + path;
-	};
+	$rootScope.getImage = meuCloud.getAssetUrl;
 
 	$rootScope.history = window.history;
   $rootScope.go = function(path, transition) {
@@ -241,11 +235,9 @@ var app = angular
 			//if (window.indexedDB) { alert('WKWebView'); } else { alert('UIWebView'); }
   };
 
-	$rootScope.$on("logout", function(){
-		$log.debug("$on.logout"); // $emit if Api returns 401
-		AuthService.logout();
+	$rootScope.$on("error:401", function(){
+    AuthService.logout();
 		$location.path('/login');
-		//$rootScope.flip('#/login');
 	});
 
 	// If it's the first connection redirect to welcome page
@@ -259,7 +251,6 @@ var app = angular
 	}  else {
 		AuthService.loadAuthToken(localStorage.authToken);
 		AuthService.getVisitor();
-		$rootScope.news = localStorage.news ? JSON.parse(localStorage.news) : [];
 	}
 
 	BootstrapService.startApp();

@@ -6,7 +6,7 @@
 	.provider('Poll', Poll);
 	
 	function Poll() {
-		this.$get = function($q, $rootScope, translateFilter, UtilsService, API, $log, $http, meuCordova, meuCloud) {
+		this.$get = function($q, $rootScope, translateFilter, UtilsService, $log, $http, meuCordova, meuCloud) {
 			var api = {};
 			var polls = {};
 			/**
