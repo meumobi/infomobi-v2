@@ -2,10 +2,10 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Bootstrap', ['meumobi.services.Cordova'])
+	.module('meumobi.services.Bootstrap', [])
 	.factory('BootstrapService', BootstrapService);
 
-	function BootstrapService($log, $q, deviceReady, $rootScope, UtilsService, CONFIG, AuthService, meuAnalytics, meuSocialSharing, meuDialogs, $locale, $injector, Devices) {
+	function BootstrapService($log, $q, $rootScope, UtilsService, CONFIG, AuthService, meuCordova, meuUtils, $locale, Devices) {
 		var service = {};
 
 		service.startApp = startApp;
@@ -13,7 +13,7 @@
 		return service;
 
 		function appRate() {
-			deviceReady(function() {
+			meuUtils.deviceReady(function() {
 				try {
 					AppRate.preferences.storeAppURL.ios = CONFIG.ITUNES.id;
 					AppRate.preferences.storeAppURL.android = 'market://details?id=' + CONFIG.id;
@@ -28,24 +28,16 @@
 		}
 
 		function startApp() {
-			// UtilsService.spinner.show();
-      /*
-        MeuAPI.init(function() {
-          $log.debug("Init MeuMobi API Handler");
-        }, function() {
-          $log.debug("ERROR: Init MeuMobi API Handler");
-        });        
-      */
 			UtilsService.statusBar();
-			UtilsService.hideSplashScreen();
       $log.debug($locale);
 
-			deviceReady(function() {
-        meuSocialSharing.setOption("postfix", CONFIG.TOKENS.sharingSuffix);
+			meuUtils.deviceReady(function() {
+        meuCordova.splashscreen.hide();
+        meuCordova.socialSharing.setOption("postfix", CONFIG.TOKENS.sharingSuffix);
 				document.addEventListener("online", $rootScope.toggleCon, false);
 				document.addEventListener("offline", $rootScope.toggleCon, false);
         
-        meuAnalytics.startTrackerWithId(CONFIG.ANALYTICS.trackId);
+        meuCordova.analytics.startTrackerWithId(CONFIG.ANALYTICS.trackId);
         localStorage.notifications_count = 0;
 
         ImgCache.options.cacheClearSize = 10;
@@ -56,8 +48,6 @@
 					appRate();
 				if (ImgCache.helpers.isCordova() && AuthService.isAuthenticated()) {
           AuthService.registerPush();	
-				} else {
-					$log.info("Authentication failed");
 				}
 			});
 		}

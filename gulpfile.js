@@ -28,7 +28,7 @@ var config = {
 
     css: {
       prepend: [],
-      append: ['./src/css/animate.css'],
+      append: ['./src/css/animate.css']
     },
 
     fonts: [

@@ -23,7 +23,7 @@
 			template: '<ng-include src="getTemplateUrl()" />',
 			link: function(scope, element, attrs) {
         scope.getImage = meuCloud.getAssetUrl;
-        scope.category = meuCloud.getCategory(scope.item.parent_id);        
+        scope.category = meuCloud.getCategory(scope.item.parent_id);       
         scope.Item = $injector.get($filter('capitalize')(scope.category.type));
 			}
 		};

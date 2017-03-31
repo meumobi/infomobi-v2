@@ -18,28 +18,28 @@
 
 		<!-- Enable all requests, inline styles, and eval() -->
 		<meta http-equiv="Content-Security-Policy" content="default-src 'self' gap://ready file://* *; style-src http://meu-css-manager.appspot.com/css/ 'self' 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * filesystem: cdvfile:;">
-		
+	
 	<link rel="stylesheet" href="css/app.min.css" />
 	<link rel="stylesheet" href="css/responsive.min.css" />
 	<link rel="stylesheet" href="css/animate.min.css" />
+	
 	<!-- inject:js -->
 	<script src="js/app.min.js"></script>
 	
 </head>
 <body 
 	ng-app="infoMobi"
-	ng-controller="MainController as vm"
+	ng-controller="MainController"
 	ng-cloak
 	ui-prevent-touchmove-defaults>
 	
-	<section ng-if="performance">
+	<section ng-if="performance.categories">
 		<categories-sidebar-left categories="performance.categories"></categories-sidebar-left>
 	</section>
 	
 	<section ng-if="visitor">
 		<ng-include src="'sidebar-right.html'"/>
-	</section>
-	
+	</section>	
   
 	<div ui-yield-to="modals"></div>
 	<div class="app ib-app" 
@@ -81,7 +81,7 @@
 					</a></li>
 					<li><a href="#/account"><i class="fa fa-gear"></i> {{"Account" | translate}}</a></li>
 					<li class="divider"></li>
-					<li><a ng-click="vm.logout()" ui-turn-off="myDropdown">{{"Sign Out" | translate}} <i class="fa fa-sign-out"></i></a></li>
+					<li><a ng-click="logout()" ui-turn-off="myDropdown">{{"Sign Out" | translate}} <i class="fa fa-sign-out"></i></a></li>
 				</ul>
 			</div>
 	<div class="navbar navbar-app navbar-absolute-bottom nav-bottom" ng-if="NavBarBottom">

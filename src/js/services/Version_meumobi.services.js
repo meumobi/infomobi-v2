@@ -37,13 +37,16 @@
 				type: 'application/vnd.android.package-archive'
 			}, function () {
 			}, function () {
-				UtilsService.toast("Install Failed: try again later");
+				meuCordova.dialogs.toast("Install Failed: try again later");
 				console.log("Failed to open URL via Android Intent. URL: " + entry.toURL);
 			});
 		}
 
 		function promptForInstall(version) {
-			UtilsService.confirm("Uma nova versão disponivel: " + version, updateAndroidAPK);
+			meuCordova.dialogs.confirm("Uma nova versão disponivel: " + version)
+      .then(function() {
+        updateAndroidAPK();
+      });
 		}
 
 		function downloadLatestAndroidBuild(url) {

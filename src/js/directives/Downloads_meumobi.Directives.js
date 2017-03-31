@@ -5,7 +5,7 @@
 	.module('meumobi.directives.DownloadFile', [])
 	.directive('downloadFileControls', downloadFileControls);
 
-	function downloadFileControls($rootScope, translateFilter, meuFiles, $timeout, UtilsService, $log, Items, Media) {
+	function downloadFileControls($rootScope, translateFilter, meuCordova, $timeout, UtilsService, $log, Items, Media) {
 		var directive = {
 			restrict: 'E',
 			scope: {
@@ -18,7 +18,7 @@
 		
 		function link(scope, element, attrs) {      
       var fileTransfer = null;
-			scope.file = meuFiles.decorateFile(scope.file);
+			scope.file = meuCordova.files.decorateFile(scope.file);
       scope.progress = 0;
 
 			scope.download = download;
@@ -39,46 +39,43 @@
           fail: function(error) {
             $log.debug("Failed to openFile");
             $log.debug(error);
-            UtilsService.toast(error.message);
+            meuCordova.dialogs.toast(error.message);
           }
         }
       }; 
       
       function openLocalFile(file) {
-        meuFiles.open(file).then(
+        meuCordova.files.open(file).then(
           cb_openFile.local.success, 
           cb_openFile.local.fail
         );
       };
       
       function deleteFile(file) {
-				UtilsService.confirm(
-					translateFilter('You want to remove the file?'),
-					function(index) {
-						if (index != 1) return;//stop if not accepted
-						meuFiles.remove(file)
-              .then(
-                function(data) {
-                  $log.debug('delete file success cb');
-                  $log.debug(data);
-							  },
-                function(err) {
-								  UtilsService.toast(translateFilter(err.message));
-							  }
-              );
-					}
-				);
+				meuCordova.dialogs.confirm(
+					translateFilter('You want to remove the file?'))
+          .then(function(index) {
+            if (index != 1) return; //stop if not accepted
+            return meuCordova.files.remove(file);
+          })
+          .then(function(data) {
+            $log.debug('delete file success cb');
+            $log.debug(data);
+          })
+          .catch(function(e) {
+            $exceptionHandler(e);
+          })
 			};
       
       function download(file) {
-        fileTransfer = meuFiles.download(file);
+        fileTransfer = meuCordova.files.download(file);
         fileTransfer.then(
           function(file) {
-            UtilsService.toast(translateFilter('Download finished'));
+            meuCordova.dialogs.toast(translateFilter('Download finished'));
             openLocalFile(file);
           }, 
           function(error) {
-            UtilsService.toast(translateFilter(error.message));
+            meuCordova.dialogs.toast(translateFilter(error.message));
           }, 
           function (progress) {
   					if (progress.lengthComputable) {
@@ -102,8 +99,8 @@
 			use a simple link if not on app or file not allowed for download  
 			*/
 			
-			if (!UtilsService.isCordovaApp() || !meuFiles.isDownloadable(scope.file)) {
-        $log.debug('file is downloadable ?: ' + meuFiles.isDownloadable(scope.file));
+			if (!UtilsService.isCordovaApp() || !meuCordova.files.isDownloadable(scope.file)) {
+        $log.debug('file is downloadable ?: ' + meuCordova.files.isDownloadable(scope.file));
   			scope.file.status = 'open_by_link';
       } 
 	  };

@@ -1,6 +1,6 @@
 (function() {
   angular
-  .module('meumobi.utils')
+  .module('meumobi.directives.uiLadda', [])
   .directive('uiLadda', uiLadda);
 
   function uiLadda() {
@@ -8,7 +8,12 @@
       link: function(scope, element, attrs) {
         var Ladda = window.Ladda;
         ladda = Ladda.create(element[0]);
-        // Watching login.loading for change
+        /*
+        Watching Login.isLoading for change
+				<button data-ui-ladda="Login.isLoading" class="btn btn-primary btn-block" data-style="expand-right">
+					<span class="ladda-label">{{"Sign In" | translate}}</span>
+				</button>
+        */ 
         scope.$watch(attrs.uiLadda, function(newVal, oldVal) {
           // if true show loading indicator
           if (newVal) {

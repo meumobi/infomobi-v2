@@ -7,7 +7,8 @@
     'ngMeumobi.Entities.items',
     'ngMeumobi.Entities.polls',
     'ngMeumobi.Entities.media',
-    'ngMeumobi.Entities.articles'
+    'ngMeumobi.Entities.articles',
+    'ngMeumobi.Entities.site'
   ]);
   
 })();

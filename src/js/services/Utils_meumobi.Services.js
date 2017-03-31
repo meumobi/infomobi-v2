@@ -2,48 +2,17 @@
 	'use strict';
 
 	angular
-	.module('meumobi.services.Utils', ['meumobi.services.Cordova'])
+	.module('meumobi.services.Utils', ['meumobi.services.Cordova', 'ngMeumobi.Utils.filters'])
 	.factory('UtilsService', ['deviceReady', 'striptagsFilter', 'br2nlFilter', 'translateFilter', '$log', '$location', UtilsService]);
 
 	function UtilsService(deviceReady, striptags, br2nl, translate, $log, $location) {
 		var service = {};
 		
-		service.safeApply = safeApply;
 		service.isOnline = isOnline;
-		service.hideSplashScreen = hideSplashScreen;
 		service.statusBar = statusBar;
-		service.confirm = confirm;
-		service.toast = toast;
 		service.openInAppBrowser = openInAppBrowser;
 		service.nativeFlipTransition = nativeFlipTransition;
 		service.isCordovaApp = isCordovaApp;
- 
-		var spinner = {
-			show: function () {
-				deviceReady(function() {
-					var spinner = window.plugins && window.plugins.spinnerDialog;
-					if (spinner) {
-						spinner.show();
-					} else {
-						// TODO: Browser fallback
-						$log.debug("Spinnner.show");
-					}
-				});
-			},
-			hide: function () {
-				deviceReady(function() {
-					var spinner = window.plugins && window.plugins.spinnerDialog;
-					if (spinner) {
-						spinner.hide();
-					} else {
-						// TODO: Browser fallback
-						$log.debug("Spinnner.hide");
-					}
-				});
-			}
-		};
-		
-		service.spinner = spinner; 
  
 		return service;
 
@@ -109,14 +78,6 @@
 			})
 		};
 		
-		function hideSplashScreen() {
-			deviceReady(function() {
-				if (navigator.splashscreen) {
-					navigator.splashscreen.hide();
-				}
-			});
-		}
-		
 		function statusBar() {
 			deviceReady(function() {
 				if (typeof StatusBar !== 'undefined') {
@@ -125,17 +86,6 @@
 					StatusBar.backgroundColorByName("black");	
 				}
 			});
-		}
-		
-		function safeApply(scope, fn) {
-			var phase = scope.$root.$$phase;
-			if (phase == '$apply' || phase == '$digest') {
-				if (fn && (typeof(fn) === 'function')) {
-					fn();
-				}
-			} else {
-				scope.$apply(fn);
-			}
 		}
 		
 		function networkState() {
@@ -167,49 +117,7 @@
 				}
 			})
 		}
-
-		function confirm(message, callback, title) {
-			title = (title != undefined) ? title : 'Confirm';
-			var callbacker = function (buttonIndex){
-				var val = (buttonIndex == 1);
-				callback(val);
-			}
-			if (navigator.notification) {
-				
-				navigator.notification.confirm(
-					message,
-					callbacker, //callback method...
-					title
-					//buttonLabels: Array of strings specifying button labels. (Array) (Optional, defaults to [OK,Cancel])
-				);
-			} else {
-				var r = confirm(title);
-				callback(r);
-			}
-		}
 	
-		function toast(message, success, fail) {
-			deviceReady(function() {
-				var toast = window.plugins && window.plugins.toast;
-				if (toast) {
-					toast.showLongBottom(message,
-						function(resp) {
-							if (success) {
-								success(resp);
-							}
-						},
-						function(err) {
-							if (fail) {
-								fail(err);
-							}
-						}
-					);
-				} else {
-					alert(message);
-				}
-			});
-		}
-		
 		/*
 			http://damien.antipa.at/blog/2014/02/08/3-ways-to-detect-that-your-application-is-running-in-cordova-slash-phonegap/
 		*/
