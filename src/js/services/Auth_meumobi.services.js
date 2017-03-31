@@ -31,6 +31,8 @@
               Devices.setProperty('push_id', pushIds.token);
             if (pushIds && pushIds.uuid)
               Devices.setProperty('player_id', pushIds.uuid);
+            
+            push.sendTag('domain', $rootScope.visitor.site);
   				},
   				fail: function(){}
   			}
@@ -94,6 +96,8 @@
 			delete $rootScope.performance;
 			delete $http.defaults.headers.common['X-Visitor-Token'];
       meuCloud.API.Config.setProperty('domain', null);
+      var push = $injector.get(CONFIG.PUSH.provider);
+      push.setSubscription(false);
 		}
 		
 		function isAuthenticated() {

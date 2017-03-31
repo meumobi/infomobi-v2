@@ -4,7 +4,7 @@ angular
 .module('infoMobi')
 .controller('LoginController', LoginController);
 
-function LoginController($rootScope, $scope, AuthService, $log, translateFilter, meuCordova, meuCloud, Site) {
+function LoginController($rootScope, $scope, AuthService, $log, translateFilter, meuCordova, meuCloud, Site, CONFIG, $injector) {
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
   var activate = function() {
@@ -44,6 +44,8 @@ function LoginController($rootScope, $scope, AuthService, $log, translateFilter,
 		activate();
     
     AuthService.registerPush();
+    var push = $injector.get(CONFIG.PUSH.provider);
+    push.setSubscription(true);
     
     $rootScope.go('/items');
 	};
