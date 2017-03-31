@@ -15,10 +15,16 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+<a name="rel-2.1.1"></a>
+# [rel-2.1.1](https://github.com/meumobi/infomobi/compare/rel-2.1.0...rel-2.1.1)
+* UPGRADE: Closes #284, Add Small Icon on push Android
+* ENHANCE: Closes #108, if user logout should unregister him of Push
+* UPGRADE: Closes #283, Upgrade analytics plugin
+
 <a name="rel-2.1.0"></a>
 # [rel-2.1.0](https://github.com/meumobi/infomobi/compare/rel-2.0.3...rel-2.1.0)
 * ENHANCE: Closes #153, For better UX, prevent loading news at each visit to /items/list
-* ENHANCE: Closes #214,replace services by ng-meumobi-utils bower package
+* ENHANCE: Closes #214, replace services by ng-meumobi-utils bower package
 * ENHANCE: Closes #227, replace ng-switch by itemHeadline directive
 * ENHANCE: Closes #264, Replace refresh button by auto-pull service
 * ENHANCE: Closes #265, Remove useless code
