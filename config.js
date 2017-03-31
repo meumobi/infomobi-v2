@@ -3,7 +3,7 @@ module.exports = function(config) {
 	// Output directory
 	config.dest = 'www';
 	
-	config.version = "2.0.3"; // version of the App
+	config.version = "2.1.0"; // version of the App
   
 	// Inject cordova script into html
 	config.cordova = true;
@@ -31,13 +31,10 @@ module.exports = function(config) {
     
 	// 3rd party components
 	config.vendor.js.push('./bower_components/angular-touch/angular-touch.js');
-	config.vendor.js.push('./bower_components/angular-sanitize/angular-sanitize.js');
+	config.vendor.js.push('./bower_components/angular-sanitize/angular-sanitize.min.js');
 	config.vendor.js.push('./bower_components/angular-animate/angular-animate.js');
-	config.vendor.js.push('./bower_components/angular-resource/angular-resource.js');
+	//config.vendor.js.push('./bower_components/angular-resource/angular-resource.js');
 	config.vendor.js.push('./bower_components/angular-carousel/dist/angular-carousel.min.js');
-	config.vendor.js.push('./src/js/lib/http-with-fallback.js');
-  config.vendor.js.push('./src/js/lib/meu-api.js');
-	//config.vendor.js.push('./src/js/lib/pushwoosh-ios.js');
 	config.vendor.js.push('./bower_components/ladda/dist/spin.min.js');
 	config.vendor.js.push('./bower_components/ladda/dist/ladda.min.js');
 	config.vendor.js.push('./bower_components/angular-translate/angular-translate.min.js');
