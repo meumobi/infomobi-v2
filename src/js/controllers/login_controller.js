@@ -8,8 +8,6 @@ function LoginController($rootScope, $scope, AuthService, $log, translateFilter,
 
 	//this should not be scope available, and may be put inside a more reusable place, like a service
   var activate = function() {
-    $log.debug('Api url: ' + meuCloud.API.Config.getProperty('apiUrl'));
-    $log.debug('Api domain: ' + meuCloud.API.Config.getProperty('domain'));
     meuCloud.API.Site.performance()
     .then(function(response) {
       updateDatas(response);

@@ -30,7 +30,7 @@
         .catch(function(e) {
           scope.isLoading = false;
 					var msg = translateFilter("poll.vote.Error");
-					if (e.errors) {
+					if (e && e.errors) {
 						msg += ": " + translateFilter("[API]: " + e.errors[0]);
 					} else {
 						msg += ": " + translateFilter("default.network.Error");

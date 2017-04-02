@@ -29,9 +29,6 @@
     });
 
     var activate = function() {
-      $log.debug('Api url: ' + meuCloud.API.Config.getProperty('apiUrl'));
-      $log.debug('Api domain: ' + meuCloud.API.Config.getProperty('domain'));
-      
       meuCloud.API.Site.performance()
       .then(function(response) {
         updateDatas(response);

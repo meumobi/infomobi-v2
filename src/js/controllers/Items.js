@@ -10,7 +10,7 @@
     
   };
 
-	function ItemsListController($rootScope, UtilsService, translateFilter, $log, $scope, $routeParams, meuCordova, meuCloud, $timeout, SharedState) {
+	function ItemsListController($rootScope, UtilsService, translateFilter, $log, $scope, $routeParams, meuCordova, meuCloud, $timeout, SharedState, $exceptionHandler) {
 
 		var vm = this;
     
