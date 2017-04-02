@@ -15,6 +15,12 @@ Use Resume of Changes from previous command on commit message
 1. $ git tag rel-2.6.4
 2. $ git push origin rel-2.6.4 
 
+<a name="rel-2.1.2"></a>
+# [rel-2.1.2](https://github.com/meumobi/infomobi/compare/rel-2.1.1...rel-2.1.2)
+* FIX: only track views of visited site, not infomobi, workaround for #121
+* ENHANCE: Closes #286, set request timeout
+* FIX: Closes #285, IDFA warning on iOS submit because of Google Analytics plugin latest version
+
 <a name="rel-2.1.1"></a>
 # [rel-2.1.1](https://github.com/meumobi/infomobi/compare/rel-2.1.0...rel-2.1.1)
 * UPGRADE: Closes #284, Add Small Icon on push Android
