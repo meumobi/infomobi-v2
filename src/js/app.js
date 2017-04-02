@@ -113,7 +113,8 @@ var app = angular
 .config(function (meuCloudProvider, APP) {
   meuCloudProvider.setOptions({
 	  'cdnUrl': APP.cdnUrl,
-    'apiUrl': APP.apiUrl
+    'apiUrl': APP.apiUrl,
+    'timeout': 12000
 	})
 	//MeumobiCloudProvider.Settings.language = localStorage.Settings && localStorage.Settings.language ? localStorage.Settings.language : "pt";
 })
