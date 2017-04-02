@@ -37,8 +37,8 @@
 				document.addEventListener("online", $rootScope.toggleCon, false);
 				document.addEventListener("offline", $rootScope.toggleCon, false);
         
-        meuCordova.analytics.startTrackerWithId(CONFIG.ANALYTICS.trackId);
-        localStorage.notifications_count = 0;
+        //meuCordova.analytics.startTrackerWithId(CONFIG.ANALYTICS.trackId);
+        //localStorage.notifications_count = 0;
 
         ImgCache.options.cacheClearSize = 10;
 				ImgCache.$init();
