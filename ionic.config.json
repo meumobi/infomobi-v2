@@ -1,0 +1,7 @@
+{
+  "name": "meu-starter.master-detail-with-tabs.ionic-v4",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
