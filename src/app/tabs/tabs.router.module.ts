@@ -1,3 +1,4 @@
+import { ProfilesListPage } from './../profiles/pages/profiles-list/profiles-list.page';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -27,9 +28,14 @@ const routes: Routes = [
         component: AboutPage
       },
       {
-        path: 'contact',
-        outlet: 'contact',
-        component: ContactPage
+        path: 'profiles',
+        outlet: 'profiles',
+        component: ProfilesListPage
+        /**
+         * Ionic v4 - Tabs are not Lazy Loading Children #14566
+         * https://github.com/ionic-team/ionic/issues/14566 
+         * */
+        //loadChildren: '../profiles/profiles.module#ProfilesModule'
       }
     ]
   },

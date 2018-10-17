@@ -1,3 +1,4 @@
+import { ProfilesListPageModule } from './../profiles/pages/profiles-list/profiles-list.module';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -19,7 +20,8 @@ import { HomePageModule } from '../home/home.module';
     TabsPageRoutingModule,
     HomePageModule,
     AboutPageModule,
-    ContactPageModule
+    ContactPageModule,
+    ProfilesListPageModule
   ],
   declarations: [TabsPage]
 })
