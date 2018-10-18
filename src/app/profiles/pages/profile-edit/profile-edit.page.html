@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ng-container *ngIf="profile">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-input required type="text" placeholder="Name, ex: John Smith" [(ngModel)]="profile.displayName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="text" placeholder="Title, ex: CEO" [(ngModel)]="profile.title"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="full" (click)="saveProfile()">Save</ion-button>
+  </ng-container>
+</ion-content>

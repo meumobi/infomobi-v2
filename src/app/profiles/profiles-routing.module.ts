@@ -8,6 +8,14 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: './pages/profiles-list/profiles-list.module#ProfilesListPageModule'
+  },
+  {
+    path: 'detail:id',
+    loadChildren: './pages/profile-detail/profile-detail.module#ProfileDetailPageModule'
+  },
+  {
+    path: 'edit:id',
+    loadChildren: './pages/profile-edit/profile-edit.module#ProfileEditPageModule'
   }
 ];
 

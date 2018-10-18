@@ -1,9 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile-detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/(profiles:profiles)"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="profile">{{ profile.displayName }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ng-container *ngIf="profile">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>{{ profile.displayName }}</ion-card-subtitle>
+        <ion-card-title>{{ profile.title }}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
 
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="arrow-dropright"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button color="danger" (click)="deleteProfile()">
+          <ion-icon name="trash"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button (click)="editProfile()">
+          <ion-icon name="create"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+  </ng-container>
 </ion-content>

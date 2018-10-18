@@ -5,11 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, LoadingController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-profile-detail',
-  templateUrl: './profile-detail.page.html',
-  styleUrls: ['./profile-detail.page.scss'],
+  selector: 'app-profile-edit',
+  templateUrl: './profile-edit.page.html',
+  styleUrls: ['./profile-edit.page.scss'],
 })
-export class ProfileDetailPage implements OnInit {
+export class ProfileEditPage implements OnInit {
 
   profile: Profile = null;
   
@@ -23,10 +23,11 @@ export class ProfileDetailPage implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
-    /**
-     * TODO: id is mandatory on routing, catch when not match any entry
-     */   
-    this.loadProfile(id);
+    if (id)  {
+      this.loadProfile(id);
+    } else {
+      this.profile = new Profile();
+    }
   }
 
   async loadProfile(id: string) {
@@ -41,20 +42,23 @@ export class ProfileDetailPage implements OnInit {
     });
   }
 
-  async deleteProfile() {
+  async saveProfile() {
  
     const loading = await this.loadingController.create({
-      message: 'Delete Profile..'
+      message: 'Saving Profile..'
     });
     await loading.present();
  
-    this.profilesService.delete(this.profile.id).then(() => {
-      loading.dismiss();
-      this.nav.goBack();
-    });
-  }
-
-  editProfile() {
-    this.router.navigateByUrl(`/tabs/(profiles:profiles/edit/${this.profile.id})`);
+    if (this.profile && this.profile.id) {
+      this.profilesService.update(this.profile).then(() => {
+        loading.dismiss();
+        this.nav.goBack();
+      });
+    } else {
+      this.profilesService.create(this.profile).then(() => {
+        loading.dismiss();
+        this.nav.goBack();
+      });
+    }
   }
 }

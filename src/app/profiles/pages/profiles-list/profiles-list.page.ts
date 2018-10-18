@@ -1,4 +1,9 @@
+import { ProfilesService } from '@profiles/services';
+import { Profile } from '@profiles/models';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-profiles-list',
@@ -7,9 +12,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilesListPage implements OnInit {
 
-  constructor() { }
+  profiles: Observable<Profile[]>;
+
+  constructor(
+    private profilesService: ProfilesService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+    this.profiles = this.profilesService.fetchAll();
   }
 
+  create(profile: Profile) {
+    this.profilesService.create(profile);
+  }
+
+  delete(id: string) {
+    this.profilesService.delete(id);
+  }
+
+  update(profile: Profile) {
+    this.profilesService.update(profile);
+  }
+
+  openPage(url: string) {
+    this.router.navigateByUrl(url);
+  }
 }

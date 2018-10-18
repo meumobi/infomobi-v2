@@ -1,4 +1,8 @@
-import { ProfilesListPage } from './../profiles/pages/profiles-list/profiles-list.page';
+import { 
+  ProfilesListPage,
+  ProfileDetailPage,
+  ProfileEditPage } from '@profiles/pages';
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -26,6 +30,21 @@ const routes: Routes = [
         path: 'about',
         outlet: 'about',
         component: AboutPage
+      },
+      {
+        path: 'profiles/details/:id',
+        outlet: 'profiles',
+        component: ProfileDetailPage
+      },
+      {
+        path: 'profiles/edit/:id',
+        outlet: 'profiles',
+        component: ProfileEditPage
+      },
+      {
+        path: 'profiles/edit',
+        outlet: 'profiles',
+        component: ProfileEditPage
       },
       {
         path: 'profiles',
