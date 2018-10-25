@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-profiles-list',
   templateUrl: './profiles-list.page.html',
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ProfilesListPage implements OnInit {
 
-  profiles: Observable<Profile[]>;
+  profiles$: Observable<Profile[]>;
 
   constructor(
     private profilesService: ProfilesService,
@@ -20,7 +19,7 @@ export class ProfilesListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.profiles = this.profilesService.fetchAll();
+    this.profiles$ = this.profilesService.fetchAll();
   }
 
   create(profile: Profile) {
@@ -35,7 +34,7 @@ export class ProfilesListPage implements OnInit {
     this.profilesService.update(profile);
   }
 
-  openPage(url: string) {
-    this.router.navigateByUrl(url);
+  openTabPage(url: string, outlet: string, id: string = "") {
+    this.router.navigateByUrl(`/tabs/(${outlet}:${url}/${id}`);
   }
 }

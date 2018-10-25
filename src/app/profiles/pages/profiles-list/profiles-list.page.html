@@ -1,38 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Profile List</ion-title>
+    <ion-title>Profiles List</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ng-container *ngIf="(!profiles || profiles.length == 0) else profilesList">
+  <ng-template #loading>
     <div *ngFor="let n of [0,1,2]" padding>
       <ion-skeleton-text></ion-skeleton-text>
       <p>
         <ion-skeleton-text class="fake-skeleton"></ion-skeleton-text>
       </p>
     </div>
-  </ng-container>
-
-  <ng-template #profilesList>
-    <ion-list>
-      <!--
-        Should manually close sliding item
-        https://github.com/ionic-team/ionic/blob/master/core/src/components/item-sliding/test/preview/index.html
-
-        function closeOpened() {
-          var list = document.getElementById('list');
-          list.closeSlidingItems();
-        }
-      -->
-      <ion-item *ngFor="let profile of profiles | async" href="/tabs/(profiles:profiles/details/{{profile.id}})">
-        <app-profile-headline [profile]="profile"></app-profile-headline>
-      </ion-item>
-    </ion-list>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="openPage('/tabs/(profiles:profiles/edit)')">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
   </ng-template>
+
+  <ion-list *ngIf="profiles$ | async as profiles; else loading" >
+    <app-profile-headline [profile]="profile" *ngFor="let profile of profiles" (click)="openTabPage('profiles/details', 'profiles', profile.id)"></app-profile-headline>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openTabPage('profiles/edit', 'profiles')">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
