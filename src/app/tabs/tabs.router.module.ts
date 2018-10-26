@@ -1,4 +1,4 @@
-import { 
+import {
   ProfilesListPage,
   ProfileDetailPage,
   ProfileEditPage } from '@profiles/pages';
@@ -9,7 +9,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 import { HomePage } from '../home/home.page';
 import { AboutPage } from '../about/about.page';
-import { ContactPage } from '../contact/contact.page';
+import {
+  ItemsListPage,
+  ItemDetailPage,
+  ItemEditPage } from '@items/pages';
 
 const routes: Routes = [
   {
@@ -52,9 +55,34 @@ const routes: Routes = [
         component: ProfilesListPage
         /**
          * Ionic v4 - Tabs are not Lazy Loading Children #14566
-         * https://github.com/ionic-team/ionic/issues/14566 
+         * https://github.com/ionic-team/ionic/issues/14566
          * */
-        //loadChildren: '../profiles/profiles.module#ProfilesModule'
+        // loadChildren: '../profiles/profiles.module#ProfilesModule'
+      },
+      {
+        path: 'items/detail/:id',
+        outlet: 'items',
+        component: ItemDetailPage
+      },
+      {
+        path: 'items/edit/:id',
+        outlet: 'items',
+        component: ItemEditPage
+      },
+      {
+        path: 'items/edit',
+        outlet: 'items',
+        component: ItemEditPage
+      },
+      {
+        path: 'items',
+        outlet: 'items',
+        component: ItemsListPage
+        /**
+         * Ionic v4 - Tabs are not Lazy Loading Children #14566
+         * https://github.com/ionic-team/ionic/issues/14566
+         * */
+        // loadChildren: '../items/items.module#ItemsModule'
       }
     ]
   },

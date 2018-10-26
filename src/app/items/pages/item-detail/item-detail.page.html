@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs(items:items)"></ion-back-button>
+    </ion-buttons>
+    <ion-title>item-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngIf="item">
+    <ion-card-header>
+        <ion-card-title>{{ item.title }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content [innerHTML]="item.description"></ion-card-content>
+  </ion-card>
+</ion-content>

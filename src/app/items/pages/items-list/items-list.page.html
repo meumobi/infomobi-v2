@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>items-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ng-template #loading>
+    <div *ngFor="let n of [0,1,2]" padding>
+      <ion-skeleton-text></ion-skeleton-text>
+      <p>
+        <ion-skeleton-text class="fake-skeleton"></ion-skeleton-text>
+      </p>
+    </div>
+  </ng-template>
+  <ng-container *ngIf="items else loading">
+    <ion-card *ngFor="let item of items" (click)="openItem(item)">
+      <ion-card-header>
+          <ion-card-title>{{ item.title }}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </ng-container>
+</ion-content>

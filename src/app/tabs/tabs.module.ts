@@ -3,6 +3,11 @@ import {
   ProfileDetailPageModule,
   ProfileEditPageModule,
  } from '@profiles/pages';
+ import { 
+  ItemsListPageModule,
+  ItemDetailPageModule,
+  ItemEditPageModule,
+ } from '@items/pages';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -28,6 +33,9 @@ import { HomePageModule } from '../home/home.module';
     ProfilesListPageModule,
     ProfileDetailPageModule,
     ProfileEditPageModule,
+    ItemsListPageModule,
+    ItemDetailPageModule,
+    ItemEditPageModule,
   ],
   declarations: [TabsPage]
 })
