@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-button expand="full" (click)="login()" *ngIf="!(authState$ | async)">Login</ion-button>
+  <ion-button expand="full" color="secondary" (click)="logout()" *ngIf="(authState$ | async)">Logout</ion-button>
+  <ion-button expand="full" color="tertiary" href="" routerDirection="forward">Home</ion-button>
+</ion-content>

@@ -1,9 +1,9 @@
-import { 
+import {
   ProfilesListPageModule,
   ProfileDetailPageModule,
   ProfileEditPageModule,
  } from '@profiles/pages';
- import { 
+ import {
   ItemsListPageModule,
   ItemDetailPageModule,
   ItemEditPageModule,
@@ -13,13 +13,15 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { TabsPageRoutingModule } from './tabs.router.module';
-
 import { TabsPage } from './tabs.page';
 import { ContactPageModule } from '../contact/contact.module';
 import { AboutPageModule } from '../about/about.module';
 import { HomePageModule } from '../home/home.module';
+import {
+  CommentsListPageModule,
+  CommentEditPageModule,
+} from '@comments/pages';
 
 @NgModule({
   imports: [
@@ -33,6 +35,8 @@ import { HomePageModule } from '../home/home.module';
     ProfilesListPageModule,
     ProfileDetailPageModule,
     ProfileEditPageModule,
+    CommentsListPageModule,
+    CommentEditPageModule,
     ItemsListPageModule,
     ItemDetailPageModule,
     ItemEditPageModule,

@@ -1,0 +1,10 @@
+<ion-item >
+  <ion-avatar item-start>
+    <img [src]="comment.author.picture">
+  </ion-avatar>
+  <ion-button item-end slot="end" fill="clear" size="small" (click)="options.emit()"><ion-icon name="ios-arrow-down"></ion-icon></ion-button>
+  <ion-label>
+    <h2>{{comment.author.displayName}}</h2>        
+    <h3>{{comment.description}}</h3>
+  </ion-label>
+</ion-item>

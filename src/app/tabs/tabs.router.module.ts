@@ -2,13 +2,16 @@ import {
   ProfilesListPage,
   ProfileDetailPage,
   ProfileEditPage } from '@profiles/pages';
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
 import { HomePage } from '../home/home.page';
 import { AboutPage } from '../about/about.page';
+import { ContactPage } from '../contact/contact.page';
+import {
+  CommentsListPage,
+  CommentEditPage } from '@comments/pages';
 import {
   ItemsListPage,
   ItemDetailPage,
@@ -21,13 +24,18 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/tabs/(home:home)',
+        redirectTo: '/tabs/(comments:comments)',
         pathMatch: 'full',
       },
       {
-        path: 'home',
-        outlet: 'home',
-        component: HomePage
+        path: 'comments',
+        outlet: 'comments',
+        component: CommentsListPage
+      },
+      {
+      path: 'comments/edit',
+        outlet: 'comments',
+        component: CommentEditPage
       },
       {
         path: 'about',
@@ -88,7 +96,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/(home:home)',
+    redirectTo: '/tabs/(comments:comments)',
     pathMatch: 'full'
   }
 ];

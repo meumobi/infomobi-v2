@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>comment-edit</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ng-container *ngIf="comment">
+    <ion-list lines="full">
+      <ion-item>
+         <ion-textarea required type="text" placeholder="Comment" [(ngModel)]="comment.description"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="full" (click)="save()">Save</ion-button>
+  </ng-container>
+</ion-content>

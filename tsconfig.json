@@ -15,6 +15,7 @@
     "baseUrl": "src",
     "paths": {
       "@items/*": ["app/items/*"],
+      "@comments/*": ["app/comments/*"],
       "@profiles/*": ["app/profiles/*"],
       "@env/*": ["environments/*"],
       "@shared/*": ["app/shared/*"],
