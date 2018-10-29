@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ItemDetailPage } from './item-detail.page';
+import { CommentsModule } from '@comments/comments.module';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    CommentsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],

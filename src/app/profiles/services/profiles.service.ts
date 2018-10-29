@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Profile } from '@profiles/models';
 
 @Injectable({
@@ -8,12 +8,12 @@ import { Profile } from '@profiles/models';
 })
 export class ProfilesService {
 
-  private profilesCollection: AngularFirestoreCollection<Profile>
+  private profilesCollection: AngularFirestoreCollection<Profile>;
   private profiles$: Observable<Profile[]>;
 
   constructor(
     private afs: AngularFirestore
-  ) { 
+  ) {
     this.profilesCollection = afs.collection<Profile>('profiles');
     this.profiles$ = this.profilesCollection.valueChanges();
   }

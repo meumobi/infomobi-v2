@@ -12,12 +12,12 @@ import { NavController, LoadingController } from '@ionic/angular';
 export class ProfileDetailPage implements OnInit {
 
   profile: Profile = null;
-  
+
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private router: Router,
-    private nav: NavController, 
-    private profilesService: ProfilesService, 
+    private nav: NavController,
+    private profilesService: ProfilesService,
     private loadingController: LoadingController,
   ) { }
 
@@ -25,7 +25,7 @@ export class ProfileDetailPage implements OnInit {
     const id = this.route.snapshot.params['id'];
     /**
      * TODO: id is mandatory on routing, catch when not match any entry
-     */   
+     */
     this.loadProfile(id);
   }
 
@@ -34,7 +34,7 @@ export class ProfileDetailPage implements OnInit {
       message: 'Loading Profile..'
     });
     await loading.present();
- 
+
     this.profilesService.fecthById(id).subscribe( res => {
       loading.dismiss();
       this.profile = res;
@@ -42,12 +42,12 @@ export class ProfileDetailPage implements OnInit {
   }
 
   async deleteProfile() {
- 
+
     const loading = await this.loadingController.create({
       message: 'Delete Profile..'
     });
     await loading.present();
- 
+
     this.profilesService.delete(this.profile.id).then(() => {
       loading.dismiss();
       this.nav.goBack();

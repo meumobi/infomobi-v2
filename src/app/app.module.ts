@@ -21,7 +21,7 @@ import { CoreModule } from '@core/core.module';
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     AngularFireStorageModule,
     IonicModule.forRoot(),
     AppRoutingModule,

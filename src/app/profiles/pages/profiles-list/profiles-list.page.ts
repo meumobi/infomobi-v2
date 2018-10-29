@@ -34,7 +34,7 @@ export class ProfilesListPage implements OnInit {
     this.profilesService.update(profile);
   }
 
-  openTabPage(url: string, outlet: string, id: string = "") {
+  openTabPage(url: string, outlet: string, id: string = '') {
     this.router.navigateByUrl(`/tabs/(${outlet}:${url}/${id}`);
   }
 }

@@ -1,60 +1,40 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { Comment } from '../models/comment';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Query } from '@firebase/firestore-types';
-import { switchMap, map, scan, concat } from 'rxjs/operators';
+import { Comment } from '@comments/models/comment';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommentsService {
-  private _filters$ = new Subject<Object>();
-  private filters$;
-  private comments$: Observable<Comment[]>;
-  private commentsCollection: AngularFirestoreCollection<Comment>;
+export class CommentsService implements OnInit {
+
+  private commentsRef: AngularFirestoreCollection<Comment>;
 
   constructor(
     private afs: AngularFirestore
   ) {
-    this.filters$ = this._filters$.pipe(
-      scan((acc, curr) => Object.assign({}, acc, curr), {})
-    );
-    this.comments$ = this.filters$.pipe(
-      switchMap(
-        filters => {
-          this.commentsCollection = this.afs.collection<Comment>('comments',
-          ref => {
-            console.log(filters);
-            let query: Query = ref;
-            query = query.where('isPublished', '==', filters['isPublished']);
-            query = query.where('channel', '==', filters['channel']);
-            query = query.orderBy('published', 'desc');
-            query = query.limit(10);
-            return query;
-          });
-          return this.commentsCollection.valueChanges();
-        }
-      )
-    );
+    this.commentsRef = this.afs.collection<Comment>('comments');
   }
 
-  setFilters(filters): void {
-    this._filters$.next(filters);
-  }
+  ngOnInit() {}
 
   delete(id: string) {
-    return this.commentsCollection.doc(id).delete();
+    return this.commentsRef.doc(id).delete();
+  }
+
+  promote(comment: Comment) {
+    comment.channel = 'live';
+    delete comment.id;
+    return this.create(comment);
   }
 
   create(props: Comment) {
     const id = this.afs.createId();
-    const profile: Comment = { id, ...props };
-    return this.commentsCollection.doc(id).set(profile);
+    const comment: Comment = { id, ...props };
+    return this.commentsRef.doc(id).set(comment);
   }
 
-  fetch() {
-    return this.comments$;
-  }
+  update(comment: Comment) {
 
+    return this.commentsRef.doc(comment.id).set(comment);
+  }
 }

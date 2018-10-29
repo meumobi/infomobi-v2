@@ -38,6 +38,11 @@ const routes: Routes = [
         component: CommentEditPage
       },
       {
+        path: 'comments/item/edit',
+          outlet: 'comments',
+          component: CommentEditPage
+        },
+      {
         path: 'about',
         outlet: 'about',
         component: AboutPage

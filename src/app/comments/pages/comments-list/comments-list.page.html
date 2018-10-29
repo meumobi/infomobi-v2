@@ -4,12 +4,20 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <ion-list>
-    <app-comment [comment]="comment" (options)="openOptions(comment.id)" *ngFor="let comment of comments"></app-comment>
+
+  <ion-button expand="full" (click)="toggleisPublished()" [ngSwitch]="isPublishedFilter$ | async">
+    <span *ngSwitchCase="true">Show unpublished</span>
+    <span *ngSwitchCase="false">Show published</span>
+  </ion-button>
+  
+  <ion-list *ngIf="comments$ | async as comments; else loading" >
+    <app-comment [comment]="comment" (options)="openOptions(comment)" *ngFor="let comment of comments"></app-comment>  
   </ion-list>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="openPage('/tabs/(comments:comments/edit)')">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
 </ion-content>

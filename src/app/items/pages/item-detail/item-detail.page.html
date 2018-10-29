@@ -14,4 +14,22 @@
     </ion-card-header>
     <ion-card-content [innerHTML]="item.description"></ion-card-content>
   </ion-card>
+  <ng-template #fetch>
+    <ion-button expand="full" (click)="loadComments()" *ngIf="!(comments$ | async)?.length">Load Comments</ion-button>
+  </ng-template>
+
+  <ion-list *ngIf="comments$ | async as comments; else fetch" >
+    <app-comment [comment]="comment" (options)="openOptions(comment)" *ngFor="let comment of comments"></app-comment>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openPage('/tabs/(comments:comments/item/edit)')">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+
+<button (click)="show =!show">Toggle</button>
+
+<ng-container *ngIf="show">
+  
+</ng-container>
