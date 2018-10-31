@@ -10,6 +10,7 @@
 <ion-content padding>
   <ion-card *ngIf="item">
     <ion-card-header>
+        <ion-card-subtitle>{{ item.published | amFromUnix | amDateFormat:'LL'}}</ion-card-subtitle>
         <ion-card-title>{{ item.title }}</ion-card-title>
     </ion-card-header>
     <ion-card-content [innerHTML]="item.description"></ion-card-content>
