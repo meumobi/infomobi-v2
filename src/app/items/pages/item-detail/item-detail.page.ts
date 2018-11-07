@@ -2,7 +2,7 @@ import { Query } from '@firebase/firestore-types';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { ItemsService } from '@items/services/items.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Item } from '@items/models/item.interface';
+import { Item } from '@items/models/item';
 import { Comment } from '@comments/models/comment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommentsService } from '@comments/services/comments.service';

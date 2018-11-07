@@ -1,4 +1,4 @@
-import { Item } from '@items/models/item.interface';
+import { Item } from '@items/models/item';
 import { Injectable } from '@angular/core';
 import { ApiService } from '@core/api/api.service';
 

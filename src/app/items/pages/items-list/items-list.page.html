@@ -14,10 +14,6 @@
     </div>
   </ng-template>
   <ng-container *ngIf="items else loading">
-    <ion-card *ngFor="let item of items" (click)="openItem(item)">
-      <ion-card-header>
-          <ion-card-title>{{ item.title }}</ion-card-title>
-      </ion-card-header>
-    </ion-card>
+    <app-item [item]="item" (options)="openItem(item)" *ngFor="let item of items"></app-item> 
   </ng-container>
 </ion-content>

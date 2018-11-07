@@ -1,0 +1,20 @@
+<ion-card>
+  <div (click)="options.emit()">
+      <img *ngIf="item.thumbnails.length" [src]=item.thumbnails[item.thumbnails.length-1].url />
+    <ion-card-content>
+      <h1>{{item.title}}</h1>
+    </ion-card-content>
+  </div>
+  <ion-row>
+    <ion-col>
+      <button ion-button clear small>
+        <div>{{item.parent_id}}</div>
+      </button>
+    </ion-col>
+    <ion-col center text-center>
+      <ion-note>
+        {{item.published}}
+      </ion-note>
+    </ion-col>
+  </ion-row>
+</ion-card>

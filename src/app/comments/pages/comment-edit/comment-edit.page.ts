@@ -3,7 +3,7 @@ import { Message } from '@comments/models/comment';
 import { NavController, LoadingController } from '@ionic/angular';
 import { CommentsService } from '@comments/services/comments.service';
 import { ItemsService } from '@items/services/items.service';
-import { Item } from '@items/models/item.interface';
+import { Item } from '@items/models/item';
 import { Router } from '@angular/router';
 
 @Component({
