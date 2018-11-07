@@ -1,11 +1,25 @@
 <ion-tabs>
-  <ion-tab label="Comments" icon="chatbubbles" href="/tabs/(comments:comments)">
+  <ion-tab tab=”comments”>
     <ion-router-outlet name="comments"></ion-router-outlet>
   </ion-tab>
-  <ion-tab label="Items" icon="logo-rss" href="/tabs/(items:items)">
+  <ion-tab tab=”items”>
     <ion-router-outlet name="items"></ion-router-outlet>
   </ion-tab>
-  <ion-tab label="Contacts" icon="contacts" href="/tabs/(profiles:profiles)">
+  <ion-tab tab=”profiles”>
     <ion-router-outlet name="profiles"></ion-router-outlet>
   </ion-tab>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab=”comments” href="/tabs/(comments:comments)">
+      <ion-icon name="chatbubbles"></ion-icon>
+      <ion-label>Comments</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab=”items” href="/tabs/(items:items)">
+      <ion-icon name="logo-rss"></ion-icon>
+      <ion-label>Latest News</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab=”profiles” href="/tabs/(profiles:profiles)">
+      <ion-icon name="contacts"></ion-icon>
+      <ion-label>Contacts</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
 </ion-tabs>
