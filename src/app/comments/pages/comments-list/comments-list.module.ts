@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CommentsListPage } from './comments-list.page';
 import { CommentsModule } from 'app/comments/comments.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     FormsModule,
     CommentsModule,
     IonicModule,
+    TranslateModule,
     RouterModule.forChild(routes)
   ],
   declarations: [CommentsListPage]

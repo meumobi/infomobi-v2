@@ -14,6 +14,13 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 import { CoreModule } from '@core/core.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './../../assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +32,13 @@ import { CoreModule } from '@core/core.module';
     AngularFireStorageModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: createTranslateLoader,
+          deps: [HttpClient]
+      }
+    }),
     CoreModule,
   ],
   providers: [
