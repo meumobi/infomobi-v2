@@ -40,6 +40,25 @@ export class ApiService {
     );
   }
 
+  login(params): Promise<any> {
+    const httpOptions = {
+      headers: {
+        'Accept':  'application/json',
+      }
+    };
+
+    const url = this.buildUrl('/visitors/login');
+
+    return this.http
+      .post(url, params, httpOptions)
+      .toPromise()
+      .then((response) => {
+        return response;
+        // return response.json().data as Hero[];
+      });
+      // .catch(this.handleError);
+  }
+
   fetchLatestItems(): Promise<any[]> {
     const httpOptions = {
       headers: {

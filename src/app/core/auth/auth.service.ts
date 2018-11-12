@@ -1,52 +1,40 @@
-import { Platform } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { Auth } from '@core/auth/models/auth.interface';
+import { AuthDataPersistenceService } from '@core/auth/services/auth-data-persistence.service';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-
-const TOKEN_KEY = 'X-Auth-Token';
+import { Observable } from 'rxjs';
+import { ApiService } from '@core/api/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  authState$: BehaviorSubject<boolean> = new BehaviorSubject(null);
+  authData$: Observable<Auth>;
 
   constructor(
-    private storage: Storage,
-    private platform: Platform
+    private apiService: ApiService,
+    private authDataPersistenceService: AuthDataPersistenceService,
   ) {
-    this.platform.ready().then( _ => {
-      this.checkToken();
-    });
+    this.authData$ = this.authDataPersistenceService.getAuthDataObserver();
   }
 
-  private checkToken() {
-    this.storage.get(TOKEN_KEY).then( res => {
-      if (res) {
-        this.authState$.next(true);
-      }
-    });
-  }
+  public login(credentials) {
+    return this.apiService.login(credentials)
+    .then((response) => {
+      this.authDataPersistenceService.set(response)
+      .then( _ => {
 
-  public login() {
-    return this.storage.set(TOKEN_KEY, 'Bearer 123456').then( res => {
-      this.authState$.next(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     });
   }
 
   public logout() {
-    this.storage.remove(TOKEN_KEY).then( _ => {
-      this.authState$.next(false);
+    return this.authDataPersistenceService.clear()
+    .then( _ => {
+
     });
-  }
-
-  public getAuthStateObserver(): Observable<boolean> {
-    return this.authState$.asObservable();
-  }
-
-  public isAuthenticated() {
-    console.log(this.authState$.value);
-    return this.authState$.value;
   }
 }

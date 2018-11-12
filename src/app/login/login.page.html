@@ -5,7 +5,19 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-button expand="full" (click)="login()" *ngIf="!(authState$ | async)">Login</ion-button>
-  <ion-button expand="full" color="secondary" (click)="logout()" *ngIf="(authState$ | async)">Logout</ion-button>
+  <ion-button expand="full" (click)="login()" *ngIf="!(isLogged$ | async)">Login</ion-button>
+  <ion-button expand="full" color="secondary" (click)="logout()" *ngIf="(isLogged$ | async)">Logout</ion-button>
   <ion-button expand="full" color="tertiary" href="" routerDirection="forward">Home</ion-button>
+
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+    <ion-list>
+      <ion-item>
+        <ion-input type="email" [placeholder]="'Email' | translate" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" [placeholder]="'Password' | translate" formControlName="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" [disabled]="loginForm.invalid">Login</ion-button>
+  </form>
 </ion-content>
