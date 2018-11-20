@@ -15,9 +15,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./item-detail.page.scss'],
 })
 export class ItemDetailPage implements OnInit {
-  private comments$: Observable<Comment[]>;
+  public comments$: Observable<Comment[]>;
   private commentsRef: AngularFirestoreCollection<Comment>;
-  private item: Item;
+  public item: Item;
 
   constructor(
     private commentsService: CommentsService,

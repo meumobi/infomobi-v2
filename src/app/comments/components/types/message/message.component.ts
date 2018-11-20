@@ -1,3 +1,4 @@
+import { Message } from '@comments/models/comment';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent {
-  @Input() comment: Comment;
+  @Input() comment: Message;
   @Output() options = new EventEmitter();
 
   constructor() {}

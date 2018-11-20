@@ -16,9 +16,9 @@ import { Query } from '@firebase/firestore-types';
   styleUrls: ['./comments-list.page.scss'],
 })
 export class CommentsListPage implements OnInit {
-  private isPublishedFilter$: BehaviorSubject<boolean>;
+  public isPublishedFilter$: BehaviorSubject<boolean>;
   private channelFilter$: BehaviorSubject<string>;
-  private comments$: Observable<Comment[]>;
+  public comments$: Observable<Comment[]>;
 
   constructor(
     private router: Router,
