@@ -9,6 +9,7 @@ const routes: Routes = [
     loadChildren: './tabs/tabs.module#TabsPageModule'
   },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,3 +1,4 @@
+import { MenuController } from '@ionic/angular';
 import { AuthDataPersistenceService } from '@core/auth/services/auth-data-persistence.service';
 import { AuthService } from './../core/auth/auth.service';
 import { Observable } from 'rxjs';
@@ -23,6 +24,7 @@ export class LoginPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
+    private menuCtrl: MenuController,
   ) { }
 
   ngOnInit() {
@@ -41,6 +43,15 @@ export class LoginPage implements OnInit {
      // Get the query params
      this.route.queryParams
      .subscribe(params => this.return = params['return'] || '/');
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewDidLeave() {
+    // enable the root left menu when leaving the tutorial page
+    this.menuCtrl.enable(true);
   }
 
   get email() {
