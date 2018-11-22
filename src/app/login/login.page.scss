@@ -1,12 +1,20 @@
 $white-color: #fff;
 $height100: 100%;
 
+.logo {
+  img {
+    max-width: 150px;
+    margin: auto;
+    padding: 20px 0;
+  }
+}
+
 ion-grid {
     width:100%;
     height: $height100;
-    background: #f7ce06;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(135deg, #fff, #fff 25%, #f7ce06);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(135deg, #fff, #fff 25%, #f7ce06);  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: var(--ion-color-primary);  /* fallback for old browsers */
+    background: -webkit-linear-gradient(135deg, #fff, #fff 25%, var(--ion-color-primary));  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(135deg, #fff, #fff 25%, var(--ion-color-primary));  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 ion-row {
@@ -14,8 +22,9 @@ ion-row {
 }
 
 ion-col {
-    border: 1px solid #488aff;
+    border: 1px solid var(--ion-color-primary-contrast);
     background: $white-color;
+    border-radius: 5px;
 }
 
 ion-button {
@@ -24,9 +33,9 @@ ion-button {
 
 @media (min-width: 240px) and (max-width: 768px) {
     ion-grid {
-        background: $white-color;
+        // background: $white-color;
     }
     ion-col {
-        border: none;
+        // border: none;
     }
 }

@@ -1,7 +1,5 @@
-import { MenuController } from '@ionic/angular';
-import { AuthDataPersistenceService } from '@core/auth/services/auth-data-persistence.service';
-import { AuthService } from './../core/auth/auth.service';
-import { Observable } from 'rxjs';
+import { MenuController, LoadingController } from '@ionic/angular';
+import { AuthService } from '@core/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,18 +11,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPage implements OnInit {
 
-  isLogged$: Observable<boolean>;
   return: '';
   loginForm: FormGroup;
   loading = false;
 
   constructor(
     private authService: AuthService,
-    private authDataPersistenceService: AuthDataPersistenceService,
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private menuCtrl: MenuController,
+    private loadingController: LoadingController,
   ) { }
 
   ngOnInit() {
@@ -37,8 +34,6 @@ export class LoginPage implements OnInit {
         Validators.required
       ]]
     });
-
-    this.isLogged$ = this.authDataPersistenceService.getIsLoggedObserver();
 
      // Get the query params
      this.route.queryParams
@@ -62,21 +57,29 @@ export class LoginPage implements OnInit {
     return this.loginForm.get('password');
   }
 
-  loginUser() {
+  async loginUser() {
     this.loading = true;
 
     const formValue = this.loginForm.value;
+    console.log('Return url: ', this.return);
+
+    const loading = await this.loadingController.create({
+      message: 'Signin...'
+    });
+    await loading.present();
 
     this.authService.login(formValue)
       .then(
-        () => this.router.navigateByUrl(this.return)
+        () => {
+          loading.dismiss();
+          this.router.navigateByUrl(this.return);
+        }
       )
       .catch(
-        (err) => console.log(err)
+        (err) => {
+          loading.dismiss();
+          console.log(err);
+        }
       );
-  }
-
-  logout() {
-    this.authService.logout();
   }
 }

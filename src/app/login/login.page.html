@@ -12,10 +12,9 @@
 
 <ion-grid>
     <ion-row justify-content-center>
-      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-        <div text-center>
-          <h4>infomobi</h4>
-          <h3>Improve Employee Experience</h3>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="10">
+        <div class="logo" text-center>
+          <img src="assets/images/header-clean.png" alt="infomobi">
         </div>
         <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
           <div padding>
@@ -28,8 +27,8 @@
             </ion-item>
           </div>
     
-          <div padding>
-            <ion-button type="submit" [disabled]="loginForm.invalid">Login</ion-button>
+          <div padding text-center>
+            <ion-button type="submit" [disabled]="loginForm.invalid">{{ 'Login' | translate }}</ion-button>
           </div>
         </form>
       </ion-col>

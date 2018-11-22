@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-split-pane>
+  <ion-split-pane [disabled]="!(authData$ | async)?.success">
     <!--  our side menu  -->
     <ion-menu>
       <ion-header>
@@ -15,6 +15,9 @@
               <ion-label>{{ p.title | translate }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-item button (click)="logout()">
+            <ion-label>{{ 'Logout' | translate }}</ion-label>
+          </ion-item>
         </ion-list>
       </ion-footer>
     </ion-menu>

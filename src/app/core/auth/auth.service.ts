@@ -21,9 +21,9 @@ export class AuthService {
   public login(credentials) {
     return this.apiService.login(credentials)
     .then((response) => {
-      this.authDataPersistenceService.set(response)
+      return this.authDataPersistenceService.set(response)
       .then( _ => {
-
+        console.log('AuthService.login');
       })
       .catch((err) => {
         console.log(err);

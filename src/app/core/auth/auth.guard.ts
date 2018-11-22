@@ -9,13 +9,13 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class AuthGuard implements CanActivate {
 
-  isLogged$: Observable<boolean>;
+  authData$: Observable<any>;
 
   constructor(
     private authDataPersistenceService: AuthDataPersistenceService,
     private router: Router,
   ) {
-    this.isLogged$ = this.authDataPersistenceService.getIsLoggedObserver();
+    this.authData$ = this.authDataPersistenceService.getAuthDataObserver();
   }
 
   canActivate(
@@ -24,10 +24,10 @@ export class AuthGuard implements CanActivate {
 
     console.log('canActivate');
 
-    return this.isLogged$.pipe(
-      map(isLogged => {
-        console.log('authguard: ', isLogged);
-        if (!isLogged) {
+    return this.authData$.pipe(
+      map(authData => {
+        console.log('authguard: ', authData);
+        if (!authData) {
           this.router.navigate(['/login'], {
             queryParams: {
               return: state.url
@@ -35,7 +35,7 @@ export class AuthGuard implements CanActivate {
           });
         }
 
-        return isLogged;
+        return !!authData;
         }
       ),
       catchError(() => {
