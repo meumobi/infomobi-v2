@@ -1,0 +1,32 @@
+$white-color: #fff;
+$height100: 100%;
+
+ion-grid {
+    width:100%;
+    height: $height100;
+    background: #f7ce06;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(135deg, #fff, #fff 25%, #f7ce06);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(135deg, #fff, #fff 25%, #f7ce06);  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+ion-row {
+    height: $height100;
+}
+
+ion-col {
+    border: 1px solid #488aff;
+    background: $white-color;
+}
+
+ion-button {
+    font-weight: 300;
+}
+
+@media (min-width: 240px) and (max-width: 768px) {
+    ion-grid {
+        background: $white-color;
+    }
+    ion-col {
+        border: none;
+    }
+}

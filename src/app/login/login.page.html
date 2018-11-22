@@ -1,4 +1,4 @@
-<ion-header>
+<!--ion-header>
   <ion-toolbar>
     <ion-title>login</ion-title>
   </ion-toolbar>
@@ -8,16 +8,30 @@
   <ion-button expand="full" (click)="login()" *ngIf="!(isLogged$ | async)">Login</ion-button>
   <ion-button expand="full" color="secondary" (click)="logout()" *ngIf="(isLogged$ | async)">Logout</ion-button>
   <ion-button expand="full" color="tertiary" href="" routerDirection="forward">Home</ion-button>
+</ion-content -->
 
-  <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-    <ion-list>
-      <ion-item>
-        <ion-input type="email" [placeholder]="'Email' | translate" formControlName="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="password" [placeholder]="'Password' | translate" formControlName="password"></ion-input>
-      </ion-item>
-    </ion-list>
-    <ion-button type="submit" [disabled]="loginForm.invalid">Login</ion-button>
-  </form>
-</ion-content>
+<ion-grid>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <div text-center>
+          <h4>infomobi</h4>
+          <h3>Improve Employee Experience</h3>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+          <div padding>
+            <ion-item>
+              <ion-input type="email" [placeholder]="'Email' | translate" formControlName="email"></ion-input>
+            </ion-item>
+    
+            <ion-item>
+              <ion-input type="password" [placeholder]="'Password' | translate" formControlName="password"></ion-input>
+            </ion-item>
+          </div>
+    
+          <div padding>
+            <ion-button type="submit" [disabled]="loginForm.invalid">Login</ion-button>
+          </div>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
